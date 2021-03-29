@@ -1,0 +1,2 @@
+/usr/bin/ar qc libSpookyStoreys_core.a  CMakeFiles/SpookyStoreys_core.dir/src/Actor.cpp.o CMakeFiles/SpookyStoreys_core.dir/src/GameView.cpp.o CMakeFiles/SpookyStoreys_core.dir/src/ProcessManager.cpp.o
+/usr/bin/ranlib libSpookyStoreys_core.a

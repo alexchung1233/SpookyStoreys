@@ -12,15 +12,15 @@ SFML/Graphics.hpp
 SFML/Audio.hpp
 -
 
-/home/alex/Desktop/GameDesign/SpookyStoreys/bin/main.cpp
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/GameView.cpp
+GameView.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/GameView.h
 SFML/Graphics.hpp
 -
-stdlib.h
--
-iostream
+SFML/Audio.hpp
 -
 string
 -
-GameView.h
-/home/alex/Desktop/GameDesign/SpookyStoreys/bin/GameView.h
+iostream
+-
 

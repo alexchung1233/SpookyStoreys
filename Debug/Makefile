@@ -123,6 +123,19 @@ main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+#=============================================================================
+# Target rules for targets named SpookyStoreys_core
+
+# Build rule for target.
+SpookyStoreys_core: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SpookyStoreys_core
+.PHONY : SpookyStoreys_core
+
+# fast build rule for target.
+SpookyStoreys_core/fast:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/build
+.PHONY : SpookyStoreys_core/fast
+
 bin/main.o: bin/main.cpp.o
 
 .PHONY : bin/main.o
@@ -150,6 +163,87 @@ bin/main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/bin/main.cpp.s
 .PHONY : bin/main.cpp.s
 
+src/Actor.o: src/Actor.cpp.o
+
+.PHONY : src/Actor.o
+
+# target to build an object file
+src/Actor.cpp.o:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Actor.cpp.o
+.PHONY : src/Actor.cpp.o
+
+src/Actor.i: src/Actor.cpp.i
+
+.PHONY : src/Actor.i
+
+# target to preprocess a source file
+src/Actor.cpp.i:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Actor.cpp.i
+.PHONY : src/Actor.cpp.i
+
+src/Actor.s: src/Actor.cpp.s
+
+.PHONY : src/Actor.s
+
+# target to generate assembly for a file
+src/Actor.cpp.s:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Actor.cpp.s
+.PHONY : src/Actor.cpp.s
+
+src/GameView.o: src/GameView.cpp.o
+
+.PHONY : src/GameView.o
+
+# target to build an object file
+src/GameView.cpp.o:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/GameView.cpp.o
+.PHONY : src/GameView.cpp.o
+
+src/GameView.i: src/GameView.cpp.i
+
+.PHONY : src/GameView.i
+
+# target to preprocess a source file
+src/GameView.cpp.i:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/GameView.cpp.i
+.PHONY : src/GameView.cpp.i
+
+src/GameView.s: src/GameView.cpp.s
+
+.PHONY : src/GameView.s
+
+# target to generate assembly for a file
+src/GameView.cpp.s:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/GameView.cpp.s
+.PHONY : src/GameView.cpp.s
+
+src/ProcessManager.o: src/ProcessManager.cpp.o
+
+.PHONY : src/ProcessManager.o
+
+# target to build an object file
+src/ProcessManager.cpp.o:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/ProcessManager.cpp.o
+.PHONY : src/ProcessManager.cpp.o
+
+src/ProcessManager.i: src/ProcessManager.cpp.i
+
+.PHONY : src/ProcessManager.i
+
+# target to preprocess a source file
+src/ProcessManager.cpp.i:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/ProcessManager.cpp.i
+.PHONY : src/ProcessManager.cpp.i
+
+src/ProcessManager.s: src/ProcessManager.cpp.s
+
+.PHONY : src/ProcessManager.s
+
+# target to generate assembly for a file
+src/ProcessManager.cpp.s:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/ProcessManager.cpp.s
+.PHONY : src/ProcessManager.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +253,19 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... main"
+	@echo "... SpookyStoreys_core"
 	@echo "... bin/main.o"
 	@echo "... bin/main.i"
 	@echo "... bin/main.s"
+	@echo "... src/Actor.o"
+	@echo "... src/Actor.i"
+	@echo "... src/Actor.s"
+	@echo "... src/GameView.o"
+	@echo "... src/GameView.i"
+	@echo "... src/GameView.s"
+	@echo "... src/ProcessManager.o"
+	@echo "... src/ProcessManager.i"
+	@echo "... src/ProcessManager.s"
 .PHONY : help
 
 
