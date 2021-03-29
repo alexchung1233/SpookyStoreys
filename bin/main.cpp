@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+#include "GameView.h"
 
 
 using namespace std;
@@ -13,15 +14,18 @@ int main(int argc, char** argv)
 
   // create clock object
   sf::Clock clock = sf::Clock();
+  // create game view
 
   // create main window
-  sf::RenderWindow App(sf::VideoMode(800,600,32), "Hello World - SFML", sf::Style::Close);
+  sf::RenderWindow App(sf::VideoMode(800,600,32), "Spooky Storeys", sf::Style::Close);
+
+  GameView gameView = GameView(App);
 
 
   // adaptive game loop
   while(App.isOpen())
   {
-
+    gameView.setup();
     // display
     App.display();
 
