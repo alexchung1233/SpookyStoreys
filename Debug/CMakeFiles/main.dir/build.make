@@ -84,6 +84,12 @@ main: /usr/lib/x86_64-linux-gnu/libsfml-window.so
 main: /usr/lib/x86_64-linux-gnu/libsfml-system.so
 main: /usr/lib/x86_64-linux-gnu/libsfml-audio.so
 main: /usr/lib/x86_64-linux-gnu/libsfml-network.so
+main: libSpookyStoreys_core.a
+main: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so
+main: /usr/lib/x86_64-linux-gnu/libsfml-window.so
+main: /usr/lib/x86_64-linux-gnu/libsfml-system.so
+main: /usr/lib/x86_64-linux-gnu/libsfml-audio.so
+main: /usr/lib/x86_64-linux-gnu/libsfml-network.so
 main: CMakeFiles/main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/alex/Desktop/GameDesign/SpookyStoreys/Debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)

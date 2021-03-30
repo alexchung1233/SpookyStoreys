@@ -278,6 +278,9 @@ SFML_WINDOW_LIBRARY_STATIC_DEBUG:FILEPATH=SFML_WINDOW_LIBRARY_STATIC_DEBUG-NOTFO
 //Path to a library.
 SFML_WINDOW_LIBRARY_STATIC_RELEASE:FILEPATH=SFML_WINDOW_LIBRARY_STATIC_RELEASE-NOTFOUND
 
+//Dependencies for the target
+SpookyStoreys_core_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libsfml-graphics.so;general;/usr/lib/x86_64-linux-gnu/libsfml-window.so;general;/usr/lib/x86_64-linux-gnu/libsfml-system.so;general;/usr/lib/x86_64-linux-gnu/libsfml-audio.so;general;/usr/lib/x86_64-linux-gnu/libsfml-network.so;
+
 //The directory containing a CMake configuration file for boost_headers.
 boost_headers_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.71.0
 
