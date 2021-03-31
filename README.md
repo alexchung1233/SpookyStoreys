@@ -17,7 +17,7 @@ git pull main
 ```
 4. to switch branches
 ```
-git checkouit main
+git checkout main
 ```
 
 **To run for development enviorment.**
