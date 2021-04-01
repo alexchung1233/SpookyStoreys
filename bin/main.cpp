@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include "GameView.h"
-#include "menu.h"
 
 
 using namespace std;
