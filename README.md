@@ -20,6 +20,16 @@ git pull main
 git checkout main
 ```
 
+5. once you committed your changes on your branch, you want to then push it to GitHub, which is where all remote branches are held.
+for first time push do this
+```
+git push --set-upstream origin [branch your working with]
+```
+for general usage
+```
+git push
+```
+
 **To run for development enviorment.**
 
 1. first delete the Debug directory
