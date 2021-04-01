@@ -7,6 +7,7 @@ public:
   void init();
   void update(deltaMs);
   ActorComponent* getComponent(componentId);
+  void stupid();
 
 private:
   addComponent(ActorComponent* comp);

@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 
   GameView gameView = GameView(App);
 
-
+  printf("hello world");
   // adaptive game loop
   while(App.isOpen())
   {
