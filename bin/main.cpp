@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "GameView.h"
+#include "menu.h"
 
 
 using namespace std;
@@ -21,11 +22,24 @@ int main(int argc, char** argv)
 
   GameView gameView = GameView(App);
 
-
   // adaptive game loop
   while(App.isOpen())
   {
+    
+    sf::Event Event;
+    while(App.pollEvent(Event))
+    {
+      // Exit
+      if(Event.type == sf::Event::Closed)
+        App.close();
+
+      if(Event.type == sf::Event::KeyPressed){
+        gameView.update(Event);
+      }
+    }
+
     gameView.setup();
+
     // display
     App.display();
 
