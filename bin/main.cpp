@@ -23,9 +23,20 @@ int main(int argc, char** argv)
 
   printf("hello world");
   // adaptive game loop
+  // adaptive game loop
   while(App.isOpen())
   {
+    
+    sf::Event Event;
+    while(App.pollEvent(Event))
+    {
+      // Exit
+      if(Event.type == sf::Event::Closed)
+        App.close();
+    }
+
     gameView.setup();
+
     // display
     App.display();
 
