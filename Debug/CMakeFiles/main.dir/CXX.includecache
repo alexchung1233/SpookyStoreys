@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/GameView.h
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+menu.h
+../include/menu.h
+
+../include/menu.h
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+
+/Users/carlyklebine 1/Desktop/SpookyStoreys/bin/main.cpp
+SFML/Graphics.hpp
+-
+stdlib.h
+-
+iostream
+-
+string
+-
+GameView.h
+/Users/carlyklebine 1/Desktop/SpookyStoreys/bin/GameView.h
+menu.h
+/Users/carlyklebine 1/Desktop/SpookyStoreys/bin/menu.h
+

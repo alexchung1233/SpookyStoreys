@@ -1,0 +1,4 @@
+/Users/carlyklebine 1/Desktop/SpookyStoreys/Debug/CMakeFiles/main.dir
+/Users/carlyklebine 1/Desktop/SpookyStoreys/Debug/CMakeFiles/rebuild_cache.dir
+/Users/carlyklebine 1/Desktop/SpookyStoreys/Debug/CMakeFiles/edit_cache.dir
+/Users/carlyklebine 1/Desktop/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir
