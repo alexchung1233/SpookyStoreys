@@ -25,6 +25,19 @@ int main(int argc, char** argv)
   // adaptive game loop
   while(App.isOpen())
   {
+    
+    sf::Event Event;
+    while(App.pollEvent(Event))
+    {
+      // Exit
+      if(Event.type == sf::Event::Closed)
+        App.close();
+
+      if(Event.type == sf::Event::KeyPressed){
+        gameView.update(Event);
+      }
+    }
+    
     gameView.setup();
     // display
     App.display();
