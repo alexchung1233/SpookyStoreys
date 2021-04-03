@@ -4,18 +4,19 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/alex/Desktop/GameDesign/SpookyStoreys/bin/main.cpp" "/home/alex/Desktop/GameDesign/SpookyStoreys/Debug/CMakeFiles/main.dir/bin/main.cpp.o"
+  "/Users/jackakers/Desktop/GAME/SpookyStoreys/bin/main.cpp" "/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/main.dir/bin/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
+  "/Library/Frameworks/SFML.framework"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/alex/Desktop/GameDesign/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/DependInfo.cmake"
+  "/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

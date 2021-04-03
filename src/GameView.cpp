@@ -24,3 +24,17 @@ void GameView::setup(){
 
 
 }
+
+void GameView::update(sf::Event Event){
+  while(App->pollEvent(Event))
+  {
+    // Exit
+    if(Event.type == sf::Event::Closed) {
+      App->close();
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+    {
+      App->close();
+    }
+  }
+}

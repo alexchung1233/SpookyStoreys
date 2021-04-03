@@ -12,7 +12,11 @@ SFML/Graphics.hpp
 SFML/Audio.hpp
 -
 
-/home/alex/Desktop/GameDesign/SpookyStoreys/bin/main.cpp
+../include/InputManager.h
+SFML/Graphics.hpp
+-
+
+/Users/jackakers/Desktop/GAME/SpookyStoreys/bin/main.cpp
 SFML/Graphics.hpp
 -
 stdlib.h
@@ -22,5 +26,7 @@ iostream
 string
 -
 GameView.h
-/home/alex/Desktop/GameDesign/SpookyStoreys/bin/GameView.h
+/Users/jackakers/Desktop/GAME/SpookyStoreys/bin/GameView.h
+InputManager.h
+/Users/jackakers/Desktop/GAME/SpookyStoreys/bin/InputManager.h
 

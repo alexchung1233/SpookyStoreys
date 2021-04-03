@@ -6,21 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../include/GameView.h
-SFML/Graphics.hpp
--
-SFML/Audio.hpp
--
-
-/home/alex/Desktop/GameDesign/SpookyStoreys/src/GameView.cpp
-GameView.h
-/home/alex/Desktop/GameDesign/SpookyStoreys/src/GameView.h
-SFML/Graphics.hpp
--
-SFML/Audio.hpp
--
-string
--
-iostream
--
+/Users/jackakers/Desktop/GAME/SpookyStoreys/src/InputManager.cpp
+InputManager.h
+/Users/jackakers/Desktop/GAME/SpookyStoreys/src/InputManager.h
 

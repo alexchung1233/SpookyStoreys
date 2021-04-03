@@ -11,6 +11,7 @@ class GameView
 
   public:
     GameView(sf::RenderWindow &app);
+    void update(sf::Event Event);
     void setup();
 
   };

@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/SpookyStoreys_core.dir/src/Actor.cpp.o"
   "CMakeFiles/SpookyStoreys_core.dir/src/GameView.cpp.o"
+  "CMakeFiles/SpookyStoreys_core.dir/src/InputManager.cpp.o"
   "CMakeFiles/SpookyStoreys_core.dir/src/ProcessManager.cpp.o"
   "libSpookyStoreys_core.a"
   "libSpookyStoreys_core.pdb"

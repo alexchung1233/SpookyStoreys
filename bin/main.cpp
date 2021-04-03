@@ -24,7 +24,7 @@ int main(int argc, char** argv)
   // adaptive game loop
   while(App.isOpen())
   {
-    
+
     sf::Event Event;
     while(App.pollEvent(Event))
     {

@@ -4,15 +4,17 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/alex/Desktop/GameDesign/SpookyStoreys/src/Actor.cpp" "/home/alex/Desktop/GameDesign/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/src/Actor.cpp.o"
-  "/home/alex/Desktop/GameDesign/SpookyStoreys/src/GameView.cpp" "/home/alex/Desktop/GameDesign/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/src/GameView.cpp.o"
-  "/home/alex/Desktop/GameDesign/SpookyStoreys/src/ProcessManager.cpp" "/home/alex/Desktop/GameDesign/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/src/ProcessManager.cpp.o"
+  "/Users/jackakers/Desktop/GAME/SpookyStoreys/src/Actor.cpp" "/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/src/Actor.cpp.o"
+  "/Users/jackakers/Desktop/GAME/SpookyStoreys/src/GameView.cpp" "/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/src/GameView.cpp.o"
+  "/Users/jackakers/Desktop/GAME/SpookyStoreys/src/InputManager.cpp" "/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/src/InputManager.cpp.o"
+  "/Users/jackakers/Desktop/GAME/SpookyStoreys/src/ProcessManager.cpp" "/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir/src/ProcessManager.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
+  "/Library/Frameworks/SFML.framework"
   )
 
 # Targets to which this target links.
