@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
+#include "InputManager.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ using namespace std;
 //constructor takes in App
 GameView::GameView(sf::RenderWindow &app){
   this->App = &app;
+  inputManager(*App);
   }
 
 void GameView::setup(){
@@ -23,4 +25,8 @@ void GameView::setup(){
   App->draw(sprite);
 
 
+}
+
+void GameView::update(sf::Event Event){
+  inputManager.update(Event);
 }
