@@ -6,15 +6,43 @@
 
 #IncludeRegexTransform: 
 
-../include/menu.h
+../include/GameView.h
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+Menu.h
+../include/Menu.h
+
+../include/Menu.h
 SFML/Graphics.hpp
 -
 SFML/Audio.hpp
 -
 
+../include/ProcessManager.h
+GameView.h
+../include/GameView.h
+
+/Users/carlyklebine 1/Desktop/SpookyStoreys/src/GameView.cpp
+GameView.h
+/Users/carlyklebine 1/Desktop/SpookyStoreys/src/GameView.h
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+string
+-
+iostream
+-
+
+/Users/carlyklebine 1/Desktop/SpookyStoreys/src/ProcessManager.cpp
+ProcessManager.h
+/Users/carlyklebine 1/Desktop/SpookyStoreys/src/ProcessManager.h
+
 /Users/carlyklebine 1/Desktop/SpookyStoreys/src/menu.cpp
-menu.h
-/Users/carlyklebine 1/Desktop/SpookyStoreys/src/menu.h
+Menu.h
+/Users/carlyklebine 1/Desktop/SpookyStoreys/src/Menu.h
 SFML/Graphics.hpp
 -
 SFML/Audio.hpp

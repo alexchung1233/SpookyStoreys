@@ -11,10 +11,10 @@ SFML/Graphics.hpp
 -
 SFML/Audio.hpp
 -
-menu.h
-../include/menu.h
+Menu.h
+../include/Menu.h
 
-../include/menu.h
+../include/Menu.h
 SFML/Graphics.hpp
 -
 SFML/Audio.hpp
@@ -31,6 +31,6 @@ string
 -
 GameView.h
 /Users/carlyklebine 1/Desktop/SpookyStoreys/bin/GameView.h
-menu.h
-/Users/carlyklebine 1/Desktop/SpookyStoreys/bin/menu.h
+Menu.h
+/Users/carlyklebine 1/Desktop/SpookyStoreys/bin/Menu.h
 
