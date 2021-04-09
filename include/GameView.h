@@ -2,12 +2,14 @@
 #define GAME_VIEW_H
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "InputManager.h"
 
 class GameView
 {
   private:
     sf::Event Event;
     sf::RenderWindow* App;
+    InputManager inputManager(sf::RenderWindow);
 
   public:
     GameView(sf::RenderWindow &app);

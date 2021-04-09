@@ -11,7 +11,7 @@ class InputManager
   public:
     InputManager(sf::RenderWindow &app);
     void update(sf::Event Event);
-    
+
 };
 
 #endif /* MY_CLASS_H */

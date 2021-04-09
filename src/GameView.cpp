@@ -15,6 +15,7 @@ GameView::GameView(sf::RenderWindow &app){
 
 void GameView::setup(){
   sf::Texture texture;
+  InputManager inputManager(*App);
   string test_level = "../data/bedroom_level.png";
   if(!texture.loadFromFile(test_level)){
     printf("incorrect file format");
@@ -27,6 +28,5 @@ void GameView::setup(){
 }
 
 void GameView::update(sf::Event Event){
-  InputManager inputManager(*App);
   inputManager.update(Event);
 }
