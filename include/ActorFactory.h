@@ -2,11 +2,11 @@
 #define ACTOR_FACTORY_H
 #include "Position.h"
 
-class Actor
+class ActorFactory
 {
 public:
   ActorFactory();
-  
+
   //have to figure out how to make actors, like making a item actor specifically
   void createActor();
 
