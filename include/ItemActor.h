@@ -12,9 +12,10 @@ class ItemActor : public Actor {
       virtual void setDialogue() = 0;
       virtual void move() = 0;
       
-   private:
-      Position myPosition;
-      string myDialogue;
+	protected:
+    	string myDialogue;
+
+	private:
 };
 
 #endif /* MY_CLASS_H */
