@@ -1,4 +1,0 @@
-/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/main.dir
-/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/rebuild_cache.dir
-/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/edit_cache.dir
-/Users/jackakers/Desktop/GAME/SpookyStoreys/Debug/CMakeFiles/SpookyStoreys_core.dir
