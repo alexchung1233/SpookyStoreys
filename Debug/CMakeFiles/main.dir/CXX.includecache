@@ -12,10 +12,6 @@ SFML/Graphics.hpp
 SFML/Audio.hpp
 -
 
-../include/InputManager.h
-SFML/Graphics.hpp
--
-
 /Users/jackakers/Desktop/GAME/SpookyStoreys/bin/main.cpp
 SFML/Graphics.hpp
 -
@@ -27,6 +23,4 @@ string
 -
 GameView.h
 /Users/jackakers/Desktop/GAME/SpookyStoreys/bin/GameView.h
-InputManager.h
-/Users/jackakers/Desktop/GAME/SpookyStoreys/bin/InputManager.h
 
