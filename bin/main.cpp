@@ -26,7 +26,7 @@ int main(int argc, char** argv)
   {
     sf::Event Event;
     gameView.update(Event);
-    
+
     gameView.setup();
 
     // display

@@ -9,7 +9,9 @@ class InputManager
     sf::RenderWindow* App;
 
   public:
+    InputManager();
     InputManager(sf::RenderWindow &app);
+    void operator()(sf::RenderWindow &app);
     void update(sf::Event Event);
 
 };

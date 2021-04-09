@@ -6,6 +6,16 @@ InputManager::InputManager(sf::RenderWindow &app){
 
 }
 
+InputManager::InputManager(){
+
+}
+
+void InputManager::operator()(sf::RenderWindow &app){
+
+  this->App = &app;
+
+}
+
 void InputManager::update(sf::Event Event){
 
   while(App->pollEvent(Event))

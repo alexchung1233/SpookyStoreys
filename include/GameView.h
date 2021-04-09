@@ -9,7 +9,7 @@ class GameView
   private:
     sf::Event Event;
     sf::RenderWindow* App;
-    InputManager inputManager(sf::RenderWindow);
+    InputManager inputManager;
 
   public:
     GameView(sf::RenderWindow &app);

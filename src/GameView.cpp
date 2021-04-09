@@ -11,11 +11,11 @@ using namespace std;
 //constructor takes in App
 GameView::GameView(sf::RenderWindow &app){
   this->App = &app;
+  inputManager(*App);
   }
 
 void GameView::setup(){
   sf::Texture texture;
-  InputManager inputManager(*App);
   string test_level = "../data/bedroom_level.png";
   if(!texture.loadFromFile(test_level)){
     printf("incorrect file format");
