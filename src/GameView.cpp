@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
+#include "InputManager.h"
 
 using namespace std;
 
@@ -26,15 +27,6 @@ void GameView::setup(){
 }
 
 void GameView::update(sf::Event Event){
-  while(App->pollEvent(Event))
-  {
-    // Exit
-    if(Event.type == sf::Event::Closed) {
-      App->close();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-    {
-      App->close();
-    }
-  }
+  InputManager inputManager(*App);
+  inputManager.update(Event);
 }
