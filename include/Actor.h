@@ -5,11 +5,14 @@
 class Actor
 {
 public:
-  void init();
-  void update(float deltaMs);
+  Actor(int actorId) {actorId = id;}
+  virtual void init();
+  virtual bool update(float deltaMs);
+  virtual void destroy();
 
-private:
+protected:
   Position position;
-  
+  int id;
+
 };
 #endif
