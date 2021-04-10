@@ -8,11 +8,14 @@ class GameView
 {
   private:
     sf::Event Event;
-    sf::RenderWindow* App;
     InputManager inputManager;
+    sf::RenderWindow* App;
+
 
   public:
-    GameView(sf::RenderWindow &app);
+    GameView(){
+    }
+    GameView(sf::RenderWindow& app);
     void update(sf::Event Event);
     void setup();
 
