@@ -32,6 +32,7 @@ Position PlayerActor::getPosition(){
 }
 
 void PlayerActor::moveUp(float deltaMS){
+  printf("here");
   position.y -= deltaMS * 10.f;
 }
 

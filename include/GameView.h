@@ -12,7 +12,9 @@ class GameView
     sf::RenderWindow* App;
     GameLogic* logic;
     sf::Sprite sprite;
+    sf::Sprite sprite_player;
     sf::Texture texture;
+    sf::Texture texture_player;
 
 
 
