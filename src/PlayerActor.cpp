@@ -2,7 +2,6 @@
 
 
 PlayerActor::PlayerActor(){
-  init();
 }
 
 void PlayerActor::init(){

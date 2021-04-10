@@ -2,7 +2,6 @@
 
 
 MonsterActor::MonsterActor(){
-  init();
 }
 
 void MonsterActor::init(){
