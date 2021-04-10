@@ -8,13 +8,12 @@ public:
   PlayerActor();
   Position position;
   sf::Vector2f velocity;
-  void move(float x, float y);
-  void move();
-  void resetVelocity();
-  void moveUp(float move);
-  void moveDown(float move);
-  void moveLeft(float move);
-  void moveRight(float move);
+  void setVelocity(sf::Vector2f vector);
+  void setVelocity(float x, float y);
+  void moveUp(float deltaMS);
+  void moveDown(float deltaMS);
+  void moveLeft(float deltaMS);
+  void moveRight(float deltaMS);
 
 };
 
