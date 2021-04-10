@@ -10,6 +10,7 @@ class CharacterActor : public Actor {
       virtual Position getPosition() = 0;
       virtual sf::Vector2f getVelocity() = 0;
       virtual void setVelocity(sf::Vector2f vel) = 0;
+      virtual void setVelocity(float x, float y) = 0;
       virtual void move() = 0;
       
    protected:
