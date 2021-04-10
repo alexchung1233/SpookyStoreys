@@ -27,9 +27,10 @@ void GameView::update(sf::Event Event){
     printf("incorrect file format");
   }
   sf::Sprite sprite;
+  this->App->clear();
   sprite.setTexture(texture);
-  App->draw(sprite);
+  this->App->draw(sprite);
   inputManager.update(Event);
-  
+
 
 }
