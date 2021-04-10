@@ -11,7 +11,8 @@ using namespace std;
 //constructor takes in App
 GameView::GameView(sf::RenderWindow& app){
   this->App = &app;
-  inputManager(*App);
+  logic();
+  inputManager(*App, logic);
   }
 
 void GameView::setup(){
@@ -30,6 +31,6 @@ void GameView::update(sf::Event Event){
   sprite.setTexture(texture);
   App->draw(sprite);
   inputManager.update(Event);
-  
+
 
 }

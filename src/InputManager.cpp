@@ -1,8 +1,9 @@
 #include "InputManager.h"
 
-InputManager::InputManager(sf::RenderWindow &app){
+InputManager::InputManager(sf::RenderWindow &app, Logic logic){
 
   this->App = &app;
+  this->logic = logic
 
 }
 
@@ -28,6 +29,9 @@ void InputManager::update(sf::Event Event){
     {
       App->close();
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+      logic.MovePlayerUp();
+    }
   }
-
 }
