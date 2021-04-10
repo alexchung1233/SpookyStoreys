@@ -17,25 +17,20 @@ GameView::GameView(sf::RenderWindow& app){
 
 void GameView::setup(){
 
-
-
-}
-
-void GameView::update(sf::Event Event){
-  //sf::Texture texture;
   string test_level = "../data/bedroom_level_V2.png";
   if(!texture.loadFromFile(test_level)){
     printf("incorrect file format");
   }
-  //sf::Sprite sprite;
   sprite.setTexture(texture);
-  float spriteX = logic->getPlayer().getPosition().x;
-  float spriteY = logic->getPlayer().getPosition().y;
-  //sprite.setPosition(spriteX, spriteY);
-  //sprite.setPosition(0, 0);
 
-  App->draw(sprite);
+}
+
+void GameView::update(sf::Event Event){
+  App->clear();
   inputManager.update(Event);
+  sprite.setPosition(logic->getPlayer().getPosition().x,
+   logic->getPlayer().getPosition().y);
+  App->draw(sprite);
 
 
 }

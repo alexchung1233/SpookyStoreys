@@ -30,7 +30,6 @@ void Game::updateDt(){
 }
 
 void Game::update(){
-  this->window->clear();
   gameView.update(event);
 }
 

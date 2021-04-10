@@ -6,7 +6,6 @@ void GameLogic::setup(){
 }
 
 GameLogic::GameLogic(){
-
 }
 
 void GameLogic::createPlayer(){
