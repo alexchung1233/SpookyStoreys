@@ -1,7 +1,7 @@
 #include "GameLogic.h"
 #include "PlayerActor.h"
 
-GameLogic::setup(){
+void GameLogic::setup(){
   createPlayer();
 }
 
@@ -14,5 +14,5 @@ PlayerActor GameLogic::getPlayer(){
 }
 
 void GameLogic::UpPressed(){
-  player.moveUp();
+  player.moveUp(1);
 }

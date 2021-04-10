@@ -21,4 +21,4 @@ class GameLogic{
     //Function for when the Up key is pressed
     void UpPressed();
 
-}
+};
