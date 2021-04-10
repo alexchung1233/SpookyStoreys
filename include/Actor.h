@@ -1,16 +1,19 @@
 #ifndef ACTOR_H // include guard
 #define ACTOR_H
-#include "ActorComponent.h"
 #include "Position.h"
 
 class Actor
 {
 public:
-  void init();
-  void update(deltaMs);
+  Actor(int actorId) {actorId = id;}
+  Actor();
+  virtual void init();
+  virtual bool update(float deltaMs);
+  virtual void destroy();
 
-private:
+protected:
   Position position;
-  
+  int id;
+
 };
 #endif
