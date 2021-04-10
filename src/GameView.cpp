@@ -22,7 +22,7 @@ void GameView::setup(){
 
 void GameView::update(sf::Event Event){
   sf::Texture texture;
-  string test_level = "../data/bedroom_level.png";
+  string test_level = "../data/bedroom_level_V2.png";
   if(!texture.loadFromFile(test_level)){
     printf("incorrect file format");
   }
