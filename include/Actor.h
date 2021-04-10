@@ -6,10 +6,10 @@ class Actor
 {
 public:
   Actor(int actorId) {actorId = id;}
-  Actor();
-  virtual void init();
-  virtual bool update(float deltaMs);
-  virtual void destroy();
+  Actor(){};
+  //virtual void init();
+  //virtual bool update(float deltaMs);
+  //virtual void destroy();
 
 protected:
   Position position;

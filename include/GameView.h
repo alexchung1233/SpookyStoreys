@@ -10,10 +10,15 @@ class GameView
     sf::Event Event;
     InputManager inputManager;
     sf::RenderWindow* App;
+    GameLogic* logic;
+    sf::Sprite sprite;
+    sf::Texture texture;
+
 
 
   public:
     GameView(){
+
     }
     GameView(sf::RenderWindow& app);
     void update(sf::Event Event);

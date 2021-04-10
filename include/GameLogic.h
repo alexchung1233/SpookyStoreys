@@ -19,6 +19,6 @@ class GameLogic{
     PlayerActor getPlayer();
 
     //Function for when the Up key is pressed
-    void UpPressed();
+    void upPressed();
 
 };

@@ -6,7 +6,8 @@ PlayerActor::PlayerActor(){
 
 void PlayerActor::init(){
   position = Position();
-  velocity = sf::Vector2f();
+  printf("%f\n", position.y);
+  velocity = sf::Vector2f(50,50);
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
@@ -19,8 +20,22 @@ void PlayerActor::setVelocity(float x, float y){
   velocity.y = y;
 }
 
+sf::Vector2f PlayerActor::getVelocity(){
+  return velocity;
+}
+
+void PlayerActor::move(){
+
+}
+
+Position PlayerActor::getPosition(){
+  return position;
+}
+
 void PlayerActor::moveUp(float deltaMS){
   position.y -= deltaMS * velocity.y;
+  printf("%f\n", position.y);
+
 }
 
 void PlayerActor::moveDown(float deltaMS){
