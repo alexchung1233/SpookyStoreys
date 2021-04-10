@@ -2,8 +2,12 @@
 
 
 PlayerActor::PlayerActor(){
-  Position position = Position();
-  sf::Vector2f velocity = sf::Vector2f();
+  init();
+}
+
+void PlayerActor::init(){
+  position = Position();
+  velocity = sf::Vector2f();
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
