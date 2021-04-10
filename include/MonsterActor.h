@@ -6,6 +6,7 @@
 class MonsterActor : public CharacterActor {
 public:
   MonsterActor();
+  void init();
   Position position;
   sf::Vector2f velocity;
   void setVelocity(sf::Vector2f vector);

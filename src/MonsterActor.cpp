@@ -2,8 +2,12 @@
 
 
 MonsterActor::MonsterActor(){
-  Position position = Position();
-  sf::Vector2f velocity = sf::Vector2f();
+  init();
+}
+
+void MonsterActor::init(){
+  position = Position();
+  velocity = sf::Vector2f();
 }
 
 void MonsterActor::setVelocity(sf::Vector2f vector){
