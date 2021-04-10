@@ -6,10 +6,13 @@ GameLogic::setup(){
 }
 
 void GameLogic::createPlayer(){
-
+  player = PlayerActor();
 }
-
 
 PlayerActor GameLogic::getPlayer(){
   return player;
+}
+
+void GameLogic::UpPressed(){
+  player.moveUp();
 }
