@@ -53,19 +53,6 @@ void GameView::setup(){
 void GameView::update(sf::Event& Event, float dt){
   //this->App->clear();
   inputManager.update(Event, dt);
-  // while(App->pollEvent(Event))
-  // {
-  //   // Exit
-  //   if(Event.type == sf::Event::Closed) {
-  //     App->close();
-  //   }
-  //   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-  //   {
-  //     sprite_player.setPosition(sprite_player.getPosition().x
-  //     , sprite_player.getPosition().y-9.f);
-  //   }
-    
-  // }
 
   sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
