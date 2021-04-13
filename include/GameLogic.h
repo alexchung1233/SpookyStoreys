@@ -21,4 +21,13 @@ class GameLogic{
     //Function for when the Up key is pressed
     void upPressed();
 
+    //Function for when the Down key is pressed
+    void downPressed();
+
+    //Function for when the Left key is pressed
+    void leftPressed();
+
+    //Function for when the Right key is pressed
+    void rightPressed();
+
 };

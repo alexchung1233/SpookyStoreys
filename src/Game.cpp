@@ -30,7 +30,7 @@ void Game::updateDt(){
 }
 
 void Game::update(){
-  gameView.update(event);
+  this->gameView.update(event);
 }
 
 void Game::render(){
@@ -39,7 +39,10 @@ void Game::render(){
 
 void Game::initGameView(){
   this->gameView = GameView(*window);
+  this->gameView.myPos();
   this->gameView.setup();
+  this->gameView.myPos();
+
 }
 
 void Game::initWindow(){

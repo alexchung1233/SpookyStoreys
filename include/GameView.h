@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 
+
 class GameView
 {
   private:
@@ -19,12 +20,11 @@ class GameView
 
 
   public:
-    GameView(){
-
-    }
+    GameView()	{	}
     GameView(sf::RenderWindow& app);
-    void update(sf::Event Event);
+    void update(sf::Event& Event);
     void setup();
+    float myPos();
 
   };
 

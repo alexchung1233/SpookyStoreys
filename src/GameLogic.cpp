@@ -1,16 +1,17 @@
 #include "GameLogic.h"
 #include "PlayerActor.h"
 
-void GameLogic::setup(){
-  createPlayer();
+GameLogic::GameLogic(){
+	setup();
 }
 
-GameLogic::GameLogic(){
+void GameLogic::setup(){
+	createPlayer();
 }
 
 void GameLogic::createPlayer(){
-  player = PlayerActor();
-  player.init();
+	player = PlayerActor();
+	player.init();
 }
 
 PlayerActor GameLogic::getPlayer(){
@@ -18,5 +19,17 @@ PlayerActor GameLogic::getPlayer(){
 }
 
 void GameLogic::upPressed(){
-  player.moveUp(1);
+	player.moveUp(1);
+}
+
+void GameLogic::downPressed(){
+	player.moveDown(1);
+}
+
+void GameLogic::leftPressed(){
+	player.moveLeft(1);
+}
+
+void GameLogic::rightPressed(){
+	player.moveRight(1);
 }
