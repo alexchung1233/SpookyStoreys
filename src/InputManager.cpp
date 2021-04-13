@@ -16,6 +16,9 @@ void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
   this->App = &app;
   this->logic = logic;
 
+  std::cout << this->logic.getPlayer().getPosition().x;
+  std::cout << "\n";
+
 }
 
 void InputManager::update(sf::Event& Event, float dt){

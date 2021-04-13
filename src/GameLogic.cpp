@@ -1,8 +1,11 @@
 #include "GameLogic.h"
 #include "PlayerActor.h"
+#include <iostream>
+
 
 GameLogic::GameLogic(){
 	setup();
+	myRoom.setUpRoom();
 }
 
 void GameLogic::setup(){
@@ -39,25 +42,30 @@ void GameLogic::rightPressed(float dt){
 }
 
 bool GameLogic::detectCollisionUp(){
-	if((player.getPosition().y - player.getVelocity().y) < 0)
+	if((player.getPosition().y - player.getVelocity().y) < myRoom.myBoundaries[3])
 		return true;
 	return false;
 }
 
 bool GameLogic::detectCollisionDown(){
-	if((player.getPosition().y + player.getVelocity().y + player.getSize().y) > 600)
+	if((player.getPosition().y + player.getVelocity().y + player.getSize().y) > (myRoom.myBoundaries[1] + myRoom.myBoundaries[3]))
 		return true;
 	return false;
 }
 
-bool GameLogic::detectCollisionLeft(){
-	if((player.getPosition().x - player.getVelocity().x) < 0)
+bool GameLogic::detectCollisionLeft(){	
+	if((player.getPosition().x - player.getVelocity().x) < myRoom.myBoundaries[2])
 		return true;
-		return false;
+	return false;
 }
 
 bool GameLogic::detectCollisionRight(){
-	if((player.getPosition().x + player.getVelocity().x + player.getSize().x) > 800)
+	if((player.getPosition().x + player.getVelocity().x + player.getSize().x) > (myRoom.myBoundaries[0] + myRoom.myBoundaries[2]))
 		return true;
 	return false;
+}
+
+void GameLogic::setRoom(Room room){
+	this->myRoom = room;
+	myRoom.setUpRoom();
 }

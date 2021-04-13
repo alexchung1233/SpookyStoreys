@@ -1,11 +1,15 @@
 #include <string>
 #include <iostream>
 #include "PlayerActor.h"
+#include "Room.h"
+
 
 class GameLogic{
 
   private:
     PlayerActor player;
+    Room myRoom;
+
 
   public:
     GameLogic();
@@ -35,5 +39,8 @@ class GameLogic{
 
     //Function for when the Right key is pressed
     void rightPressed(float dt);
+
+    void setRoom(Room room);
+
 
 };

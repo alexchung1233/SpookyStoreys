@@ -5,6 +5,7 @@
 #include <iostream>
 #include "InputManager.h"
 
+
 using namespace std;
 
 
@@ -41,8 +42,8 @@ void GameView::setup(){
     sprite_player.getTexture()->getSize().y * sprite_player.getScale().y);
 
   logic.getPlayer().setSize(spriteSize);
-  inputManager(*App, logic);
 
+  inputManager(*App, logic);
 
   sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
@@ -52,13 +53,26 @@ void GameView::setup(){
 
 
 void GameView::update(sf::Event& Event, float dt){
-  //this->App->clear();
+  this->App->clear();
   inputManager.update(Event, dt);
-  myPos();
+  //myPos();
+
+
+  //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
+  // sf::RectangleShape rectangle(sf::Vector2f(100, 100));
+  // rectangle.setPosition(sf::Vector2f(100, 100));
+  // rectangle.setOutlineThickness(3);
+  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
+  // rectangle.setFillColor(sf::Color::Transparent);
+
+   //this->App->draw(rectangle);
+
 
   sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
   this->App->draw(sprite);
+
+
 
   this->App->draw(sprite_player);
 
