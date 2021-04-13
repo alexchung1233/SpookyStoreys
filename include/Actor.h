@@ -1,6 +1,8 @@
 #ifndef ACTOR_H // include guard
 #define ACTOR_H
 #include "Position.h"
+#include <string>
+#include <iostream>
 
 class Actor
 {

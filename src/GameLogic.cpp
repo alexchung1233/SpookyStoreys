@@ -18,18 +18,18 @@ PlayerActor GameLogic::getPlayer(){
   return player;
 }
 
-void GameLogic::upPressed(){
-	player.moveUp(1);
+void GameLogic::upPressed(float dt){
+	player.moveUp(dt);
 }
 
-void GameLogic::downPressed(){
-	player.moveDown(1);
+void GameLogic::downPressed(float dt){
+	player.moveDown(dt);
 }
 
-void GameLogic::leftPressed(){
-	player.moveLeft(1);
+void GameLogic::leftPressed(float dt){
+	player.moveLeft(dt);
 }
 
-void GameLogic::rightPressed(){
-	player.moveRight(1);
+void GameLogic::rightPressed(float dt){
+	player.moveRight(dt);
 }

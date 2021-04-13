@@ -19,15 +19,15 @@ class GameLogic{
     PlayerActor getPlayer();
 
     //Function for when the Up key is pressed
-    void upPressed();
+    void upPressed(float dt);
 
     //Function for when the Down key is pressed
-    void downPressed();
+    void downPressed(float dt);
 
     //Function for when the Left key is pressed
-    void leftPressed();
+    void leftPressed(float dt);
 
     //Function for when the Right key is pressed
-    void rightPressed();
+    void rightPressed(float dt);
 
 };

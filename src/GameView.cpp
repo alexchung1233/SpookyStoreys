@@ -13,23 +13,18 @@ using namespace std;
 GameView::GameView(sf::RenderWindow& app){
   this->App = &app;
   GameLogic myLogic;
-  this->logic = & myLogic;
+  this->logic = myLogic;
 
-  std::cout << this->logic->getPlayer().getPosition().x;
+  std::cout << this->logic.getPlayer().getPosition().x;
   std::cout << ", ";
   std::cout << sprite_player.getPosition().x;
   std::cout << "\n";
 
-  inputManager(*App, *logic);
+  inputManager(*App, logic);
 
 }
 
 void GameView::setup(){
-
-  std::cout << this->logic->getPlayer().getPosition().x;
-  std::cout << ", ";
-  std::cout << sprite_player.getPosition().x;
-  std::cout << "\n";
 
   string test_level = "../data/bedroom_level_V2.png";
 
@@ -37,31 +32,16 @@ void GameView::setup(){
     printf("incorrect file format");
   }
 
-  std::cout << inputManager.logic->getPlayer().getPosition().x;
-  std::cout << ", ";
-  std::cout << sprite_player.getPosition().x;
-  std::cout << "\n";
-
   string player_file = "../data/protag_V1.png";
 
   if(!texture_player.loadFromFile(player_file)){
     printf("incorrect file format");
   }
-
-
   
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
 
-
-
-  sprite_player.setPosition(logic->getPlayer().getPosition().x, logic->getPlayer().getPosition().y);
-  
-  std::cout << logic->getPlayer().getPosition().x;
-  std::cout << ", ";
-  std::cout << sprite_player.getPosition().x;
-  std::cout << "\n";
-
+  sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
   //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
@@ -70,22 +50,24 @@ void GameView::setup(){
 
 
 
-void GameView::update(sf::Event& Event){
+void GameView::update(sf::Event& Event, float dt){
   //this->App->clear();
-  //inputManager.update(Event);
-  while(App->pollEvent(Event))
-  {
-    // Exit
-    if(Event.type == sf::Event::Closed) {
-      App->close();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-      sprite_player.setPosition(sprite_player.getPosition().x
-      , sprite_player.getPosition().y-9.f);
-    }
+  inputManager.update(Event, dt);
+  // while(App->pollEvent(Event))
+  // {
+  //   // Exit
+  //   if(Event.type == sf::Event::Closed) {
+  //     App->close();
+  //   }
+  //   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+  //   {
+  //     sprite_player.setPosition(sprite_player.getPosition().x
+  //     , sprite_player.getPosition().y-9.f);
+  //   }
     
-  }
+  // }
+
+  sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
   this->App->draw(sprite);
 
@@ -97,7 +79,7 @@ void GameView::update(sf::Event& Event){
 
 float GameView::myPos(){
   std::cout << "my pos: ";
-  std::cout << inputManager.logic->getPlayer().getPosition().x;
+  std::cout << inputManager.logic.getPlayer().getPosition().x;
   std::cout << "\n";
 
 }
