@@ -18,7 +18,11 @@ class GameLogic{
     //reutrns player object
     PlayerActor getPlayer();
 
-    bool GameLogic::detectCollision();
+    bool detectCollisionUp();
+    bool detectCollisionDown();
+    bool detectCollisionLeft();
+    bool detectCollisionRight();
+
 
     //Function for when the Up key is pressed
     void upPressed(float dt);

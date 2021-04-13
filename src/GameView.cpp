@@ -14,12 +14,6 @@ GameView::GameView(sf::RenderWindow& app){
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
-
-  std::cout << this->logic.getPlayer().getPosition().x;
-  std::cout << ", ";
-  std::cout << sprite_player.getPosition().x;
-  std::cout << "\n";
-
   inputManager(*App, logic);
 
 }
@@ -40,11 +34,18 @@ void GameView::setup(){
   
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
+  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
+  const sf::Vector2f spriteSize(
+    sprite_player.getTexture()->getSize().x * sprite_player.getScale().x,
+    sprite_player.getTexture()->getSize().y * sprite_player.getScale().y);
+
+  logic.getPlayer().setSize(spriteSize);
+  inputManager(*App, logic);
+
 
   sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
-  //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
-  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
 }
 
@@ -66,6 +67,8 @@ void GameView::update(sf::Event& Event, float dt){
 float GameView::myPos(){
   std::cout << "my pos: ";
   std::cout << inputManager.logic.getPlayer().getPosition().x;
+  std::cout << ", ";
+  std::cout << inputManager.logic.getPlayer().getPosition().y;
   std::cout << "\n";
 
 }
