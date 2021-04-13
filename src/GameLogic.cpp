@@ -18,6 +18,10 @@ PlayerActor GameLogic::getPlayer(){
   return player;
 }
 
+bool GameLogic::detectCollision(){
+	return false;
+}
+
 void GameLogic::upPressed(float dt){
 	player.moveUp(dt);
 }

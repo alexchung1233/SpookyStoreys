@@ -18,6 +18,8 @@ class GameLogic{
     //reutrns player object
     PlayerActor getPlayer();
 
+    bool GameLogic::detectCollision();
+
     //Function for when the Up key is pressed
     void upPressed(float dt);
 

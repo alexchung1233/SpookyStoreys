@@ -53,14 +53,13 @@ void GameView::setup(){
 void GameView::update(sf::Event& Event, float dt){
   //this->App->clear();
   inputManager.update(Event, dt);
+  myPos();
 
   sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
   this->App->draw(sprite);
 
   this->App->draw(sprite_player);
-
-
 
 }
 
