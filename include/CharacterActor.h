@@ -14,7 +14,7 @@ class CharacterActor : public Actor {
       virtual void move() = 0;
       
    protected:
-      sf::Vector2f myVelocity;
+      sf::Vector2f characterVelocity;
 
    private:
 };

@@ -30,7 +30,7 @@ void Game::updateDt(){
 }
 
 void Game::update(){
-  gameView.update(event);
+  this->gameView.update(event, dt);
 }
 
 void Game::render(){
