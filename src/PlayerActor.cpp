@@ -1,4 +1,5 @@
 #include "PlayerActor.h"
+#include "MovementStates.h"
 
 
 PlayerActor::PlayerActor(){
@@ -32,17 +33,41 @@ Position PlayerActor::getPosition(){
 }
 
 void PlayerActor::moveUp(float deltaMS){
-  position.y -= deltaMS * characterVelocity.y;
+  characterVelocity.y = -std::abs(characterVelocity.y);
+  position.y += deltaMS * characterVelocity.y;
 }
 
 void PlayerActor::moveDown(float deltaMS){
+  characterVelocity.y = std::abs(characterVelocity.y);
   position.y += deltaMS * characterVelocity.y;
 }
 
 void PlayerActor::moveLeft(float deltaMS){
-  position.x -= deltaMS * characterVelocity.x;
+  characterVelocity.x = -std::abs(characterVelocity.x);
+  position.x += deltaMS * characterVelocity.x;
 }
 
 void PlayerActor::moveRight(float deltaMS){
+  characterVelocity.x = std::abs(characterVelocity.x);
   position.x += deltaMS * characterVelocity.x;
+}
+
+
+MovementStates::movementStates PlayerActor::getMovementState(){
+    if((int)characterVelocity.x  == 0 && (int)characterVelocity.y == 0){
+      return MovementStates::IDLE;
+    }
+    else if(characterVelocity.x  < 0.f && characterVelocity.y == 0.f){
+      return MovementStates::MOVING_LEFT;
+    }
+    else if(characterVelocity.x  > 0.f && characterVelocity.y == 0.f){
+      return MovementStates::MOVING_RIGHT;
+    }
+    else if(characterVelocity.x  == 0.f && characterVelocity.y < 0.f){
+      return MovementStates::MOVING_UP;
+    }
+    else if(characterVelocity.x  == 0.f && characterVelocity.y > 0.f){
+      return MovementStates::MOVING_DOWN;
+    }
+
 }

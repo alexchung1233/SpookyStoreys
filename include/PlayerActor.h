@@ -16,6 +16,7 @@ public:
   void moveDown(float deltaMS);
   void moveLeft(float deltaMS);
   void moveRight(float deltaMS);
+  MovementStates::movementStates getMovementState();
 
 };
 

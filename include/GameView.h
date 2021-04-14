@@ -18,6 +18,8 @@ class GameView
     sf::Texture texture_player;
     Animation animation;
 
+    void updatePlayerAnimation();
+
 
 
   public:
