@@ -14,8 +14,10 @@ class GameView
     GameLogic logic;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
+    sf::Sprite sprite_monster;
     sf::Texture texture;
     sf::Texture texture_player;
+    sf::Texture texture_monster;
 
 
 
