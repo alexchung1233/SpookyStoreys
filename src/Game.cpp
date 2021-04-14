@@ -19,7 +19,6 @@ void Game::runGame()
     this->updateDt();
     this->update();
     this->render();
-
 	}
 }
 
@@ -30,7 +29,10 @@ void Game::updateDt(){
 }
 
 void Game::update(){
-  gameView.update(event);
+  if(mthis->gameView.getManager().gameStart)
+    this->gameView.update(event, dt);
+  else
+    this->gameView.updateMenu(event);
 }
 
 void Game::render(){

@@ -13,21 +13,21 @@ private:
 	sf::RenderWindow *window;
 	sf::Event event;
 
-  sf::Clock clock;
+  	sf::Clock clock;
 	float dt;
 
-  GameView gameView;
+  	GameView gameView;
 
 public:
 	Game();
 	//virtual ~Game();
 
-  void shutdownGame();
+  	void shutdownGame();
 
 
-  void initWindow();
-  void initVariables();
-  void initGameView();
+  	void initWindow();
+  	void initVariables();
+  	void initGameView();
 
 	//Update
 	void updateDt();
