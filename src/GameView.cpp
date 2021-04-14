@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "InputManager.h"
+#include "Animation.h"
 
 using namespace std;
 
@@ -27,20 +28,22 @@ void GameView::setup(){
     printf("incorrect file format");
   }
 
-  string player_file = "../data/protag_V1.png";
+  string player_file = "../data/example_sprite.png";
 
   if(!texture_player.loadFromFile(player_file)){
     printf("incorrect file format");
   }
 
   sprite.setTexture(texture);
-  sprite_player.setTexture(texture_player);
 
   PlayerActor player = inputManager.logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
-  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+  //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
+  animation = Animation(texture_player, sprite_player);
+  //sprite_player.setTexture(texture_player);
 
 }
 
@@ -54,6 +57,9 @@ void GameView::update(sf::Event& Event, float dt){
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   this->App->draw(sprite);
+
+  this->animation.play(dt);
+
 
   this->App->draw(sprite_player);
 
