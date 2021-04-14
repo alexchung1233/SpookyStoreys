@@ -29,6 +29,7 @@ void GameView::setup(){
   }
 
   string player_file = "../data/protag_V1.png";
+  string player_left_file = "../data/protag_left_side.png";
 
   if(!texture_player.loadFromFile(player_file)){
     printf("incorrect file format");
@@ -52,7 +53,6 @@ void GameView::setup(){
 void GameView::update(sf::Event& Event, float dt){
   this->App->clear();
   inputManager.update(Event, dt);
-
   //fix this so it doesn't use input maager anymore
   PlayerActor player = inputManager.logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
@@ -64,6 +64,11 @@ void GameView::update(sf::Event& Event, float dt){
 
   this->App->draw(sprite_player);
 
+  inputManager.logic.update(dt);
+
+
+
+
 
 
 }
@@ -74,6 +79,24 @@ void GameView::updatePlayerAnimation(){
     case MovementStates::IDLE:
       sprite_player.setTexture(texture_player);
       break;
+    case MovementStates::MOVING_LEFT:
+      if(!texture_player.loadFromFile("../data/protag_left_side.png")){
+        printf("incorrect file format");
+      }
+      sprite_player.setTexture(texture_player);
+      break;
+    case MovementStates::MOVING_UP:
+      if(!texture_player.loadFromFile("../data/protag_behind.png")){
+        printf("incorrect file format");
+      }
+      sprite_player.setTexture(texture_player);
+      break;
+    case MovementStates::MOVING_DOWN:
+        if(!texture_player.loadFromFile("../data/protag_V1.png")){
+          printf("incorrect file format");
+        }
+        sprite_player.setTexture(texture_player);
+        break;
   }
 
 

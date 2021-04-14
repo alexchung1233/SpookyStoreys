@@ -5,6 +5,7 @@
 
 class PlayerActor : public CharacterActor {
 public:
+  const static int velocityConst = 20000.f;
   PlayerActor();
   void init();
   void setVelocity(sf::Vector2f vector);
@@ -16,7 +17,9 @@ public:
   void moveDown(float deltaMS);
   void moveLeft(float deltaMS);
   void moveRight(float deltaMS);
+  void resetVelocity();
   MovementStates::movementStates getMovementState();
+
 
 };
 

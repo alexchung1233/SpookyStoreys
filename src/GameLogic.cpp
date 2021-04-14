@@ -33,3 +33,7 @@ void GameLogic::leftPressed(float dt){
 void GameLogic::rightPressed(float dt){
 	player.moveRight(dt);
 }
+
+void GameLogic::update(float dt){
+	player.resetVelocity();
+}

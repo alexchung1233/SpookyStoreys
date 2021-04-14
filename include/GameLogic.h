@@ -30,4 +30,7 @@ class GameLogic{
     //Function for when the Right key is pressed
     void rightPressed(float dt);
 
+    //updates logic each frame
+    void update(float dt);
+
 };
