@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Actor.h
+Position.h
+../include/Position.h
+string
+-
+iostream
+-
+
+../include/CharacterActor.h
+SFML/Graphics.hpp
+-
+Position.h
+../include/Position.h
+MovementStates.h
+../include/MovementStates.h
+Actor.h
+../include/Actor.h
+
+../include/MovementStates.h
+
+../include/PlayerActor.h
+CharacterActor.h
+../include/CharacterActor.h
+
+../include/Position.h
+
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/PlayerActor.cpp
+PlayerActor.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/PlayerActor.h
+MovementStates.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/MovementStates.h
+
