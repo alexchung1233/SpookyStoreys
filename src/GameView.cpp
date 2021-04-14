@@ -15,11 +15,6 @@ GameView::GameView(sf::RenderWindow& app){
   GameLogic myLogic;
   this->logic = myLogic;
 
-  std::cout << this->logic.getPlayer().getPosition().x;
-  std::cout << ", ";
-  std::cout << sprite_player.getPosition().x;
-  std::cout << "\n";
-
   inputManager(*App, logic);
 
 }
@@ -51,7 +46,7 @@ void GameView::setup(){
 
 
 void GameView::update(sf::Event& Event, float dt){
-  //this->App->clear();
+  this->App->clear();
   inputManager.update(Event, dt);
 
   sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);

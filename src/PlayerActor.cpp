@@ -6,21 +6,21 @@ PlayerActor::PlayerActor(){
 
 void PlayerActor::init(){
   position = Position(400.f, 300.f);
-  myVelocity = sf::Vector2f(8000.f,8000.f);
+  characterVelocity = sf::Vector2f(8000.f,8000.f);
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
-  myVelocity.x = vector.x;
-  myVelocity.y = vector.y;
+  characterVelocity.x = vector.x;
+  characterVelocity.y = vector.y;
 }
 
 void PlayerActor::setVelocity(float x, float y){
-  myVelocity.x = x;
-  myVelocity.y = y;
+  characterVelocity.x = x;
+  characterVelocity.y = y;
 }
 
 sf::Vector2f PlayerActor::getVelocity(){
-  return myVelocity;
+  return characterVelocity;
 }
 
 void PlayerActor::move(){
@@ -32,17 +32,17 @@ Position PlayerActor::getPosition(){
 }
 
 void PlayerActor::moveUp(float deltaMS){
-  position.y -= deltaMS * myVelocity.y;
+  position.y -= deltaMS * characterVelocity.y;
 }
 
 void PlayerActor::moveDown(float deltaMS){
-  position.y += deltaMS * myVelocity.y;
+  position.y += deltaMS * characterVelocity.y;
 }
 
 void PlayerActor::moveLeft(float deltaMS){
-  position.x -= deltaMS * myVelocity.x;
+  position.x -= deltaMS * characterVelocity.x;
 }
 
 void PlayerActor::moveRight(float deltaMS){
-  position.x += deltaMS * myVelocity.x;
+  position.x += deltaMS * characterVelocity.x;
 }
