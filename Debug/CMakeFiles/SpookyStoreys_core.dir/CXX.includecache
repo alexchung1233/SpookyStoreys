@@ -14,6 +14,10 @@ string
 iostream
 -
 
+../include/Animation.h
+SFML/Graphics.hpp
+-
+
 ../include/CharacterActor.h
 SFML/Graphics.hpp
 -
@@ -24,6 +28,30 @@ MovementStates.h
 Actor.h
 ../include/Actor.h
 
+../include/GameLogic.h
+string
+-
+iostream
+-
+PlayerActor.h
+../include/PlayerActor.h
+
+../include/GameView.h
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+InputManager.h
+../include/InputManager.h
+Animation.h
+../include/Animation.h
+
+../include/InputManager.h
+SFML/Graphics.hpp
+-
+GameLogic.h
+../include/GameLogic.h
+
 ../include/MovementStates.h
 
 ../include/PlayerActor.h
@@ -32,9 +60,19 @@ CharacterActor.h
 
 ../include/Position.h
 
-/home/alex/Desktop/GameDesign/SpookyStoreys/src/PlayerActor.cpp
-PlayerActor.h
-/home/alex/Desktop/GameDesign/SpookyStoreys/src/PlayerActor.h
-MovementStates.h
-/home/alex/Desktop/GameDesign/SpookyStoreys/src/MovementStates.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/GameView.cpp
+GameView.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/GameView.h
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+string
+-
+iostream
+-
+InputManager.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/InputManager.h
+Animation.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/Animation.h
 
