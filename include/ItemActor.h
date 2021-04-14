@@ -5,6 +5,7 @@
 #include "Actor.h"
 #include "PlayerActor.h"
 
+using namespace std;
 class ItemActor : public Actor {
 	public:
 		// pure virtual function
@@ -22,12 +23,12 @@ class ItemActor : public Actor {
 		//and, if they are, then returns the proper dialogue (if any) and runs the appropriate
 		//actions, such as checking if the player has a key, if the ItemActor should be destroyed,
 		//and so on
-		virtual string interact(PlayerActor player) = 0;      
+		virtual string interact(PlayerActor &player) = 0;      
 	
 	protected:
 		//helper function for interact()
 		//returns true if the item is next to the player, false if otherwise
-     		virtual bool nextToPlayer(PlayerActor player) = 0;
+     		virtual bool nextToPlayer(PlayerActor &player) = 0;
     	
     		string myDialogue;
 
