@@ -3,7 +3,7 @@
 InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
-  this->logic = &logic;
+  this->logic = logic;
 
 }
 
@@ -14,12 +14,14 @@ InputManager::InputManager(){
 void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
-  this->logic = &logic;
+  this->logic = logic;
 
+  std::cout << this->logic.getPlayer().getPosition().x;
+  std::cout << "\n";
 
 }
 
-void InputManager::update(sf::Event Event){
+void InputManager::update(sf::Event& Event, float dt){
 
   while(App->pollEvent(Event))
   {
@@ -31,9 +33,21 @@ void InputManager::update(sf::Event Event){
     {
       App->close();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-      logic->upPressed();
+      logic.upPressed(dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+      logic.downPressed(dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+      logic.leftPressed(dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+      logic.rightPressed(dt);
     }
   }
 

@@ -1,22 +1,35 @@
 #include "GameLogic.h"
 #include "PlayerActor.h"
 
-void GameLogic::setup(){
-  createPlayer();
+GameLogic::GameLogic(){
+	setup();
 }
 
-GameLogic::GameLogic(){
+void GameLogic::setup(){
+	createPlayer();
 }
 
 void GameLogic::createPlayer(){
-  player = PlayerActor();
-  player.init();
+	player = PlayerActor();
+	player.init();
 }
 
 PlayerActor GameLogic::getPlayer(){
   return player;
 }
 
-void GameLogic::upPressed(){
-  player.moveUp(1);
+void GameLogic::upPressed(float dt){
+	player.moveUp(dt);
+}
+
+void GameLogic::downPressed(float dt){
+	player.moveDown(dt);
+}
+
+void GameLogic::leftPressed(float dt){
+	player.moveLeft(dt);
+}
+
+void GameLogic::rightPressed(float dt){
+	player.moveRight(dt);
 }
