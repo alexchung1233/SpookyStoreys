@@ -1,6 +1,7 @@
 #ifndef HOLY_WATER_H // include guard
 #define HOLY_WATER_H
 #include <SFML/Graphics.hpp>
+#include <cmath>  
 #include "ItemActor.h"
 #include "Position.h"
 #include "Actor.h"
