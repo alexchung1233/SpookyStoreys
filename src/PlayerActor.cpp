@@ -33,19 +33,19 @@ Position PlayerActor::getPosition(){
 }
 
 void PlayerActor::moveUp(float deltaMS){
-  position.y -= 1 * myVelocity.y;
+  position.y -= deltaMS * characterVelocity.y;
 }
 
 void PlayerActor::moveDown(float deltaMS){
-  position.y += 1 * myVelocity.y;
+  position.y += deltaMS * characterVelocity.y;
 }
 
 void PlayerActor::moveLeft(float deltaMS){
-  position.x -= 1 * myVelocity.x;
+  position.x -= deltaMS * characterVelocity.x;
 }
 
 void PlayerActor::moveRight(float deltaMS){
-  position.x += 1 * myVelocity.x;
+  position.x += deltaMS * characterVelocity.x;
 }
 
 void PlayerActor::setSize(sf::Vector2f size){
