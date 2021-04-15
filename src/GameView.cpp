@@ -15,11 +15,12 @@ GameView::GameView(sf::RenderWindow& app){
   GameLogic myLogic;
   this->logic = myLogic;
 
-  inputManager(*App, logic);
 
 }
 
 void GameView::setup(){
+
+  inputManager(*App, logic);
 
   string test_level = "../data/bedroom_level_V2.png";
 
@@ -36,7 +37,7 @@ void GameView::setup(){
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
 
-  PlayerActor player = inputManager.logic.getPlayer();
+  PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
@@ -45,12 +46,11 @@ void GameView::setup(){
 }
 
 
-
 void GameView::update(sf::Event& Event, float dt){
   this->App->clear();
   inputManager.update(Event, dt);
 
-  PlayerActor player = inputManager.logic.getPlayer();
+  PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   this->App->draw(sprite);
@@ -63,7 +63,9 @@ void GameView::update(sf::Event& Event, float dt){
 
 float GameView::myPos(){
   std::cout << "my pos: ";
-  std::cout << inputManager.logic.getPlayer().getPosition().x;
+  //std::cout << inputManager.logic.getPlayer().getPosition().x;
   std::cout << "\n";
 
 }
+
+void GameView::setLogic(GameView& logic){}
