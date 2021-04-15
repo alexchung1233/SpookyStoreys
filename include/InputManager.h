@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameLogic.h"
 #include "Menu.h"
+#include <unistd.h>
 
 class InputManager
 {

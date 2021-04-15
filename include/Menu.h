@@ -13,26 +13,35 @@ class Menu
     void downPressed();
     int enterPressed();
 
-    sf::RectangleShape getBox(int i);
+    void toggleDifficulty(int i);
+    int getDifficulty();
 
-    sf::Text& getStartText();
+    sf::RectangleShape& getBox(int i);
+    sf::Text& getText(int i);
+    sf::Text& getTitle();
 
 
   private:
   	void init();
 
-    void loadFont();
+    void makeBox(sf::RectangleShape& box, sf::Vector2f position, sf::Color color);
+    void loadFont(sf::Font& font);
+    void makeText(sf::Text& text, sf::RectangleShape box, sf::Color color, std::string string);
 
   	void boxSelected(int boxInt);
 
+    void colorSelected(sf::RectangleShape& box, sf::Text& text, bool selected);
+
     int itemSelected;
 
-    sf::RectangleShape startBox;
-    sf::Text startText;
-    sf::Font myFont;
+    sf::Text titleText;
 
-    sf::RectangleShape difficultyBox;
-    sf::RectangleShape exitBox;
+    sf::RectangleShape startBox, difficultyBox, exitBox;
+    sf::Text startText, difficultyText, exitText;
+
+    sf::Font titleFont, selectableFont;
+
+    int difficultyLevel;
 
 };
 

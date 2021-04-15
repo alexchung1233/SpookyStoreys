@@ -64,10 +64,11 @@ void GameView::drawMenu(){
 
   Menu& menu = inputManager.getMenu();
 
-  for(int i = 0; i < 3; i++)
+  this->App->draw(menu.getTitle());
+  for(int i = 0; i < 3; i++){
     this->App->draw(menu.getBox(i));
-
-  this->App->draw(menu.getStartText());
+    this->App->draw(menu.getText(i));
+  }
 
 }
 

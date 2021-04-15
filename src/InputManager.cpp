@@ -59,32 +59,45 @@ void InputManager::updateMenu(sf::Event& Event){
     if(Event.type == sf::Event::Closed) {
       App->close();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
       App->close();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
       mainMenu.upPressed();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
       mainMenu.downPressed();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+      int num = mainMenu.enterPressed();
+      if(num == 1){
+        mainMenu.toggleDifficulty(-1);
+      }
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+      int num = mainMenu.enterPressed();
+      if(num == 1){
+        mainMenu.toggleDifficulty(1);
+      }
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+
       int num = mainMenu.enterPressed();
       if(num == 0){
         gameStart = true;
       }
-      if(num == 1){
-        
-      }
-      if(num == 2){
+      else if(num == 2){
         App->close();
       }
     }
 
   }
+
 }
 
 Menu& InputManager::getMenu(){

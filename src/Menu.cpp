@@ -7,39 +7,31 @@
 
 Menu::Menu(){
   itemSelected = 0;
+  difficultyLevel = 1;
   init();
 }
 
 void Menu::init(){
-  startBox.setSize(sf::Vector2f(100, 50));
-  startBox.setOutlineColor(sf::Color::White);
-  startBox.setOutlineThickness(5);
-  startBox.setFillColor(sf::Color::White);
-  startBox.setPosition(sf::Vector2f(350, 300));
+  makeBox(startBox, sf::Vector2f(400, 290), sf::Color::White);
+  makeBox(difficultyBox, sf::Vector2f(400, 390), sf::Color::Black);
+  makeBox(exitBox, sf::Vector2f(400, 490), sf::Color::Black);
 
-  loadFont();
+  loadFont(titleFont);
+  titleText.setFont(titleFont);
+  titleText.setString("Spookey\nStoreys");
+  titleText.setCharacterSize(80);
+  titleText.setFillColor(sf::Color(200, 0, 0));
+  titleText.setPosition(sf::Vector2f(400 - titleText.getGlobalBounds().width/2, 60));
 
-  startText.setString("Start");
-  startText.setFont(myFont);
-  startText.setFillColor(sf::Color::Black);
+  loadFont(selectableFont);
+  startText.setFont(selectableFont);
+  difficultyText.setFont(selectableFont);
+  exitText.setFont(selectableFont);
 
-  sf::FloatRect owo = startBox.getGlobalBounds();
-  sf::FloatRect please = startText.getGlobalBounds();
+  makeText(startText, startBox, sf::Color::Black, "Start");
+  makeText(difficultyText, difficultyBox, sf::Color::White, "<\tDifficulty: Normal\t>");
+  makeText(exitText, exitBox, sf::Color::White, "Exit");
 
-  startText.setPosition(sf::Vector2f(owo.left + owo.width/2 - please.width/2, owo.top + please.height/2));
-
-
-  difficultyBox.setSize(sf::Vector2f(100, 50));
-  difficultyBox.setOutlineThickness(5);
-  difficultyBox.setOutlineColor(sf::Color::White);
-  difficultyBox.setFillColor(sf::Color::Black);
-  difficultyBox.setPosition(sf::Vector2f(350, 400));
-
-  exitBox.setSize(sf::Vector2f(100, 50));
-  exitBox.setOutlineColor(sf::Color::White);
-  exitBox.setOutlineThickness(5);
-  exitBox.setFillColor(sf::Color::Black);
-  exitBox.setPosition(sf::Vector2f(350, 500));
 }
 
 
@@ -61,41 +53,120 @@ int Menu::enterPressed(){
   return itemSelected;
 }
 
-sf::RectangleShape Menu::getBox(int i){
+int Menu::getDifficulty(){
+  return difficultyLevel;
+}
+
+void Menu::toggleDifficulty(int i){
+  difficultyLevel = difficultyLevel + i;
+
+  if(difficultyLevel < 1){
+    difficultyText.setString(" \tDifficulty: Easy\t>");
+    difficultyLevel = 0;
+  }
+  else if(difficultyLevel == 1){
+    difficultyText.setString("<\tDifficulty: Normal\t>");
+  }
+  else if(difficultyLevel > 1){
+    difficultyText.setString("<\tDifficulty: EXTREME\t ");
+    difficultyLevel = 2;
+  }
+  
+  // std::cout << difficultyText.getString().toAnsiString();
+  // std::cout << ", ";
+  // std::cout << difficultyNormal;
+  // std::cout << "\n";
+
+
+  // sf::FloatRect boxBounds = difficultyBox.getGlobalBounds();
+  // sf::FloatRect textBounds = difficultyText.getGlobalBounds();
+
+  // sf::Vector2f myPos = sf::Vector2f(boxBounds.left + boxBounds.width/2 - textBounds.width/2,
+  //   boxBounds.top + boxBounds.height/2 - textBounds.height/2 - difficultyBox.getOutlineThickness());
+
+  // difficultyText.setPosition(myPos);
+}
+
+sf::RectangleShape& Menu::getBox(int i){
   if(i == 0)
     return startBox;
-  if(i == 1)
+  else if(i == 1)
     return difficultyBox;
-  if(i == 2)
+  else if(i == 2)
     return exitBox;
 }
 
-sf::Text& Menu::getStartText(){
-  return startText;
+sf::Text& Menu::getText(int i){
+  if(i == 0)
+    return startText;
+  else if(i == 1)
+    return difficultyText;
+  else if(i == 2)
+    return exitText;
+}
+
+sf::Text& Menu::getTitle(){
+  return titleText;
 }
 
 void Menu::boxSelected(int boxInt){
 
   if(boxInt==0){
-    startBox.setFillColor(sf::Color::White);
-    difficultyBox.setFillColor(sf::Color::Black);
-    startText.setFillColor(sf::Color::Black);
-
+    colorSelected(startBox, startText, true);
+    colorSelected(difficultyBox, difficultyText, false);
+    colorSelected(exitBox, exitText, false);
   }
   else if(boxInt==1){
-    startBox.setFillColor(sf::Color::Black);
-    difficultyBox.setFillColor(sf::Color::White);
-    exitBox.setFillColor(sf::Color::Black);
-    startText.setFillColor(sf::Color::White);
-
+    colorSelected(startBox, startText, false);
+    colorSelected(difficultyBox, difficultyText, true);
+    colorSelected(exitBox, exitText, false);
   }
   else if(boxInt==2){
-    difficultyBox.setFillColor(sf::Color::Black);
-    exitBox.setFillColor(sf::Color::White);
+    colorSelected(startBox, startText, false);
+    colorSelected(difficultyBox, difficultyText, false);
+    colorSelected(exitBox, exitText, true);
   }
 }
 
-void Menu::loadFont(){
-  if(!myFont.loadFromFile("../data/Lato-Bold.ttf"))
+void Menu::colorSelected(sf::RectangleShape& box, sf::Text& text, bool selected){
+  if(selected){
+    box.setFillColor(sf::Color::White);
+    text.setFillColor(sf::Color::Black);
+  }
+  else{
+    box.setFillColor(sf::Color::Black);
+    text.setFillColor(sf::Color::White);
+  }
+}
+
+void Menu::makeBox(sf::RectangleShape& box, sf::Vector2f position, sf::Color color){
+  box.setFillColor(color);
+  box.setSize(sf::Vector2f(790, 100));
+  box.setOutlineColor(sf::Color::White);
+  box.setOutlineThickness(5);
+
+  sf::Vector2f myPos = sf::Vector2f(position.x - box.getSize().x/2, position.y);
+
+  box.setPosition(myPos);
+
+}
+
+void Menu::loadFont(sf::Font& font){
+  if(!font.loadFromFile("../data/courier.ttf"))
     std::cout << "Font unable to load\n";
+}
+
+void Menu::makeText(sf::Text& text, sf::RectangleShape box, sf::Color color, std::string string){
+  text.setString(string);
+  text.setCharacterSize(35);
+  text.setFillColor(color);
+
+  sf::FloatRect boxBounds = box.getGlobalBounds();
+  sf::FloatRect textBounds = text.getLocalBounds();
+
+  sf::Vector2f myPos = sf::Vector2f(boxBounds.left + boxBounds.width/2 - textBounds.width/2,
+    boxBounds.top + boxBounds.height/2.7 - textBounds.height/2);
+
+  text.setPosition(myPos);
+
 }
