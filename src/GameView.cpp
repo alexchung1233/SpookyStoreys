@@ -16,11 +16,12 @@ GameView::GameView(sf::RenderWindow& app){
   GameLogic myLogic;
   this->logic = myLogic;
 
-  inputManager(*App, logic);
 
 }
 
 void GameView::setup(){
+
+  inputManager(*App, logic);
 
   string test_level = "../data/bedroom_level_V2.png";
 
@@ -28,7 +29,7 @@ void GameView::setup(){
     printf("incorrect file format");
   }
 
-  string player_file = "../data/protag_V1.png";
+  string player_file = "../data/protag_front.png";
   string player_left_file = "../data/protag_left_side.png";
 
   if(!texture_player.loadFromFile(player_file)){
@@ -37,7 +38,7 @@ void GameView::setup(){
 
   sprite.setTexture(texture);
 
-  PlayerActor player = inputManager.logic.getPlayer();
+  PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
@@ -49,12 +50,10 @@ void GameView::setup(){
 }
 
 
-
 void GameView::update(sf::Event& Event, float dt){
   this->App->clear();
   inputManager.update(Event, dt);
-  //fix this so it doesn't use input maager anymore
-  PlayerActor player = inputManager.logic.getPlayer();
+  PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   this->App->draw(sprite);
@@ -64,7 +63,7 @@ void GameView::update(sf::Event& Event, float dt){
 
   this->App->draw(sprite_player);
 
-  inputManager.logic.update(dt);
+  this->logic.update(dt);
 
 
 
@@ -74,13 +73,19 @@ void GameView::update(sf::Event& Event, float dt){
 }
 
 void GameView::updatePlayerAnimation(){
-  PlayerActor player = inputManager.logic.getPlayer();
+  PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
     case MovementStates::IDLE:
       sprite_player.setTexture(texture_player);
       break;
     case MovementStates::MOVING_LEFT:
       if(!texture_player.loadFromFile("../data/protag_left_side.png")){
+        printf("incorrect file format");
+      }
+      sprite_player.setTexture(texture_player);
+      break;
+    case MovementStates::MOVING_RIGHT:
+      if(!texture_player.loadFromFile("../data/protag_right_side.png")){
         printf("incorrect file format");
       }
       sprite_player.setTexture(texture_player);
@@ -92,7 +97,7 @@ void GameView::updatePlayerAnimation(){
       sprite_player.setTexture(texture_player);
       break;
     case MovementStates::MOVING_DOWN:
-        if(!texture_player.loadFromFile("../data/protag_V1.png")){
+        if(!texture_player.loadFromFile("../data/protag_front.png")){
           printf("incorrect file format");
         }
         sprite_player.setTexture(texture_player);
@@ -104,7 +109,9 @@ void GameView::updatePlayerAnimation(){
 
 float GameView::myPos(){
   std::cout << "my pos: ";
-  std::cout << inputManager.logic.getPlayer().getPosition().x;
+  //std::cout << inputManager.logic.getPlayer().getPosition().x;
   std::cout << "\n";
 
 }
+
+void GameView::setLogic(GameView& logic){}
