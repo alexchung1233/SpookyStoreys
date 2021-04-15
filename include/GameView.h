@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
+#include "MonsterAI.h"
 
 
 class GameView
@@ -18,6 +19,7 @@ class GameView
     sf::Texture texture;
     sf::Texture texture_player;
     sf::Texture texture_monster;
+    MonsterAI monsterAI;
 
 
 
