@@ -46,7 +46,6 @@ void PlayerActor::moveLeft(float deltaMS){
 
 void PlayerActor::moveRight(float deltaMS){
   position.x += deltaMS * characterVelocity.x;
-
 }
 
 void PlayerActor::setSize(sf::Vector2f size){
