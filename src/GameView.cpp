@@ -63,7 +63,9 @@ void GameView::update(sf::Event& Event, float dt){
 
 float GameView::myPos(){
   std::cout << "my pos: ";
-  //std::cout << inputManager.logic.getPlayer().getPosition().x;
+  std::cout << inputManager.logic.getPlayer().getPosition().x;
+  std::cout << ", ";
+  std::cout << inputManager.logic.getPlayer().getPosition().y;
   std::cout << "\n";
 
 }
