@@ -7,6 +7,7 @@ PlayerActor::PlayerActor(){
 void PlayerActor::init(){
   position = Position(400.f, 300.f);
   characterVelocity = sf::Vector2f(8000.f,8000.f);
+  mySize = sf::Vector2f(48.f, 105.6f);
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
