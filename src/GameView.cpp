@@ -52,7 +52,7 @@ void GameView::setup(){
   monsterAI.setPosition(400, 360);
   sprite_monster.setTexture(texture_monster);
   sprite_monster.setPosition(400, 360);
-  sprite_monster.setScale(sf::Vector2f(-0.40f, 0.40f));
+  sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
 
 
 
