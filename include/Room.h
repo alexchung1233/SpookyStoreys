@@ -18,8 +18,8 @@ class Room
 
         void setUpRoom();
 
-        float myBoundaries[4];
-        float myObjects[4];
+        sf::IntRect myBoundaries;
+        std::vector<sf::IntRect>myObjects;
 
 
 };

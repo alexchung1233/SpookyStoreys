@@ -14,8 +14,8 @@ void Room::setUpRoom(){
 	infile.open ("../data/room_data.txt");
     while(!infile.eof()) // To get you all the lines.
     {
-        getline(infile,STRING); // Saves the line in STRING.
-        vector<string> result;
+        getline(infile, STRING); // Saves the line in STRING.
+        vector<string>result;
 		stringstream s_stream(STRING); //create string stream from the string
 		
 		while(s_stream.good()) {
@@ -24,22 +24,22 @@ void Room::setUpRoom(){
 			result.push_back(substr);
 		}
 
-		int posObj[4] = {-1, -1, -1, -1};
-
-		for(int i = 0; i<result.size(); i++) {    //print all splitted strings
-			cout << result.at(i) << endl;
-			if(i>0){
-				if(!result.at(0).find("ROOM")){
-					myBoundaries[i-1] = stoi(result.at(i));
-				}
-				else{
-					myObjects[i-1] = stoi(result.at(i));
-				}
-			}
+		if(!result.at(0).find("ROOM")){
+			myBoundaries.left = stoi(result.at(1));
+			myBoundaries.top = stoi(result.at(2));
+			myBoundaries.width = stoi(result.at(3));
+			myBoundaries.height = stoi(result.at(4));
 		}
-		// if(posObj[0] != -1){
-		// 	myObjects.push_back( posObj );
-		// }
+		else{
+			sf::IntRect posObj;
+
+			posObj.left = stoi(result.at(1));
+			posObj.top = stoi(result.at(2));
+			posObj.width = stoi(result.at(3));
+			posObj.height = stoi(result.at(4));
+			myObjects.push_back( posObj );
+		}
+
     }
 	infile.close();
 }

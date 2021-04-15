@@ -57,22 +57,17 @@ void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   //myPos();
 
-
-  //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
-  // sf::RectangleShape rectangle(sf::Vector2f(100, 100));
-  // rectangle.setPosition(sf::Vector2f(100, 100));
-  // rectangle.setOutlineThickness(3);
-  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
-  // rectangle.setFillColor(sf::Color::Transparent);
-
-   //this->App->draw(rectangle);
-
-
   sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
 
   this->App->draw(sprite);
 
-
+  //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
+  // sf::RectangleShape rectangle(sf::Vector2f(160,100));
+  // rectangle.setPosition(sf::Vector2f(160, 350));
+  // rectangle.setOutlineThickness(3);
+  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
+  // rectangle.setFillColor(sf::Color::Transparent);
+  // this->App->draw(rectangle);
 
   this->App->draw(sprite_player);
 

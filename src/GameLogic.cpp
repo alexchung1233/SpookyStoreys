@@ -42,26 +42,61 @@ void GameLogic::rightPressed(float dt){
 }
 
 bool GameLogic::detectCollisionUp(){
-	if((player.getPosition().y - player.getVelocity().y) < myRoom.myBoundaries[3])
+	Position playerPos = player.getPosition();
+	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y - player.getVelocity().y))
 		return true;
+
+	for(int i = 0; i < myRoom.myObjects.size(); i++){
+		sf::IntRect obj = myRoom.myObjects.at(i);
+		sf::IntRect check(playerPos.x, playerPos.y - player.getVelocity().y, player.getSize().x, player.getSize().y);
+		if(obj.intersects(check))
+			return true;
+	}
 	return false;
 }
 
 bool GameLogic::detectCollisionDown(){
-	if((player.getPosition().y + player.getVelocity().y + player.getSize().y) > (myRoom.myBoundaries[1] + myRoom.myBoundaries[3]))
+	Position playerPos = player.getPosition();
+	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y + player.getVelocity().y + player.getSize().y))
 		return true;
+
+	for(int i = 0; i < myRoom.myObjects.size(); i++){
+		sf::IntRect obj = myRoom.myObjects.at(i);
+		sf::IntRect check(playerPos.x, playerPos.y + player.getVelocity().y, player.getSize().x, player.getSize().y);
+		if(obj.intersects(check))
+			return true;
+	}
+
 	return false;
 }
 
-bool GameLogic::detectCollisionLeft(){	
-	if((player.getPosition().x - player.getVelocity().x) < myRoom.myBoundaries[2])
+bool GameLogic::detectCollisionLeft(){
+	Position playerPos = player.getPosition();
+	if(!myRoom.myBoundaries.contains(playerPos.x - player.getVelocity().x, playerPos.y))
 		return true;
+
+	for(int i = 0; i < myRoom.myObjects.size(); i++){
+		sf::IntRect obj = myRoom.myObjects.at(i);
+		sf::IntRect check(playerPos.x - player.getVelocity().x, playerPos.y, player.getSize().x, player.getSize().y);
+		if(obj.intersects(check))
+			return true;
+	}
+
 	return false;
 }
 
 bool GameLogic::detectCollisionRight(){
-	if((player.getPosition().x + player.getVelocity().x + player.getSize().x) > (myRoom.myBoundaries[0] + myRoom.myBoundaries[2]))
+	Position playerPos = player.getPosition();
+	if(!myRoom.myBoundaries.contains(playerPos.x + player.getVelocity().x + player.getSize().x, playerPos.y))
 		return true;
+
+	for(int i = 0; i < myRoom.myObjects.size(); i++){
+		sf::IntRect obj = myRoom.myObjects.at(i);
+		sf::IntRect check(playerPos.x + player.getVelocity().x, playerPos.y, player.getSize().x, player.getSize().y);
+		if(obj.intersects(check))
+			return true;
+	}
+
 	return false;
 }
 
