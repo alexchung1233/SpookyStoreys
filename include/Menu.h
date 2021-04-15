@@ -17,6 +17,8 @@ class Menu
     sf::RectangleShape getDifficultyBox();
     sf::RectangleShape getExitBox();
 
+    sf::Text& getStartText();
+
 
   private:
   	void init();
@@ -26,6 +28,7 @@ class Menu
 
     sf::RectangleShape startBox;
     sf::Text startText;
+    sf::Font myFont;
 
     sf::RectangleShape difficultyBox;
     sf::RectangleShape exitBox;

@@ -8,7 +8,7 @@ class InputManager
 {
   private:
     sf::RenderWindow* App;
-    Menu menu;
+    Menu mainMenu;
 
   public:
     InputManager();
@@ -19,7 +19,7 @@ class InputManager
     void operator()(sf::RenderWindow &app, GameLogic &logic);
     void update(sf::Event& Event, float dt);
     void updateMenu(sf::Event& Event);
-    Menu getMenu();
+    Menu& getMenu();
 
 
 };

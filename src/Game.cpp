@@ -8,12 +8,14 @@ Game::Game(){
 }
 
 void Game::initVariables(){
+  
   srand(time(0));
   this-> dt = 0.f;
 }
 
 void Game::runGame()
 {
+
 	while (this->window->isOpen())
 	{
     this->updateDt();
@@ -29,7 +31,7 @@ void Game::updateDt(){
 }
 
 void Game::update(){
-  if(mthis->gameView.getManager().gameStart)
+  if(this->gameView.getManager().gameStart)
     this->gameView.update(event, dt);
   else
     this->gameView.updateMenu(event);

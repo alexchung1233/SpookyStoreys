@@ -17,12 +17,16 @@ void Menu::init(){
   startBox.setFillColor(sf::Color::White);
   startBox.setPosition(sf::Vector2f(350, 300));
 
-  // sf::Font myFont;
-  // myFont.loadFromFile("./data/Lato-Bold.ttf");
-  // startText.setString("Start");
-  // startText.setFont(myFont);
-  // startText.setColor(sf::Color::Black);
-  // startText.setPosition(sf::Vector2f(350, 300));
+  if(myFont.loadFromFile("../data/Lato-Bold.ttf"))
+    std::cout << "i load!\n";
+  startText.setString("Start");
+  startText.setFont(myFont);
+  startText.setFillColor(sf::Color::Black);
+  startText.setPosition(sf::Vector2f(350, 300));
+
+  std::cout << (void*)(&myFont);
+  std::cout << "\n";
+
 
   difficultyBox.setSize(sf::Vector2f(100, 50));
   difficultyBox.setOutlineThickness(5);
@@ -56,7 +60,6 @@ int Menu::enterPressed(){
   return itemSelected;
 }
 
-
 void Menu::boxSelected(int boxInt){
 
   if(boxInt==0){
@@ -87,6 +90,9 @@ sf::RectangleShape Menu::getExitBox(){
   return exitBox;
 }
 
+sf::Text& Menu::getStartText(){
+  return startText;
+}
 
 
 

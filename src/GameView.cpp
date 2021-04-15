@@ -68,14 +68,19 @@ void GameView::updateMenu(sf::Event& Event){
 void GameView::drawMenu(){
   this->App->clear();
 
-  Menu menu = inputManager.getMenu();
+  Menu& menu = inputManager.getMenu();
 
   this->App->draw(menu.getStartBox());
   this->App->draw(menu.getDifficultyBox());
   this->App->draw(menu.getExitBox());
+  
+  //std::cout << (void*)(menu.getStartText().getFont());
+  //this->App->draw(menu.getStartText());
+
 }
 
-InputManager GameView::getManager(){
+InputManager& GameView::getManager(){
+  std::cout << "hello!! \n";
   return inputManager;
 }
 

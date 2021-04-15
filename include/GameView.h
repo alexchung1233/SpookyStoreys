@@ -28,7 +28,7 @@ class GameView
     void updateMenu(sf::Event& Event);
     void drawMenu();
 
-    InputManager getManager();
+    InputManager& getManager();
 
     void setup();
     float myPos();

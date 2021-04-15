@@ -5,10 +5,15 @@ InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
   this->App = &app;
   this->logic = logic;
   gameStart = false;
+  std::cout << "two variable construct \n";
+
 
 }
 
 InputManager::InputManager(){
+
+  std::cout << "default construct\n";
+
 
 }
 
@@ -16,9 +21,6 @@ void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
   this->logic = logic;
-
-  std::cout << this->logic.getPlayer().getPosition().x;
-  std::cout << "\n";
 
 }
 
@@ -68,14 +70,14 @@ void InputManager::updateMenu(sf::Event& Event){
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-      menu.upPressed();
+      mainMenu.upPressed();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-      menu.downPressed();
+      mainMenu.downPressed();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-      int num = menu.enterPressed();
+      int num = mainMenu.enterPressed();
       if(num == 0){
         gameStart = true;
       }
@@ -89,6 +91,7 @@ void InputManager::updateMenu(sf::Event& Event){
 
   }
 }
-Menu InputManager::getMenu(){
-  return menu;
+
+Menu& InputManager::getMenu(){
+  return mainMenu;
 }
