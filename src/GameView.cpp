@@ -14,7 +14,7 @@ GameView::GameView(sf::RenderWindow& app){
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
-
+  inputManager(*App, logic);
 
 }
 
