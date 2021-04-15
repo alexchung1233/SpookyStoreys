@@ -4,6 +4,8 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 #include "Animation.h"
+#include "MonsterAI.h"
+
 
 class GameView
 {
@@ -17,8 +19,11 @@ class GameView
     //temporary sprite files until we know what to do with them
     sf::Sprite sprite;
     sf::Sprite sprite_player;
+    sf::Sprite sprite_monster;
     sf::Texture texture;
     sf::Texture texture_player;
+    sf::Texture texture_monster;
+    MonsterAI monsterAI;
 
     sf::Sprite sprite_animate_example;
     sf::Texture texture_animated;

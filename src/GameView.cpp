@@ -5,6 +5,7 @@
 #include <iostream>
 #include "InputManager.h"
 #include "Animation.h"
+#include "MonsterAI.h"
 
 using namespace std;
 
@@ -51,6 +52,21 @@ void GameView::setup(){
   }
 
   sprite_animate_example.setPosition(sf::Vector2f(500.f, 300.f));
+  string monster_file = "../data/Monster.png";
+  if(!texture_monster.loadFromFile(monster_file)){
+    printf("incorrect file format");
+  }
+
+  //MonsterAI monsterAI;
+  monsterAI.setPosition(400, 360);
+  sprite_monster.setTexture(texture_monster);
+  sprite_monster.setPosition(400, 360);
+  sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
+
+
+
+
+
 
   animation = Animation(texture_animated, sprite_animate_example);
   //sprite_player.setTexture(texture_player);
@@ -63,6 +79,9 @@ void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+
+  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y);
+  sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
 
   this->App->draw(sprite);
 
@@ -77,6 +96,8 @@ void GameView::update(sf::Event& Event, float dt){
 
 
 
+
+  this->App->draw(sprite_monster);
 
 
 

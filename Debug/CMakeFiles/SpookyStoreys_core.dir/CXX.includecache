@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/MonsterAI.h
+
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/MonsterAI.cpp
+MonsterAI.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/MonsterAI.h
+
