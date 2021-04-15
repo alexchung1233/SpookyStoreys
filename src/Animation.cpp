@@ -16,6 +16,7 @@ Animation::Animation(sf::Texture& textureSheet, sf::Sprite& sprite){
 
 }
 
+//plays the animation based on the delta time
 void Animation::play(float dt){
   this->timer += dt*100.0;
   if(timer >4.f){
