@@ -22,62 +22,53 @@ PlayerActor GameLogic::getPlayer(){
 }
 
 void GameLogic::upPressed(float dt){
-	if(!detectCollisionUp())
+	if(!detectCollisionUp(dt))
 		player.moveUp(dt);
 }
 
 void GameLogic::downPressed(float dt){
-	if(!detectCollisionDown())
+	if(!detectCollisionDown(dt))
 		player.moveDown(dt);
 }
 
 void GameLogic::leftPressed(float dt){
-	if(!detectCollisionLeft())
+	if(!detectCollisionLeft(dt))
 		player.moveLeft(dt);
 }
 
 void GameLogic::rightPressed(float dt){
-	if(!detectCollisionRight())
+	if(!detectCollisionRight(dt))
 		player.moveRight(dt);
 }
 
-bool GameLogic::detectCollisionUp(){
+bool GameLogic::detectCollisionUp(float dt){
 	Position playerPos = player.getPosition();
-	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y - player.getVelocity().y))
+	float movement = dt * player.getVelocity().y;
+
+	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y - movement))
 		return true;
+	
+	sf::IntRect check(playerPos.x, playerPos.y - movement, player.getSize().x, player.getSize().y);
 
 	for(int i = 0; i < myRoom.myObjects.size(); i++){
 		sf::IntRect obj = myRoom.myObjects.at(i);
-		sf::IntRect check(playerPos.x, playerPos.y - player.getVelocity().y, player.getSize().x, player.getSize().y);
 		if(obj.intersects(check))
 			return true;
 	}
 	return false;
 }
 
-bool GameLogic::detectCollisionDown(){
+bool GameLogic::detectCollisionDown(float dt){
 	Position playerPos = player.getPosition();
-	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y + player.getVelocity().y + player.getSize().y))
+	float movement = dt * player.getVelocity().y;
+
+	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y + movement + player.getSize().y))
 		return true;
+	
+	sf::IntRect check(playerPos.x, playerPos.y + movement, player.getSize().x, player.getSize().y);
 
 	for(int i = 0; i < myRoom.myObjects.size(); i++){
 		sf::IntRect obj = myRoom.myObjects.at(i);
-		sf::IntRect check(playerPos.x, playerPos.y + player.getVelocity().y, player.getSize().x, player.getSize().y);
-		if(obj.intersects(check))
-			return true;
-	}
-
-	return false;
-}
-
-bool GameLogic::detectCollisionLeft(){
-	Position playerPos = player.getPosition();
-	if(!myRoom.myBoundaries.contains(playerPos.x - player.getVelocity().x, playerPos.y))
-		return true;
-
-	for(int i = 0; i < myRoom.myObjects.size(); i++){
-		sf::IntRect obj = myRoom.myObjects.at(i);
-		sf::IntRect check(playerPos.x - player.getVelocity().x, playerPos.y, player.getSize().x, player.getSize().y);
 		if(obj.intersects(check))
 			return true;
 	}
@@ -85,14 +76,35 @@ bool GameLogic::detectCollisionLeft(){
 	return false;
 }
 
-bool GameLogic::detectCollisionRight(){
+bool GameLogic::detectCollisionLeft(float dt){
 	Position playerPos = player.getPosition();
-	if(!myRoom.myBoundaries.contains(playerPos.x + player.getVelocity().x + player.getSize().x, playerPos.y))
+	float movement = dt * player.getVelocity().x;
+
+	if(!myRoom.myBoundaries.contains(playerPos.x - movement, playerPos.y))
 		return true;
+
+	sf::IntRect check(playerPos.x - movement, playerPos.y, player.getSize().x, player.getSize().y);
 
 	for(int i = 0; i < myRoom.myObjects.size(); i++){
 		sf::IntRect obj = myRoom.myObjects.at(i);
-		sf::IntRect check(playerPos.x + player.getVelocity().x, playerPos.y, player.getSize().x, player.getSize().y);
+		if(obj.intersects(check))
+			return true;
+	}
+
+	return false;
+}
+
+bool GameLogic::detectCollisionRight(float dt){
+	Position playerPos = player.getPosition();
+	float movement = dt * player.getVelocity().x;
+
+	if(!myRoom.myBoundaries.contains(playerPos.x + movement + player.getSize().x, playerPos.y))
+		return true;
+
+	sf::IntRect check(playerPos.x + movement, playerPos.y, player.getSize().x, player.getSize().y);
+	
+	for(int i = 0; i < myRoom.myObjects.size(); i++){
+		sf::IntRect obj = myRoom.myObjects.at(i);
 		if(obj.intersects(check))
 			return true;
 	}

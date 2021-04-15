@@ -22,10 +22,10 @@ class GameLogic{
     //reutrns player object
     PlayerActor getPlayer();
 
-    bool detectCollisionUp();
-    bool detectCollisionDown();
-    bool detectCollisionLeft();
-    bool detectCollisionRight();
+    bool detectCollisionUp(float dt);
+    bool detectCollisionDown(float dt);
+    bool detectCollisionLeft(float dt);
+    bool detectCollisionRight(float dt);
 
 
     //Function for when the Up key is pressed

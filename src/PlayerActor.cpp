@@ -11,17 +11,17 @@ void PlayerActor::init(){
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
-  myVelocity.x = vector.x;
-  myVelocity.y = vector.y;
+  characterVelocity.x = vector.x;
+  characterVelocity.y = vector.y;
 }
 
 void PlayerActor::setVelocity(float x, float y){
-  myVelocity.x = x;
-  myVelocity.y = y;
+  characterVelocity.x = x;
+  characterVelocity.y = y;
 }
 
 sf::Vector2f PlayerActor::getVelocity(){
-  return myVelocity;
+  return characterVelocity;
 }
 
 void PlayerActor::move(){
