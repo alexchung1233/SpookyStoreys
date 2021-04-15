@@ -9,11 +9,10 @@ class InputManager
 {
   private:
     sf::RenderWindow* App;
-    GameLogic* logic;
 
   public:
     InputManager();
-
+    GameLogic logic;
 
     InputManager(sf::RenderWindow &app, GameLogic &logic);
     void operator()(sf::RenderWindow &app, GameLogic &logic);

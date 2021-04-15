@@ -3,7 +3,7 @@
 InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
-  this->logic = &logic;
+  this->logic = logic;
 
 }
 
@@ -32,19 +32,19 @@ void InputManager::update(sf::Event& Event, float dt){
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-      logic->upPressed(dt);
+      logic.upPressed(dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-      logic->downPressed(dt);
+      logic.downPressed(dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-      logic->leftPressed(dt);
+      logic.leftPressed(dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-      logic->rightPressed(dt);
+      logic.rightPressed(dt);
     }
   }
 
