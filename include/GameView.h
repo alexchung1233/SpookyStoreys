@@ -12,11 +12,17 @@ class GameView
     InputManager inputManager;
     sf::RenderWindow* App;
     GameLogic logic;
+    Animation animation;
+
+    //temporary sprite files until we know what to do with them
     sf::Sprite sprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
     sf::Texture texture_player;
-    Animation animation;
+
+    sf::Sprite sprite_animate_example;
+    sf::Texture texture_animated;
+
 
     void updatePlayerAnimation();
 

@@ -30,11 +30,11 @@ void GameView::setup(){
   }
 
   string player_file = "../data/protag_front.png";
-  string player_left_file = "../data/protag_left_side.png";
 
   if(!texture_player.loadFromFile(player_file)){
     printf("incorrect file format");
   }
+
 
   sprite.setTexture(texture);
 
@@ -44,7 +44,15 @@ void GameView::setup(){
   sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
   //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
-  //animation = Animation(texture_player, sprite_player);
+  string animate_sprite_file = "../data/example_sprite.png";
+
+  if(!texture_animated.loadFromFile(animate_sprite_file)){
+    printf("incorrect file format");
+  }
+
+  sprite_animate_example.setPosition(sf::Vector2f(500.f, 300.f));
+
+  animation = Animation(texture_animated, sprite_animate_example);
   //sprite_player.setTexture(texture_player);
 
 }
@@ -58,10 +66,12 @@ void GameView::update(sf::Event& Event, float dt){
 
   this->App->draw(sprite);
 
-  //this->animation.play(dt);
+  this->animation.play(dt);
   updatePlayerAnimation();
 
   this->App->draw(sprite_player);
+  this->App->draw(sprite_animate_example);
+
 
   this->logic.update(dt);
 

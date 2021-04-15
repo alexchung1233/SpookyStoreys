@@ -25,12 +25,14 @@ void Animation::play(float dt){
     }
     else{
       rectSourceSprite.left=0;
+      /*
       if(rectSourceSprite.top < 200){
         rectSourceSprite.top+= 68;
       }
       else{
         rectSourceSprite.top=0;
       }
+      */
 
 
     }
