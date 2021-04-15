@@ -14,7 +14,7 @@ InputManager::InputManager(){
 void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
-  this->logic = &logic;
+  this->logic = logic;
 
 }
 
