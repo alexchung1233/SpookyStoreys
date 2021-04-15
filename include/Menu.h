@@ -13,15 +13,16 @@ class Menu
     void downPressed();
     int enterPressed();
 
-    sf::RectangleShape getStartBox();
-    sf::RectangleShape getDifficultyBox();
-    sf::RectangleShape getExitBox();
+    sf::RectangleShape getBox(int i);
 
     sf::Text& getStartText();
 
 
   private:
   	void init();
+
+    void loadFont();
+
   	void boxSelected(int boxInt);
 
     int itemSelected;

@@ -42,8 +42,7 @@ void Game::render(){
 }
 
 void Game::initGameView(){
-  this->gameView = GameView(*window);
-  this->gameView.setup();
+  this->gameView.setup(*window);
 }
 
 void Game::initWindow(){

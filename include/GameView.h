@@ -19,10 +19,8 @@ class GameView
     sf::Texture texture_player;
 
 
-
   public:
     GameView()	{	}
-    GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
 
     void updateMenu(sf::Event& Event);
@@ -30,7 +28,7 @@ class GameView
 
     InputManager& getManager();
 
-    void setup();
+    void setup(sf::RenderWindow& app);
     float myPos();
 
   };

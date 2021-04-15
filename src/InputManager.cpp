@@ -5,15 +5,10 @@ InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
   this->App = &app;
   this->logic = logic;
   gameStart = false;
-  std::cout << "two variable construct \n";
-
 
 }
 
 InputManager::InputManager(){
-
-  std::cout << "default construct\n";
-
 
 }
 

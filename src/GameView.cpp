@@ -7,19 +7,13 @@
 
 using namespace std;
 
-
-
 //constructor takes in App
-GameView::GameView(sf::RenderWindow& app){
+void GameView::setup(sf::RenderWindow& app){
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
 
   inputManager(*App, logic);
-
-}
-
-void GameView::setup(){
 
   string test_level = "../data/bedroom_level_V2.png";
 
@@ -70,17 +64,14 @@ void GameView::drawMenu(){
 
   Menu& menu = inputManager.getMenu();
 
-  this->App->draw(menu.getStartBox());
-  this->App->draw(menu.getDifficultyBox());
-  this->App->draw(menu.getExitBox());
-  
-  //std::cout << (void*)(menu.getStartText().getFont());
-  //this->App->draw(menu.getStartText());
+  for(int i = 0; i < 3; i++)
+    this->App->draw(menu.getBox(i));
+
+  this->App->draw(menu.getStartText());
 
 }
 
 InputManager& GameView::getManager(){
-  std::cout << "hello!! \n";
   return inputManager;
 }
 
