@@ -27,7 +27,7 @@ void InputManager::update(sf::Event& Event, float dt){
     if(Event.type == sf::Event::Closed) {
       App->close();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
       App->close();
     }
@@ -89,6 +89,7 @@ void InputManager::updateMenu(sf::Event& Event){
 
       int num = mainMenu.enterPressed();
       if(num == 0){
+        logic.setDifficulty(mainMenu.getDifficulty());
         gameStart = true;
       }
       else if(num == 2){

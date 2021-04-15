@@ -18,6 +18,18 @@ PlayerActor GameLogic::getPlayer(){
   return player;
 }
 
+void GameLogic::setDifficulty(int diff){
+	if(diff == 0){
+		//set monster speed slow
+	}
+	if(diff == 1){
+		//set monster speed normal
+	}
+	if(diff == 2){
+		//set monster speed FAST
+	}
+}
+
 void GameLogic::upPressed(float dt){
 	player.moveUp(dt);
 }

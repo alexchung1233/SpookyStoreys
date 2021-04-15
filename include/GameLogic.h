@@ -7,16 +7,18 @@ class GameLogic{
   private:
     PlayerActor player;
 
-  public:
-    GameLogic();
-
     void setup();
 
     //creates player object
     void createPlayer();
 
+  public:
+    GameLogic();
+
     //reutrns player object
     PlayerActor getPlayer();
+
+    void setDifficulty(int diff);
 
     //Function for when the Up key is pressed
     void upPressed(float dt);

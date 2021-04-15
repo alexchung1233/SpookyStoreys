@@ -71,20 +71,6 @@ void Menu::toggleDifficulty(int i){
     difficultyText.setString("<\tDifficulty: EXTREME\t ");
     difficultyLevel = 2;
   }
-  
-  // std::cout << difficultyText.getString().toAnsiString();
-  // std::cout << ", ";
-  // std::cout << difficultyNormal;
-  // std::cout << "\n";
-
-
-  // sf::FloatRect boxBounds = difficultyBox.getGlobalBounds();
-  // sf::FloatRect textBounds = difficultyText.getGlobalBounds();
-
-  // sf::Vector2f myPos = sf::Vector2f(boxBounds.left + boxBounds.width/2 - textBounds.width/2,
-  //   boxBounds.top + boxBounds.height/2 - textBounds.height/2 - difficultyBox.getOutlineThickness());
-
-  // difficultyText.setPosition(myPos);
 }
 
 sf::RectangleShape& Menu::getBox(int i){
