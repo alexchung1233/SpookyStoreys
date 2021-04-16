@@ -21,6 +21,8 @@ GameView::GameView(sf::RenderWindow& app){
 
 void GameView::setup(){
 
+  inputManager(*App, logic);
+
   string test_level = "../data/bedroom_level_V2.png";
 
   if(!texture.loadFromFile(test_level)){
@@ -32,7 +34,7 @@ void GameView::setup(){
   if(!texture_player.loadFromFile(player_file)){
     printf("incorrect file format");
   }
-  
+
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
@@ -45,11 +47,11 @@ void GameView::setup(){
 
   inputManager(*App, logic);
 
-  sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
+  PlayerActor player = logic.getPlayer();
+  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
 
 }
-
 
 
 void GameView::update(sf::Event& Event, float dt){
@@ -57,7 +59,8 @@ void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   //myPos();
 
-  sprite_player.setPosition(inputManager.logic.getPlayer().getPosition().x, inputManager.logic.getPlayer().getPosition().y);
+  PlayerActor player = logic.getPlayer();
+  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   this->App->draw(sprite);
 
@@ -81,3 +84,5 @@ float GameView::myPos(){
   std::cout << "\n";
 
 }
+
+void GameView::setLogic(GameView& logic){}
