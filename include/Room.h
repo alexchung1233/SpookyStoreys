@@ -16,10 +16,14 @@ class Room
     public:
         Room();
 
-        void setUpRoom();
+        //set up a room given a file / file path
+        void setUpRoom(std::string filepath);
+        sf::IntRect getBoundaries();
+        std::vector<sf::IntRect> getObstacles();
 
+    private:
         sf::IntRect myBoundaries;
-        std::vector<sf::IntRect>myObjects;
+        std::vector<sf::IntRect> myObstacles;
 
 
 };

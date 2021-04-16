@@ -5,7 +5,9 @@
 
 GameLogic::GameLogic(){
 	setup();
-	myRoom.setUpRoom();
+
+	//set up the very first room
+	myRoom.setUpRoom("../data/room_data.txt");
 }
 
 void GameLogic::setup(){
@@ -45,13 +47,13 @@ bool GameLogic::detectCollisionUp(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().y;
 
-	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y - movement))
+	if(!myRoom.getBoundaries().contains(playerPos.x, playerPos.y - movement))
 		return true;
 	
 	sf::IntRect check(playerPos.x, playerPos.y - movement, player.getSize().x, player.getSize().y);
 
-	for(int i = 0; i < myRoom.myObjects.size(); i++){
-		sf::IntRect obj = myRoom.myObjects.at(i);
+	for(int i = 0; i < myRoom.getObstacles().size(); i++){
+		sf::IntRect obj = myRoom.getObstacles().at(i);
 		if(obj.intersects(check))
 			return true;
 	}
@@ -62,13 +64,13 @@ bool GameLogic::detectCollisionDown(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().y;
 
-	if(!myRoom.myBoundaries.contains(playerPos.x, playerPos.y + movement + player.getSize().y))
+	if(!myRoom.getBoundaries().contains(playerPos.x, playerPos.y + movement + player.getSize().y))
 		return true;
 	
 	sf::IntRect check(playerPos.x, playerPos.y + movement, player.getSize().x, player.getSize().y);
 
-	for(int i = 0; i < myRoom.myObjects.size(); i++){
-		sf::IntRect obj = myRoom.myObjects.at(i);
+	for(int i = 0; i < myRoom.getObstacles().size(); i++){
+		sf::IntRect obj = myRoom.getObstacles().at(i);
 		if(obj.intersects(check))
 			return true;
 	}
@@ -80,13 +82,13 @@ bool GameLogic::detectCollisionLeft(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().x;
 
-	if(!myRoom.myBoundaries.contains(playerPos.x - movement, playerPos.y))
+	if(!myRoom.getBoundaries().contains(playerPos.x - movement, playerPos.y))
 		return true;
 
 	sf::IntRect check(playerPos.x - movement, playerPos.y, player.getSize().x, player.getSize().y);
 
-	for(int i = 0; i < myRoom.myObjects.size(); i++){
-		sf::IntRect obj = myRoom.myObjects.at(i);
+	for(int i = 0; i < myRoom.getObstacles().size(); i++){
+		sf::IntRect obj = myRoom.getObstacles().at(i);
 		if(obj.intersects(check))
 			return true;
 	}
@@ -98,13 +100,13 @@ bool GameLogic::detectCollisionRight(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().x;
 
-	if(!myRoom.myBoundaries.contains(playerPos.x + movement + player.getSize().x, playerPos.y))
+	if(!myRoom.getBoundaries().contains(playerPos.x + movement + player.getSize().x, playerPos.y))
 		return true;
 
 	sf::IntRect check(playerPos.x + movement, playerPos.y, player.getSize().x, player.getSize().y);
 	
-	for(int i = 0; i < myRoom.myObjects.size(); i++){
-		sf::IntRect obj = myRoom.myObjects.at(i);
+	for(int i = 0; i < myRoom.getObstacles().size(); i++){
+		sf::IntRect obj = myRoom.getObstacles().at(i);
 		if(obj.intersects(check))
 			return true;
 	}
@@ -113,6 +115,6 @@ bool GameLogic::detectCollisionRight(float dt){
 }
 
 void GameLogic::setRoom(Room room){
-	this->myRoom = room;
-	myRoom.setUpRoom();
+	//this->myRoom = room;
+	//myRoom.setUpRoom();
 }

@@ -8,10 +8,10 @@ using namespace std;
 Room::Room(){
 }
 
-void Room::setUpRoom(){
+void Room::setUpRoom(std::string filepath){
 	string STRING;
 	ifstream infile;
-	infile.open ("../data/room_data.txt");
+	infile.open (filepath);
     while(!infile.eof()) // To get you all the lines.
     {
         getline(infile, STRING); // Saves the line in STRING.
@@ -31,15 +31,23 @@ void Room::setUpRoom(){
 			myBoundaries.height = stoi(result.at(4));
 		}
 		else{
-			sf::IntRect posObj;
+			sf::IntRect posObst;
 
-			posObj.left = stoi(result.at(1));
-			posObj.top = stoi(result.at(2));
-			posObj.width = stoi(result.at(3));
-			posObj.height = stoi(result.at(4));
-			myObjects.push_back( posObj );
+			posObst.left = stoi(result.at(1));
+			posObst.top = stoi(result.at(2));
+			posObst.width = stoi(result.at(3));
+			posObst.height = stoi(result.at(4));
+			myObstacles.push_back( posObst );
 		}
 
     }
 	infile.close();
+}
+
+sf::IntRect Room::getBoundaries(){
+	return myBoundaries;
+}
+
+std::vector<sf::IntRect> Room::getObstacles(){
+	return myObstacles;
 }
