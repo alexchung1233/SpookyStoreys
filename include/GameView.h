@@ -11,7 +11,6 @@ class GameView
     sf::Event Event;
     InputManager inputManager;
     sf::RenderWindow* App;
-    GameLogic logic;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
@@ -21,9 +20,8 @@ class GameView
 
   public:
     GameView()	{	}
-    GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
-    void setup();
+    void setup(sf::RenderWindow& app);
     void setLogic(GameView& logic);
     float myPos();
 

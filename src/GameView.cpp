@@ -11,17 +11,10 @@ using namespace std;
 
 
 //constructor takes in App
-GameView::GameView(sf::RenderWindow& app){
+void GameView::setup(sf::RenderWindow& app){
   this->App = &app;
   GameLogic myLogic;
-  this->logic = myLogic;
-  inputManager(*App, logic);
-
-}
-
-void GameView::setup(){
-
-  inputManager(*App, logic);
+  inputManager(*App, myLogic);
 
   string test_level = "../data/bedroom_level_V2.png";
 
@@ -43,11 +36,9 @@ void GameView::setup(){
     sprite_player.getTexture()->getSize().x * sprite_player.getScale().x,
     sprite_player.getTexture()->getSize().y * sprite_player.getScale().y);
 
-  logic.getPlayer().setSize(spriteSize);
+  inputManager.logic.getPlayer().setSize(spriteSize);
 
-  inputManager(*App, logic);
-
-  PlayerActor player = logic.getPlayer();
+  PlayerActor player = inputManager.logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
 
@@ -59,7 +50,7 @@ void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   //myPos();
 
-  PlayerActor player = logic.getPlayer();
+  PlayerActor player = inputManager.logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   this->App->draw(sprite);
