@@ -43,6 +43,8 @@ string HolyWater::interact(PlayerActor &player){
         this->setDialogue(input);
         this->resetUse();
     }
+
+    return this->getDialogue();
 }
 
 bool HolyWater::nextToPlayer(PlayerActor &player){
