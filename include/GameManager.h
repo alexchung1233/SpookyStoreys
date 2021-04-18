@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_MANAGER_H
+#define GAME_MANAGER_H
 
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
@@ -7,7 +7,7 @@
 #include <string>
 #include "GameView.h"
 
-class Game
+class GameManager
 {
 private:
 	sf::RenderWindow *window;
@@ -19,7 +19,7 @@ private:
   	GameView gameView;
 
 public:
-	Game();
+	GameManager();
 	//virtual ~Game();
 
   	void shutdownGame();

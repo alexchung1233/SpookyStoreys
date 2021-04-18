@@ -1,21 +1,21 @@
-#include "Game.h"
+#include "GameManager.h"
 #include "GameView.h"
 
 
-Game::Game(){
+GameManager::GameManager(){
   initWindow();
   initVariables();
   initGameView();
 }
 
-void Game::initVariables(){
+void GameManager::initVariables(){
   srand(time(0));
   this-> dt = 0.f;
 }
 /**
 runGame handles the adaptive gameloop
 */
-void Game::runGame()
+void GameManager::runGame()
 {
 	while (this->window->isOpen())
 	{
@@ -28,27 +28,27 @@ void Game::runGame()
 
 
 
-void Game::updateDt(){
+void GameManager::updateDt(){
   //updates the delat time
   this->dt = this->clock.restart().asSeconds();
 }
 
-void Game::update(){
+void GameManager::update(){
   //updates the current gamestate
   this->gameView.update(event, dt);
 }
 
-void Game::render(){
+void GameManager::render(){
   //handles rendering the gamestate
   this->window->display();
 }
 
-void Game::initGameView(){
+void GameManager::initGameView(){
   this->gameView = GameView(*window);
   this->gameView.setup();
 }
 
-void Game::initWindow(){
+void GameManager::initWindow(){
   std::string windowTitle = "Spooky Storeys";
 
   //creates the window object
