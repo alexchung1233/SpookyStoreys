@@ -4,17 +4,27 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 
+
 class GameView
 {
   private:
     sf::Event Event;
-    sf::RenderWindow* App;
     InputManager inputManager;
+    sf::RenderWindow* App;
+    GameLogic logic;
+    sf::Sprite sprite;
+    sf::Sprite sprite_player;
+    sf::Texture texture;
+    sf::Texture texture_player;
+
+
 
   public:
-    GameView(sf::RenderWindow &app);
-    void update(sf::Event Event);
+    GameView()	{	}
+    GameView(sf::RenderWindow& app);
+    void update(sf::Event& Event, float dt);
     void setup();
+    void setLogic(GameView& logic);
 
   };
 

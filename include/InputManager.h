@@ -1,6 +1,8 @@
 #ifndef INPUT_MANAGER_H // include guard
 #define INPUT_MANAGER_H
 #include <SFML/Graphics.hpp>
+#include "GameLogic.h"
+
 
 
 class InputManager
@@ -10,9 +12,11 @@ class InputManager
 
   public:
     InputManager();
-    InputManager(sf::RenderWindow &app);
-    void operator()(sf::RenderWindow &app);
-    void update(sf::Event Event);
+    GameLogic* logic;
+
+    InputManager(sf::RenderWindow &app, GameLogic &logic);
+    void operator()(sf::RenderWindow &app, GameLogic &logic);
+    void update(sf::Event& Event, float dt);
 
 };
 

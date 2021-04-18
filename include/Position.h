@@ -6,6 +6,6 @@ class Position
 public:
   float x;
   float y;
-  Position(float x=0.0, float y=0.0);
+  Position(float x=0.f, float y=0.f);
 };
 #endif

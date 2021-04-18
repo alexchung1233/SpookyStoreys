@@ -8,25 +8,59 @@
 using namespace std;
 
 
+
 //constructor takes in App
-GameView::GameView(sf::RenderWindow &app){
+GameView::GameView(sf::RenderWindow& app){
+  //TODO make this extend off a Process class.
   this->App = &app;
-  inputManager(*App);
-  }
+  GameLogic myLogic;
+  this->logic = myLogic;
+  inputManager(*App, logic);
+
+}
 
 void GameView::setup(){
-  sf::Texture texture;
+  //TODO data driven approach so objects aren't hard coded in
+
+  inputManager(*App, logic);
+
   string test_level = "../data/bedroom_level_V2.png";
+
   if(!texture.loadFromFile(test_level)){
     printf("incorrect file format");
   }
-  sf::Sprite sprite;
+
+  string player_file = "../data/protag_V1.png";
+
+  if(!texture_player.loadFromFile(player_file)){
+    printf("incorrect file format");
+  }
+
   sprite.setTexture(texture);
-  App->draw(sprite);
+  sprite_player.setTexture(texture_player);
+
+  PlayerActor player = logic.getPlayer();
+  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+
+  //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
+  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
+}
+
+
+void GameView::update(sf::Event& Event, float dt){
+  this->App->clear();
+  inputManager.update(Event, dt);
+
+  PlayerActor player = logic.getPlayer();
+  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+
+  this->App->draw(sprite);
+
+  this->App->draw(sprite_player);
+
 
 
 }
 
-void GameView::update(sf::Event Event){
-  inputManager.update(Event);
-}
+void GameView::setLogic(GameView& logic){}

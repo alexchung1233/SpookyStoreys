@@ -1,8 +1,9 @@
 #include "InputManager.h"
 
-InputManager::InputManager(sf::RenderWindow &app){
+InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
+  this->logic = &logic;
 
 }
 
@@ -10,13 +11,14 @@ InputManager::InputManager(){
 
 }
 
-void InputManager::operator()(sf::RenderWindow &app){
+void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
+  this->logic = &logic;
 
 }
 
-void InputManager::update(sf::Event Event){
+void InputManager::update(sf::Event& Event, float dt){
 
   while(App->pollEvent(Event))
   {
@@ -27,6 +29,22 @@ void InputManager::update(sf::Event Event){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
     {
       App->close();
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+      logic->upPressed(dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+      logic->downPressed(dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+      logic->leftPressed(dt);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+      logic->rightPressed(dt);
     }
   }
 
