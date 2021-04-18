@@ -11,6 +11,7 @@ using namespace std;
 
 //constructor takes in App
 GameView::GameView(sf::RenderWindow& app){
+  //TODO make this extend off a Process class.
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
@@ -19,6 +20,7 @@ GameView::GameView(sf::RenderWindow& app){
 }
 
 void GameView::setup(){
+  //TODO data driven approach so objects aren't hard coded in
 
   inputManager(*App, logic);
 
@@ -58,15 +60,6 @@ void GameView::update(sf::Event& Event, float dt){
   this->App->draw(sprite_player);
 
 
-
-}
-
-float GameView::myPos(){
-  std::cout << "my pos: ";
-  std::cout << inputManager.logic.getPlayer().getPosition().x;
-  std::cout << ", ";
-  std::cout << inputManager.logic.getPlayer().getPosition().y;
-  std::cout << "\n";
 
 }
 

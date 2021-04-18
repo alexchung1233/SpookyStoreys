@@ -25,7 +25,6 @@ class GameView
     void update(sf::Event& Event, float dt);
     void setup();
     void setLogic(GameView& logic);
-    float myPos();
 
   };
 

@@ -12,7 +12,7 @@ class InputManager
 
   public:
     InputManager();
-    GameLogic logic;
+    GameLogic* logic;
 
     InputManager(sf::RenderWindow &app, GameLogic &logic);
     void operator()(sf::RenderWindow &app, GameLogic &logic);
