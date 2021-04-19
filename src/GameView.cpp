@@ -51,19 +51,19 @@ void GameView::init(){
 }
 
 
+//update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
 
   PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-
-
-
-
 }
+
 
 void GameView::setLogic(GameView& logic){}
 
+
+//renders the running game
 void GameView::render(){
     this->App->clear();
     this->App->draw(sprite);
