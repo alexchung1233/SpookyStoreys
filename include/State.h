@@ -8,6 +8,7 @@ class State
 {
 protected:
   int status;
+  State* childState;
 
 public:
   enum Statuses {UNINIT, RUNNING, PAUSED, SUCCESS, FAILED, ABORTED};
@@ -33,7 +34,11 @@ public:
 
   bool isDead() {return status == SUCCESS | FAILED | ABORTED;}
 
-  int getStatus();
+  int getStatus() {return status;};
+
+  bool hasChildState() {return childState != NULL;}
+
+  State* getChildState() {return childState;}
 
 
 

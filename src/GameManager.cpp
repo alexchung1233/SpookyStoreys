@@ -39,14 +39,22 @@ void GameManager::updateDt(){
 void GameManager::update(){
   //updates the current gamestate by getting the top of the stack
   State* currentState = this->stateStack.top();
+
+  //this handles the transitioning of states from one state to another
   if(!this->stateStack.empty()){
-    //as long as the stack is not empty and the current state is running 
+    //as long as the stack is not empty and the current state is running
     //then update
     if(currentState->getStatus() == State::RUNNING){
       currentState->update(event, dt);
     }
     //if the current state is has finished then pop it off the stack
     else if(currentState->isDead()){
+      if(currentState->getStatus() == State::SUCCESS){
+        //get the next gamestate after the current state finishes
+        if(currentState->hasChildState()){
+          stateStack.push(currentState->getChildState());
+        }
+      }
       this->stateStack.pop();
     }
   }

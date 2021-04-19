@@ -14,8 +14,3 @@ State::~State(){
 void State::init(){
   this->status = RUNNING;
 }
-
-
-int State::getStatus(){
-  return this->status;
-}
