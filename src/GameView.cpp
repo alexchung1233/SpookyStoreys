@@ -64,27 +64,21 @@ void GameView::init(){
 }
 
 
+//updates the GameView's objects and GameLogic
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-  this->App->draw(sprite);
-
   this->animation.play(dt);
   updatePlayerAnimation();
 
-  this->App->draw(sprite_player);
-  this->App->draw(sprite_animate_example);
-
   this->logic.update(dt);
-
-
-
-
-
 
 }
 
+
+//temporary function to update direction of player
+//TODO: make it so it draws from a sprite sheet
 void GameView::updatePlayerAnimation(){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
@@ -116,8 +110,6 @@ void GameView::updatePlayerAnimation(){
         sprite_player.setTexture(texture_player);
         break;
   }
-
-
 }
 
 void GameView::setLogic(GameView& logic){}
@@ -125,7 +117,10 @@ void GameView::setLogic(GameView& logic){}
 void GameView::render(){
     this->App->clear();
     this->App->draw(sprite);
+
     this->App->draw(sprite_player);
+    this->App->draw(sprite_animate_example);
+
 }
 
 void GameView::pause(){}
