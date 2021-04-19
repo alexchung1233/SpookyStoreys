@@ -12,14 +12,18 @@ using namespace std;
 
 //constructor takes in App
 GameView::GameView(sf::RenderWindow& app){
+  //TODO make this extend off a Process class.
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
+  inputManager(*App, logic);
+  this->status = State::UNINIT;
 
 
 }
 
-void GameView::setup(){
+void GameView::init(){
+  //TODO data driven approach so objects aren't hard coded in
 
   inputManager(*App, logic);
 
@@ -54,16 +58,16 @@ void GameView::setup(){
 
   animation = Animation(texture_animated, sprite_animate_example);
   //sprite_player.setTexture(texture_player);
-
+  //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
+  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+  this->status = State::RUNNING;
 }
 
 
 void GameView::update(sf::Event& Event, float dt){
-  this->App->clear();
   inputManager.update(Event, dt);
   PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-
   this->App->draw(sprite);
 
   this->animation.play(dt);
@@ -71,7 +75,6 @@ void GameView::update(sf::Event& Event, float dt){
 
   this->App->draw(sprite_player);
   this->App->draw(sprite_animate_example);
-
 
   this->logic.update(dt);
 
@@ -117,11 +120,14 @@ void GameView::updatePlayerAnimation(){
 
 }
 
-float GameView::myPos(){
-  std::cout << "my pos: ";
-  //std::cout << inputManager.logic.getPlayer().getPosition().x;
-  std::cout << "\n";
+void GameView::setLogic(GameView& logic){}
 
+void GameView::render(){
+    this->App->clear();
+    this->App->draw(sprite);
+    this->App->draw(sprite_player);
 }
 
-void GameView::setLogic(GameView& logic){}
+void GameView::pause(){}
+
+void GameView::unpause(){}

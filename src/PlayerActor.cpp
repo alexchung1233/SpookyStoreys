@@ -8,6 +8,7 @@ PlayerActor::PlayerActor(){
 void PlayerActor::init(){
   position = Position(400.f, 300.f);
   characterVelocity = sf::Vector2f(0,0);
+  mySize = sf::Vector2f(48.f, 105.6f);
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
@@ -73,5 +74,19 @@ MovementStates::movementStates PlayerActor::getMovementState(){
     else if(characterVelocity.x  == 0.f && characterVelocity.y > 0.f){
       return MovementStates::MOVING_DOWN;
     }
+}
 
+void PlayerActor::setSize(sf::Vector2f size){
+  mySize.x = size.x;
+  mySize.y = size.y;
+
+}
+
+void PlayerActor::setSize(float x, float y){
+  mySize.x = x;
+  mySize.y = y;
+}
+
+sf::Vector2f PlayerActor::getSize(){
+  return mySize;
 }

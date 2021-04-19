@@ -4,13 +4,13 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 #include "Animation.h"
+#include "State.h"
 
-class GameView
+
+class GameView : public State
 {
   private:
-    sf::Event Event;
     InputManager inputManager;
-    sf::RenderWindow* App;
     GameLogic logic;
     Animation animation;
 
@@ -32,9 +32,11 @@ class GameView
     GameView()	{	}
     GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
-    void setup();
+    void init();
     void setLogic(GameView& logic);
-    float myPos();
+    void render();
+    void pause();
+    void unpause();
 
   };
 
