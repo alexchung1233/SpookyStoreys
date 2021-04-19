@@ -16,10 +16,12 @@ GameView::GameView(sf::RenderWindow& app){
   GameLogic myLogic;
   this->logic = myLogic;
   inputManager(*App, logic);
+  this->status = State::UNINIT;
+
 
 }
 
-void GameView::setup(){
+void GameView::init(){
   //TODO data driven approach so objects aren't hard coded in
 
   inputManager(*App, logic);
@@ -44,23 +46,30 @@ void GameView::setup(){
 
   //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+  this->status = State::RUNNING;
 
 }
 
 
 void GameView::update(sf::Event& Event, float dt){
-  this->App->clear();
   inputManager.update(Event, dt);
 
   PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
-  this->App->draw(sprite);
-
-  this->App->draw(sprite_player);
 
 
 
 }
 
 void GameView::setLogic(GameView& logic){}
+
+void GameView::render(){
+    this->App->clear();
+    this->App->draw(sprite);
+    this->App->draw(sprite_player);
+}
+
+void GameView::pause(){}
+
+void GameView::unpause(){}

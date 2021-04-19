@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-#include "GameView.h"
+#include <stack>
+#include "State.h"
 
 class GameManager
 {
@@ -13,21 +14,20 @@ private:
 	sf::RenderWindow *window;
 	sf::Event event;
 
-  	sf::Clock clock;
+	sf::Clock clock;
 	float dt;
-
-  	GameView gameView;
+	std::stack<State*> stateStack;
 
 public:
 	GameManager();
 	//virtual ~Game();
 
-  	void shutdownGame();
+	void shutdownGame();
 
 
-  	void initWindow();
-  	void initVariables();
-  	void initGameView();
+	void initWindow();
+	void initVariables();
+	void initStates();
 
 	//Update
 	void updateDt();
