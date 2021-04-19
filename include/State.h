@@ -32,10 +32,13 @@ public:
   //renders the state onto the winodw
   virtual void render()=0;
 
+  //checks if the state is done or not
   bool isDead() {return status == SUCCESS | FAILED | ABORTED;}
 
+  //gets the current status of the state
   int getStatus() {return status;};
 
+  //checks if the state has a child state, or essentially the next state
   bool hasChildState() {return childState != NULL;}
 
   State* getChildState() {return childState;}
