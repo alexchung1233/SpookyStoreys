@@ -5,17 +5,17 @@
 #include <iostream>
 
 
-Menu::Menu(){
-  itemSelected = 0;
-  difficultyLevel = 1;
-  init();
-}
+// Menu::Menu(){
+//   itemSelected = 0;
+//   difficultyLevel = 1;
+//   init();
+// }
 
 Menu::Menu(sf::RenderWindow& app){
   this->App = &app;
   itemSelected = 0;
   difficultyLevel = 1;
-  init();
+  this->status = State::UNINIT;
 }
 
 
@@ -39,6 +39,8 @@ void Menu::init(){
   makeText(startText, startBox, sf::Color::Black, "Start");
   makeText(difficultyText, difficultyBox, sf::Color::White, "<\tDifficulty: Normal\t>");
   makeText(exitText, exitBox, sf::Color::White, "Exit");
+
+  this->status = State::RUNNING;
 
 }
 

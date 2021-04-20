@@ -8,7 +8,7 @@ class Menu : public State
 {
 
   public:
-    Menu();
+    //Menu();
     
     Menu(sf::RenderWindow& app);
 
@@ -23,6 +23,8 @@ class Menu : public State
     sf::Text& getText(int i);
     sf::Text& getTitle();
 
+    void init();
+
     void update(sf::Event& Event, float dt);
     void render();
     void pause();
@@ -30,8 +32,6 @@ class Menu : public State
 
 
   private:
-  	void init();
-
     void makeBox(sf::RectangleShape& box, sf::Vector2f position, sf::Color color);
     void loadFont(sf::Font& font);
     void makeText(sf::Text& text, sf::RectangleShape box, sf::Color color, std::string string);
