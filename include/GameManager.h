@@ -14,36 +14,20 @@ private:
 	sf::RenderWindow *window;
 	sf::Event event;
 
-<<<<<<< HEAD:include/Game.h
-  	sf::Clock clock;
-	float dt;
-
-  	GameView gameView;
-=======
 	sf::Clock clock;
 	float dt;
 	std::stack<State*> stateStack;
->>>>>>> adding_game_states:include/GameManager.h
 
 public:
 	GameManager();
 	//virtual ~Game();
 
-<<<<<<< HEAD:include/Game.h
-  	void shutdownGame();
-
-
-  	void initWindow();
-  	void initVariables();
-  	void initGameView();
-=======
 	void shutdownGame();
 
 
 	void initWindow();
 	void initVariables();
 	void initStates();
->>>>>>> adding_game_states:include/GameManager.h
 
 	//Update
 	void updateDt();

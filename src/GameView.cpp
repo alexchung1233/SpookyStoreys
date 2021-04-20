@@ -38,7 +38,7 @@ void GameView::init(){
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
   
-  PlayerActor player = inputManager.logic.getPlayer();
+  PlayerActor player = inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
@@ -72,7 +72,7 @@ void GameView::init(){
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
 
-  PlayerActor player = inputManager.logic.getPlayer();
+  PlayerActor player = inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 }
 //>>>>>>> adding_game_states
@@ -89,20 +89,13 @@ void GameView::update(sf::Event& Event, float dt){
 //   }
 // }
 
-InputManager& GameView::getManager(){
-  return inputManager;
-}
+// InputManager& GameView::getManager(){
+//   return inputManager;
+// }
 
 //<<<<<<< HEAD
 //=======
 void GameView::setLogic(GameView& logic){}
-//>>>>>>> adding_game_states
-
-// float GameView::myPos(){
-//   std::cout << "my pos: ";
-//   std::cout << inputManager.logic.getPlayer().getPosition().x;
-//   std::cout << "\n";
-// }
 
 //renders the running game
 void GameView::render(){

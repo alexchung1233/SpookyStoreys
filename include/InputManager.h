@@ -7,7 +7,7 @@ class InputManager
 {
   private:
     sf::RenderWindow* App;
-    Menu mainMenu;
+    //Menu mainMenu;
 
   public:
     InputManager();

@@ -1,6 +1,6 @@
 #include "GameManager.h"
 #include "GameView.h"
-
+#include "Menu.h"
 
 GameManager::GameManager(){
   initWindow();
@@ -13,8 +13,9 @@ void GameManager::initVariables(){
   this-> dt = 0.f;
 
   //initial starting state
-  //this->stateStack.push(new GameView(*window));
   this->stateStack.push(new GameView(*window));
+  this->stateStack.push(new Menu(*window));
+
 }
 /**
 runGame handles the adaptive gameloop
