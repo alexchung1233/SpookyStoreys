@@ -40,6 +40,8 @@ void GameManager::updateDt(){
 
 void GameManager::update(){
   //updates the current gamestate by getting the top of the stack
+  initStates();
+
   State* currentState = this->stateStack.top();
 
   //this handles the transitioning of states from one state to another
@@ -58,7 +60,6 @@ void GameManager::update(){
         }
       }
       this->stateStack.pop();
-      initStates();
     }
   }
 }
