@@ -2,12 +2,15 @@
 #define TITLE_MENU_H
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "State.h"
 
-class Menu
+class Menu : public State
 {
 
   public:
     Menu();
+    
+    Menu(sf::RenderWindow& app);
 
     void upPressed();
     void downPressed();
@@ -19,6 +22,11 @@ class Menu
     sf::RectangleShape& getBox(int i);
     sf::Text& getText(int i);
     sf::Text& getTitle();
+
+    void update(sf::Event& Event, float dt);
+    void render();
+    void pause();
+    void unpause();
 
 
   private:

@@ -11,6 +11,14 @@ Menu::Menu(){
   init();
 }
 
+Menu::Menu(sf::RenderWindow& app){
+  this->App = &app;
+  itemSelected = 0;
+  difficultyLevel = 1;
+  init();
+}
+
+
 void Menu::init(){
   makeBox(startBox, sf::Vector2f(400, 290), sf::Color::White);
   makeBox(difficultyBox, sf::Vector2f(400, 390), sf::Color::Black);
@@ -156,3 +164,62 @@ void Menu::makeText(sf::Text& text, sf::RectangleShape box, sf::Color color, std
   text.setPosition(myPos);
 
 }
+
+void Menu::update(sf::Event& Event, float dt){
+  while(App->pollEvent(Event))
+  {
+    // Exit
+    if(Event.type == sf::Event::Closed) {
+      App->close();
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {
+      App->close();
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+      upPressed();
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+      downPressed();
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+      if(itemSelected == 1){
+        toggleDifficulty(-1);
+      }
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+      if(itemSelected == 1){
+        toggleDifficulty(1);
+      }
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+
+      int num = enterPressed();
+      if(num == 0){
+        this->status = State::SUCCESS;
+      }
+      else if(num == 2){
+        App->close();
+      }
+    }
+
+  }
+}
+
+void Menu::render(){
+  this->App->clear();
+
+  this->App->draw(getTitle());
+  for(int i = 0; i < 3; i++){
+    this->App->draw(getBox(i));
+    this->App->draw(getText(i));
+  }
+}
+
+void Menu::pause(){}
+
+void Menu::unpause(){}

@@ -13,7 +13,7 @@ void GameManager::initVariables(){
   this-> dt = 0.f;
 
   //initial starting state
-  this->stateStack.push(new GameView(*window));
+  //this->stateStack.push(new GameView(*window));
   this->stateStack.push(new Menu(*window));
 
 }
