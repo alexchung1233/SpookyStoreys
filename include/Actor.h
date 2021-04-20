@@ -7,13 +7,7 @@
 class Actor
 {
 public:
-<<<<<<< HEAD
-  Actor(int actorId) {actorId = id;}
-  Actor(){};
-  //virtual void init();
-  //virtual bool update(float deltaMs);
-  //virtual void destroy();
-=======
+
 	Actor(int actorId) {actorId = id;}
 	Actor(){};
 	//virtual void init();
@@ -24,8 +18,6 @@ public:
 	virtual void setSize(sf::Vector2f size) = 0;
 	virtual void setSize(float x, float y) = 0;
 
-
->>>>>>> adding_game_states
 
 protected:
 	Position position;
