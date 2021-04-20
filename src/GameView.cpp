@@ -47,27 +47,6 @@ void GameView::init(){
 
 }
 
-
-
-// void GameView::update(sf::Event& Event, float dt){
-//   this->App->clear();
-
-//   inputManager.update(Event, dt);
-
-//   PlayerActor player = inputManager.logic.getPlayer();
-//   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-
-//   this->App->draw(sprite);
-
-//   this->App->draw(sprite_player);
-// }
-
-// void GameView::updateMenu(sf::Event& Event){
-//   inputManager.updateMenu(Event);
-//   drawMenu();
-// }
-
-
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
@@ -75,26 +54,7 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 }
-//>>>>>>> adding_game_states
 
-// void GameView::drawMenu(){
-//   this->App->clear();
-
-//   Menu& menu = inputManager.getMenu();
-
-//   this->App->draw(menu.getTitle());
-//   for(int i = 0; i < 3; i++){
-//     this->App->draw(menu.getBox(i));
-//     this->App->draw(menu.getText(i));
-//   }
-// }
-
-// InputManager& GameView::getManager(){
-//   return inputManager;
-// }
-
-//<<<<<<< HEAD
-//=======
 void GameView::setLogic(GameView& logic){}
 
 //renders the running game

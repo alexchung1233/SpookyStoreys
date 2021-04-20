@@ -5,12 +5,6 @@
 #include <iostream>
 
 
-// Menu::Menu(){
-//   itemSelected = 0;
-//   difficultyLevel = 1;
-//   init();
-// }
-
 Menu::Menu(sf::RenderWindow& app){
   this->App = &app;
   itemSelected = 0;
@@ -81,28 +75,6 @@ void Menu::toggleDifficulty(int i){
     difficultyText.setString("<\tDifficulty: EXTREME\t ");
     difficultyLevel = 2;
   }
-}
-
-sf::RectangleShape& Menu::getBox(int i){
-  if(i == 0)
-    return startBox;
-  else if(i == 1)
-    return difficultyBox;
-  else if(i == 2)
-    return exitBox;
-}
-
-sf::Text& Menu::getText(int i){
-  if(i == 0)
-    return startText;
-  else if(i == 1)
-    return difficultyText;
-  else if(i == 2)
-    return exitText;
-}
-
-sf::Text& Menu::getTitle(){
-  return titleText;
 }
 
 void Menu::boxSelected(int boxInt){
@@ -215,11 +187,17 @@ void Menu::update(sf::Event& Event, float dt){
 void Menu::render(){
   this->App->clear();
 
-  this->App->draw(getTitle());
-  for(int i = 0; i < 3; i++){
-    this->App->draw(getBox(i));
-    this->App->draw(getText(i));
-  }
+  this->App->draw(titleText);
+
+  this->App->draw(startBox);
+  this->App->draw(startText);
+
+  this->App->draw(difficultyBox);
+  this->App->draw(difficultyText);
+
+  this->App->draw(exitBox);
+  this->App->draw(exitText);
+
 }
 
 void Menu::pause(){}

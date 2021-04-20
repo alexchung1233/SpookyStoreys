@@ -16,12 +16,7 @@ class Menu : public State
     void downPressed();
     int enterPressed();
 
-    void toggleDifficulty(int i);
     int getDifficulty();
-
-    sf::RectangleShape& getBox(int i);
-    sf::Text& getText(int i);
-    sf::Text& getTitle();
 
     void init();
 
@@ -39,6 +34,8 @@ class Menu : public State
   	void boxSelected(int boxInt);
 
     void colorSelected(sf::RectangleShape& box, sf::Text& text, bool selected);
+
+    void toggleDifficulty(int i);
 
     int itemSelected;
 
