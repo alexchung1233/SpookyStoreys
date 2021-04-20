@@ -33,7 +33,7 @@ public:
   virtual void render()=0;
 
   //checks if the state is done or not
-  bool isDead() {return status == SUCCESS | FAILED | ABORTED;}
+  bool isDead() {return status == SUCCESS | status == FAILED | status == ABORTED;}
 
   //gets the current status of the state
   int getStatus() {return status;};
