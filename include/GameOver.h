@@ -6,15 +6,28 @@
 
 class GameOver : public State
 {
-public:
-	GameOver();
+	public:
+		GameOver();
+		GameOver(sf::RenderWindow& app);
+		GameOver(sf::RenderWindow& app, std::string myMessage);
 
-  	void update(sf::Event& Event, float dt);
-	void render();
+		void init();
 
-	void pause();
+		void setMessage(std::string string);
 
-  	void unpause();
+	  	void update(sf::Event& Event, float dt);
+		void render();
+
+		void pause();
+
+	  	void unpause();
+
+	private:
+		sf::Font endFont;
+
+		sf::Text mainMessage;
+		sf::Text commandMessage;
+
 };
 
 #endif /* MY_CLASS_H */

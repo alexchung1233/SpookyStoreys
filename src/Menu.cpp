@@ -4,7 +4,6 @@
 #include <string>
 #include <iostream>
 
-
 Menu::Menu(sf::RenderWindow& app){
   this->App = &app;
   itemSelected = 0;
@@ -175,6 +174,7 @@ void Menu::update(sf::Event& Event, float dt){
       int num = enterPressed();
       if(num == 0){
         this->status = State::SUCCESS;
+        childState = new GameView(*App);
       }
       else if(num == 2){
         App->close();

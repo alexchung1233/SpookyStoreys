@@ -7,6 +7,14 @@
 
 using namespace std;
 
+
+GameView::GameView(){
+  //TODO make this extend off a Process class.
+  GameLogic myLogic;
+  this->logic = myLogic;
+  this->status = State::UNINIT;
+
+}
 //constructor takes in App
 GameView::GameView(sf::RenderWindow& app){
   //TODO make this extend off a Process class.
@@ -53,6 +61,15 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+
+  if(inputManager.getPlayState() == 1){
+    this->status = State::SUCCESS;
+    childState = new GameOver(*App, "You Win!");
+  }
+  else if(inputManager.getPlayState() == 2){
+    this->status = State::SUCCESS;
+    childState = new GameOver(*App, "You Lose...");
+  }
 }
 
 void GameView::setLogic(GameView& logic){}
