@@ -3,15 +3,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
+#include "State.h"
 
 
 
-class GameView
+class GameView : public State
 {
   private:
-    sf::Event Event;
     InputManager inputManager;
-    sf::RenderWindow* App;
     GameLogic logic;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
@@ -21,15 +20,25 @@ class GameView
 
   public:
     GameView()	{	}
+// <<<<<<< HEAD
+//     void update(sf::Event& Event, float dt);
+
+//     void updateMenu(sf::Event& Event);
+//     void drawMenu();
+
+//     InputManager& getManager();
+
+//     void setup(sf::RenderWindow& app);
+//     float myPos();
+// =======
+    GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
-
-    void updateMenu(sf::Event& Event);
-    void drawMenu();
-
-    InputManager& getManager();
-
-    void setup(sf::RenderWindow& app);
-    float myPos();
+    void init();
+    void setLogic(GameView& logic);
+    void render();
+    void pause();
+    void unpause();
+//>>>>>>> adding_game_states
 
   };
 

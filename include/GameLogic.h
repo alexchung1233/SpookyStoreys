@@ -7,11 +7,18 @@ class GameLogic{
   private:
     PlayerActor player;
 
+<<<<<<< HEAD
+=======
+  public:
+    GameLogic();
+
+>>>>>>> adding_game_states
     void setup();
 
     //creates player object
     void createPlayer();
 
+<<<<<<< HEAD
   public:
     GameLogic();
 
@@ -20,6 +27,11 @@ class GameLogic{
 
     void setDifficulty(int diff);
 
+=======
+    //reutrns player object
+    PlayerActor getPlayer();
+
+>>>>>>> adding_game_states
     //Function for when the Up key is pressed
     void upPressed(float dt);
 
