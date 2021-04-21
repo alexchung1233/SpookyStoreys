@@ -174,7 +174,7 @@ void Menu::update(sf::Event& Event, float dt){
       int num = enterPressed();
       if(num == 0){
         this->status = State::SUCCESS;
-        childState = new GameView(*App);
+        this->childState = new GameView(*App);
       }
       else if(num == 2){
         App->close();

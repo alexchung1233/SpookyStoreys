@@ -33,7 +33,7 @@ void GameOver::init(){
 	mainMessage.setFillColor(sf::Color(200, 0, 0));
 
 	sf::FloatRect textBounds = mainMessage.getGlobalBounds();
-	
+
 	mainMessage.setPosition(sf::Vector2f(400 - textBounds.width/2, 100));
 
 	replayMessage.setFont(endFont);
@@ -54,7 +54,7 @@ void GameOver::makeText(sf::Text& text, std::string string, float yPos){
 
 	sf::FloatRect textBounds = text.getGlobalBounds();
 
-	text.setPosition(sf::Vector2f(400 - textBounds.width/2, yPos));	
+	text.setPosition(sf::Vector2f(400 - textBounds.width/2, yPos));
 }
 
 
@@ -73,12 +73,12 @@ void GameOver::update(sf::Event& Event, float dt){
 	    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	    {
 	    	this->status = State::SUCCESS;
-			childState = new GameView(*App);
+			this->childState = new GameView(*App);
 	    }
 	    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 	    {
 	    	this->status = State::SUCCESS;
-			childState = new Menu(*App);
+			this->childState = new Menu(*App);
 	    }
 
     }
