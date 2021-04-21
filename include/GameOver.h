@@ -1,7 +1,6 @@
 #ifndef TITLE_GAME_OVER_H // include guard
 #define TITLE_GAME_OVER_H
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "State.h"
 
 class GameOver : public State

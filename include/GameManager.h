@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-#include <stack>
+#include <queue>
 #include "State.h"
 
 class GameManager
@@ -16,7 +16,7 @@ private:
 
 	sf::Clock clock;
 	float dt;
-	std::stack<State*> stateStack;
+	std::queue<State*> stateQueue;
 
 public:
 	GameManager();

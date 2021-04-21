@@ -1,7 +1,6 @@
 #ifndef STATE_H // include guard
 #define STATE_H
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 //represents a view state
 class State
@@ -12,7 +11,6 @@ protected:
 
 public:
   enum Statuses {UNINIT, RUNNING, PAUSED, SUCCESS, FAILED, ABORTED};
-  //fix this issue
   State() {};
   State(sf::RenderWindow& app);
   virtual ~State();
