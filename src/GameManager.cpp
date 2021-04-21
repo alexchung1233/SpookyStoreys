@@ -1,5 +1,7 @@
 #include "GameManager.h"
 #include "GameView.h"
+#include "Menu.h"
+#include "GameOver.h"
 
 
 GameManager::GameManager(){
@@ -13,7 +15,8 @@ void GameManager::initVariables(){
   this-> dt = 0.f;
 
   //initial starting state
-  this->stateStack.push(new GameView(*window));
+  this->stateStack.push(new Menu(*window));
+
 }
 /**
 runGame handles the adaptive gameloop
@@ -22,6 +25,7 @@ void GameManager::runGame()
 {
 	while (this->window->isOpen())
 	{
+    this->initStates();
     this->updateDt();
     this->update();
     this->render();
@@ -38,6 +42,8 @@ void GameManager::updateDt(){
 
 void GameManager::update(){
   //updates the current gamestate by getting the top of the stack
+
+
   State* currentState = this->stateStack.top();
 
   //this handles the transitioning of states from one state to another
@@ -49,13 +55,16 @@ void GameManager::update(){
     }
     //if the current state is has finished then pop it off the stack
     else if(currentState->isDead()){
+      this->stateStack.pop();
       if(currentState->getStatus() == State::SUCCESS){
         //get the next gamestate after the current state finishes
         if(currentState->hasChildState()){
+
           stateStack.push(currentState->getChildState());
+          initStates();
+
         }
       }
-      this->stateStack.pop();
     }
   }
 }
@@ -63,9 +72,12 @@ void GameManager::update(){
 void GameManager::render(){
   //handles rendering the gamestate
   this->window->display();
+
   if(!this->stateStack.empty()){
     this->stateStack.top()->render();
   }
+
+
 }
 
 void GameManager::initStates(){

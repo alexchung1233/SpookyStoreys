@@ -7,13 +7,13 @@ class GameLogic{
   private:
     PlayerActor player;
 
-  public:
-    GameLogic();
-
     void setup();
 
     //creates player object
     void createPlayer();
+
+  public:
+    GameLogic();
 
     //reutrns player object
     PlayerActor getPlayer();

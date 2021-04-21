@@ -4,6 +4,8 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 #include "State.h"
+#include "GameOver.h"
+
 
 
 class GameView : public State
@@ -16,10 +18,9 @@ class GameView : public State
     sf::Texture texture;
     sf::Texture texture_player;
 
-
-
   public:
-    GameView()	{	}
+    GameView();
+
     GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
     void init();
