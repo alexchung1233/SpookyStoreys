@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "State.h"
+#include "GameView.h"
+
 
 class Menu : public State
 {

@@ -7,7 +7,7 @@ class InputManager
 {
   private:
     sf::RenderWindow* App;
-    //Menu mainMenu;
+    int playState;
 
   public:
     InputManager();
@@ -15,6 +15,7 @@ class InputManager
     InputManager(sf::RenderWindow &app, GameLogic &logic);
     void operator()(sf::RenderWindow &app, GameLogic &logic);
     void update(sf::Event& Event, float dt);
+    int getPlayState();
 
 };
 
