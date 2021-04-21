@@ -1,7 +1,6 @@
 #ifndef TITLE_MENU_H // include guard
 #define TITLE_MENU_H
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include "State.h"
 #include "GameView.h"
 
@@ -11,7 +10,7 @@ class Menu : public State
 
   public:
     //Menu();
-    
+
     Menu(sf::RenderWindow& app);
 
     void upPressed();

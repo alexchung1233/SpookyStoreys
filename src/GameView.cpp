@@ -45,8 +45,8 @@ void GameView::init(){
 
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
-  
-  PlayerActor player = inputManager.logic->getPlayer();
+
+  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
@@ -59,7 +59,7 @@ void GameView::init(){
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
 
-  PlayerActor player = inputManager.logic->getPlayer();
+  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   if(inputManager.getPlayState() == 1){

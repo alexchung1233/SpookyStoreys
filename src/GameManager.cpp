@@ -15,8 +15,6 @@ void GameManager::initVariables(){
   this-> dt = 0.f;
 
   //initial starting state
-  //this->stateStack.push(new GameOver(*window));
-  //this->stateStack.push(new GameView(*window));
   this->stateStack.push(new Menu(*window));
 
 }
@@ -27,6 +25,7 @@ void GameManager::runGame()
 {
 	while (this->window->isOpen())
 	{
+    this->initStates();
     this->updateDt();
     this->update();
     this->render();
@@ -43,7 +42,6 @@ void GameManager::updateDt(){
 
 void GameManager::update(){
   //updates the current gamestate by getting the top of the stack
-  initStates();
 
 
   State* currentState = this->stateStack.top();
