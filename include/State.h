@@ -8,7 +8,7 @@ class State
 {
 protected:
   int status;
-  State* childState;
+  State* childState = NULL;
 
 public:
   enum Statuses {UNINIT, RUNNING, PAUSED, SUCCESS, FAILED, ABORTED};
