@@ -13,8 +13,6 @@ class GameOver : public State
 
 		void init();
 
-		void setMessage(std::string string);
-
 	  	void update(sf::Event& Event, float dt);
 		void render();
 
@@ -23,10 +21,12 @@ class GameOver : public State
 	  	void unpause();
 
 	private:
+		void makeText(sf::Text& text, std::string string, float yPos);
+
 		sf::Font endFont;
 
 		sf::Text mainMessage;
-		sf::Text commandMessage;
+		sf::Text replayMessage, menuMessage, exitMessage;
 
 };
 

@@ -36,20 +36,27 @@ void GameOver::init(){
 	
 	mainMessage.setPosition(sf::Vector2f(400 - textBounds.width/2, 100));
 
-	commandMessage.setFont(endFont);
-	commandMessage.setString("Hit R to play again\nHit M for main menu\nHit ESC to exit");
-	commandMessage.setCharacterSize(40);
-	commandMessage.setFillColor(sf::Color(255, 255, 255));
+	replayMessage.setFont(endFont);
+	menuMessage.setFont(endFont);
+	exitMessage.setFont(endFont);
 
-	textBounds = commandMessage.getGlobalBounds();
 
-	commandMessage.setPosition(sf::Vector2f(400 - textBounds.width/2, 300));	
+	makeText(replayMessage, "Hit R to play again", 300);
+	makeText(menuMessage, "Hit M for the main menu", 350);
+	makeText(exitMessage, "Hit ESC to exit", 400);
 
 }
 
-void GameOver::setMessage(std::string myText){
-	mainMessage.setString(myText);
+void GameOver::makeText(sf::Text& text, std::string string, float yPos){
+	text.setString(string);
+	text.setCharacterSize(40);
+	text.setFillColor(sf::Color(255, 255, 255));
+
+	sf::FloatRect textBounds = text.getGlobalBounds();
+
+	text.setPosition(sf::Vector2f(400 - textBounds.width/2, yPos));	
 }
+
 
 void GameOver::update(sf::Event& Event, float dt){
 
@@ -81,8 +88,9 @@ void GameOver::update(sf::Event& Event, float dt){
 void GameOver::render(){
 	this->App->clear();
 	this->App->draw(mainMessage);
-	this->App->draw(commandMessage);
-
+	this->App->draw(replayMessage);
+	this->App->draw(menuMessage);
+	this->App->draw(exitMessage);
 }
 
 void GameOver::pause(){
