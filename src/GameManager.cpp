@@ -25,6 +25,7 @@ void GameManager::runGame()
 {
 	while (this->window->isOpen())
 	{
+    initStates();
     this->updateDt();
     this->update();
     this->render();
@@ -59,7 +60,6 @@ void GameManager::update(){
         if(currentState->hasChildState()){
 
           stateQueue.push(currentState->getChildState());
-          this->initStates();
 
         }
       }
