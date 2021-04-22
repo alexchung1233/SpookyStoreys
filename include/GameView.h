@@ -3,28 +3,31 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
+#include "State.h"
+#include "GameOver.h"
 
 
-class GameView
+
+class GameView : public State
 {
   private:
-    sf::Event Event;
     InputManager inputManager;
-    sf::RenderWindow* App;
     GameLogic logic;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
     sf::Texture texture_player;
 
-
-
   public:
-    GameView()	{	}
+    GameView();
+
     GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
-    void setup();
+    void init();
     void setLogic(GameView& logic);
+    void render();
+    void pause();
+    void unpause();
 
   };
 
