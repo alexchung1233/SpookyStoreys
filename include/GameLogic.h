@@ -2,6 +2,8 @@
 #include <iostream>
 #include "PlayerActor.h"
 #include "Room.h"
+#include "HolyWater.h"
+
 
 
 class GameLogic{
@@ -9,6 +11,7 @@ class GameLogic{
   private:
     PlayerActor player;
     Room myRoom;
+    HolyWater water;
 
 
   public:
@@ -18,15 +21,19 @@ class GameLogic{
 
     //creates player object
     void createPlayer();
+    void createWater();
 
     //reutrns player object
     PlayerActor getPlayer();
+    HolyWater getWater();
 
     bool detectCollisionUp(float dt);
     bool detectCollisionDown(float dt);
     bool detectCollisionLeft(float dt);
     bool detectCollisionRight(float dt);
 
+
+    void EPressed();
 
     //Function for when the Up key is pressed
     void upPressed(float dt);

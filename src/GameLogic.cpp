@@ -1,5 +1,6 @@
 #include "GameLogic.h"
 #include "PlayerActor.h"
+#include "HolyWater.h"
 #include <iostream>
 
 
@@ -12,6 +13,7 @@ GameLogic::GameLogic(){
 
 void GameLogic::setup(){
 	createPlayer();
+	createWater();
 }
 
 void GameLogic::createPlayer(){
@@ -19,8 +21,21 @@ void GameLogic::createPlayer(){
 	player.init();
 }
 
+void GameLogic::createWater(){
+	water = HolyWater();
+	water.init();
+}
+
 PlayerActor GameLogic::getPlayer(){
   return player;
+}
+
+HolyWater GameLogic::getWater(){
+	return water;
+}
+
+void GameLogic::EPressed(){
+	cout <<  water.interact(player);
 }
 
 void GameLogic::upPressed(float dt){

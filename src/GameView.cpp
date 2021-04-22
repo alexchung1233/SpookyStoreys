@@ -28,8 +28,16 @@ void GameView::setup(sf::RenderWindow& app){
     printf("incorrect file format");
   }
 
+  string holywater_file = "../data/holy_water.png";
+
+  if(!texture_water.loadFromFile(holywater_file)){
+    printf("incorrect file format");
+  }
+
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
+  sprite_holywater.setTexture(texture_water);
+  sprite_holywater.setPosition(sf::Vector2f(479.f, 152.f));
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
   const sf::Vector2f spriteSize(
@@ -64,6 +72,7 @@ void GameView::update(sf::Event& Event, float dt){
   // this->App->draw(rectangle);
 
   this->App->draw(sprite_player);
+  this->App->draw(sprite_holywater);
 
 }
 

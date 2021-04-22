@@ -46,6 +46,9 @@ void InputManager::update(sf::Event& Event, float dt){
     {
       logic.rightPressed(dt);
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
+      logic.EPressed();
+    }
   }
 
 }

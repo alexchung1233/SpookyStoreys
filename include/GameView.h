@@ -13,8 +13,10 @@ class GameView
     sf::RenderWindow* App;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
+    sf::Sprite sprite_holywater;
     sf::Texture texture;
     sf::Texture texture_player;
+    sf::Texture texture_water;
 
 
 

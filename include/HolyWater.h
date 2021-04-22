@@ -3,9 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>  
 #include "ItemActor.h"
-#include "Position.h"
-#include "Actor.h"
-#include "PlayerActor.h"
+
 
 
 
@@ -24,6 +22,10 @@ class HolyWater : public ItemActor {
         int getHealth();
         void useWater();
         void resetUse();
+
+        sf::Vector2f getSize();
+        void setSize(sf::Vector2f size);
+        void setSize(float x, float y);
     protected:
         PlayerActor *player;
         bool nextToPlayer(PlayerActor &player);
