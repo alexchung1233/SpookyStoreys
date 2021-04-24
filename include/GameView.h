@@ -23,9 +23,7 @@ class GameView : public State
     sf::Sprite sprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
-    sf::Texture texture_player;
 
-    sf::Sprite sprite_animate_example;
     sf::Texture player_sprite_sheet;
 
 

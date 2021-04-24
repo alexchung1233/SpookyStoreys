@@ -19,6 +19,7 @@ class CharacterActor : public Actor {
 
    protected:
       sf::Vector2f characterVelocity;
+      sf::Vector2f direction;
 
 
    private:

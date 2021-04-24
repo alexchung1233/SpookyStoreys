@@ -37,12 +37,6 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  string player_file = "../data/protag_front.png";
-
-  if(!texture_player.loadFromFile(player_file)){
-    printf("incorrect file format");
-  }
-
 
   sprite.setTexture(texture);
 
@@ -56,7 +50,6 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  sprite_animate_example.setPosition(sf::Vector2f(500.f, 300.f));
 
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
@@ -72,8 +65,8 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   updatePlayerAnimation(dt);
-  //player_anim_left.play(dt);
-  this->logic.update(dt);
+  //this->logic.update(dt);
+
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Win!");
@@ -86,29 +79,27 @@ void GameView::update(sf::Event& Event, float dt){
 
 
 //temporary function to update direction of player
-//TODO: make it so it draws from a sprite sheet
 void GameView::updatePlayerAnimation(float dt){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
 
+/*
     case MovementStates::IDLE:
-      this->player_anim_left.play(dt);
+      this->player_anim_down.play(dt);
 
       break;
 
-
+*/
     case MovementStates::MOVING_LEFT:
       this->player_anim_left.play(dt);
       break;
+
+
+
 /*
     case MovementStates::MOVING_RIGHT:
-      if(!texture_player.loadFromFile("../data/protag_right_side.png")){
-        printf("incorrect file format");
-      }
-      sprite_player.setTexture(texture_player);
       break;
-      */
-
+*/
 
     case MovementStates::MOVING_UP:
       this->player_anim_up.play(dt);
@@ -129,7 +120,6 @@ void GameView::render(){
     this->App->draw(sprite);
 
     this->App->draw(sprite_player);
-    this->App->draw(sprite_animate_example);
 
 }
 
