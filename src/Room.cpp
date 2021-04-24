@@ -49,9 +49,13 @@ void Room::setUpRoom(std::string roomName){
 			posObst.height = stoi(result.at(4));
 			myObstacles.push_back( posObst );
 		}
-		else if (!result.at(0).find("DOOR")){
+		else if (!result.at(0).find("DOOR_1")){
 			for(int i = 1; i < result.size(); i++)
-				myDoor.push_back( result.at(i) );
+				myDoor1.push_back( result.at(i) );
+		}
+		else if (!result.at(0).find("DOOR_2")){
+			for(int i = 1; i < result.size(); i++)
+				myDoor2.push_back( result.at(i) );
 		}
 		
     }

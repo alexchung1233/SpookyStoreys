@@ -63,7 +63,7 @@ bool GameLogic::detectCollisionUp(float dt){
 
 	if(!myRoom.getBoundaries().contains(playerPos.x, playerPos.y - movement))
 		return true;
-	
+
 	return false;
 }
 
@@ -138,17 +138,32 @@ void GameLogic::setRoom(Room room){
 }
 
 bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
-	for(int i = 0; i < myRoom.myDoor.size(); i++){
+	for(int i = 0; i < myRoom.myDoor1.size(); i++){
 		sf::IntRect doorBoundaries;
 
-		doorBoundaries.left = stoi(myRoom.myDoor.at(0));
-		doorBoundaries.top = stoi(myRoom.myDoor.at(1));
-		doorBoundaries.width = stoi(myRoom.myDoor.at(2));
-		doorBoundaries.height = stoi(myRoom.myDoor.at(3));
+		doorBoundaries.left = stoi(myRoom.myDoor1.at(0));
+		doorBoundaries.top = stoi(myRoom.myDoor1.at(1));
+		doorBoundaries.width = stoi(myRoom.myDoor1.at(2));
+		doorBoundaries.height = stoi(myRoom.myDoor1.at(3));
 
 		if(doorBoundaries.intersects(possiblePlayerPosition)){
-			this->levelManager->setRoom(myRoom.myDoor.at(4));
-			player.setPosition(stoi(myRoom.myDoor.at(5)), stoi(myRoom.myDoor.at(6)));
+			this->levelManager->setRoom(myRoom.myDoor1.at(4));
+			player.setPosition(stoi(myRoom.myDoor1.at(5)), stoi(myRoom.myDoor1.at(6)));
+			setRoom(this->levelManager->getCurrentRoom());
+			return true;
+		}
+	}
+	for(int i = 0; i < myRoom.myDoor2.size(); i++){
+		sf::IntRect doorBoundaries;
+
+		doorBoundaries.left = stoi(myRoom.myDoor2.at(0));
+		doorBoundaries.top = stoi(myRoom.myDoor2.at(1));
+		doorBoundaries.width = stoi(myRoom.myDoor2.at(2));
+		doorBoundaries.height = stoi(myRoom.myDoor2.at(3));
+
+		if(doorBoundaries.intersects(possiblePlayerPosition)){
+			this->levelManager->setRoom(myRoom.myDoor2.at(4));
+			player.setPosition(stoi(myRoom.myDoor2.at(5)), stoi(myRoom.myDoor2.at(6)));
 			setRoom(this->levelManager->getCurrentRoom());
 			return true;
 		}
