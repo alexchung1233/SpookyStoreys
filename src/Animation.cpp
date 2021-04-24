@@ -1,16 +1,23 @@
 #include "Animation.h"
 #include <SFML/Graphics.hpp>
 
-Animation::Animation(sf::Texture& textureSheet, sf::Sprite& sprite){
-  float left = 3;
-  float top = 3;
-  float width = 74;
-  float height = 68;
+Animation::Animation(
+  sf::Texture& textureSheet, sf::Sprite& sprite, float width, float height,
+  float endX, float endY, float startLeft, float startTop){
+
+  this-> startLeft = startLeft;
+  this-> startTop = startTop;
+  this->endX = endX;
+  this->endY = endY;
+  this->width = width;
+  this->height = height;
   this->textureSheet = &textureSheet;
   this->sprite = &sprite;
+
   //resets the sprite texture
   this->sprite->setTexture(textureSheet,true);
-  rectSourceSprite = sf::IntRect(left, top, width, height);
+  rectSourceSprite = sf::IntRect(this->startLeft, this->startTop, this->width, this->height);
+
   //sets the texture rectangle
   this->sprite->setTextureRect(this->rectSourceSprite);
 
@@ -19,13 +26,13 @@ Animation::Animation(sf::Texture& textureSheet, sf::Sprite& sprite){
 //plays the animation based on the delta time
 void Animation::play(float dt){
   this->timer += dt*100.0;
-  if(timer >4.f){
+  if(timer >7.5f){
     timer =0.f;
-    if(rectSourceSprite.left < 400){
-      rectSourceSprite.left+= 74;
+    if(rectSourceSprite.left < endX){
+      rectSourceSprite.left+= width;
     }
     else{
-      rectSourceSprite.left=0;
+      rectSourceSprite.left=startLeft;
       /*
       if(rectSourceSprite.top < 200){
         rectSourceSprite.top+= 68;

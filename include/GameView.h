@@ -14,7 +14,10 @@ class GameView : public State
   private:
     InputManager inputManager;
     GameLogic logic;
-    Animation animation;
+    Animation player_anim_down;
+    Animation player_anim_up;
+    Animation player_anim_left;
+    Animation player_anim_right;
 
     //temporary sprite files until we know what to do with them
     sf::Sprite sprite;
@@ -23,10 +26,10 @@ class GameView : public State
     sf::Texture texture_player;
 
     sf::Sprite sprite_animate_example;
-    sf::Texture texture_animated;
+    sf::Texture player_sprite_sheet;
 
 
-    void updatePlayerAnimation();
+    void updatePlayerAnimation(float dt);
 
 
 

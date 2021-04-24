@@ -33,7 +33,6 @@ void GameView::init(){
   inputManager(*App, logic);
 
   string test_level = "../data/bedroom_level_V2.png";
-
   if(!texture.loadFromFile(test_level)){
     printf("incorrect file format");
   }
@@ -51,18 +50,18 @@ void GameView::init(){
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
-  string animate_sprite_file = "../data/example_sprite.png";
+  string animate_sprite_file = "../data/Protag_Spritesheet.png";
 
-  if(!texture_animated.loadFromFile(animate_sprite_file)){
+  if(!player_sprite_sheet.loadFromFile(animate_sprite_file)){
     printf("incorrect file format");
   }
 
   sprite_animate_example.setPosition(sf::Vector2f(500.f, 300.f));
 
-  animation = Animation(texture_animated, sprite_animate_example);
-  
+  player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
+  player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
+  player_anim_left = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 214);
 
-  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
   this->status = State::RUNNING;
 }
 
@@ -72,8 +71,8 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-  this->animation.play(dt);
-  updatePlayerAnimation();
+  updatePlayerAnimation(dt);
+  //player_anim_left.play(dt);
   this->logic.update(dt);
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
@@ -83,42 +82,42 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...");
   }
-
 }
 
 
 //temporary function to update direction of player
 //TODO: make it so it draws from a sprite sheet
-void GameView::updatePlayerAnimation(){
+void GameView::updatePlayerAnimation(float dt){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
+
     case MovementStates::IDLE:
-      sprite_player.setTexture(texture_player);
+      this->player_anim_left.play(dt);
+
       break;
+
+
     case MovementStates::MOVING_LEFT:
-      if(!texture_player.loadFromFile("../data/protag_left_side.png")){
-        printf("incorrect file format");
-      }
-      sprite_player.setTexture(texture_player);
+      this->player_anim_left.play(dt);
       break;
+/*
     case MovementStates::MOVING_RIGHT:
       if(!texture_player.loadFromFile("../data/protag_right_side.png")){
         printf("incorrect file format");
       }
       sprite_player.setTexture(texture_player);
       break;
+      */
+
+
     case MovementStates::MOVING_UP:
-      if(!texture_player.loadFromFile("../data/protag_behind.png")){
-        printf("incorrect file format");
-      }
-      sprite_player.setTexture(texture_player);
+      this->player_anim_up.play(dt);
       break;
+
     case MovementStates::MOVING_DOWN:
-        if(!texture_player.loadFromFile("../data/protag_front.png")){
-          printf("incorrect file format");
-        }
-        sprite_player.setTexture(texture_player);
-        break;
+      this->player_anim_down.play(dt);
+      break;
+
       }
 }
 

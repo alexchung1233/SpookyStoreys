@@ -10,10 +10,18 @@ class Animation
     sf::Sprite* sprite;
     sf::IntRect rectSourceSprite;
     float timer;
+    float width;
+    float height;
+    float endX;
+    float endY;
+    float startTop;
+    float startLeft;
 
   public:
     Animation(){}
-    Animation(sf::Texture& textureSheet, sf::Sprite& sprite);
+    Animation(
+      sf::Texture& textureSheet, sf::Sprite& sprite, float width, float height,
+      float endX, float endY, float startLeft, float startTop);
     void play(float dt);
 
 };
