@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include "Animation.h"
 #include "State.h"
+#include "GameOver.h"
+
 
 
 class GameView : public State
@@ -29,7 +31,8 @@ class GameView : public State
 
 
   public:
-    GameView()	{	}
+    GameView();
+
     GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
     void init();

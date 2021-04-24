@@ -7,6 +7,7 @@
 class Actor
 {
 public:
+
 	Actor(int actorId) {actorId = id;}
 	Actor(){};
 	//virtual void init();
@@ -16,7 +17,6 @@ public:
 	virtual sf::Vector2f getSize() = 0;
 	virtual void setSize(sf::Vector2f size) = 0;
 	virtual void setSize(float x, float y) = 0;
-
 
 
 protected:

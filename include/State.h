@@ -1,17 +1,16 @@
 #ifndef STATE_H // include guard
 #define STATE_H
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 //represents a view state
 class State
 {
 protected:
   int status;
+  State* childState = NULL;
 
 public:
   enum Statuses {UNINIT, RUNNING, PAUSED, SUCCESS, FAILED, ABORTED};
-  //fix this issue
   State() {};
   State(sf::RenderWindow& app);
   virtual ~State();
@@ -31,9 +30,16 @@ public:
   //renders the state onto the winodw
   virtual void render()=0;
 
-  bool isDead() {return status == SUCCESS | FAILED | ABORTED;}
+  //checks if the state is done or not
+  bool isDead() {return status == SUCCESS | status == FAILED | status == ABORTED;}
 
-  int getStatus();
+  //gets the current status of the state
+  int getStatus() {return status;};
+
+  //checks if the state has a child state, or essentially the next state
+  bool hasChildState() {return childState != NULL;}
+
+  State* getChildState() {return childState;}
 
 
 
