@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "Door.h"
+
 
 
 class Room
@@ -22,18 +24,17 @@ class Room
         sf::IntRect getBoundaries();
         std::vector<sf::IntRect> getObstacles();
         sf::Texture getTexture();
+        std::vector<Door> getDoors();
+
         std::string myRoomName;
-        std::vector<std::string> myDoor1;
-        std::vector<std::string> myDoor2;
-
-
-
 
     private:
     	sf::Texture levelTexture;
 
         sf::IntRect myBoundaries;
         std::vector<sf::IntRect> myObstacles;
+        std::vector<Door> myDoors;
+
 
 
 };

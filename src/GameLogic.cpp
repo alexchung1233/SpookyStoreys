@@ -138,35 +138,17 @@ void GameLogic::setRoom(Room room){
 }
 
 bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
-	for(int i = 0; i < myRoom.myDoor1.size(); i++){
-		sf::IntRect doorBoundaries;
+	std::vector<Door> doors = myRoom.getDoors();
+	for(int i = 0; i < doors.size(); i++){
+		Door checkDoor = doors.at(i);
 
-		doorBoundaries.left = stoi(myRoom.myDoor1.at(0));
-		doorBoundaries.top = stoi(myRoom.myDoor1.at(1));
-		doorBoundaries.width = stoi(myRoom.myDoor1.at(2));
-		doorBoundaries.height = stoi(myRoom.myDoor1.at(3));
-
-		if(doorBoundaries.intersects(possiblePlayerPosition)){
-			this->levelManager->setRoom(myRoom.myDoor1.at(4));
-			player.setPosition(stoi(myRoom.myDoor1.at(5)), stoi(myRoom.myDoor1.at(6)));
+		if(checkDoor.getDoorBoundaries().intersects(possiblePlayerPosition)){
+			this->levelManager->setRoom(checkDoor.getNextRoom());
+			player.setPosition(checkDoor.getNewPosition().x, checkDoor.getNewPosition().y);
 			setRoom(this->levelManager->getCurrentRoom());
 			return true;
 		}
 	}
-	for(int i = 0; i < myRoom.myDoor2.size(); i++){
-		sf::IntRect doorBoundaries;
 
-		doorBoundaries.left = stoi(myRoom.myDoor2.at(0));
-		doorBoundaries.top = stoi(myRoom.myDoor2.at(1));
-		doorBoundaries.width = stoi(myRoom.myDoor2.at(2));
-		doorBoundaries.height = stoi(myRoom.myDoor2.at(3));
-
-		if(doorBoundaries.intersects(possiblePlayerPosition)){
-			this->levelManager->setRoom(myRoom.myDoor2.at(4));
-			player.setPosition(stoi(myRoom.myDoor2.at(5)), stoi(myRoom.myDoor2.at(6)));
-			setRoom(this->levelManager->getCurrentRoom());
-			return true;
-		}
-	}
 	return false;
 }

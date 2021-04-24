@@ -8,7 +8,10 @@
 
 class Door {
    public:
-   		Door(vector<string> inputVector);
+   		Door(std::vector<std::string> inputVector);
+   		sf::IntRect getDoorBoundaries();
+		std::string getNextRoom();
+		Position getNewPosition();
 
 	private:
 		sf::IntRect doorBoundaries;

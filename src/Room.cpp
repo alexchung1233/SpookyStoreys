@@ -49,13 +49,13 @@ void Room::setUpRoom(std::string roomName){
 			posObst.height = stoi(result.at(4));
 			myObstacles.push_back( posObst );
 		}
-		else if (!result.at(0).find("DOOR_1")){
-			for(int i = 1; i < result.size(); i++)
-				myDoor1.push_back( result.at(i) );
-		}
-		else if (!result.at(0).find("DOOR_2")){
-			for(int i = 1; i < result.size(); i++)
-				myDoor2.push_back( result.at(i) );
+		else if (!result.at(0).find("DOOR")){
+			vector<string>forDoor;
+			for(int i = 1; i < result.size(); i++){
+				forDoor.push_back(result.at(i));
+			}
+			Door myDoor(forDoor);
+			myDoors.push_back( myDoor );
 		}
 		
     }
@@ -79,4 +79,8 @@ std::vector<sf::IntRect> Room::getObstacles(){
 
 sf::Texture Room::getTexture(){
 	return levelTexture;
+}
+
+std::vector<Door> Room::getDoors(){
+	return myDoors;
 }

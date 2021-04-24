@@ -18,9 +18,9 @@ sf::IntRect Door::getDoorBoundaries(){
 }
 
 string Door::getNextRoom(){
-    return this->nextRoom
+    return this->nextRoom;
 }
 
 Position Door::getNewPosition(){
-    return this->newPosition
+    return this->newPosition;
 }
