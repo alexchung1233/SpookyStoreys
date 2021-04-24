@@ -26,8 +26,6 @@ class Room
         sf::Texture getTexture();
         std::vector<Door> getDoors();
 
-        std::string myRoomName;
-
     private:
     	sf::Texture levelTexture;
 
