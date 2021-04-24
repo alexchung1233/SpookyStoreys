@@ -5,7 +5,7 @@
 #include "InputManager.h"
 #include "State.h"
 #include "GameOver.h"
-
+#include "LevelManager.h"
 
 
 class GameView : public State
@@ -13,6 +13,7 @@ class GameView : public State
   private:
     InputManager inputManager;
     GameLogic logic;
+    LevelManager levelManager;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
@@ -24,6 +25,7 @@ class GameView : public State
     GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
     void init();
+
     void setLogic(GameView& logic);
     void render();
     void pause();

@@ -5,6 +5,7 @@
 #include <iostream>
 #include "InputManager.h"
 
+
 using namespace std;
 
 
@@ -13,8 +14,8 @@ GameView::GameView(){
   GameLogic myLogic;
   this->logic = myLogic;
   this->status = State::UNINIT;
-
 }
+
 //constructor takes in App
 GameView::GameView(sf::RenderWindow& app){
   //TODO make this extend off a Process class.
@@ -28,10 +29,11 @@ GameView::GameView(sf::RenderWindow& app){
 
 void GameView::init(){
   //TODO data driven approach so objects aren't hard coded in
-
+  levelManager.init();
+  
   inputManager(*App, logic);
 
-  string test_level = "../data/bedroom_level_V2.png";
+  string test_level = "../data/BEDROOM.png";
 
   if(!texture.loadFromFile(test_level)){
     printf("incorrect file format");
@@ -45,12 +47,12 @@ void GameView::init(){
 
   sprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
+  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
-  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
   this->status = State::RUNNING;
 
 }
@@ -58,6 +60,7 @@ void GameView::init(){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
+  //myPos();
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
@@ -70,6 +73,15 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...");
   }
+
+  //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
+  // sf::RectangleShape rectangle(sf::Vector2f(15,87));
+  // rectangle.setPosition(sf::Vector2f(80, 350));
+  // rectangle.setOutlineThickness(3);
+  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
+  // rectangle.setFillColor(sf::Color::Transparent);
+  // this->App->draw(rectangle);
+
 }
 
 void GameView::setLogic(GameView& logic){}
