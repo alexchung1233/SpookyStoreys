@@ -4,11 +4,12 @@
 #include <string>
 #include <iostream>
 
-Menu::Menu(sf::RenderWindow& app){
+Menu::Menu(sf::RenderWindow& app, Sound* newSound){
   this->App = &app;
   itemSelected = 0;
   difficultyLevel = 1;
   this->status = State::UNINIT;
+  sound = newSound;
 }
 
 
@@ -34,6 +35,8 @@ void Menu::init(){
   makeText(exitText, exitBox, sf::Color::White, "Exit");
 
   this->status = State::RUNNING;
+
+  sound->playMenuMusic();
 
 }
 
@@ -173,8 +176,10 @@ void Menu::update(sf::Event& Event, float dt){
 
       int num = enterPressed();
       if(num == 0){
+        sound->stopMenuMusic();
+        sound->playPlayingMusic();
         this->status = State::SUCCESS;
-        this->childState = new GameView(*App);
+        this->childState = new GameView(*App, sound);
       }
       else if(num == 2){
         App->close();

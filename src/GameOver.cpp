@@ -12,15 +12,17 @@ GameOver::GameOver(){
 
 }
 
-GameOver::GameOver(sf::RenderWindow& app){
+GameOver::GameOver(sf::RenderWindow& app, Sound* newSound){
 	this->App = &app;
  	this->status = State::UNINIT;
+	sound = newSound;
 }
 
-GameOver::GameOver(sf::RenderWindow& app, std::string myMessage){
+GameOver::GameOver(sf::RenderWindow& app, std::string myMessage, Sound* newSound){
 	this->App = &app;
  	this->status = State::UNINIT;
  	mainMessage.setString(myMessage);
+	sound = newSound;
 }
 
 void GameOver::init(){
@@ -44,6 +46,8 @@ void GameOver::init(){
 	makeText(replayMessage, "Hit R to play again", 300);
 	makeText(menuMessage, "Hit M for the main menu", 350);
 	makeText(exitMessage, "Hit ESC to exit", 400);
+
+//	sound->playPlayingMusic();
 
 }
 
@@ -72,13 +76,15 @@ void GameOver::update(sf::Event& Event, float dt){
 	    }
 	    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	    {
+				//sound->stopPlayingMusic();
 	    	this->status = State::SUCCESS;
-			this->childState = new GameView(*App);
+			this->childState = new GameView(*App, sound);
 	    }
 	    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 	    {
+				sound->stopPlayingMusic();
 	    	this->status = State::SUCCESS;
-			this->childState = new Menu(*App);
+			this->childState = new Menu(*App, sound);
 	    }
 
     }

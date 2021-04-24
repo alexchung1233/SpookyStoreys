@@ -1,6 +1,7 @@
 #ifndef TITLE_MENU_H // include guard
 #define TITLE_MENU_H
 #include <SFML/Graphics.hpp>
+#include "Sound.h"
 #include "State.h"
 #include "GameView.h"
 
@@ -11,7 +12,7 @@ class Menu : public State
   public:
     //Menu();
 
-    Menu(sf::RenderWindow& app);
+    Menu(sf::RenderWindow& app, Sound *sound);
 
     void upPressed();
     void downPressed();
@@ -25,7 +26,6 @@ class Menu : public State
     void render();
     void pause();
     void unpause();
-
 
   private:
     void makeBox(sf::RectangleShape& box, sf::Vector2f position, sf::Color color);
@@ -48,6 +48,9 @@ class Menu : public State
     sf::Font titleFont, selectableFont;
 
     int difficultyLevel;
+
+    Sound* sound;
+
 
 };
 

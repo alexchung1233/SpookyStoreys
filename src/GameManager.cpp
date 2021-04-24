@@ -5,6 +5,7 @@
 
 
 GameManager::GameManager(){
+  sound.init();
   initWindow();
   initVariables();
   initStates();
@@ -15,7 +16,7 @@ void GameManager::initVariables(){
   this-> dt = 0.f;
 
   //initial starting state
-  this->stateQueue.push(new Menu(*window));
+  this->stateQueue.push(new Menu(*window, soundPTR));
 
 }
 /**

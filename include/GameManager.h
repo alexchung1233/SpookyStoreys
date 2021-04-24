@@ -7,6 +7,8 @@
 #include <string>
 #include <queue>
 #include "State.h"
+#include "Sound.h"
+
 
 class GameManager
 {
@@ -17,6 +19,8 @@ private:
 	sf::Clock clock;
 	float dt;
 	std::queue<State*> stateQueue;
+	Sound sound;
+	Sound* soundPTR = &sound;
 
 public:
 	GameManager();

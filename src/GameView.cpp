@@ -17,13 +17,15 @@ GameView::GameView(){
 
 }
 //constructor takes in App
-GameView::GameView(sf::RenderWindow& app){
+GameView::GameView(sf::RenderWindow& app, Sound* newSound){
   //TODO make this extend off a Process class.
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
   inputManager(*App, logic);
   this->status = State::UNINIT;
+  sound = newSound;
+
 
 }
 
@@ -65,6 +67,7 @@ void GameView::init(){
   sprite_monster.setPosition(400, 360);
   sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
 
+  //sound->playPlayingMusic();
 
 
 
@@ -89,12 +92,14 @@ void GameView::update(sf::Event& Event, float dt){
 
 //=======
   if(inputManager.getPlayState() == 1){
+  //  sound->stopPlayingMusic();
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Win!");
+    childState = new GameOver(*App, "You Win!", sound);
   }
   else if(inputManager.getPlayState() == 2){
+    //sound->stopPlayingMusic();
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...");
+    childState = new GameOver(*App, "You Lose...", sound);
   }
 }
 //>>>>>>> main
