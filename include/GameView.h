@@ -18,6 +18,12 @@ class GameView : public State
     sf::Texture texture;
     sf::Texture texture_player;
 
+    //temp test rectangles
+    sf::RectangleShape transitionRectangle{ sf::Vector2f(800, 600) };
+    sf::Uint8 transitionRectangleAlphaChannel = 255;
+    sf::Clock clockFilter;
+
+
   public:
     GameView();
 
@@ -28,6 +34,7 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
+    void fadeIn();
 
   };
 

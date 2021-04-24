@@ -70,6 +70,9 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...");
   }
+
+  //test script
+  fadeIn();
 }
 
 void GameView::setLogic(GameView& logic){}
@@ -79,8 +82,24 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(sprite);
     this->App->draw(sprite_player);
+    this->App->draw(transitionRectangle);
 }
 
 void GameView::pause(){}
 
 void GameView::unpause(){}
+
+void GameView::fadeIn(){
+  transitionRectangle.setFillColor(sf::Color(0, 0, 0, transitionRectangleAlphaChannel));
+
+  float timer = clockFilter.getElapsedTime().asSeconds();
+
+  if (timer > 0.08f && transitionRectangleAlphaChannel > 0.f)
+  {
+          clockFilter.restart();
+          transitionRectangleAlphaChannel -= 5;
+
+  }
+
+
+}
