@@ -22,7 +22,6 @@ GameView::GameView(sf::RenderWindow& app){
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
-  inputManager(*App, logic);
   this->status = State::UNINIT;
 
 }
@@ -31,10 +30,9 @@ void GameView::init(){
   //TODO data driven approach so objects aren't hard coded in
   levelManager.init();
 
-  inputManager(*App, logic);
+  inputManager(*App, logic, levelManager);
 
-  string introLevelName = "BEDROOM";
-  texture = levelManager.getLevelTexture(introLevelName);
+  texture = inputManager.logic->levelManager->getLevelTexture();
 
   string player_file = "../data/protag_V1.png";
 
@@ -46,10 +44,9 @@ void GameView::init(){
   sprite_player.setTexture(texture_player);
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
-  PlayerActor player = this->logic.getPlayer();
+  PlayerActor player = inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
-  //sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
   this->status = State::RUNNING;
 
 }
@@ -59,7 +56,10 @@ void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   //myPos();
 
-  PlayerActor player = this->logic.getPlayer();
+  texture = inputManager.logic->levelManager->getLevelTexture();
+  sprite.setTexture(texture);
+
+  PlayerActor player = inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   if(inputManager.getPlayState() == 1){
@@ -73,7 +73,7 @@ void GameView::update(sf::Event& Event, float dt){
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // sf::RectangleShape rectangle(sf::Vector2f(15,87));
-  // rectangle.setPosition(sf::Vector2f(80, 350));
+  // rectangle.setPosition(sf::Vector2f(706, 350));
   // rectangle.setOutlineThickness(3);
   // rectangle.setOutlineColor(sf::Color(250, 150, 100));
   // rectangle.setFillColor(sf::Color::Transparent);

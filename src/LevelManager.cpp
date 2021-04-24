@@ -16,6 +16,7 @@ void LevelManager::init(){
     	levelFileMapping[myRooms.at(i)] = Room(myRooms.at(i));
     }
 
+    currentLevelName = myRooms.at(0);
 
 }
 
@@ -31,10 +32,15 @@ void LevelManager::getRoomNames(std::string roomNamesFilepath){
     }
     infile.close();	
 }
-void LevelManager::setRoom(std::string roomName){
 
+void LevelManager::setRoom(std::string roomName){
+	currentLevelName = roomName;
 }
 
-const sf::Texture LevelManager::getLevelTexture(std::string roomName){
-	return levelFileMapping[roomName].getTexture();
+Room LevelManager::getCurrentRoom(){
+	return levelFileMapping[currentLevelName];
+}
+
+const sf::Texture LevelManager::getLevelTexture(){
+	return levelFileMapping[currentLevelName].getTexture();
 }

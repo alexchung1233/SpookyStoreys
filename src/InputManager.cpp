@@ -1,21 +1,22 @@
 #include "InputManager.h"
 
-InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
-
+InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic, LevelManager &LM){
   this->App = &app;
   this->logic = &logic;
+  //this->levelManager = &LM;
+  this->logic->setLevelManager(LM);
   playState = 0;
-
 }
 
 InputManager::InputManager(){
   playState = 0;
 }
 
-void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
+void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic, LevelManager &LM){
 
   this->App = &app;
   this->logic = &logic;
+  this->logic->setLevelManager(LM);
 
 }
 

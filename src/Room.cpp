@@ -13,6 +13,7 @@ Room::Room(std::string roomName){
 }
 
 void Room::setUpRoom(std::string roomName){
+	this->myRoomName = roomName;
 	string directory = "../data/";
 	string txt = ".txt";
 	string png = ".png";

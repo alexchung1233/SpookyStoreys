@@ -2,7 +2,7 @@
 #include <iostream>
 #include "PlayerActor.h"
 #include "Room.h"
-
+#include "LevelManager.h"
 
 class GameLogic{
 
@@ -16,8 +16,13 @@ class GameLogic{
     //creates player object
     void createPlayer();
 
+    bool hitsDoor(sf::IntRect possiblePlayerPosition);
+
+
   public:
     GameLogic();
+
+    LevelManager* levelManager;
 
     //reutrns player object
     PlayerActor getPlayer();
@@ -26,6 +31,8 @@ class GameLogic{
     bool detectCollisionDown(float dt);
     bool detectCollisionLeft(float dt);
     bool detectCollisionRight(float dt);
+
+    void setLevelManager(LevelManager &LM);
 
 
     //Function for when the Up key is pressed

@@ -5,15 +5,15 @@
 #include "InputManager.h"
 #include "State.h"
 #include "GameOver.h"
-#include "LevelManager.h"
 
 
 class GameView : public State
 {
   private:
     InputManager inputManager;
-    GameLogic logic;
     LevelManager levelManager;
+
+    GameLogic logic;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
     sf::Texture texture;

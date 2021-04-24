@@ -11,9 +11,11 @@ class InputManager
 
   public:
     InputManager();
+
     GameLogic* logic;
-    InputManager(sf::RenderWindow &app, GameLogic &logic);
-    void operator()(sf::RenderWindow &app, GameLogic &logic);
+
+    InputManager(sf::RenderWindow &app, GameLogic &logic, LevelManager &levelManager);
+    void operator()(sf::RenderWindow &app, GameLogic &logic, LevelManager &levelManager);
     void update(sf::Event& Event, float dt);
     int getPlayState();
 
