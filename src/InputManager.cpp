@@ -3,21 +3,19 @@
 InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
-  this->logic = logic;
+  this->logic = &logic;
+  playState = 0;
 
 }
 
 InputManager::InputManager(){
-
+  playState = 0;
 }
 
 void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
-  this->logic = logic;
-
-  std::cout << this->logic.getPlayer().getPosition().x;
-  std::cout << "\n";
+  this->logic = &logic;
 
 }
 
@@ -29,26 +27,39 @@ void InputManager::update(sf::Event& Event, float dt){
     if(Event.type == sf::Event::Closed) {
       App->close();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
       App->close();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-      logic.upPressed(dt);
+      logic->upPressed(dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-      logic.downPressed(dt);
+      logic->downPressed(dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
-      logic.leftPressed(dt);
+      logic->leftPressed(dt);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
-      logic.rightPressed(dt);
+      logic->rightPressed(dt);
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+    {
+      playState = 1;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+    {
+      playState = 2;
+    }
+      
   }
 
+}
+
+int InputManager::getPlayState(){
+  return playState;
 }

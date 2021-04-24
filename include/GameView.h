@@ -3,15 +3,19 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
+//<<<<<<< HEAD
 #include "MonsterAI.h"
+//=======
+#include "State.h"
+#include "GameOver.h"
+//>>>>>>> main
 
 
-class GameView
+
+class GameView : public State
 {
   private:
-    sf::Event Event;
     InputManager inputManager;
-    sf::RenderWindow* App;
     GameLogic logic;
     sf::Sprite sprite;
     sf::Sprite sprite_player;
@@ -21,14 +25,16 @@ class GameView
     sf::Texture texture_monster;
     MonsterAI monsterAI;
 
-
-
   public:
-    GameView()	{	}
+    GameView();
+
     GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
-    void setup();
-    float myPos();
+    void init();
+    void setLogic(GameView& logic);
+    void render();
+    void pause();
+    void unpause();
 
   };
 
