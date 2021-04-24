@@ -3,10 +3,6 @@
 #include <iostream>
 
 
-GameLogic::GameLogic(){
-	setup();
-}
-
 void GameLogic::setLevelManager(LevelManager &LM){
 	this->levelManager = &LM;
 	this->myRoom = this->levelManager->getCurrentRoom();

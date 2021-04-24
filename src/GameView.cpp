@@ -11,8 +11,6 @@ using namespace std;
 
 GameView::GameView(){
   //TODO make this extend off a Process class.
-  GameLogic myLogic;
-  this->logic = myLogic;
   this->status = State::UNINIT;
 }
 
@@ -20,8 +18,6 @@ GameView::GameView(){
 GameView::GameView(sf::RenderWindow& app){
   //TODO make this extend off a Process class.
   this->App = &app;
-  GameLogic myLogic;
-  this->logic = myLogic;
   this->status = State::UNINIT;
 
 }
@@ -29,6 +25,7 @@ GameView::GameView(sf::RenderWindow& app){
 void GameView::init(){
   //TODO data driven approach so objects aren't hard coded in
   levelManager.init();
+  logic.setup();
 
   inputManager(*App, logic, levelManager);
 

@@ -10,9 +10,6 @@ class GameLogic{
     PlayerActor player;
     Room myRoom;
 
-
-    void setup();
-
     //creates player object
     void createPlayer();
 
@@ -20,7 +17,9 @@ class GameLogic{
 
 
   public:
-    GameLogic();
+    GameLogic() { };
+
+    void setup();
 
     LevelManager* levelManager;
 
