@@ -1,6 +1,6 @@
 #include "GameLogic.h"
 #include "PlayerActor.h"
-#include "HolyWater.h"
+#include "DialogueBox.h"
 #include <iostream>
 
 
@@ -13,12 +13,20 @@ GameLogic::GameLogic(){
 
 void GameLogic::setup(){
 	createPlayer();
+	createDialogueBox();
 	createWater();
+	Etracker = 0;
 }
 
 void GameLogic::createPlayer(){
 	player = PlayerActor();
 	player.init();
+}
+
+
+void GameLogic::createDialogueBox(){
+	dialogue = DialogueBox();
+	dialogue.init();
 }
 
 void GameLogic::createWater(){
@@ -34,28 +42,48 @@ HolyWater GameLogic::getWater(){
 	return water;
 }
 
+DialogueBox GameLogic::getDialogueBox(){
+	return dialogue;
+}
+
 void GameLogic::EPressed(){
-	cout <<  water.interact(player);
+	cout << Etracker;
+	if(water.nextToPlayer(player)){
+		water.interact(player, dialogue);
+		dialogue.tracker++;
+		Etracker++;
+	}else{
+		dialogue.message.setString(" ");
+		//dialogue.tracker++;
+	}
 }
 
 void GameLogic::upPressed(float dt){
-	if(!detectCollisionUp(dt))
+	if (Etracker%4 == 0 || Etracker == 0){
+		if(!detectCollisionUp(dt))
 		player.moveUp(dt);
+	}
 }
 
 void GameLogic::downPressed(float dt){
-	if(!detectCollisionDown(dt))
+	if (Etracker%4 == 0 || Etracker == 0){
+		if(!detectCollisionDown(dt))
 		player.moveDown(dt);
+	}
 }
 
 void GameLogic::leftPressed(float dt){
-	if(!detectCollisionLeft(dt))
-		player.moveLeft(dt);
+	if (Etracker%4 == 0 || Etracker == 0){
+		if(!detectCollisionLeft(dt))
+			player.moveLeft(dt);
+	}
 }
 
 void GameLogic::rightPressed(float dt){
-	if(!detectCollisionRight(dt))
-		player.moveRight(dt);
+	if (Etracker%4 == 0 || Etracker == 0){
+		if(!detectCollisionRight(dt))
+			player.moveRight(dt);
+	}
 }
 
 bool GameLogic::detectCollisionUp(float dt){

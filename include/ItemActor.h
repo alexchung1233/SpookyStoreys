@@ -4,6 +4,7 @@
 #include "Position.h"
 #include "Actor.h"
 #include "PlayerActor.h"
+#include "DialogueBox.h"
 
 using namespace std;
 class ItemActor : public Actor {
@@ -23,7 +24,7 @@ class ItemActor : public Actor {
 		//and, if they are, then returns the proper dialogue (if any) and runs the appropriate
 		//actions, such as checking if the player has a key, if the ItemActor should be destroyed,
 		//and so on
-		virtual string interact(PlayerActor &player) = 0;      
+		virtual string interact(PlayerActor &player, DialogueBox &box) = 0;      
 	
 	protected:
 		//helper function for interact()

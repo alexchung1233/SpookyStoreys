@@ -49,6 +49,8 @@ void GameView::setup(sf::RenderWindow& app){
   PlayerActor player = inputManager.logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
+  DialogueBox dialogue = inputManager.logic.getDialogueBox();
+
 
 }
 
@@ -61,6 +63,9 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = inputManager.logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
+  DialogueBox dialogue = inputManager.logic.getDialogueBox();
+
+
   this->App->draw(sprite);
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -72,7 +77,12 @@ void GameView::update(sf::Event& Event, float dt){
   // this->App->draw(rectangle);
 
   this->App->draw(sprite_player);
-  this->App->draw(sprite_holywater);
+  //if(!water.pickedup){
+    this->App->draw(sprite_holywater);
+  //}
+  
+
+  isDialogue(dialogue);
 
 }
 
@@ -86,3 +96,10 @@ float GameView::myPos(){
 }
 
 void GameView::setLogic(GameView& logic){}
+
+void GameView::isDialogue(DialogueBox& box){
+  if (box.tracker%4 != 0){
+    this->App->draw(box.dialogueBox);
+    this->App->draw(box.message);
+  }
+}

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>  
 #include "ItemActor.h"
+#include "DialogueBox.h"
 
 
 
@@ -17,20 +18,21 @@ class HolyWater : public ItemActor {
         Position getPosition();
         void setDialogue(string dialogue);
         string getDialogue();
-        string interact(PlayerActor &player);
+        string interact(PlayerActor &player, DialogueBox &box);
         void setHealth(int bar);
         int getHealth();
         void useWater();
         void resetUse();
-
         sf::Vector2f getSize();
         void setSize(sf::Vector2f size);
         void setSize(float x, float y);
+        bool nextToPlayer(PlayerActor &player);
+        string myDialogue;
     protected:
         PlayerActor *player;
-        bool nextToPlayer(PlayerActor &player);
         int health;
-        string myDialogue;
+        int pickedup;
+        DialogueBox *box;
 };
 
 #endif

@@ -26,6 +26,7 @@ class GameView
     void setup(sf::RenderWindow& app);
     void setLogic(GameView& logic);
     float myPos();
+    void isDialogue(DialogueBox& box);
 
   };
 

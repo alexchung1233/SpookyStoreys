@@ -3,6 +3,7 @@
 #include "PlayerActor.h"
 #include "Room.h"
 #include "HolyWater.h"
+#include "DialogueBox.h"
 
 
 
@@ -11,7 +12,9 @@ class GameLogic{
   private:
     PlayerActor player;
     Room myRoom;
+    DialogueBox dialogue;
     HolyWater water;
+    int Etracker;
 
 
   public:
@@ -22,9 +25,12 @@ class GameLogic{
     //creates player object
     void createPlayer();
     void createWater();
+    void createDialogueBox();
+    
 
     //reutrns player object
     PlayerActor getPlayer();
+    DialogueBox getDialogueBox();
     HolyWater getWater();
 
     bool detectCollisionUp(float dt);

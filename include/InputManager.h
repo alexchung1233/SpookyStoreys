@@ -2,6 +2,9 @@
 #define INPUT_MANAGER_H
 #include <SFML/Graphics.hpp>
 #include "GameLogic.h"
+#include "DialogueBox.h"
+#include <unistd.h>
+
 
 
 
