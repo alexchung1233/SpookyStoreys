@@ -68,7 +68,7 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = inputManager.logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
-  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y);
+  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
   sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
 
   this->App->draw(sprite);
