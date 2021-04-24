@@ -20,7 +20,7 @@ void LevelManager::init(){
 
 }
 
-//loads in all the names of the rooms used into myRooms
+//helper function that loads in all the names of the rooms used into myRooms
 void LevelManager::getRoomNames(std::string roomNamesFilepath){
     std::string str; 
     ifstream infile;
