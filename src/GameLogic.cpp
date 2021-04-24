@@ -7,7 +7,7 @@ GameLogic::GameLogic(){
 	setup();
 
 	//set up the very first room
-	myRoom.setUpRoom("../data/BEDROOM.txt");
+	myRoom.setUpRoom("BEDROOM");
 }
 
 void GameLogic::setup(){

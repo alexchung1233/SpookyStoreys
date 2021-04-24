@@ -4,13 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <string>
+#include "Room.h"
 
 
 class LevelManager {
 
 private:
-	sf::Texture* levelTexture;
-	std::map<std::string, std::string> levelFileMapping;
+	std::map<const std::string, Room> levelFileMapping;
 	std::vector<std::string> myRooms;
 
 	void getRoomNames(std::string roomNamesFilepath);
@@ -22,7 +22,7 @@ public:
 	void init();
 	void setRoom(std::string roomName);
 	//void changeLevelTexture(std::string textureName);
-	const sf::Texture getLevelTexture();
+	const sf::Texture getLevelTexture(std::string roomName);
 
 
 

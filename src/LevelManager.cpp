@@ -5,7 +5,7 @@
 using namespace std;
 
 LevelManager::LevelManager(sf::Texture& levelTexture){
-  this->levelTexture = &levelTexture;
+  //this->levelTexture = &levelTexture;
 }
 
 //read in the level mapping data and store into assoctiative mapping
@@ -13,10 +13,9 @@ void LevelManager::init(){
     getRoomNames("../data/RoomNames.txt");
 
     for(int i = 0; i < myRooms.size(); i++){
-    	std::cout << myRooms.at(i) << endl;
+    	levelFileMapping[myRooms.at(i)] = Room(myRooms.at(i));
     }
 
-    
 
 }
 
@@ -36,6 +35,6 @@ void LevelManager::setRoom(std::string roomName){
 
 }
 
-// const sf::Texture LevelManager::getLevelTexture(){
-
-// }
+const sf::Texture LevelManager::getLevelTexture(std::string roomName){
+	return levelFileMapping[roomName].getTexture();
+}

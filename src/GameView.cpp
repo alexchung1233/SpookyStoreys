@@ -30,14 +30,11 @@ GameView::GameView(sf::RenderWindow& app){
 void GameView::init(){
   //TODO data driven approach so objects aren't hard coded in
   levelManager.init();
-  
+
   inputManager(*App, logic);
 
-  string test_level = "../data/BEDROOM.png";
-
-  if(!texture.loadFromFile(test_level)){
-    printf("incorrect file format");
-  }
+  string introLevelName = "BEDROOM";
+  texture = levelManager.getLevelTexture(introLevelName);
 
   string player_file = "../data/protag_V1.png";
 
