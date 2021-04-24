@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
+#include <math.h>
 #include "InputManager.h"
 #include "MonsterAI.h"
 
@@ -90,6 +91,14 @@ void GameView::update(sf::Event& Event, float dt){
 
   this->App->draw(sprite_monster);
 
+  float distX = pow(monsterAI.positionX - player.getPosition().x-125, 2);
+  float distY = pow(monsterAI.positionY - player.getPosition().y+20, 2);
+
+
+  if (sqrt(distX + distY) < 70){
+    this->status = State::SUCCESS;
+    childState = new GameOver(*App, "You Lose...", sound);
+  }
 //=======
   if(inputManager.getPlayState() == 1){
   //  sound->stopPlayingMusic();

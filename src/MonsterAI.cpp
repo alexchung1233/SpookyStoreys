@@ -21,6 +21,8 @@ void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS) {
 }
 
 void MonsterAI::calculateMoveInRoom(float playerX, float playerY) {
+  playerX = playerX + 125;
+  playerY = playerY - 20;
   if (positionX < playerX){
     positionX += .05;
   }

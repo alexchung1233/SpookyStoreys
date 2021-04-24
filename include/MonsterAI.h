@@ -10,7 +10,7 @@ class MonsterAI
     float positionY;
 
     std::string currentRoom = "Basement";
-    float timeAmount = 5;
+    float timeAmount = 1;
     float timeInRoom;
 
     std::string NextRoomList[5];
