@@ -54,6 +54,8 @@ void GameView::init(){
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
   player_anim_left = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 214);
+  player_anim_right = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 321);
+
 
   this->status = State::RUNNING;
 }
@@ -83,23 +85,20 @@ void GameView::updatePlayerAnimation(float dt){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
 
-/*
+
     case MovementStates::IDLE:
       this->player_anim_down.play(dt);
 
       break;
 
-*/
     case MovementStates::MOVING_LEFT:
       this->player_anim_left.play(dt);
       break;
 
-
-
-/*
     case MovementStates::MOVING_RIGHT:
+      this->player_anim_right.play(dt);
       break;
-*/
+
 
     case MovementStates::MOVING_UP:
       this->player_anim_up.play(dt);

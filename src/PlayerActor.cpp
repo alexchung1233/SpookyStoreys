@@ -73,11 +73,11 @@ void PlayerActor::resetVelocity(){
 }
 
 MovementStates::movementStates PlayerActor::getMovementState(){
-  /*
+  
     if((int)characterVelocity.x  == 0 && (int)characterVelocity.y == 0){
       return MovementStates::IDLE;
     }
-    */
+
     if(direction.x == -1){
       return MovementStates::MOVING_LEFT;
     }

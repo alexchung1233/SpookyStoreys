@@ -169,7 +169,7 @@ void Menu::update(sf::Event& Event, float dt){
         toggleDifficulty(1);
       }
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)){
 
       int num = enterPressed();
       if(num == 0){
