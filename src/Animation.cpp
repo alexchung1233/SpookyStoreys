@@ -33,16 +33,6 @@ void Animation::play(float dt){
     }
     else{
       rectSourceSprite.left=startLeft;
-      /*
-      if(rectSourceSprite.top < 200){
-        rectSourceSprite.top+= 68;
-      }
-      else{
-        rectSourceSprite.top=0;
-      }
-      */
-
-
     }
     this->sprite->setTextureRect(this->rectSourceSprite);
   }
