@@ -20,7 +20,7 @@ class GameView : public State
 
     //temp test rectangles
     sf::RectangleShape transitionRectangle{ sf::Vector2f(800, 600) };
-    sf::Uint8 transitionRectangleAlphaChannel = 255;
+    sf::Uint8 transitionRectangleAlphaChannel;
     sf::Clock clockFilter;
 
 
@@ -34,8 +34,8 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
-    void fadeIn();
-
+    void fadeIn(float duration, int r, int g, int b);
+    void fadeOut(float duration, int r, int g, int b);
   };
 
 #endif /* MY_CLASS_H */

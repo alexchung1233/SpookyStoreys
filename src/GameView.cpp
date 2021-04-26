@@ -29,6 +29,8 @@ GameView::GameView(sf::RenderWindow& app){
 void GameView::init(){
   //TODO data driven approach so objects aren't hard coded in
 
+  transitionRectangleAlphaChannel = 255;
+
   inputManager(*App, logic);
 
   string test_level = "../data/bedroom_level_V2.png";
@@ -71,8 +73,20 @@ void GameView::update(sf::Event& Event, float dt){
     childState = new GameOver(*App, "You Lose...");
   }
 
+
+
+  //if new game
+      //then fade out
+      //pop dialogue
+      // if player moves to a certain Position
+        //flash lightning
+          //play sound
+          //fade out
+        //there appears to be lightning
+        
+
   //test script
-  fadeIn();
+  fadeIn(2.f, 255, 255, 255);
 }
 
 void GameView::setLogic(GameView& logic){}
@@ -89,17 +103,36 @@ void GameView::pause(){}
 
 void GameView::unpause(){}
 
-void GameView::fadeIn(){
-  transitionRectangle.setFillColor(sf::Color(0, 0, 0, transitionRectangleAlphaChannel));
 
-  float timer = clockFilter.getElapsedTime().asSeconds();
 
-  if (timer > 0.08f && transitionRectangleAlphaChannel > 0.f)
+//Game Effects
+
+//fades in
+void GameView::fadeIn(float duration, int r, int g, int b){
+  transitionRectangle.setFillColor(sf::Color(r, g, b, transitionRectangleAlphaChannel));
+
+  float timer = clockFilter.getElapsedTime().asSeconds() * 100;
+
+  if (timer > duration && transitionRectangleAlphaChannel > 0.f)
   {
           clockFilter.restart();
           transitionRectangleAlphaChannel -= 5;
 
   }
 
+}
+
+//fades out
+void GameView::fadeOut(float duration, int r, int g, int b){
+  transitionRectangle.setFillColor(sf::Color(r, g, b, transitionRectangleAlphaChannel));
+
+  float timer = clockFilter.getElapsedTime().asSeconds() * 100;
+
+  if (timer > duration && transitionRectangleAlphaChannel < 255.f)
+  {
+          clockFilter.restart();
+          transitionRectangleAlphaChannel += 5;
+
+  }
 
 }
