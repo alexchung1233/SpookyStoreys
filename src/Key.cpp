@@ -5,48 +5,40 @@ Key::Key(){
 
 void Key::init(){
     string myDialogue;
-    int pickup = 0;
+    bool pickedup = false;
+    Position position;
 }
 
 Position Key::getPosition(){
     return position;
 }
 
-void Key::setDialogue(string dialogue){
-    this->myDialogue = dialogue;
+void Key::setPosition(float x, float y){
+    position.x = x;
+    position.y = y;
 }
 
-string Key::getDialogue(){
-    return this->myDialogue;
-}
 
 void Key::use(){
-    this->pickup = 0;
+    this->pickedup = false;
 }
 
 bool Key::obtained(){
-    bool has = false;
-    if(this->pickup){
-        has = true;
-    }
-    return has;
+    return this->pickedup;
 }
 
-string Key::interact(PlayerActor &player){
+string Key::interact(PlayerActor &player, DialogueBox &box){
     string input = "A key!";
-    if (this->nextToPlayer(player)){
-        this->setDialogue(input);
-        this->pickup = 1;
-    }
-
-    return this->getDialogue();
+    box.setText(box.message, box.dialogueBox, input);
+    this->pickedup = true;
+    return input;
 }
 
 bool Key::nextToPlayer(PlayerActor &player){
    bool close = false;
     int diffx = abs(player.getPosition().x - this->getPosition().x);
     int diffy = abs(player.getPosition().y - this->getPosition().y);
-    if(diffx < 15 || diffy < 15)
+    if(diffx < 15 && diffy < 15)
         close = true;
     return close;
 }

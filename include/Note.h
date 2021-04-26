@@ -17,13 +17,13 @@ class Note : public ItemActor {
         void init();
         Position position;
         Position getPosition();
-        void setDialogue(string dialogue);
-        string getDialogue();
-        string interact(PlayerActor &player, string message);
+        void setPosition(float x, float y);
+        string interact(PlayerActor &player, DialogueBox &box);
+        string myDialogue;
+        bool read;
     protected:
         PlayerActor *player;
         bool nextToPlayer(PlayerActor &player);
-        string myDialogue;
 };
 
 #endif

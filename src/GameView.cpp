@@ -50,7 +50,7 @@ void GameView::setup(sf::RenderWindow& app){
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   DialogueBox dialogue = inputManager.logic.getDialogueBox();
-
+  HolyWater water = inputManager.logic.getWater();
 
 }
 
@@ -64,6 +64,7 @@ void GameView::update(sf::Event& Event, float dt){
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   DialogueBox dialogue = inputManager.logic.getDialogueBox();
+  HolyWater water = inputManager.logic.getWater();
 
 
   this->App->draw(sprite);
@@ -77,9 +78,9 @@ void GameView::update(sf::Event& Event, float dt){
   // this->App->draw(rectangle);
 
   this->App->draw(sprite_player);
-  //if(!water.pickedup){
+  if(!water.obtained()){
     this->App->draw(sprite_holywater);
-  //}
+  }
   
 
   isDialogue(dialogue);
@@ -98,7 +99,10 @@ float GameView::myPos(){
 void GameView::setLogic(GameView& logic){}
 
 void GameView::isDialogue(DialogueBox& box){
-  if (box.tracker%4 != 0){
+  if (box.tracker%4 != 0){ //toggle the dialogue box, if the plyaer is interacting with an item, show the dialogue box
+    this->App->draw(box.dialogueBox);
+    this->App->draw(box.message);
+  }else if (box.tracker == 0 && inputManager.logic.Etracker != 0){ //for the first interaction with an item of any kind
     this->App->draw(box.dialogueBox);
     this->App->draw(box.message);
   }

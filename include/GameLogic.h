@@ -14,7 +14,7 @@ class GameLogic{
     Room myRoom;
     DialogueBox dialogue;
     HolyWater water;
-    int Etracker;
+    
 
 
   public:
@@ -26,6 +26,8 @@ class GameLogic{
     void createPlayer();
     void createWater();
     void createDialogueBox();
+
+    int Etracker;
     
 
     //reutrns player object

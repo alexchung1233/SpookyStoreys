@@ -17,12 +17,11 @@ class Key : public ItemActor {
         void init();
         Position position;
         Position getPosition();
-        void setDialogue(string dialogue);
-        string getDialogue();
-        string interact(PlayerActor &player);
+        void setPosition(float x, float y);
+        string interact(PlayerActor &player, DialogueBox &box);
         bool obtained();
         void use();
-        int pickup;
+        bool pickedup;
     protected:
         PlayerActor *player;
         bool nextToPlayer(PlayerActor &player);

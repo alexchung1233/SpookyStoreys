@@ -15,7 +15,7 @@ void GameLogic::setup(){
 	createPlayer();
 	createDialogueBox();
 	createWater();
-	Etracker = 0;
+	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
 }
 
 void GameLogic::createPlayer(){
@@ -32,6 +32,7 @@ void GameLogic::createDialogueBox(){
 void GameLogic::createWater(){
 	water = HolyWater();
 	water.init();
+	water.setPosition(479.f, 152.f);
 }
 
 PlayerActor GameLogic::getPlayer(){
@@ -47,19 +48,17 @@ DialogueBox GameLogic::getDialogueBox(){
 }
 
 void GameLogic::EPressed(){
-	cout << Etracker;
 	if(water.nextToPlayer(player)){
+		Etracker++; //toggle player movement, locks player if they are interacting with an item
+		dialogue.tracker++; //toggle the dialogue box, shows the dialogue box if the player is interacting with an item
 		water.interact(player, dialogue);
-		dialogue.tracker++;
-		Etracker++;
 	}else{
 		dialogue.message.setString(" ");
-		//dialogue.tracker++;
 	}
 }
 
 void GameLogic::upPressed(float dt){
-	if (Etracker%4 == 0 || Etracker == 0){
+	if (Etracker%4 == 0 || Etracker == 0){ //if the player is interacting with an item, do not let them move
 		if(!detectCollisionUp(dt))
 		player.moveUp(dt);
 	}

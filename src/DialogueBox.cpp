@@ -4,8 +4,8 @@ DialogueBox::DialogueBox(){
 }
 
 void DialogueBox::init(){
-    makeBox(dialogueBox, sf::Vector2f(400, 490), sf::Color::White);
-    tracker = 0;
+    makeBox(dialogueBox, sf::Vector2f(400, 490), sf::Color::Black);
+    tracker = 0; //counter to determine if the dialogue box should be shown, if the player is interacting with an item
     if (!font.loadFromFile("../data/Lato-Bold.ttf")){
         std::cout << "incorrect font";
     }

@@ -6,13 +6,17 @@ HolyWater::HolyWater(){
 void HolyWater::init(){
     int health = 3;
     string myDialogue = "Nothing\0";
-    position = Position (479.f, 152.f);
+    Position position;
+    int pickedup = 0;
 }
 Position HolyWater::getPosition(){
     return position;
 }
 
-
+void HolyWater::setPosition(float x, float y){
+    position.x = x;
+    position.y = y;
+}
 
 void HolyWater::setHealth(int bar){
     this->health = bar;
@@ -40,7 +44,7 @@ string HolyWater::interact(PlayerActor &player, DialogueBox &box){
     string input = "A bottle of holy water. Maybe I can use this on the monster\0";
     this->resetUse();
     box.setText(box.message, box.dialogueBox, input);
-    pickedup = 1;
+    pickedup = true;
     return input;
 }
 
@@ -67,9 +71,6 @@ sf::Vector2f HolyWater::getSize(){
   return mySize;
 }
 
-void HolyWater::setDialogue(string dialogue){
-    this->myDialogue = dialogue;
-}
-string HolyWater::getDialogue(){
-    return myDialogue;
+bool HolyWater::obtained(){
+    return pickedup;
 }
