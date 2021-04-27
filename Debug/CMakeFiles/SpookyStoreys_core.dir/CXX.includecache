@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/Animation.h
+SFML/Graphics.hpp
+-
+
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/Animation.cpp
+Animation.h
+/home/alex/Desktop/GameDesign/SpookyStoreys/src/Animation.h
+SFML/Graphics.hpp
+-
+

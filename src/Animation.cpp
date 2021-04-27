@@ -25,8 +25,8 @@ Animation::Animation(
 
 //plays the animation based on the delta time
 void Animation::play(float dt){
-  this->timer += dt*100.0;
-  if(timer >10.5f){
+  this->timer += dt*10.0;
+  if(timer >1.5f){
     timer =0.f;
     if(rectSourceSprite.left < endX){
       rectSourceSprite.left+= width;
