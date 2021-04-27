@@ -1,10 +1,10 @@
 #include "InputManager.h"
 
-InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic, LevelManager &LM){
+InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
   this->App = &app;
   this->logic = &logic;
-  //this->levelManager = &LM;
-  this->logic->setLevelManager(LM);
+
+
   playState = 0;
 }
 
@@ -12,11 +12,10 @@ InputManager::InputManager(){
   playState = 0;
 }
 
-void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic, LevelManager &LM){
+void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
 
   this->App = &app;
   this->logic = &logic;
-  this->logic->setLevelManager(LM);
 
 }
 
@@ -56,7 +55,7 @@ void InputManager::update(sf::Event& Event, float dt){
     {
       playState = 2;
     }
-      
+
   }
 
 }

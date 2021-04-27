@@ -23,13 +23,13 @@ GameView::GameView(sf::RenderWindow& app){
 }
 
 void GameView::init(){
-  //TODO data driven approach so objects aren't hard coded in
-  levelManager.init();
-  logic.setup();
+  this->levelManager.init();
+  this->logic.setup();
+  this->logic.setLevelManager(levelManager);
 
-  inputManager(*App, logic, levelManager);
+  inputManager(*App, logic);
 
-  texture = inputManager.logic->levelManager->getLevelTexture();
+  texture = this->levelManager.getLevelTexture();
 
   string player_file = "../data/protag_V1.png";
 
@@ -37,11 +37,11 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  sprite.setTexture(texture);
+  levelSprite.setTexture(texture);
   sprite_player.setTexture(texture_player);
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
-  PlayerActor player = inputManager.logic->getPlayer();
+  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   this->status = State::RUNNING;
@@ -51,12 +51,11 @@ void GameView::init(){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
-  //myPos();
 
-  texture = inputManager.logic->levelManager->getLevelTexture();
-  sprite.setTexture(texture);
+  texture = this->levelManager.getLevelTexture();
+  levelSprite.setTexture(texture);
 
-  PlayerActor player = inputManager.logic->getPlayer();
+  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   if(inputManager.getPlayState() == 1){
@@ -83,7 +82,7 @@ void GameView::setLogic(GameView& logic){}
 //renders the running game
 void GameView::render(){
     this->App->clear();
-    this->App->draw(sprite);
+    this->App->draw(levelSprite);
     this->App->draw(sprite_player);
 }
 

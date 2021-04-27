@@ -14,7 +14,7 @@ class GameView : public State
     LevelManager levelManager;
 
     GameLogic logic;
-    sf::Sprite sprite;
+    sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
     sf::Texture texture_player;
