@@ -13,7 +13,6 @@ class CharacterActor : public Actor {
       virtual void setVelocity(sf::Vector2f vel) = 0;
       virtual void setVelocity(float x, float y) = 0;
       virtual void move() = 0;
-      virtual void resetVelocity() = 0;
       virtual MovementStates::movementStates getMovementState()=0;
 
 

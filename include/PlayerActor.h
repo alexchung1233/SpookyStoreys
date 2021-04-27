@@ -19,7 +19,6 @@ public:
   void moveDown(float deltaMS);
   void moveLeft(float deltaMS);
   void moveRight(float deltaMS);
-  void resetVelocity();
   MovementStates::movementStates getMovementState();
   sf::Vector2f getSize();
   void setSize(sf::Vector2f size);

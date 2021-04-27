@@ -7,8 +7,7 @@ PlayerActor::PlayerActor(){
 
 void PlayerActor::init(){
   position = Position(400.f, 300.f);
-  characterVelocity = sf::Vector2f(0,0);
-  direction = sf::Vector2f(0,0);
+  characterVelocity = sf::Vector2f(8000.f,8000.f);
   mySize = sf::Vector2f(48.f, 105.6f);
 }
 
@@ -39,15 +38,13 @@ Position PlayerActor::getPosition(){
 }
 
 void PlayerActor::moveUp(float deltaMS){
-  characterVelocity.y = -velocityConst;
-  position.y += deltaMS * characterVelocity.y;
+  position.y -= deltaMS * characterVelocity.y;
   direction.y = 1;
   direction.x = 0;
 
 }
 
 void PlayerActor::moveDown(float deltaMS){
-  characterVelocity.y = velocityConst;
   position.y += deltaMS * characterVelocity.y;
   direction.y = -1;
   direction.x = 0;
@@ -55,8 +52,7 @@ void PlayerActor::moveDown(float deltaMS){
 }
 
 void PlayerActor::moveLeft(float deltaMS){
-  characterVelocity.x = -velocityConst;
-  position.x += deltaMS * characterVelocity.x;
+  position.x -= deltaMS * characterVelocity.x;
   direction.x = -1;
   direction.y = 0;
 
@@ -64,16 +60,10 @@ void PlayerActor::moveLeft(float deltaMS){
 }
 
 void PlayerActor::moveRight(float deltaMS){
-  characterVelocity.x = velocityConst;
   position.x += deltaMS * characterVelocity.x;
   direction.x = 1;
   direction.y = 0;
 
-}
-
-void PlayerActor::resetVelocity(){
-  characterVelocity.x = 0;
-  characterVelocity.y = 0;
 }
 
 MovementStates::movementStates PlayerActor::getMovementState(){

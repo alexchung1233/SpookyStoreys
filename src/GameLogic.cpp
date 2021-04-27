@@ -150,5 +150,4 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 }
 
 void GameLogic::update(float dt){
-	player.resetVelocity();
 }
