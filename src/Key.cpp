@@ -4,9 +4,9 @@ Key::Key(){
 }
 
 void Key::init(){
-    string myDialogue;
-    bool pickedup = false;
-    Position position;
+    myDialogue = "A key!";
+    pickedup = false;
+    position;
 }
 
 Position Key::getPosition(){
@@ -18,6 +18,13 @@ void Key::setPosition(float x, float y){
     position.y = y;
 }
 
+void Key::setDialogue(string dialogue){
+    myDialogue = dialogue;
+}
+
+string Key::getDialogue(){
+    return myDialogue;
+}
 
 void Key::use(){
     this->pickedup = false;
@@ -28,10 +35,9 @@ bool Key::obtained(){
 }
 
 string Key::interact(PlayerActor &player, DialogueBox &box){
-    string input = "A key!";
-    box.setText(box.message, box.dialogueBox, input);
+    box.setText(box.message, box.dialogueBox, myDialogue);
     this->pickedup = true;
-    return input;
+    return myDialogue;
 }
 
 bool Key::nextToPlayer(PlayerActor &player){

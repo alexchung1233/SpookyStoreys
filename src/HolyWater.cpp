@@ -4,10 +4,10 @@
 HolyWater::HolyWater(){
 }
 void HolyWater::init(){
-    int health = 3;
-    string myDialogue = "Nothing\0";
-    Position position;
-    int pickedup = 0;
+    health = 3;
+    myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
+    position;
+    pickedup = 0;
 }
 Position HolyWater::getPosition(){
     return position;
@@ -16,6 +16,14 @@ Position HolyWater::getPosition(){
 void HolyWater::setPosition(float x, float y){
     position.x = x;
     position.y = y;
+}
+
+void HolyWater::setDialogue(string dialogue){
+    this->myDialogue = dialogue;
+}
+
+string HolyWater::getDialogue(){
+    return myDialogue;
 }
 
 void HolyWater::setHealth(int bar){
@@ -41,11 +49,10 @@ void HolyWater::resetUse(){
 
 
 string HolyWater::interact(PlayerActor &player, DialogueBox &box){
-    string input = "A bottle of holy water. Maybe I can use this on the monster\0";
     this->resetUse();
-    box.setText(box.message, box.dialogueBox, input);
+    box.setText(box.message, box.dialogueBox, myDialogue);
     pickedup = true;
-    return input;
+    return myDialogue;
 }
 
 bool HolyWater::nextToPlayer(PlayerActor &player){

@@ -18,6 +18,8 @@ class Note : public ItemActor {
         Position position;
         Position getPosition();
         void setPosition(float x, float y);
+        void setDialogue(string dialogue);
+        string getDialogue();
         string interact(PlayerActor &player, DialogueBox &box);
         string myDialogue;
         bool read;

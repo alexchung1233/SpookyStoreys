@@ -4,8 +4,8 @@
 Note::Note(){
 }
 void Note::init(){
-    string myDialogue;
-    Position position;
+    myDialogue;
+    position;
     read = false;
 }
 Position Note::getPosition(){
@@ -15,6 +15,14 @@ Position Note::getPosition(){
 void Note::setPosition(float x, float y){
     position.x = x;
     position.y = y;
+}
+
+void Note::setDialogue(string dialogue){
+    myDialogue = dialogue;
+}
+
+string Note::getDialogue(){
+    return myDialogue;
 }
 
 string Note::interact(PlayerActor &player, DialogueBox &box){

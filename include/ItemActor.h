@@ -15,10 +15,10 @@ class ItemActor : public Actor {
 		virtual Position getPosition() = 0;
 
 		//sets myDialogue to be equal to dialogue
-		//virtual void setDialogue(string dialogue) = 0;
+		virtual void setDialogue(string dialogue) = 0;
 
 		//returns myDialogue
-		//virtual string getDialogue() = 0;
+		virtual string getDialogue() = 0;
 
 		//checks to see if the player is next to/near the item (using nextToPlayer helper function)
 		//and, if they are, then returns the proper dialogue (if any) and runs the appropriate

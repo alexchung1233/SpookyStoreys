@@ -19,6 +19,8 @@ class Key : public ItemActor {
         Position getPosition();
         void setPosition(float x, float y);
         string interact(PlayerActor &player, DialogueBox &box);
+        void setDialogue(string dialogue);
+        string getDialogue();
         bool obtained();
         void use();
         bool pickedup;
