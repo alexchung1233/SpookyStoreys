@@ -25,7 +25,7 @@ void GameManager::runGame()
 {
 	while (this->window->isOpen())
 	{
-    initStates();
+    this->initStates();
     this->updateDt();
     this->update();
     this->render();
