@@ -47,6 +47,8 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
+  //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
 
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
