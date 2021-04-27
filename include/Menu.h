@@ -13,6 +13,7 @@ class Menu : public State
     //Menu();
 
     Menu(sf::RenderWindow& app, Sound *sound);
+    Menu(sf::RenderWindow& app);
 
     void upPressed();
     void downPressed();

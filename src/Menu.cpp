@@ -12,6 +12,13 @@ Menu::Menu(sf::RenderWindow& app, Sound* newSound){
   sound = newSound;
 }
 
+Menu::Menu(sf::RenderWindow& app){
+  this->App = &app;
+  itemSelected = 0;
+  difficultyLevel = 1;
+  this->status = State::UNINIT;
+}
+
 
 void Menu::init(){
   makeBox(startBox, sf::Vector2f(400, 290), sf::Color::White);

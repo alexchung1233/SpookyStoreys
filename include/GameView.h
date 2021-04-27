@@ -3,14 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
-//<<<<<<< HEAD
 #include "MonsterAI.h"
-//=======
 #include "State.h"
 #include "GameOver.h"
 #include "Sound.h"
-
-//>>>>>>> main
 
 
 
@@ -32,6 +28,8 @@ class GameView : public State
     GameView();
 
     GameView(sf::RenderWindow& app, Sound* sound);
+    GameView(sf::RenderWindow& app);
+    
     void update(sf::Event& Event, float dt);
     void init();
     void setLogic(GameView& logic);

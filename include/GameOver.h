@@ -8,6 +8,7 @@ class GameOver : public State
 {
 	public:
 		GameOver();
+		GameOver(sf::RenderWindow& app);
 		GameOver(sf::RenderWindow& app, Sound* newSound);
 		GameOver(sf::RenderWindow& app, std::string myMessage, Sound* newSound);
 

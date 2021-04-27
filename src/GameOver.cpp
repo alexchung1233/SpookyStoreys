@@ -12,6 +12,11 @@ GameOver::GameOver(){
 
 }
 
+GameOver::GameOver(sf::RenderWindow& app){
+	this->App = &app;
+ 	this->status = State::UNINIT;
+}
+
 GameOver::GameOver(sf::RenderWindow& app, Sound* newSound){
 	this->App = &app;
  	this->status = State::UNINIT;
