@@ -27,6 +27,10 @@ sf::Vector2f PlayerActor::getVelocity(){
 void PlayerActor::move(){
 
 }
+void PlayerActor::setPosition(float x, float y){
+  position.x = x;
+  position.y = y;
+}
 
 Position PlayerActor::getPosition(){
   return position;

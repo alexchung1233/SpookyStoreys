@@ -8,10 +8,19 @@ using namespace std;
 Room::Room(){
 }
 
-void Room::setUpRoom(std::string filepath){
+Room::Room(std::string roomName){
+	setUpRoom(roomName);
+}
+
+void Room::setUpRoom(std::string roomName){
+	string directory = "../data/";
+	string txt = ".txt";
+	string png = ".png";
+	
 	string STRING;
+	string filepathTXT = directory + roomName + txt;
 	ifstream infile;
-	infile.open (filepath);
+	infile.open (filepathTXT);
     while(!infile.eof()) // To get you all the lines.
     {
         getline(infile, STRING); // Saves the line in STRING.
@@ -30,7 +39,7 @@ void Room::setUpRoom(std::string filepath){
 			myBoundaries.width = stoi(result.at(3));
 			myBoundaries.height = stoi(result.at(4));
 		}
-		else{
+		else if (!result.at(0).find("OBST")){
 			sf::IntRect posObst;
 
 			posObst.left = stoi(result.at(1));
@@ -39,9 +48,24 @@ void Room::setUpRoom(std::string filepath){
 			posObst.height = stoi(result.at(4));
 			myObstacles.push_back( posObst );
 		}
-
+		else if (!result.at(0).find("DOOR")){
+			vector<string>forDoor;
+			for(int i = 1; i < result.size(); i++){
+				forDoor.push_back(result.at(i));
+			}
+			Door myDoor(forDoor);
+			myDoors.push_back( myDoor );
+		}
+		
     }
 	infile.close();
+
+	string filepathPNG = directory + roomName + png;
+
+  	if(!levelTexture.loadFromFile(filepathPNG)){
+    	printf("incorrect file format");
+  	}
+
 }
 
 sf::IntRect Room::getBoundaries(){
@@ -50,4 +74,12 @@ sf::IntRect Room::getBoundaries(){
 
 std::vector<sf::IntRect> Room::getObstacles(){
 	return myObstacles;
+}
+
+sf::Texture Room::getTexture(){
+	return levelTexture;
+}
+
+std::vector<Door> Room::getDoors(){
+	return myDoors;
 }

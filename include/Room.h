@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "Door.h"
+
 
 
 class Room
@@ -15,15 +17,22 @@ class Room
 
     public:
         Room();
+        Room(std::string roomName);
 
         //set up a room given a file / file path
         void setUpRoom(std::string filepath);
         sf::IntRect getBoundaries();
         std::vector<sf::IntRect> getObstacles();
+        sf::Texture getTexture();
+        std::vector<Door> getDoors();
 
     private:
+    	sf::Texture levelTexture;
+
         sf::IntRect myBoundaries;
         std::vector<sf::IntRect> myObstacles;
+        std::vector<Door> myDoors;
+
 
 
 };
