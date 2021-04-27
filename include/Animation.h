@@ -22,7 +22,7 @@ class Animation
     Animation(
       sf::Texture& textureSheet, sf::Sprite& sprite, float width, float height,
       float endX, float endY, float startLeft, float startTop);
-    void play(float dt);
+    void play(sf::Clock& clock);
 
 };
 

@@ -24,9 +24,10 @@ Animation::Animation(
 }
 
 //plays the animation based on the delta time
-void Animation::play(float dt){
-  this->timer += dt*10.0;
-  if(timer >1.5f){
+void Animation::play(sf::Clock& clock){
+  this->timer = clock.getElapsedTime().asSeconds() * 100;
+  //this->timer += dt*10.0;
+  if(timer >15.f){
     timer =0.f;
     if(rectSourceSprite.left < endX){
       rectSourceSprite.left+= width;
@@ -35,6 +36,7 @@ void Animation::play(float dt){
       rectSourceSprite.left=startLeft;
     }
     this->sprite->setTextureRect(this->rectSourceSprite);
+    clock.restart();
   }
 
 

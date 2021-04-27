@@ -94,25 +94,25 @@ void GameView::updatePlayerAnimation(float dt){
 
 
     case MovementStates::IDLE:
-      this->player_anim_down.play(dt);
+      this->player_anim_down.play(gameClock);
 
       break;
 
     case MovementStates::MOVING_LEFT:
-      this->player_anim_left.play(dt);
+      this->player_anim_left.play(gameClock);
       break;
 
     case MovementStates::MOVING_RIGHT:
-      this->player_anim_right.play(dt);
+      this->player_anim_right.play(gameClock);
       break;
 
 
     case MovementStates::MOVING_UP:
-      this->player_anim_up.play(dt);
+      this->player_anim_up.play(gameClock);
       break;
 
     case MovementStates::MOVING_DOWN:
-      this->player_anim_down.play(dt);
+      this->player_anim_down.play(gameClock);
       break;
 
       }

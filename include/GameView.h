@@ -22,7 +22,7 @@ class GameView : public State
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
-
+    sf::Clock gameClock;
     sf::Texture player_sprite_sheet;
 
 
