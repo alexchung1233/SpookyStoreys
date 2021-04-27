@@ -1,33 +1,33 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_MANAGER_H
+#define GAME_MANAGER_H
 
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-#include "GameView.h"
+#include <queue>
+#include "State.h"
 
-class Game
+class GameManager
 {
 private:
 	sf::RenderWindow *window;
 	sf::Event event;
 
-  	sf::Clock clock;
+	sf::Clock clock;
 	float dt;
-
-  	GameView gameView;
+	std::queue<State*> stateQueue;
 
 public:
-	Game();
+	GameManager();
 	//virtual ~Game();
 
-  	void shutdownGame();
+	void shutdownGame();
 
 
-  	void initWindow();
-  	void initVariables();
-  	void initGameView();
+	void initWindow();
+	void initVariables();
+	void initStates();
 
 	//Update
 	void updateDt();

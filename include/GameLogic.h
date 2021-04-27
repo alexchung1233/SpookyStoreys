@@ -4,8 +4,7 @@
 #include "Room.h"
 #include "HolyWater.h"
 #include "DialogueBox.h"
-
-
+#include "LevelManager.h"
 
 class GameLogic{
 
@@ -14,11 +13,14 @@ class GameLogic{
     Room myRoom;
     DialogueBox dialogue;
     HolyWater water;
-    
+
+
+
+    bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
 
   public:
-    GameLogic();
+    GameLogic() { };
 
     void setup();
 
@@ -28,7 +30,9 @@ class GameLogic{
     void createDialogueBox();
 
     int Etracker;
-    
+
+    LevelManager* levelManager;
+
 
     //reutrns player object
     PlayerActor getPlayer();
@@ -39,6 +43,8 @@ class GameLogic{
     bool detectCollisionDown(float dt);
     bool detectCollisionLeft(float dt);
     bool detectCollisionRight(float dt);
+
+    void setLevelManager(LevelManager &LM);
 
 
     void EPressed();
