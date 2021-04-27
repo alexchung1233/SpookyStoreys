@@ -29,6 +29,10 @@ sf::Vector2f PlayerActor::getVelocity(){
 void PlayerActor::move(){
 
 }
+void PlayerActor::setPosition(float x, float y){
+  position.x = x;
+  position.y = y;
+}
 
 Position PlayerActor::getPosition(){
   return position;
@@ -73,11 +77,11 @@ void PlayerActor::resetVelocity(){
 }
 
 MovementStates::movementStates PlayerActor::getMovementState(){
-  
+  /*
     if((int)characterVelocity.x  == 0 && (int)characterVelocity.y == 0){
       return MovementStates::IDLE;
     }
-
+*/
     if(direction.x == -1){
       return MovementStates::MOVING_LEFT;
     }

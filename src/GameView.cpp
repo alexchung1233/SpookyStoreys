@@ -6,39 +6,36 @@
 #include "InputManager.h"
 #include "Animation.h"
 
+
 using namespace std;
 
 
 GameView::GameView(){
   //TODO make this extend off a Process class.
-  GameLogic myLogic;
-  this->logic = myLogic;
   this->status = State::UNINIT;
-
 }
+
 //constructor takes in App
 GameView::GameView(sf::RenderWindow& app){
   //TODO make this extend off a Process class.
   this->App = &app;
-  GameLogic myLogic;
-  this->logic = myLogic;
-  inputManager(*App, logic);
   this->status = State::UNINIT;
 
 }
 
 void GameView::init(){
-  //TODO data driven approach so objects aren't hard coded in
+  this->levelManager.init();
+  this->logic.setup();
+  this->logic.setLevelManager(levelManager);
 
   inputManager(*App, logic);
 
-  string test_level = "../data/bedroom_level_V2.png";
-  if(!texture.loadFromFile(test_level)){
-    printf("incorrect file format");
-  }
+  texture = this->levelManager.getLevelTexture();
 
 
-  sprite.setTexture(texture);
+
+  levelSprite.setTexture(texture);
+
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
@@ -55,14 +52,15 @@ void GameView::init(){
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
   player_anim_left = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 214);
   player_anim_right = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 321);
-
-
   this->status = State::RUNNING;
 }
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
+
+  texture = this->levelManager.getLevelTexture();
+  levelSprite.setTexture(texture);
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
@@ -77,6 +75,15 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...");
   }
+
+  //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
+  // sf::RectangleShape rectangle(sf::Vector2f(540,385));
+  // rectangle.setPosition(sf::Vector2f(170,175));
+  // rectangle.setOutlineThickness(-3);
+  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
+  // rectangle.setFillColor(sf::Color::Transparent);
+  // this->App->draw(rectangle);
+
 }
 
 
@@ -116,8 +123,7 @@ void GameView::setLogic(GameView& logic){}
 //renders the running game
 void GameView::render(){
     this->App->clear();
-    this->App->draw(sprite);
-
+    this->App->draw(levelSprite);
     this->App->draw(sprite_player);
 
 }
