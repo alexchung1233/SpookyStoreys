@@ -58,7 +58,7 @@ void GameView::init(){
 
   this->status = State::RUNNING;
 
-  string monster_file = "../data/monster.png";
+  string monster_file = "../data/Monster.png";
   if(!texture_monster.loadFromFile(monster_file)){
     printf("incorrect file format");
   }
@@ -88,11 +88,6 @@ void GameView::update(sf::Event& Event, float dt){
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
   sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
 
-  this->App->draw(sprite);
-
-  this->App->draw(sprite_player);
-
-  this->App->draw(sprite_monster);
 
   float distX = pow(monsterAI.positionX - player.getPosition().x-125, 2);
   float distY = pow(monsterAI.positionY - player.getPosition().y+20, 2);
@@ -128,6 +123,8 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
+    this->App->draw(sprite_monster);
+
 }
 
 void GameView::pause(){}
