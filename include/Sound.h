@@ -11,10 +11,12 @@ protected:
   sf::SoundBuffer playBuffer;
   sf::SoundBuffer nextRoomBuffer;
   sf::SoundBuffer inRoomBuffer;
+  sf::SoundBuffer generalBuffer;
   sf::Sound menuMusic;
   sf::Sound playMusic;
   sf::Sound nextRoom;
   sf::Sound inRoom;
+  sf::Sound generalSound;
 
 public:
   Sound();
@@ -24,10 +26,15 @@ public:
   void playPlayingMusic();
   void playNextRoom();
   void playInRoom();
+  void playGeneralBuffer();
 
   void stopMenuMusic();
   void stopPlayingMusic();
   void stopNextRoom();
   void stopInRoom();
+  void stopGeneralBuffer();
+
+  void setGeneralBuffer(std::string);
+
 };
 #endif
