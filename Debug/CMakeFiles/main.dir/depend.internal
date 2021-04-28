@@ -4,12 +4,15 @@
 CMakeFiles/main.dir/bin/main.cpp.o
  ../include/Actor.h
  ../include/CharacterActor.h
+ ../include/Door.h
  ../include/GameLogic.h
  ../include/GameManager.h
  ../include/GameOver.h
  ../include/GameView.h
  ../include/InputManager.h
+ ../include/LevelManager.h
  ../include/PlayerActor.h
  ../include/Position.h
+ ../include/Room.h
  ../include/State.h
  /home/alex/Desktop/GameDesign/SpookyStoreys/bin/main.cpp

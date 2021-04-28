@@ -11,7 +11,9 @@ class InputManager
 
   public:
     InputManager();
+
     GameLogic* logic;
+
     InputManager(sf::RenderWindow &app, GameLogic &logic);
     void operator()(sf::RenderWindow &app, GameLogic &logic);
     void update(sf::Event& Event, float dt);

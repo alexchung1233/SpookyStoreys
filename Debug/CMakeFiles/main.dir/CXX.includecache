@@ -22,6 +22,16 @@ Position.h
 Actor.h
 ../include/Actor.h
 
+../include/Door.h
+SFML/Graphics.hpp
+-
+string
+-
+vector
+-
+Position.h
+../include/Position.h
+
 ../include/GameLogic.h
 string
 -
@@ -29,6 +39,10 @@ iostream
 -
 PlayerActor.h
 ../include/PlayerActor.h
+Room.h
+../include/Room.h
+LevelManager.h
+../include/LevelManager.h
 
 ../include/GameManager.h
 SFML/Graphics.hpp
@@ -68,11 +82,39 @@ SFML/Graphics.hpp
 GameLogic.h
 ../include/GameLogic.h
 
+../include/LevelManager.h
+SFML/Graphics.hpp
+-
+map
+-
+string
+-
+Room.h
+../include/Room.h
+
 ../include/PlayerActor.h
 CharacterActor.h
 ../include/CharacterActor.h
 
 ../include/Position.h
+
+../include/Room.h
+SFML/Graphics.hpp
+-
+SFML/Audio.hpp
+-
+iostream
+-
+fstream
+-
+string
+-
+vector
+-
+sstream
+-
+Door.h
+../include/Door.h
 
 ../include/State.h
 SFML/Graphics.hpp

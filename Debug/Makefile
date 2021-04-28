@@ -163,6 +163,33 @@ bin/main.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/bin/main.cpp.s
 .PHONY : bin/main.cpp.s
 
+src/Door.o: src/Door.cpp.o
+
+.PHONY : src/Door.o
+
+# target to build an object file
+src/Door.cpp.o:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Door.cpp.o
+.PHONY : src/Door.cpp.o
+
+src/Door.i: src/Door.cpp.i
+
+.PHONY : src/Door.i
+
+# target to preprocess a source file
+src/Door.cpp.i:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Door.cpp.i
+.PHONY : src/Door.cpp.i
+
+src/Door.s: src/Door.cpp.s
+
+.PHONY : src/Door.s
+
+# target to generate assembly for a file
+src/Door.cpp.s:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Door.cpp.s
+.PHONY : src/Door.cpp.s
+
 src/GameLogic.o: src/GameLogic.cpp.o
 
 .PHONY : src/GameLogic.o
@@ -298,6 +325,33 @@ src/InputManager.cpp.s:
 	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/InputManager.cpp.s
 .PHONY : src/InputManager.cpp.s
 
+src/LevelManager.o: src/LevelManager.cpp.o
+
+.PHONY : src/LevelManager.o
+
+# target to build an object file
+src/LevelManager.cpp.o:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/LevelManager.cpp.o
+.PHONY : src/LevelManager.cpp.o
+
+src/LevelManager.i: src/LevelManager.cpp.i
+
+.PHONY : src/LevelManager.i
+
+# target to preprocess a source file
+src/LevelManager.cpp.i:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/LevelManager.cpp.i
+.PHONY : src/LevelManager.cpp.i
+
+src/LevelManager.s: src/LevelManager.cpp.s
+
+.PHONY : src/LevelManager.s
+
+# target to generate assembly for a file
+src/LevelManager.cpp.s:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/LevelManager.cpp.s
+.PHONY : src/LevelManager.cpp.s
+
 src/Menu.o: src/Menu.cpp.o
 
 .PHONY : src/Menu.o
@@ -406,6 +460,33 @@ src/Position.cpp.s:
 	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Position.cpp.s
 .PHONY : src/Position.cpp.s
 
+src/Room.o: src/Room.cpp.o
+
+.PHONY : src/Room.o
+
+# target to build an object file
+src/Room.cpp.o:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Room.cpp.o
+.PHONY : src/Room.cpp.o
+
+src/Room.i: src/Room.cpp.i
+
+.PHONY : src/Room.i
+
+# target to preprocess a source file
+src/Room.cpp.i:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Room.cpp.i
+.PHONY : src/Room.cpp.i
+
+src/Room.s: src/Room.cpp.s
+
+.PHONY : src/Room.s
+
+# target to generate assembly for a file
+src/Room.cpp.s:
+	$(MAKE) -f CMakeFiles/SpookyStoreys_core.dir/build.make CMakeFiles/SpookyStoreys_core.dir/src/Room.cpp.s
+.PHONY : src/Room.cpp.s
+
 src/State.o: src/State.cpp.o
 
 .PHONY : src/State.o
@@ -446,6 +527,9 @@ help:
 	@echo "... bin/main.o"
 	@echo "... bin/main.i"
 	@echo "... bin/main.s"
+	@echo "... src/Door.o"
+	@echo "... src/Door.i"
+	@echo "... src/Door.s"
 	@echo "... src/GameLogic.o"
 	@echo "... src/GameLogic.i"
 	@echo "... src/GameLogic.s"
@@ -461,6 +545,9 @@ help:
 	@echo "... src/InputManager.o"
 	@echo "... src/InputManager.i"
 	@echo "... src/InputManager.s"
+	@echo "... src/LevelManager.o"
+	@echo "... src/LevelManager.i"
+	@echo "... src/LevelManager.s"
 	@echo "... src/Menu.o"
 	@echo "... src/Menu.i"
 	@echo "... src/Menu.s"
@@ -473,6 +560,9 @@ help:
 	@echo "... src/Position.o"
 	@echo "... src/Position.i"
 	@echo "... src/Position.s"
+	@echo "... src/Room.o"
+	@echo "... src/Room.i"
+	@echo "... src/Room.s"
 	@echo "... src/State.o"
 	@echo "... src/State.i"
 	@echo "... src/State.s"
