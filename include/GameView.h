@@ -9,13 +9,14 @@
 #include "Sound.h"
 
 
-
 class GameView : public State
 {
   private:
     InputManager inputManager;
+    LevelManager levelManager;
+
     GameLogic logic;
-    sf::Sprite sprite;
+    sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
     sf::Texture texture;
@@ -32,6 +33,7 @@ class GameView : public State
     
     void update(sf::Event& Event, float dt);
     void init();
+
     void setLogic(GameView& logic);
     void render();
     void pause();
