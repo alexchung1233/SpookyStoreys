@@ -34,6 +34,12 @@ public:
   void stopInRoom();
   void stopGeneralBuffer();
 
+  sf::SoundSource::Status getStatusMenu();
+  sf::SoundSource::Status getStatusPlaying();
+  sf::SoundSource::Status getStatusNextRoom();
+  sf::SoundSource::Status getStatusInRoom();
+  sf::SoundSource::Status getStatusGeneral();
+
   void setGeneralBuffer(std::string);
 
 };

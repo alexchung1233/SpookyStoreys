@@ -85,3 +85,23 @@ void Sound::stopInRoom(){
 void Sound::stopGeneralBuffer(){
   generalSound.stop();
 }
+
+sf::SoundSource::Status Sound::getStatusMenu(){
+  return (menuMusic.getStatus());
+}
+
+sf::SoundSource::Status Sound::getStatusPlaying(){
+  return (playMusic.getStatus());
+}
+
+sf::SoundSource::Status Sound::getStatusNextRoom(){
+  return (nextRoom.getStatus());
+}
+
+sf::SoundSource::Status Sound::getStatusInRoom(){
+  return (inRoom.getStatus());
+}
+
+sf::SoundSource::Status Sound::getStatusGeneral(){
+  return (generalSound.getStatus());
+}
