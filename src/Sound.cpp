@@ -31,6 +31,13 @@ void operator()(){
 */
 
 
+void Sound::setGeneralBuffer(std::string fileLoc){
+  generalBuffer.loadFromFile(fileLoc);
+}
+
+
+
+
 void Sound::playMenuMusic(){
   menuMusic.setBuffer(menuBuffer);
   menuMusic.play();
@@ -51,6 +58,11 @@ void Sound::playInRoom(){
   inRoom.play();
 }
 
+void Sound::playGeneralBuffer(){
+  generalSound.setBuffer(generalBuffer);
+  generalSound.play();
+}
+
 
 
 
@@ -68,4 +80,8 @@ void Sound::stopNextRoom(){
 
 void Sound::stopInRoom(){
   inRoom.stop();
+}
+
+void Sound::stopGeneralBuffer(){
+  generalSound.stop();
 }
