@@ -85,6 +85,10 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
+/*
+
+All monster AI stuff
+
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
   sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
 
@@ -97,6 +101,8 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...", sound);
   }
+  */
+  
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Win!", sound);
