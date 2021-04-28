@@ -29,6 +29,7 @@ void GameView::init(){
 
   inputManager(*App, logic);
 
+  //get current level texture
   texture = this->levelManager.getLevelTexture();
 
   string player_file = "../data/protag_V1.png";
@@ -44,16 +45,16 @@ void GameView::init(){
   }
 
   levelSprite.setTexture(texture);
+
   sprite_player.setTexture(texture_player);
   sprite_holywater.setTexture(texture_water);
   sprite_holywater.setPosition(sf::Vector2f(479.f, 152.f));
+
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
-  DialogueBox dialogue = this->logic.getDialogueBox();
-  HolyWater water = this->logic.getWater();
   this->status = State::RUNNING;
 
 }
@@ -62,16 +63,14 @@ void GameView::init(){
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
 
+  //get the latest level texture
   texture = this->levelManager.getLevelTexture();
+
+  //update the level sprite
   levelSprite.setTexture(texture);
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-
-
-  DialogueBox dialogue = this->logic.getDialogueBox();
-  HolyWater water = this->logic.getWater();
-
 
 
   if(inputManager.getPlayState() == 1){
@@ -93,13 +92,9 @@ void GameView::update(sf::Event& Event, float dt){
   // this->App->draw(rectangle);
 
 
-  this->App->draw(sprite_player);
-  if(!water.obtained()){
-    this->App->draw(sprite_holywater);
-  }
 
 
-  isDialogue(dialogue);
+
 
 
 }
@@ -108,9 +103,18 @@ void GameView::setLogic(GameView& logic){}
 
 //renders the running game
 void GameView::render(){
+    DialogueBox dialogue = this->logic.getDialogueBox();
+    HolyWater water = this->logic.getWater();
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
+    this->App->draw(sprite_player);
+    if(!water.obtained()){
+      this->App->draw(sprite_holywater);
+    }
+
+    this->isDialogue(dialogue);
+
 }
 
 
