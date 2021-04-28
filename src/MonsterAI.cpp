@@ -11,8 +11,21 @@ void MonsterAI::setPosition(float x, float y) {
   positionY = y;
 }
 
-void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS) {
-  if(currentRoom == "Bedroom"){
+std::string MonsterAI::getCurrentRoom() {
+  return (currentRoom);
+}
+
+void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel) {
+  if((currentRoom == "Bedroom") && (playerLevel == "BEDROOM")){
+    calculateMoveInRoom(playerX, playerY);
+  }
+  else if((currentRoom == "Hallway") && (playerLevel == "HALLWAY")){
+    calculateMoveInRoom(playerX, playerY);
+  }
+  else if((currentRoom == "ParentRoom") && (playerLevel == "PARENTROOM")){
+    calculateMoveInRoom(playerX, playerY);
+  }
+  else if((currentRoom == "Bathroom") && (playerLevel == "BATHROOM")){
     calculateMoveInRoom(playerX, playerY);
   }
   else{

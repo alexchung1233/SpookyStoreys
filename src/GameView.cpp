@@ -81,11 +81,12 @@ void GameView::update(sf::Event& Event, float dt){
 
   texture = this->levelManager.getLevelTexture();
   levelSprite.setTexture(texture);
+  //std::cout << levelManager.getCurrentRoom().getRoomTitle() << '\n';
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
-  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
+  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle());
   sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
 
 
@@ -123,7 +124,18 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
-    this->App->draw(sprite_monster);
+    if ((monsterAI.getCurrentRoom() == "Bedroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BEDROOM")) {
+      this->App->draw(sprite_monster);
+    }
+    else if ((monsterAI.getCurrentRoom() == "Hallway") && (levelManager.getCurrentRoom().getRoomTitle() == "HALLWAY")) {
+      this->App->draw(sprite_monster);
+    }
+    else if ((monsterAI.getCurrentRoom() == "ParentRoom") && (levelManager.getCurrentRoom().getRoomTitle() == "PARENTROOM")) {
+      this->App->draw(sprite_monster);
+    }
+    else if ((monsterAI.getCurrentRoom() == "Bathroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BATHROOM")) {
+      this->App->draw(sprite_monster);
+    }
 
 }
 

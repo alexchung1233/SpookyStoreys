@@ -25,8 +25,11 @@ class Room
         std::vector<sf::IntRect> getObstacles();
         sf::Texture getTexture();
         std::vector<Door> getDoors();
+        std::string getRoomTitle();
+
 
     private:
+      std::string roomTitle;
     	sf::Texture levelTexture;
 
         sf::IntRect myBoundaries;

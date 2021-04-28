@@ -27,9 +27,12 @@ class MonsterAI
 
     MonsterAI();
     void setPosition(float x, float y);
-    void calculateMove(float playerX, float playerY, float deltaMS);
+    void calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel);
     void calculateMoveInRoom(float playerX, float playerY);
     void calculateMoveOutRoom(float deltaMS);
+
+    std::string getCurrentRoom();
+
   };
 
 #endif /* MY_CLASS_H */
