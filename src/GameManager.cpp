@@ -2,6 +2,7 @@
 #include "GameView.h"
 #include "Menu.h"
 #include "GameOver.h"
+#include "ScriptManager.h"
 
 
 GameManager::GameManager(){
@@ -13,7 +14,6 @@ GameManager::GameManager(){
 void GameManager::initVariables(){
   srand(time(0));
   this-> dt = 0.f;
-
   //initial starting state
   this->stateQueue.push(new Menu(*window));
 

@@ -3,7 +3,6 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
-#include "InputManager.h"
 
 
 using namespace std;
@@ -26,6 +25,7 @@ void GameView::init(){
   this->levelManager.init();
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
+  this->scriptManager.readInScript("test_script");
 
   transitionRectangleAlphaChannel = 255;
 
@@ -52,6 +52,7 @@ void GameView::init(){
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
+  this->dt = dt;
   inputManager.update(Event, dt);
 
   texture = this->levelManager.getLevelTexture();
@@ -70,18 +71,21 @@ void GameView::update(sf::Event& Event, float dt){
   }
 
 
-  //if new game
-      //then fade out
-      //pop dialogue
-      // if player moves to a certain Position
-        //flash lightning
-          //play sound
-          //fade out
-        //there appears to be lightning
 
+  //run test script
 
+  ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
+
+  if(!this->scriptManager.scriptQueue.empty()){
+    if(this->scriptCommandOnFinish(*currentCommand)){
+      this->scriptManager.scriptQueue.pop();
+    }
+    else{
+      this->executeScriptCommand(*currentCommand);
+    }
+  }
   //test script
-  fadeIn(2.f, 255, 255, 255);
+  //fadeIn(16.f, 0, 0, 0);
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // sf::RectangleShape rectangle(sf::Vector2f(540,385));
@@ -108,6 +112,36 @@ void GameView::pause(){}
 
 void GameView::unpause(){}
 
+
+
+void GameView::executeScriptCommand(ScriptCommand command){
+  vector<string> data = command.getData();
+  switch(command.getCommandType()){
+    //matches the command to the type
+    case ScriptCommand::FADE_IN:
+      fadeIn(
+        stof(data.at(1)),stof(data.at(2)), stof(data.at(3)), stof(data.at(4)));
+      break;
+    case ScriptCommand::MOVE_PLAYER_UP:
+      this->logic.upPressed(this->dt);
+      break;
+  }
+}
+
+bool GameView::scriptCommandOnFinish(ScriptCommand command){
+  switch(command.getCommandType()){
+    case ScriptCommand::FADE_IN:
+      if(transitionRectangleAlphaChannel <= 0){
+        transitionRectangleAlphaChannel = 255;
+        return true;
+      }
+      return false;
+      break;
+
+  }
+  return false;
+
+}
 
 
 //Game Effects

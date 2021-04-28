@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include "State.h"
 #include "GameOver.h"
+#include "ScriptManager.h"
+#include "ScriptCommand.h"
 
 
 class GameView : public State
@@ -14,6 +16,8 @@ class GameView : public State
     LevelManager levelManager;
 
     GameLogic logic;
+    ScriptManager scriptManager;
+
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Texture texture;
@@ -23,6 +27,8 @@ class GameView : public State
     sf::RectangleShape transitionRectangle{ sf::Vector2f(800, 600) };
     sf::Uint8 transitionRectangleAlphaChannel;
     sf::Clock clockFilter;
+
+    float dt;
 
 
   public:
@@ -38,6 +44,9 @@ class GameView : public State
     void unpause();
     void fadeIn(float duration, int r, int g, int b);
     void fadeOut(float duration, int r, int g, int b);
+
+    void executeScriptCommand(ScriptCommand command);
+    bool scriptCommandOnFinish(ScriptCommand command);
   };
 
 #endif /* MY_CLASS_H */
