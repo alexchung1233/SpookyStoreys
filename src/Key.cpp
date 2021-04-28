@@ -35,7 +35,7 @@ bool Key::obtained(){
 }
 
 string Key::interact(PlayerActor &player, DialogueBox &box){
-    box.setText(box.message, box.dialogueBox, myDialogue);
+    box.setText(myDialogue);
     this->pickedup = true;
     return myDialogue;
 }

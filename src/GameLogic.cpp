@@ -46,38 +46,37 @@ DialogueBox GameLogic::getDialogueBox(){
 }
 
 void GameLogic::EPressed(){
-	if(water.nextToPlayer(player)){
+	if(water.interact(player, dialogue) != ""){
 		Etracker++; //toggle player movement, locks player if they are interacting with an item
 		dialogue.tracker++; //toggle the dialogue box, shows the dialogue box if the player is interacting with an item
-		water.interact(player, dialogue);
 	}else{
 		dialogue.message.setString(" ");
 	}
 }
 
 void GameLogic::upPressed(float dt){
-	if (Etracker%4 == 0 || Etracker == 0){ //if the player is interacting with an item, do not let them move
+	if (Etracker%4 == 0){ //if the player is interacting with an item, do not let them move
 		if(!detectCollisionUp(dt))
 		player.moveUp(dt);
 	}
 }
 
 void GameLogic::downPressed(float dt){
-	if (Etracker%4 == 0 || Etracker == 0){
+	if (Etracker%4 == 0){
 		if(!detectCollisionDown(dt))
 		player.moveDown(dt);
 	}
 }
 
 void GameLogic::leftPressed(float dt){
-	if (Etracker%4 == 0 || Etracker == 0){
+	if (Etracker%4 == 0){
 		if(!detectCollisionLeft(dt))
 			player.moveLeft(dt);
 	}
 }
 
 void GameLogic::rightPressed(float dt){
-	if (Etracker%4 == 0 || Etracker == 0){
+	if (Etracker%4 == 0){
 		if(!detectCollisionRight(dt))
 			player.moveRight(dt);
 	}
@@ -86,7 +85,7 @@ void GameLogic::rightPressed(float dt){
 bool GameLogic::detectCollisionUp(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().y;
-	
+
 	sf::IntRect possiblePlayerPosition(playerPos.x, playerPos.y - movement, player.getSize().x, player.getSize().y);
 
 	if(hitsDoor(possiblePlayerPosition)){
@@ -108,7 +107,7 @@ bool GameLogic::detectCollisionUp(float dt){
 bool GameLogic::detectCollisionDown(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().y;
-	
+
 	sf::IntRect possiblePlayerPosition(playerPos.x, playerPos.y + movement, player.getSize().x, player.getSize().y);
 
 	if(hitsDoor(possiblePlayerPosition)){
@@ -132,7 +131,7 @@ bool GameLogic::detectCollisionLeft(float dt){
 	float movement = dt * player.getVelocity().x;
 
 	sf::IntRect possiblePlayerPosition(playerPos.x - movement, playerPos.y, player.getSize().x, player.getSize().y);
-	
+
 	if(hitsDoor(possiblePlayerPosition)){
 		return true;
 	}
@@ -154,7 +153,7 @@ bool GameLogic::detectCollisionRight(float dt){
 	float movement = dt * player.getVelocity().x;
 
 	sf::IntRect possiblePlayerPosition(playerPos.x + movement, playerPos.y, player.getSize().x, player.getSize().y);
-	
+
 	if(hitsDoor(possiblePlayerPosition)){
 		return true;
 	}

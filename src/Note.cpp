@@ -26,7 +26,7 @@ string Note::getDialogue(){
 }
 
 string Note::interact(PlayerActor &player, DialogueBox &box){
-    box.setText(box.message, box.dialogueBox, myDialogue);
+    box.setText(myDialogue);
     read = true;
     return myDialogue;
 }
@@ -39,4 +39,3 @@ bool Note::nextToPlayer(PlayerActor &player){
         close = true;
     return close;
 }
-

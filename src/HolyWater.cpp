@@ -40,7 +40,7 @@ void HolyWater::useWater(){
         health--;
         this->setHealth(health);
     }
-        
+
 }
 
 void HolyWater::resetUse(){
@@ -49,10 +49,13 @@ void HolyWater::resetUse(){
 
 
 string HolyWater::interact(PlayerActor &player, DialogueBox &box){
-    this->resetUse();
-    box.setText(box.message, box.dialogueBox, myDialogue);
-    pickedup = true;
-    return myDialogue;
+    if(nextToPlayer(player)){
+      this->resetUse();
+      box.setText(myDialogue);
+      pickedup = true;
+      return myDialogue;
+    }
+    return "";
 }
 
 bool HolyWater::nextToPlayer(PlayerActor &player){

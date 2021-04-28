@@ -12,14 +12,16 @@ class DialogueBox
         void init();
         sf::RectangleShape dialogueBox;
         sf::Text message;
-        void setText(sf::Text& text, sf::RectangleShape box, std::string string);
+        void setText(std::string string);
+        int getDialogueLimit();
         int tracker; //keep track of times item is interacted with to tell if dialogue should be shown - "press E to close dialogue box"
-    
+
     private:
         sf::Font font;
-        void makeBox(sf::RectangleShape& box, sf::Vector2f position, sf::Color color);
-        
-      
+        int dialogueLimit;
+        void makeBox(sf::Vector2f position, sf::Color color);
+
+
 
 };
 
