@@ -1,11 +1,11 @@
 #include "InputManager.h"
 
 InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
-
   this->App = &app;
   this->logic = &logic;
-  playState = 0;
 
+
+  playState = 0;
 }
 
 InputManager::InputManager(){
@@ -55,7 +55,7 @@ void InputManager::update(sf::Event& Event, float dt){
     {
       playState = 2;
     }
-      
+
   }
 
 }
