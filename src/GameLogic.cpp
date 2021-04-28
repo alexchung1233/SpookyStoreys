@@ -23,7 +23,8 @@ void GameLogic::createPlayer(){
 
 
 void GameLogic::createDialogueBox(){
-	dialogue = DialogueBox();
+	int sampleLimit = 2;
+	dialogue = DialogueBox(sampleLimit);
 	dialogue.init();
 }
 
@@ -49,6 +50,7 @@ void GameLogic::EPressed(){
 	if(water.interact(player, dialogue) != ""){
 		Etracker++; //toggle player movement, locks player if they are interacting with an item
 		dialogue.tracker++; //toggle the dialogue box, shows the dialogue box if the player is interacting with an item
+		dialogue.setUsingState(true);
 	}else{
 		dialogue.message.setString(" ");
 	}

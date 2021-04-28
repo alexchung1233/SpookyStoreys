@@ -119,7 +119,7 @@ void GameView::render(){
 
 
 void GameView::isDialogue(DialogueBox& box){
-  if (box.tracker%4 != 0){ //toggle the dialogue box, if the  player has some sort of interaction
+  if (box.tracker <= box.getDialogueLimit() && box.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
     this->App->draw(box.dialogueBox);
     this->App->draw(box.message);
   }else if (box.tracker == 0 && this->logic.Etracker != 0){ //for the first interaction with an item of any kind

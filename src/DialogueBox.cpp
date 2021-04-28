@@ -1,6 +1,7 @@
 #include "DialogueBox.h"
 
-DialogueBox::DialogueBox(){
+DialogueBox::DialogueBox(int dialogueLimit){
+  this->dialogueLimit = dialogueLimit;
 }
 
 void DialogueBox::init(){
@@ -9,9 +10,11 @@ void DialogueBox::init(){
     if (!font.loadFromFile("../data/Lato-Bold.ttf")){
         std::cout << "incorrect font";
     }
+    this->currentUsingState = false;
 }
 
 
+//creat the box and position of box
 void DialogueBox::makeBox(sf::Vector2f position, sf::Color color){
     this->dialogueBox.setFillColor(color);
     this->dialogueBox.setSize(sf::Vector2f(790, 40));
@@ -23,7 +26,7 @@ void DialogueBox::makeBox(sf::Vector2f position, sf::Color color){
     dialogueBox.setPosition(myPos);
 }
 
-
+//set the text for the dialoguebox
 void DialogueBox::setText(std::string string){
   this->message.setString(string);
   this->message.setCharacterSize(15);
