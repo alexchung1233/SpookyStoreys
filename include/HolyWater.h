@@ -2,6 +2,8 @@
 #define HOLY_WATER_H
 #include <SFML/Graphics.hpp>
 #include <cmath>  
+#include <string>
+#include <vector>
 #include "ItemActor.h"
 #include "DialogueBox.h"
 
@@ -12,11 +14,10 @@ using namespace std;
 class HolyWater : public ItemActor {
 
     public:
-        HolyWater();
+        HolyWater(std::vector<std::string> inputVector);
         void init();
         Position position;
         Position getPosition();
-        void setPosition(float x, float y);
         string interact(PlayerActor &player, DialogueBox &box);
         void setDialogue(string dialogue);
         string getDialogue();

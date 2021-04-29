@@ -1,6 +1,5 @@
 #include "GameLogic.h"
 #include "PlayerActor.h"
-#include "DialogueBox.h"
 #include <iostream>
 
 
@@ -11,8 +10,6 @@ void GameLogic::setLevelManager(LevelManager &LM){
 
 void GameLogic::setup(){
 	createPlayer();
-	createDialogueBox();
-	createWater();
 	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
 }
 
@@ -21,67 +18,32 @@ void GameLogic::createPlayer(){
 	player.init();
 }
 
-
-void GameLogic::createDialogueBox(){
-	int sampleLimit = 2;
-	dialogue = DialogueBox(sampleLimit);
-	dialogue.init();
-}
-
-void GameLogic::createWater(){
-	water = HolyWater();
-	water.init();
-	water.setPosition(479.f, 152.f);
-}
-
 PlayerActor GameLogic::getPlayer(){
   return player;
 }
 
-HolyWater GameLogic::getWater(){
-	return water;
-}
-
-DialogueBox GameLogic::getDialogueBox(){
-	return dialogue;
-}
-
 void GameLogic::EPressed(){
-	if(water.interact(player, dialogue) != ""){
-		Etracker++; //toggle player movement, locks player if they are interacting with an item
-		dialogue.tracker++; //toggle the dialogue box, shows the dialogue box if the player is interacting with an item
-		dialogue.setUsingState(true);
-	}else{
-		dialogue.message.setString(" ");
-	}
+	//if(this->myRoom.getWaters.interact(player, ))
 }
 
 void GameLogic::upPressed(float dt){
-	if (Etracker%4 == 0){ //if the player is interacting with an item, do not let them move
-		if(!detectCollisionUp(dt))
+	if(!detectCollisionUp(dt))
 		player.moveUp(dt);
-	}
 }
 
 void GameLogic::downPressed(float dt){
-	if (Etracker%4 == 0){
-		if(!detectCollisionDown(dt))
+	if(!detectCollisionDown(dt))
 		player.moveDown(dt);
-	}
 }
 
 void GameLogic::leftPressed(float dt){
-	if (Etracker%4 == 0){
-		if(!detectCollisionLeft(dt))
-			player.moveLeft(dt);
-	}
+	if(!detectCollisionLeft(dt))
+		player.moveLeft(dt);
 }
 
 void GameLogic::rightPressed(float dt){
-	if (Etracker%4 == 0){
-		if(!detectCollisionRight(dt))
-			player.moveRight(dt);
-	}
+	if(!detectCollisionRight(dt))
+		player.moveRight(dt);
 }
 
 bool GameLogic::detectCollisionUp(float dt){

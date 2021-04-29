@@ -12,12 +12,12 @@ class LevelManager {
 private:
 	std::map<const std::string, Room> levelFileMapping;
 	std::vector<std::string> myRooms;
-	std::string currentLevelName;
+	
 
 
 public:
 	LevelManager() { };
-
+	std::string currentLevelName;
 	LevelManager(sf::Texture& levelTexture);
 	void init();
 	void setRoom(std::string roomName);

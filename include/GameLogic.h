@@ -11,8 +11,6 @@ class GameLogic{
   private:
     PlayerActor player;
     Room myRoom;
-    DialogueBox dialogue;
-    HolyWater water;
 
 
 
@@ -26,8 +24,6 @@ class GameLogic{
 
     //creates player object
     void createPlayer();
-    void createWater();
-    void createDialogueBox();
 
     int Etracker;
 
@@ -36,8 +32,7 @@ class GameLogic{
 
     //reutrns player object
     PlayerActor getPlayer();
-    DialogueBox getDialogueBox();
-    HolyWater getWater();
+    
 
     bool detectCollisionUp(float dt);
     bool detectCollisionDown(float dt);

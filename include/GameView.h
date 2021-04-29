@@ -5,6 +5,7 @@
 #include "InputManager.h"
 #include "State.h"
 #include "GameOver.h"
+#include "Room.h"
 
 
 class GameView : public State
@@ -12,14 +13,15 @@ class GameView : public State
   private:
     InputManager inputManager;
     LevelManager levelManager;
-
     GameLogic logic;
+    Room room;
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Sprite sprite_holywater;
     sf::Texture texture;
     sf::Texture texture_player;
     sf::Texture texture_water;
+    
 
   public:
     GameView();
@@ -34,6 +36,9 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
+    DialogueBox dialogue;
+    DialogueBox getDialogueBox();
+    void createDialogueBox();
 
   };
 

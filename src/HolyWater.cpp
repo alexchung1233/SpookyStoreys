@@ -1,21 +1,17 @@
 #include "HolyWater.h"
 
 
-HolyWater::HolyWater(){
+HolyWater::HolyWater(vector<string> inputVector){
+    this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
 }
 void HolyWater::init(){
-    health = 3;
-    myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
-    position;
-    pickedup = 0;
+    this->health = 3;
+    this->myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
+    this->position;
+    this->pickedup = 0;
 }
 Position HolyWater::getPosition(){
-    return position;
-}
-
-void HolyWater::setPosition(float x, float y){
-    position.x = x;
-    position.y = y;
+    return this->position;
 }
 
 void HolyWater::setDialogue(string dialogue){
@@ -23,7 +19,7 @@ void HolyWater::setDialogue(string dialogue){
 }
 
 string HolyWater::getDialogue(){
-    return myDialogue;
+    return this->myDialogue;
 }
 
 void HolyWater::setHealth(int bar){
@@ -36,9 +32,9 @@ int HolyWater::getHealth(){
 
 void HolyWater::useWater(){
     this->health = this->getHealth();
-    if(health > 0){
-        health--;
-        this->setHealth(health);
+    if(this->health > 0){
+        this->health--;
+        this->setHealth(this->health);
     }
 
 }
@@ -53,7 +49,7 @@ string HolyWater::interact(PlayerActor &player, DialogueBox &box){
       this->resetUse();
       box.setText(myDialogue);
       pickedup = true;
-      return myDialogue;
+      return this->myDialogue;
     }
     return "";
 }

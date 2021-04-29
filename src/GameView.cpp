@@ -26,6 +26,7 @@ void GameView::init(){
   this->levelManager.init();
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
+  //this->room = levelManager.getCurrentRoom();
 
   inputManager(*App, logic);
 
@@ -48,7 +49,6 @@ void GameView::init(){
 
   sprite_player.setTexture(texture_player);
   sprite_holywater.setTexture(texture_water);
-  sprite_holywater.setPosition(sf::Vector2f(479.f, 152.f));
 
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
@@ -59,12 +59,28 @@ void GameView::init(){
 
 }
 
+void GameView::createDialogueBox(){
+	int sampleLimit = 2;
+	dialogue = DialogueBox(sampleLimit);
+	dialogue.init();
+}
+
+
+DialogueBox GameView::getDialogueBox(){
+	return dialogue;
+}
+
+
+
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
-
+  this->room = levelManager.getCurrentRoom();
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
+
+  if(levelManager.currentLevelName == "BEDROOM") //plan to change
+    sprite_holywater.setPosition(this->room.getWaters().at(0).position.x,this->room.getWaters().at(0).position.y);
 
   //update the level sprite
   levelSprite.setTexture(texture);
@@ -92,7 +108,9 @@ void GameView::update(sf::Event& Event, float dt){
   // this->App->draw(rectangle);
 
 
+  if(logic.Etracker){
 
+  }
 
 
 
@@ -103,15 +121,12 @@ void GameView::setLogic(GameView& logic){}
 
 //renders the running game
 void GameView::render(){
-    DialogueBox dialogue = this->logic.getDialogueBox();
-    HolyWater water = this->logic.getWater();
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
     this->App->draw(sprite_player);
-    if(!water.obtained()){
+    if(levelManager.currentLevelName == "BEDROOM")
       this->App->draw(sprite_holywater);
-    }
 
     this->isDialogue(dialogue);
 
@@ -127,6 +142,8 @@ void GameView::isDialogue(DialogueBox& box){
     this->App->draw(box.message);
   }
 }
+
+
 
 void GameView::pause(){}
 

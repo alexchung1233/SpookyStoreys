@@ -56,6 +56,15 @@ void Room::setUpRoom(std::string roomName){
 			Door myDoor(forDoor);
 			myDoors.push_back( myDoor );
 		}
+		else if (!result.at(0).find("HOLYWATER")){
+			vector<string>forWater;
+			for(int i = 1; i < result.size(); i++){
+				forWater.push_back(result.at(i));
+			}
+			HolyWater myWater(forWater);
+			myWaters.push_back(myWater);
+
+		}
 		
     }
 	infile.close();
@@ -82,4 +91,8 @@ sf::Texture Room::getTexture(){
 
 std::vector<Door> Room::getDoors(){
 	return myDoors;
+}
+
+std::vector<HolyWater> Room::getWaters(){
+	return myWaters;
 }
