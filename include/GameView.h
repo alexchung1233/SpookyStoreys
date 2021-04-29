@@ -36,7 +36,7 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
-    DialogueBox dialogue;
+    DialogueBox dialoguebox;
     DialogueBox getDialogueBox();
     void createDialogueBox();
 

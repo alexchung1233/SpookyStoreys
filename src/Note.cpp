@@ -25,8 +25,7 @@ string Note::getDialogue(){
     return myDialogue;
 }
 
-string Note::interact(PlayerActor &player, DialogueBox &box){
-    box.setText(myDialogue);
+string Note::interact(PlayerActor &player){
     read = true;
     return myDialogue;
 }

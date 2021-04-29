@@ -20,7 +20,7 @@ class Note : public ItemActor {
         void setPosition(float x, float y);
         void setDialogue(string dialogue);
         string getDialogue();
-        string interact(PlayerActor &player, DialogueBox &box);
+        string interact(PlayerActor &player);
         string myDialogue;
         bool read;
     protected:

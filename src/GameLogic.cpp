@@ -23,7 +23,17 @@ PlayerActor GameLogic::getPlayer(){
 }
 
 void GameLogic::EPressed(){
-	//if(this->myRoom.getWaters.interact(player, ))
+	for(int i = 0; i < this->myRoom.getWaters().size(); i++){
+		if(this->myRoom.getWaters().at(i).nextToPlayer(player)){
+			this->myRoom.getWaters().at(i).interact(player);
+			Etracker++;
+			this->myRoom.dialogue.setText("A bottle of holy water? Maybe I can use this on the monster.");
+			cout << this->myRoom.getWaters().at(i).myDialogue ;
+			this->myRoom.dialogue.setUsingState(true);
+			this->myRoom.dialogue.tracker++;
+		}
+		
+	}
 }
 
 void GameLogic::upPressed(float dt){

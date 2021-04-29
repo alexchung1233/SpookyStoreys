@@ -18,7 +18,7 @@ class HolyWater : public ItemActor {
         void init();
         Position position;
         Position getPosition();
-        string interact(PlayerActor &player, DialogueBox &box);
+        string interact(PlayerActor &player);
         void setDialogue(string dialogue);
         string getDialogue();
         void setHealth(int bar);
@@ -35,7 +35,6 @@ class HolyWater : public ItemActor {
     protected:
         PlayerActor *player;
         int health;
-        DialogueBox *box;
 };
 
 #endif

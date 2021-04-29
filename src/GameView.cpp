@@ -61,13 +61,13 @@ void GameView::init(){
 
 void GameView::createDialogueBox(){
 	int sampleLimit = 2;
-	dialogue = DialogueBox(sampleLimit);
-	dialogue.init();
+	dialoguebox = DialogueBox(sampleLimit);
+	dialoguebox.init();
 }
 
 
 DialogueBox GameView::getDialogueBox(){
-	return dialogue;
+	return dialoguebox;
 }
 
 
@@ -76,6 +76,8 @@ DialogueBox GameView::getDialogueBox(){
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   this->room = levelManager.getCurrentRoom();
+  dialoguebox = this->room.getDiaogueBox();
+  this->room.getDiaogueBox() = dialoguebox;
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
@@ -113,7 +115,7 @@ void GameView::update(sf::Event& Event, float dt){
   }
 
 
-
+this->render();
 
 }
 
@@ -125,10 +127,17 @@ void GameView::render(){
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
     this->App->draw(sprite_player);
-    if(levelManager.currentLevelName == "BEDROOM")
-      this->App->draw(sprite_holywater);
+    if(levelManager.currentLevelName == "BEDROOM"){
+      if(!this->room.getWaters().at(0).obtained()){
+        //std::cout << this->room.getWaters().at(0).obtained();
+        this->App->draw(sprite_holywater);
+    }else{
+      dialoguebox.setText("A bottle of holy water? Maybe I can use this on the monster");
+      this->isDialogue(this->dialoguebox);
+    }
+    }
+      
 
-    this->isDialogue(dialogue);
 
 }
 
@@ -140,6 +149,8 @@ void GameView::isDialogue(DialogueBox& box){
   }else if (box.tracker == 0 && this->logic.Etracker != 0){ //for the first interaction with an item of any kind
     this->App->draw(box.dialogueBox);
     this->App->draw(box.message);
+  }else{
+    cout << "N0";
   }
 }
 
