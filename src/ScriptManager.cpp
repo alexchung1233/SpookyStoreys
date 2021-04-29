@@ -2,7 +2,8 @@
 
 using namespace std;
 
-//reads in the script and processes each command to their corresponding commandtype
+
+
 void ScriptManager::readInScript(std::string scriptFileName){
   string directory = "../data/";
   string txt = ".txt";
@@ -30,7 +31,8 @@ void ScriptManager::readInScript(std::string scriptFileName){
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::MOVE_PLAYER_UP));
     else if(result.at(0) == "WAIT")
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::WAIT));
-
+    else if(result.at(0) == "PLAY_SOUND")
+      scriptQueue.push(new ScriptCommand(result, ScriptCommand::PLAY_SOUND));
     }
 
   infile.close();

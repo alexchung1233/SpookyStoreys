@@ -9,20 +9,25 @@ class ScriptCommand
 
 
 public:
+    enum Commands {FADE_IN, FADE_OUT, MOVE_PLAYER_UP, MOVE_PLAYER_DOWN,
+    MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT, WAIT, PLAY_SOUND};
+
+    enum Statuses {UNINIT, RUNNING, SUCCESS};
+
     ScriptCommand(){};
     ScriptCommand(vector<string>& data, int commandType);
-    enum Commands {FADE_IN, FADE_OUT, MOVE_PLAYER_UP, MOVE_PLAYER_DOWN,
-    MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT, WAIT};
     ~ScriptCommand() {};
     int getCommandType(){return commandType;}
     vector<string> getData(){return data;}
-
+    //gets the current status of the command
+    int getStatus() {return status;}
+    void setStatus(int status) {this->status = status;}
 
 
 private:
     int commandType;
     vector<string> data;
-
+    int status;
 
 
 };

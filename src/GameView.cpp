@@ -31,9 +31,9 @@ GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
-  inputManager(*App, logic);
-  this->status = State::UNINIT;
   this->audioManager = &audioManager;
+  this->status = State::UNINIT;
+
 }
 
 void GameView::init(){
@@ -41,8 +41,7 @@ void GameView::init(){
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
   this->scriptManager.readInScript("test_script");
-
-  transitionRectangleAlphaChannel = 255;
+  this->transitionRectangleAlphaChannel = 255;
 
   inputManager(*App, logic);
 
@@ -98,7 +97,6 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   updatePlayerAnimation(dt);
-  //this->logic.update(dt);
 
 /*
 
@@ -131,20 +129,28 @@ All monster AI stuff
 
   //run test script
 
+
   ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
 
   if(!this->scriptManager.scriptQueue.empty()){
     //if uninitalized, initalize
 
     //if finished, pop off
-    if(this->scriptCommandOnFinish(*currentCommand)){
+
+    if(currentCommand->getStatus() == ScriptCommand::UNINIT){
+      this->initScriptCommand(*currentCommand);
+      currentCommand->setStatus(ScriptCommand::RUNNING);
+    }
+    else if(currentCommand->getStatus() == ScriptCommand::RUNNING){
+      this->executeScriptCommand(*currentCommand);
+    }
+
+    else if(currentCommand->getStatus() == ScriptCommand::SUCCESS){
       this->scriptManager.scriptQueue.pop();
     }
 
-    //if running, execute
-    else{
-      this->executeScriptCommand(*currentCommand);
-    }
+
+
   }
   //test script
   //fadeIn(16.f, 0, 0, 0);
@@ -160,37 +166,6 @@ All monster AI stuff
 
 }
 
-
-//temporary function to update direction of player
-void GameView::updatePlayerAnimation(float dt){
-  PlayerActor player = this->logic.getPlayer();
-  switch(player.getMovementState()){
-
-
-    case MovementStates::IDLE:
-      this->player_anim_down.play(gameClock);
-
-      break;
-
-    case MovementStates::MOVING_LEFT:
-      this->player_anim_left.play(gameClock);
-      break;
-
-    case MovementStates::MOVING_RIGHT:
-      this->player_anim_right.play(gameClock);
-      break;
-
-
-    case MovementStates::MOVING_UP:
-      this->player_anim_up.play(gameClock);
-      break;
-
-    case MovementStates::MOVING_DOWN:
-      this->player_anim_down.play(gameClock);
-      break;
-
-      }
-}
 
 void GameView::setLogic(GameView& logic){}
 
@@ -211,40 +186,72 @@ void GameView::unpause(){}
 //create function to initalize command
 //create states for each command to indicate if finished or not
 
-void GameView::executeScriptCommand(ScriptCommand command){
+
+//initalizes the script command based on a base data
+void GameView::initScriptCommand(ScriptCommand& command){
   vector<string> data = command.getData();
+
   switch(command.getCommandType()){
+
+    case ScriptCommand::FADE_IN:
+      command.setStatus(ScriptCommand::RUNNING);
+      break;
+
+    case ScriptCommand::WAIT:
+      clockFilter.restart();
+      break;
+
+    case ScriptCommand::PLAY_SOUND:
+      audioManager->setGeneralBuffer(data.at(1));
+      audioManager->playGeneralBuffer();
+      break;
+
+
+  }
+
+
+}
+
+void GameView::executeScriptCommand(ScriptCommand& command){
+  vector<string> data = command.getData();
+
+  switch(command.getCommandType()){
+
     //matches the command to the type
     case ScriptCommand::FADE_IN:
       fadeIn(
         stof(data.at(1)),stof(data.at(2)), stof(data.at(3)), stof(data.at(4)));
+      //finish condition
+      if(transitionRectangleAlphaChannel <= 0){
+        command.setStatus(ScriptCommand::SUCCESS);
+        transitionRectangleAlphaChannel = 255;
+      }
       break;
+
     case ScriptCommand::MOVE_PLAYER_UP:
       this->logic.upPressed(this->dt);
       break;
-    case ScriptCommand::WAIT:
-      clockFilter.restart();
-      break;
-  }
-}
 
-bool GameView::scriptCommandOnFinish(ScriptCommand command){
-  switch(command.getCommandType()){
-    case ScriptCommand::FADE_IN:
-      if(transitionRectangleAlphaChannel <= 0){
-        transitionRectangleAlphaChannel = 255;
-        return true;
+    case ScriptCommand::WAIT:
+      {
+        float timer = stof(data.at(1));
+        if(timer <= clockFilter.getElapsedTime().asSeconds()){
+          clockFilter.restart();
+          command.setStatus(ScriptCommand::SUCCESS);
+        }
       }
-      return false;
       break;
-    case ScriptCommand::WAIT:
-        clockFilter.restart();
-        break;
+
+    case ScriptCommand::PLAY_SOUND:
+      if(audioManager->getStatusGeneral() == sf::SoundSource::Status::Stopped)
+        command.setStatus(ScriptCommand::SUCCESS);
+
+      break;
+
 
   }
-  return false;
-
 }
+
 
 
 //Game Effects
@@ -277,4 +284,37 @@ void GameView::fadeOut(float duration, int r, int g, int b){
 
   }
 
+}
+
+
+
+//temporary function to update direction of player
+void GameView::updatePlayerAnimation(float dt){
+  PlayerActor player = this->logic.getPlayer();
+  switch(player.getMovementState()){
+
+
+    case MovementStates::IDLE:
+      this->player_anim_down.play(gameClock);
+
+      break;
+
+    case MovementStates::MOVING_LEFT:
+      this->player_anim_left.play(gameClock);
+      break;
+
+    case MovementStates::MOVING_RIGHT:
+      this->player_anim_right.play(gameClock);
+      break;
+
+
+    case MovementStates::MOVING_UP:
+      this->player_anim_up.play(gameClock);
+      break;
+
+    case MovementStates::MOVING_DOWN:
+      this->player_anim_down.play(gameClock);
+      break;
+
+      }
 }

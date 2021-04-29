@@ -1,2 +1,4 @@
 FADE_IN,10.0,0,0,0
-FADE_IN,4.0,255,255,255
+WAIT,3.0
+FADE_IN,1.0,255,255,255
+PLAY_SOUND,../data/thunder_sound.wav

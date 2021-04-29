@@ -31,7 +31,9 @@ void AudioManager::init(){
 
 
 void AudioManager::setGeneralBuffer(std::string fileLoc){
-  generalBuffer.loadFromFile(fileLoc);
+  if (!generalBuffer.loadFromFile(fileLoc))
+    printf("error, file unable to be opened");
+  generalSound.setBuffer(generalBuffer);
 }
 
 

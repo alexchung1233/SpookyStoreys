@@ -23,12 +23,13 @@ class GameView : public State
     Animation player_anim_up;
     Animation player_anim_left;
     Animation player_anim_right;
-    
+
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
     sf::Texture texture;
     sf::Clock gameClock;
+    sf::Clock clockFilter;
     sf::Texture player_sprite_sheet;
     sf::Texture texture_player;
     sf::Texture texture_monster;
@@ -41,7 +42,6 @@ class GameView : public State
     //temp test rectangles
     sf::RectangleShape transitionRectangle{ sf::Vector2f(800, 600) };
     sf::Uint8 transitionRectangleAlphaChannel;
-    sf::Clock clockFilter;
 
     float dt;
 
@@ -61,9 +61,8 @@ class GameView : public State
     void unpause();
     void fadeIn(float duration, int r, int g, int b);
     void fadeOut(float duration, int r, int g, int b);
-
-    void executeScriptCommand(ScriptCommand command);
-    bool scriptCommandOnFinish(ScriptCommand command);
+    void initScriptCommand(ScriptCommand& command);
+    void executeScriptCommand(ScriptCommand& command);
   };
 
 #endif /* MY_CLASS_H */
