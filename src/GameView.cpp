@@ -77,9 +77,14 @@ void GameView::update(sf::Event& Event, float dt){
   ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
 
   if(!this->scriptManager.scriptQueue.empty()){
+    //if uninitalized, initalize
+
+    //if finished, pop off
     if(this->scriptCommandOnFinish(*currentCommand)){
       this->scriptManager.scriptQueue.pop();
     }
+    
+    //if running, execute
     else{
       this->executeScriptCommand(*currentCommand);
     }
@@ -112,7 +117,8 @@ void GameView::pause(){}
 
 void GameView::unpause(){}
 
-
+//create function to initalize command
+//create states for each command to indicate if finished or not
 
 void GameView::executeScriptCommand(ScriptCommand command){
   vector<string> data = command.getData();
@@ -124,6 +130,9 @@ void GameView::executeScriptCommand(ScriptCommand command){
       break;
     case ScriptCommand::MOVE_PLAYER_UP:
       this->logic.upPressed(this->dt);
+      break;
+    case ScriptCommand::WAIT:
+      clockFilter.restart();
       break;
   }
 }
@@ -137,6 +146,9 @@ bool GameView::scriptCommandOnFinish(ScriptCommand command){
       }
       return false;
       break;
+    case ScriptCommand::WAIT:
+        clockFilter.restart();
+        break;
 
   }
   return false;

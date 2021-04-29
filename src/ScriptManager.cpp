@@ -28,6 +28,8 @@ void ScriptManager::readInScript(std::string scriptFileName){
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::FADE_IN));
     else if(result.at(0) == "MOVE_PLAYER_UP")
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::MOVE_PLAYER_UP));
+    else if(result.at(0) == "WAIT")
+      scriptQueue.push(new ScriptCommand(result, ScriptCommand::WAIT));
 
     }
 

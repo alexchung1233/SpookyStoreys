@@ -12,7 +12,7 @@ public:
     ScriptCommand(){};
     ScriptCommand(vector<string>& data, int commandType);
     enum Commands {FADE_IN, FADE_OUT, MOVE_PLAYER_UP, MOVE_PLAYER_DOWN,
-    MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT};
+    MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT, WAIT};
     ~ScriptCommand() {};
     int getCommandType(){return commandType;}
     vector<string> getData(){return data;}
