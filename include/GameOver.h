@@ -2,24 +2,23 @@
 #define TITLE_GAME_OVER_H
 #include <SFML/Graphics.hpp>
 #include "State.h"
-#include "Sound.h"
 
 class GameOver : public State
 {
 	public:
 		GameOver();
 		GameOver(sf::RenderWindow& app);
-		GameOver(sf::RenderWindow& app, Sound* newSound);
-		GameOver(sf::RenderWindow& app, std::string myMessage, Sound* newSound);
+		GameOver(sf::RenderWindow& app, AudioManager& audioManager);
+		GameOver(sf::RenderWindow& app, std::string myMessage, AudioManager& audioManager);
 
 		void init();
 
-	  	void update(sf::Event& Event, float dt);
+  	void update(sf::Event& Event, float dt);
 		void render();
 
 		void pause();
 
-	  	void unpause();
+  	void unpause();
 
 	private:
 		void makeText(sf::Text& text, std::string string, float yPos);
@@ -28,7 +27,6 @@ class GameOver : public State
 
 		sf::Text mainMessage;
 		sf::Text replayMessage, menuMessage, exitMessage;
-		Sound* sound;
 
 };
 

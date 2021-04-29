@@ -1,4 +1,5 @@
 #include "PlayerActor.h"
+#include "MovementStates.h"
 
 
 PlayerActor::PlayerActor(){
@@ -38,18 +39,51 @@ Position PlayerActor::getPosition(){
 
 void PlayerActor::moveUp(float deltaMS){
   position.y -= deltaMS * characterVelocity.y;
+  direction.y = 1;
+  direction.x = 0;
+
 }
 
 void PlayerActor::moveDown(float deltaMS){
   position.y += deltaMS * characterVelocity.y;
+  direction.y = -1;
+  direction.x = 0;
+
 }
 
 void PlayerActor::moveLeft(float deltaMS){
   position.x -= deltaMS * characterVelocity.x;
+  direction.x = -1;
+  direction.y = 0;
+
+
 }
 
 void PlayerActor::moveRight(float deltaMS){
   position.x += deltaMS * characterVelocity.x;
+  direction.x = 1;
+  direction.y = 0;
+
+}
+
+MovementStates::movementStates PlayerActor::getMovementState(){
+  /*
+    if((int)characterVelocity.x  == 0 && (int)characterVelocity.y == 0){
+      return MovementStates::IDLE;
+    }
+*/
+    if(direction.x == -1){
+      return MovementStates::MOVING_LEFT;
+    }
+    if(direction.x == 1){
+      return MovementStates::MOVING_RIGHT;
+    }
+    if(direction.y == 1){
+      return MovementStates::MOVING_UP;
+    }
+    if(direction.y == -1){
+      return MovementStates::MOVING_DOWN;
+    }
 }
 
 void PlayerActor::setSize(sf::Vector2f size){

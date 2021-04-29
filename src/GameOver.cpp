@@ -17,17 +17,17 @@ GameOver::GameOver(sf::RenderWindow& app){
  	this->status = State::UNINIT;
 }
 
-GameOver::GameOver(sf::RenderWindow& app, Sound* newSound){
+GameOver::GameOver(sf::RenderWindow& app, AudioManager& audioManager){
 	this->App = &app;
  	this->status = State::UNINIT;
-	sound = newSound;
+	this->audioManager = &audioManager;
 }
 
-GameOver::GameOver(sf::RenderWindow& app, std::string myMessage, Sound* newSound){
+GameOver::GameOver(sf::RenderWindow& app, std::string myMessage, AudioManager& audioManager){
 	this->App = &app;
  	this->status = State::UNINIT;
  	mainMessage.setString(myMessage);
-	sound = newSound;
+	this->audioManager = &audioManager;
 }
 
 void GameOver::init(){
@@ -83,13 +83,13 @@ void GameOver::update(sf::Event& Event, float dt){
 	    {
 				//sound->stopPlayingMusic();
 	    	this->status = State::SUCCESS;
-			this->childState = new GameView(*App, sound);
+			this->childState = new GameView(*App, *audioManager);
 	    }
 	    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 	    {
-				sound->stopPlayingMusic();
+				audioManager->stopPlayingMusic();
 	    	this->status = State::SUCCESS;
-			this->childState = new Menu(*App, sound);
+			this->childState = new Menu(*App, *audioManager);
 	    }
 
     }

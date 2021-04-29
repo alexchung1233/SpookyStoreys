@@ -1,7 +1,6 @@
 #ifndef TITLE_MENU_H // include guard
 #define TITLE_MENU_H
 #include <SFML/Graphics.hpp>
-#include "Sound.h"
 #include "State.h"
 #include "GameView.h"
 
@@ -12,7 +11,7 @@ class Menu : public State
   public:
     //Menu();
 
-    Menu(sf::RenderWindow& app, Sound *sound);
+    Menu(sf::RenderWindow& app, AudioManager& audioManager);
     Menu(sf::RenderWindow& app);
 
     void upPressed();
@@ -50,7 +49,6 @@ class Menu : public State
 
     int difficultyLevel;
 
-    Sound* sound;
 
 
 };
