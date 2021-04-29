@@ -1,11 +1,25 @@
 #ifndef MONSTER_AI_H // include guard
 #define MONSTER_AI_H
-
-#include <iostream>
+#include "MonsterView.h"
+//#include <iostream>
 
 class MonsterAI
 {
   public:
+    MonsterAI();
+
+    MonsterView* monsterView;
+
+    MonsterAI(MonsterView &newMonsterView);
+    void operator()(MonsterView &newMonsterView);
+    void calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom);
+    void calculateMoveInRoom(float playerX, float playerY, float deltaMS);
+    void calculateMoveOutRoom(float deltaMS);
+};
+
+#endif /* MY_CLASS_H */
+
+    /*
     float positionX;
     float positionY;
 
@@ -32,7 +46,4 @@ class MonsterAI
     void calculateMoveOutRoom(float deltaMS);
 
     std::string getCurrentRoom();
-
-  };
-
-#endif /* MY_CLASS_H */
+*/

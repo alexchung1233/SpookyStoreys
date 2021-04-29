@@ -14,15 +14,18 @@ class GameView : public State
   private:
     InputManager inputManager;
     LevelManager levelManager;
+    MonsterAI monsterAI;
+    LevelManager monsterLevelManager;
 
     GameLogic logic;
+    MonsterView monsterView;
+
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
     sf::Texture texture;
     sf::Texture texture_player;
     sf::Texture texture_monster;
-    MonsterAI monsterAI;
     Sound* sound;
 
   public:
@@ -30,7 +33,7 @@ class GameView : public State
 
     GameView(sf::RenderWindow& app, Sound* sound);
     GameView(sf::RenderWindow& app);
-    
+
     void update(sf::Event& Event, float dt);
     void init();
 

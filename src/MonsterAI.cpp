@@ -1,6 +1,70 @@
 #include "MonsterAI.h"
 
+MonsterAI::MonsterAI() {
+  
+}
+MonsterAI::MonsterAI(MonsterView &newMonsterView) {
+  this->monsterView = &newMonsterView;
+}
 
+void MonsterAI::operator()(MonsterView &newMonsterView) {
+  this->monsterView = &newMonsterView;
+}
+
+void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom) {
+  if (inSameRoom) {
+    calculateMoveInRoom(playerX, playerY, deltaMS);
+  }
+  else {
+    calculateMoveOutRoom(deltaMS);
+  }
+}
+
+void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS) {
+  playerX = playerX + 125;
+  playerY = playerY - 20;
+  if (monsterView->getMonster().getPosition().x < playerX){
+    monsterView->rightPressed(deltaMS);
+  }
+  else {
+    monsterView->leftPressed(deltaMS);
+  }
+
+  if (monsterView->getMonster().getPosition().y < playerY){
+    monsterView->upPressed(deltaMS);
+  }
+  else {
+    monsterView->downPressed(deltaMS);
+  }
+}
+
+void MonsterAI::calculateMoveOutRoom(float deltaMS) {
+  monsterView->leftPressed(deltaMS);
+}
+
+
+  /*
+  if((currentRoom == "Bedroom") && (playerLevel == "BEDROOM")){
+    calculateMoveInRoom(playerX, playerY);
+  }
+  else if((currentRoom == "Hallway") && (playerLevel == "HALLWAY")){
+    calculateMoveInRoom(playerX, playerY);
+  }
+  else if((currentRoom == "ParentRoom") && (playerLevel == "PARENTROOM")){
+    calculateMoveInRoom(playerX, playerY);
+  }
+  else if((currentRoom == "Bathroom") && (playerLevel == "BATHROOM")){
+    calculateMoveInRoom(playerX, playerY);
+  }
+  else{
+    calculateMoveOutRoom(deltaMS);
+  }
+  */
+
+
+
+
+/*
 MonsterAI::MonsterAI() {
   positionX = 0;
   positionY = 0;
@@ -104,3 +168,5 @@ void MonsterAI::calculateMoveOutRoom(float deltaMS) {
 
   }
 }
+
+*/

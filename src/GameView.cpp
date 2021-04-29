@@ -29,7 +29,10 @@ GameView::GameView(sf::RenderWindow& app, Sound* newSound){
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
+  MonsterView newMonster;
+  this->monsterView = newMonster;
   inputManager(*App, logic);
+  monsterAI(monsterView);
   this->status = State::UNINIT;
   sound = newSound;
 }
@@ -39,7 +42,14 @@ void GameView::init(){
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
 
+  this->monsterLevelManager.init();
+  this->monsterLevelManager.setRoom("HALLWAY");
+
+  this->monsterView.setup();
+  this->monsterView.setLevelManager(monsterLevelManager);
+
   inputManager(*App, logic);
+  monsterAI(monsterView);
 
   texture = this->levelManager.getLevelTexture();
 
@@ -64,9 +74,10 @@ void GameView::init(){
   }
 
   //MonsterAI monsterAI;
-  monsterAI.setPosition(400, 360);
+  MonsterActor monster = this->monsterView.getMonster();
+  //monsterAI.setPosition(monster.getPosition().x, monster.getPosition().y);
   sprite_monster.setTexture(texture_monster);
-  sprite_monster.setPosition(400, 360);
+  sprite_monster.setPosition(monster.getPosition().x, monster.getPosition().y);
   sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
 
   //sound->playPlayingMusic();
@@ -81,17 +92,24 @@ void GameView::update(sf::Event& Event, float dt){
 
   texture = this->levelManager.getLevelTexture();
   levelSprite.setTexture(texture);
-  //std::cout << levelManager.getCurrentRoom().getRoomTitle() << '\n';
+
+
+  std::cout << monsterLevelManager.getCurrentRoom().getRoomTitle() << '\n';
+
+
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
-  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle());
-  sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
+  bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
+  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
+  MonsterActor monster = this->monsterView.getMonster();
+  //monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle());
+  sprite_monster.setPosition(monster.getPosition().x, monster.getPosition().y);
 
 
-  float distX = pow(monsterAI.positionX - player.getPosition().x-125, 2);
-  float distY = pow(monsterAI.positionY - player.getPosition().y+20, 2);
+  float distX = pow(monster.getPosition().x - player.getPosition().x-125, 2);
+  float distY = pow(monster.getPosition().y - player.getPosition().y+20, 2);
 
 
   if (sqrt(distX + distY) < 70){
@@ -124,6 +142,10 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
+    if (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle()) {
+      this->App->draw(sprite_monster);
+    }
+    /*
     if ((monsterAI.getCurrentRoom() == "Bedroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BEDROOM")) {
       this->App->draw(sprite_monster);
     }
@@ -136,6 +158,7 @@ void GameView::render(){
     else if ((monsterAI.getCurrentRoom() == "Bathroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BATHROOM")) {
       this->App->draw(sprite_monster);
     }
+    */
 
 }
 
