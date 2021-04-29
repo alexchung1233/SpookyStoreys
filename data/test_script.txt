@@ -1,4 +1,6 @@
 FADE_IN,10.0,0,0,0
-WAIT,3.0
+WAIT,2.0
 FADE_IN,1.0,255,255,255
 PLAY_SOUND,../data/thunder_sound.wav
+WAIT,5.0
+PLAY_SOUND,../data/child_whispers.wav

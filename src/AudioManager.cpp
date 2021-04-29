@@ -23,6 +23,7 @@ void AudioManager::init(){
     printf("error, file unabled to be opened");
     }
 
+  menuMusic.setVolume(75.f);
   menuMusic.setLoop(true);
   playMusic.setLoop(true);
   nextRoom.setLoop(true);
