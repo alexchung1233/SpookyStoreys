@@ -5,6 +5,7 @@
 #include <iostream>
 #include <math.h>
 #include "InputManager.h"
+#include "Animation.h"
 #include "MonsterAI.h"
 
 
@@ -43,20 +44,28 @@ void GameView::init(){
 
   texture = this->levelManager.getLevelTexture();
 
-  string player_file = "../data/protag_V1.png";
 
-  if(!texture_player.loadFromFile(player_file)){
-    printf("incorrect file format");
-  }
 
   levelSprite.setTexture(texture);
-  sprite_player.setTexture(texture_player);
-  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
-  this->status = State::RUNNING;
+  sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
+  string animate_sprite_file = "../data/Protag_Spritesheet.png";
+
+  if(!player_sprite_sheet.loadFromFile(animate_sprite_file)){
+    printf("incorrect file format");
+  }
+
+  //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
+
+  player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
+  player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
+  player_anim_left = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 214);
+  player_anim_right = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 321);
 
   string monster_file = "../data/Monster.png";
   if(!texture_monster.loadFromFile(monster_file)){
@@ -70,8 +79,7 @@ void GameView::init(){
   sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
 
   //sound->playPlayingMusic();
-
-
+  this->status = State::RUNNING;
 
 }
 
@@ -84,6 +92,8 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+  updatePlayerAnimation(dt);
+  //this->logic.update(dt);
 
 /*
 
@@ -120,6 +130,38 @@ All monster AI stuff
   // rectangle.setFillColor(sf::Color::Transparent);
   // this->App->draw(rectangle);
 
+}
+
+
+//temporary function to update direction of player
+void GameView::updatePlayerAnimation(float dt){
+  PlayerActor player = this->logic.getPlayer();
+  switch(player.getMovementState()){
+
+
+    case MovementStates::IDLE:
+      this->player_anim_down.play(gameClock);
+
+      break;
+
+    case MovementStates::MOVING_LEFT:
+      this->player_anim_left.play(gameClock);
+      break;
+
+    case MovementStates::MOVING_RIGHT:
+      this->player_anim_right.play(gameClock);
+      break;
+
+
+    case MovementStates::MOVING_UP:
+      this->player_anim_up.play(gameClock);
+      break;
+
+    case MovementStates::MOVING_DOWN:
+      this->player_anim_down.play(gameClock);
+      break;
+
+      }
 }
 
 void GameView::setLogic(GameView& logic){}
