@@ -24,14 +24,14 @@ GameView::GameView(sf::RenderWindow& app){
 }
 
 
-GameView::GameView(sf::RenderWindow& app, Sound* newSound){
+GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
   //TODO make this extend off a Process class.
   this->App = &app;
   GameLogic myLogic;
   this->logic = myLogic;
   inputManager(*App, logic);
   this->status = State::UNINIT;
-  sound = newSound;
+  this->audioManager = &audioManager;
 }
 
 void GameView::init(){
@@ -102,14 +102,14 @@ All monster AI stuff
     childState = new GameOver(*App, "You Lose...", sound);
   }
   */
-  
+
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Win!", sound);
+    childState = new GameOver(*App, "You Win!", *audioManager);
   }
   else if(inputManager.getPlayState() == 2){
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...", sound);
+    childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN

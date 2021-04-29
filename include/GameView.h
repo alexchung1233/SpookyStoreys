@@ -6,7 +6,6 @@
 #include "MonsterAI.h"
 #include "State.h"
 #include "GameOver.h"
-#include "Sound.h"
 
 
 class GameView : public State
@@ -23,14 +22,13 @@ class GameView : public State
     sf::Texture texture_player;
     sf::Texture texture_monster;
     MonsterAI monsterAI;
-    Sound* sound;
 
   public:
     GameView();
 
-    GameView(sf::RenderWindow& app, Sound* sound);
+    GameView(sf::RenderWindow& app, AudioManager& audioManager);
     GameView(sf::RenderWindow& app);
-    
+
     void update(sf::Event& Event, float dt);
     void init();
 

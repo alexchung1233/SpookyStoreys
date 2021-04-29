@@ -4,12 +4,12 @@
 #include <string>
 #include <iostream>
 
-Menu::Menu(sf::RenderWindow& app, Sound* newSound){
+Menu::Menu(sf::RenderWindow& app, AudioManager& audioManager){
   this->App = &app;
   itemSelected = 0;
   difficultyLevel = 1;
   this->status = State::UNINIT;
-  sound = newSound;
+  this->audioManager = &audioManager;
 }
 
 Menu::Menu(sf::RenderWindow& app){
@@ -43,7 +43,7 @@ void Menu::init(){
 
   this->status = State::RUNNING;
 
-  sound->playMenuMusic();
+  audioManager->playMenuMusic();
 
 }
 
@@ -183,10 +183,10 @@ void Menu::update(sf::Event& Event, float dt){
 
       int num = enterPressed();
       if(num == 0){
-        sound->stopMenuMusic();
-        sound->playPlayingMusic();
+        audioManager->stopMenuMusic();
+        audioManager->playPlayingMusic();
         this->status = State::SUCCESS;
-        this->childState = new GameView(*App, sound);
+        this->childState = new GameView(*App, *audioManager);
       }
       else if(num == 2){
         App->close();

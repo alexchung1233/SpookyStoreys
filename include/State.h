@@ -1,6 +1,7 @@
 #ifndef STATE_H // include guard
 #define STATE_H
 #include <SFML/Graphics.hpp>
+#include "AudioManager.h"
 
 //represents a view state
 class State
@@ -46,6 +47,7 @@ public:
 protected:
   sf::RenderWindow* App;
   sf::Event Event;
+  AudioManager* audioManager;
 
 
 };

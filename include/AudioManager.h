@@ -1,27 +1,24 @@
-#ifndef SOUND_H // include guard
-#define SOUND_H
+#ifndef AUDIO_MANAGER_H // include guard
+#define AUDIO_MANAGER_H
 #include <SFML/Audio.hpp>
 
 
 //represents a view state
-class Sound
+class AudioManager
 {
 protected:
-  sf::SoundBuffer menuBuffer;
-  sf::SoundBuffer playBuffer;
-  sf::SoundBuffer nextRoomBuffer;
-  sf::SoundBuffer inRoomBuffer;
   sf::SoundBuffer generalBuffer;
-  sf::Sound menuMusic;
-  sf::Sound playMusic;
-  sf::Sound nextRoom;
-  sf::Sound inRoom;
   sf::Sound generalSound;
 
+  sf::Music menuMusic;
+  sf::Music playMusic;
+  sf::Music nextRoom;
+  sf::Music inRoom;
+
+
 public:
-  Sound();
+  AudioManager();
   void init();
-  void operator()();
   void playMenuMusic();
   void playPlayingMusic();
   void playNextRoom();
