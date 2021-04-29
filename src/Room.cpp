@@ -76,6 +76,7 @@ void Room::setUpRoom(std::string roomName){
   	}
 
 	this->createDialogueBox();
+	dialoguebox = this->getDiaogueBox();
 
 }
 
@@ -100,11 +101,11 @@ std::vector<HolyWater> Room::getWaters(){
 }
 
 DialogueBox Room::getDiaogueBox(){
-	return dialogue;
+	return dialoguebox;
 }
 
 void Room::createDialogueBox(){
 	int sampleLimit = 2;
-	dialogue = DialogueBox(sampleLimit);
-	dialogue.init();
+	dialoguebox = DialogueBox(sampleLimit);
+	dialoguebox.init();
 }

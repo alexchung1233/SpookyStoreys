@@ -6,7 +6,7 @@ DialogueBox::DialogueBox(int dialogueLimit){
 
 void DialogueBox::init(){
     makeBox(sf::Vector2f(400, 490), sf::Color::Black);
-    tracker = 0; //counter to determine if the dialogue box should be shown, if the player is interacting with an item
+    this->tracker = 0; //counter to determine if the dialogue box should be shown, if the player is interacting with an item
     if (!font.loadFromFile("../data/Lato-Bold.ttf")){
         std::cout << "incorrect font";
     }
@@ -46,3 +46,4 @@ void DialogueBox::setText(std::string string){
 int DialogueBox::getDialogueLimit(){
   return dialogueLimit;
 }
+

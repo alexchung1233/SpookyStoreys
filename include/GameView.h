@@ -39,6 +39,9 @@ class GameView : public State
     DialogueBox dialoguebox;
     DialogueBox getDialogueBox();
     void createDialogueBox();
+    //HolyWater water;
+    //HolyWater getHolyWater();
+    //void createHolyWater();
 
   };
 

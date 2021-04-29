@@ -32,9 +32,11 @@ class HolyWater : public ItemActor {
         string myDialogue;
         bool obtained();
         bool pickedup;
+        
     protected:
         PlayerActor *player;
         int health;
+        
 };
 
 #endif

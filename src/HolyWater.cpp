@@ -47,7 +47,7 @@ void HolyWater::resetUse(){
 string HolyWater::interact(PlayerActor &player){
     this->resetUse();
     this->pickedup = true;
-    return this->myDialogue;
+    return myDialogue;
 }
 
 bool HolyWater::nextToPlayer(PlayerActor &player){

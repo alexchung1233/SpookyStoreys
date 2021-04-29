@@ -26,7 +26,6 @@ void GameView::init(){
   this->levelManager.init();
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
-  //this->room = levelManager.getCurrentRoom();
 
   inputManager(*App, logic);
 
@@ -48,7 +47,6 @@ void GameView::init(){
   levelSprite.setTexture(texture);
 
   sprite_player.setTexture(texture_player);
-  sprite_holywater.setTexture(texture_water);
 
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
@@ -70,19 +68,23 @@ DialogueBox GameView::getDialogueBox(){
 	return dialoguebox;
 }
 
+/*void GameView::createHolyWater(){
+  water = HolyWater();
+  water.init();
+}
 
+HolyWater GameView::getHolyWater(){
+  return water;
+}*/
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   this->room = levelManager.getCurrentRoom();
   dialoguebox = this->room.getDiaogueBox();
-  this->room.getDiaogueBox() = dialoguebox;
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
-  if(levelManager.currentLevelName == "BEDROOM") //plan to change
-    sprite_holywater.setPosition(this->room.getWaters().at(0).position.x,this->room.getWaters().at(0).position.y);
 
   //update the level sprite
   levelSprite.setTexture(texture);
@@ -100,6 +102,30 @@ void GameView::update(sf::Event& Event, float dt){
     childState = new GameOver(*App, "You Lose...");
   }
 
+  if(levelManager.currentLevelName == "BEDROOM"){ //plan to change
+    sprite_holywater.setTexture(texture_water);
+    HolyWater water = this->room.getWaters().at(0);
+    sprite_holywater.setPosition(this->room.getWaters().at(0).position.x,this->room.getWaters().at(0).position.y);
+    for(int i = 0; i < this->room.getWaters().size(); i++){
+      if(logic.Etracker == 2 
+      && water.nextToPlayer(player)
+      && !water.obtained()){
+        water.interact(player);
+        dialoguebox.setText("A bottle of holy water? Maybe I can use this on the monster.");
+        dialoguebox.tracker++;
+        dialoguebox.setUsingState(true);
+        std::cout << water.obtained();
+
+        //TODO fix to allow for only one interaction per holywater
+      } else if (logic.Etracker == 2 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
+        && water.obtained()){ //else if statement does not work
+        dialoguebox.tracker++;
+        std::cout << water.obtained();
+      } else {
+        logic.Etracker = 0; //reset Etracker
+      }
+  }
+  }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // sf::RectangleShape rectangle(sf::Vector2f(540,385));
@@ -109,13 +135,11 @@ void GameView::update(sf::Event& Event, float dt){
   // rectangle.setFillColor(sf::Color::Transparent);
   // this->App->draw(rectangle);
 
+  
+  
 
-  if(logic.Etracker){
+  isDialogue(dialoguebox);
 
-  }
-
-
-this->render();
 
 }
 
@@ -128,13 +152,12 @@ void GameView::render(){
     this->App->draw(sprite_player);
     this->App->draw(sprite_player);
     if(levelManager.currentLevelName == "BEDROOM"){
-      if(!this->room.getWaters().at(0).obtained()){
-        //std::cout << this->room.getWaters().at(0).obtained();
-        this->App->draw(sprite_holywater);
-    }else{
-      dialoguebox.setText("A bottle of holy water? Maybe I can use this on the monster");
-      this->isDialogue(this->dialoguebox);
-    }
+      //for (int i = 0; i < this->room.getWaters().size(); i++){
+        //if(!this->room.getWaters().at(i).obtained()){
+          
+          this->App->draw(sprite_holywater);
+       // }
+      //}
     }
       
 
@@ -150,7 +173,7 @@ void GameView::isDialogue(DialogueBox& box){
     this->App->draw(box.dialogueBox);
     this->App->draw(box.message);
   }else{
-    cout << "N0";
+    //cout << "N0";
   }
 }
 

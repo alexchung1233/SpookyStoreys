@@ -23,37 +23,36 @@ PlayerActor GameLogic::getPlayer(){
 }
 
 void GameLogic::EPressed(){
-	for(int i = 0; i < this->myRoom.getWaters().size(); i++){
-		if(this->myRoom.getWaters().at(i).nextToPlayer(player)){
-			this->myRoom.getWaters().at(i).interact(player);
-			Etracker++;
-			this->myRoom.dialogue.setText("A bottle of holy water? Maybe I can use this on the monster.");
-			cout << this->myRoom.getWaters().at(i).myDialogue ;
-			this->myRoom.dialogue.setUsingState(true);
-			this->myRoom.dialogue.tracker++;
-		}
-		
-	}
+	Etracker++;
+	//std::cout << Etracker;
 }
 
 void GameLogic::upPressed(float dt){
-	if(!detectCollisionUp(dt))
-		player.moveUp(dt);
+	if (Etracker%4 == 0){
+		if(!detectCollisionUp(dt))
+			player.moveUp(dt);
+	}
 }
 
 void GameLogic::downPressed(float dt){
-	if(!detectCollisionDown(dt))
-		player.moveDown(dt);
+	if (Etracker%4 == 0){
+		if(!detectCollisionDown(dt))
+			player.moveDown(dt);
+	}
 }
 
 void GameLogic::leftPressed(float dt){
-	if(!detectCollisionLeft(dt))
-		player.moveLeft(dt);
+	if (Etracker%4 == 0){
+		if(!detectCollisionLeft(dt))
+			player.moveLeft(dt);
+	}
 }
 
 void GameLogic::rightPressed(float dt){
-	if(!detectCollisionRight(dt))
-		player.moveRight(dt);
+	if (Etracker%4 == 0){
+		if(!detectCollisionRight(dt))
+			player.moveRight(dt);
+	}
 }
 
 bool GameLogic::detectCollisionUp(float dt){
