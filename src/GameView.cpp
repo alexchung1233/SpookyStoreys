@@ -68,8 +68,8 @@ void GameView::update(sf::Event& Event, float dt){
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
-  sf::RectangleShape rectangle(sf::Vector2f(85,95));
-  rectangle.setPosition(sf::Vector2f(545,105));
+  sf::RectangleShape rectangle(sf::Vector2f(650,380));
+  rectangle.setPosition(sf::Vector2f(75,170));
   rectangle.setOutlineThickness(-3);
   rectangle.setOutlineColor(sf::Color(250, 150, 100));
   rectangle.setFillColor(sf::Color::Transparent);
