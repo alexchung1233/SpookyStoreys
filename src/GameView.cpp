@@ -102,7 +102,6 @@ void GameView::update(sf::Event& Event, float dt){
   levelSprite.setTexture(texture);
 
 
-  std::cout << monsterLevelManager.getCurrentRoom().getRoomTitle() << '\n';
 
 
 
@@ -111,11 +110,12 @@ void GameView::update(sf::Event& Event, float dt){
   updatePlayerAnimation(dt);
   //this->logic.update(dt);
 
-/*
 
-All monster AI stuff
+
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
+  std::cout << inSameRoom << '\n';
+
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
   MonsterActor monster = this->monsterView.getMonster();
   //monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle());
@@ -128,9 +128,9 @@ All monster AI stuff
 
   if (sqrt(distX + distY) < 70){
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...", sound);
+    childState = new GameOver(*App, "You Lose...", *audioManager);
   }
-  */
+
 
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;

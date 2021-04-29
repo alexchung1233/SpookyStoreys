@@ -33,8 +33,7 @@ class GameView : public State
     sf::Texture texture_player;
     sf::Texture texture_monster;
 
-    Sound* sound;
-    MonsterAI monsterAI;
+    AudioManager* sound;
 
 
     void updatePlayerAnimation(float dt);

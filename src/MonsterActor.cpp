@@ -39,18 +39,26 @@ Position MonsterActor::getPosition(){
 
 void MonsterActor::moveUp(float deltaMS){
   position.y -= deltaMS * characterVelocity.y;
+  direction.y = 1;
+  direction.x = 0;
 }
 
 void MonsterActor::moveDown(float deltaMS){
   position.y += deltaMS * characterVelocity.y;
+  direction.y = -1;
+  direction.x = 0;
 }
 
 void MonsterActor::moveLeft(float deltaMS){
   position.x -= deltaMS * characterVelocity.x;
+  direction.x = -1;
+  direction.y = 0;
 }
 
 void MonsterActor::moveRight(float deltaMS){
   position.x += deltaMS * characterVelocity.x;
+  direction.x = 1;
+  direction.y = 0;
 }
 
 void MonsterActor::setSize(sf::Vector2f size){
@@ -66,4 +74,24 @@ void MonsterActor::setSize(float x, float y){
 
 sf::Vector2f MonsterActor::getSize(){
   return mySize;
+}
+
+MovementStates::movementStates MonsterActor::getMovementState(){
+  /*
+    if((int)characterVelocity.x  == 0 && (int)characterVelocity.y == 0){
+      return MovementStates::IDLE;
+    }
+*/
+    if(direction.x == -1){
+      return MovementStates::MOVING_LEFT;
+    }
+    if(direction.x == 1){
+      return MovementStates::MOVING_RIGHT;
+    }
+    if(direction.y == 1){
+      return MovementStates::MOVING_UP;
+    }
+    if(direction.y == -1){
+      return MovementStates::MOVING_DOWN;
+    }
 }
