@@ -3,6 +3,11 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
+#include <math.h>
+#include "InputManager.h"
+#include "Animation.h"
+#include "MonsterAI.h"
+
 
 
 using namespace std;
@@ -18,7 +23,17 @@ GameView::GameView(sf::RenderWindow& app){
   //TODO make this extend off a Process class.
   this->App = &app;
   this->status = State::UNINIT;
+}
 
+
+GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
+  //TODO make this extend off a Process class.
+  this->App = &app;
+  GameLogic myLogic;
+  this->logic = myLogic;
+  inputManager(*App, logic);
+  this->status = State::UNINIT;
+  this->audioManager = &audioManager;
 }
 
 void GameView::init(){
@@ -33,19 +48,41 @@ void GameView::init(){
 
   texture = this->levelManager.getLevelTexture();
 
-  string player_file = "../data/protag_V1.png";
 
-  if(!texture_player.loadFromFile(player_file)){
-    printf("incorrect file format");
-  }
 
   levelSprite.setTexture(texture);
-  sprite_player.setTexture(texture_player);
-  sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
+  sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
+  string animate_sprite_file = "../data/Protag_Spritesheet.png";
+
+  if(!player_sprite_sheet.loadFromFile(animate_sprite_file)){
+    printf("incorrect file format");
+  }
+
+  //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
+
+
+  player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
+  player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
+  player_anim_left = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 214);
+  player_anim_right = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 321);
+
+  string monster_file = "../data/Monster.png";
+  if(!texture_monster.loadFromFile(monster_file)){
+    printf("incorrect file format");
+  }
+
+  //MonsterAI monsterAI;
+  monsterAI.setPosition(400, 360);
+  sprite_monster.setTexture(texture_monster);
+  sprite_monster.setPosition(400, 360);
+  sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
+
+  //sound->playPlayingMusic();
   this->status = State::RUNNING;
 
 }
@@ -60,14 +97,34 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+  updatePlayerAnimation(dt);
+  //this->logic.update(dt);
+
+/*
+
+All monster AI stuff
+
+  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
+  sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
+
+
+  float distX = pow(monsterAI.positionX - player.getPosition().x-125, 2);
+  float distY = pow(monsterAI.positionY - player.getPosition().y+20, 2);
+
+
+  if (sqrt(distX + distY) < 70){
+    this->status = State::SUCCESS;
+    childState = new GameOver(*App, "You Lose...", sound);
+  }
+  */
 
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Win!");
+    childState = new GameOver(*App, "You Win!", *audioManager);
   }
   else if(inputManager.getPlayState() == 2){
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...");
+    childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
 
@@ -83,7 +140,7 @@ void GameView::update(sf::Event& Event, float dt){
     if(this->scriptCommandOnFinish(*currentCommand)){
       this->scriptManager.scriptQueue.pop();
     }
-    
+
     //if running, execute
     else{
       this->executeScriptCommand(*currentCommand);
@@ -103,6 +160,38 @@ void GameView::update(sf::Event& Event, float dt){
 
 }
 
+
+//temporary function to update direction of player
+void GameView::updatePlayerAnimation(float dt){
+  PlayerActor player = this->logic.getPlayer();
+  switch(player.getMovementState()){
+
+
+    case MovementStates::IDLE:
+      this->player_anim_down.play(gameClock);
+
+      break;
+
+    case MovementStates::MOVING_LEFT:
+      this->player_anim_left.play(gameClock);
+      break;
+
+    case MovementStates::MOVING_RIGHT:
+      this->player_anim_right.play(gameClock);
+      break;
+
+
+    case MovementStates::MOVING_UP:
+      this->player_anim_up.play(gameClock);
+      break;
+
+    case MovementStates::MOVING_DOWN:
+      this->player_anim_down.play(gameClock);
+      break;
+
+      }
+}
+
 void GameView::setLogic(GameView& logic){}
 
 //renders the running game
@@ -110,7 +199,9 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
+    this->App->draw(sprite_monster);
     this->App->draw(transitionRectangle);
+
 }
 
 void GameView::pause(){}

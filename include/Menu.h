@@ -11,6 +11,7 @@ class Menu : public State
   public:
     //Menu();
 
+    Menu(sf::RenderWindow& app, AudioManager& audioManager);
     Menu(sf::RenderWindow& app);
 
     void upPressed();
@@ -25,7 +26,6 @@ class Menu : public State
     void render();
     void pause();
     void unpause();
-
 
   private:
     void makeBox(sf::RectangleShape& box, sf::Vector2f position, sf::Color color);
@@ -48,6 +48,8 @@ class Menu : public State
     sf::Font titleFont, selectableFont;
 
     int difficultyLevel;
+
+
 
 };
 
