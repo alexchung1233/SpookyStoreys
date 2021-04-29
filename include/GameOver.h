@@ -8,16 +8,17 @@ class GameOver : public State
 	public:
 		GameOver();
 		GameOver(sf::RenderWindow& app);
-		GameOver(sf::RenderWindow& app, std::string myMessage);
+		GameOver(sf::RenderWindow& app, AudioManager& audioManager);
+		GameOver(sf::RenderWindow& app, std::string myMessage, AudioManager& audioManager);
 
 		void init();
 
-	  	void update(sf::Event& Event, float dt);
+  	void update(sf::Event& Event, float dt);
 		void render();
 
 		void pause();
 
-	  	void unpause();
+  	void unpause();
 
 	private:
 		void makeText(sf::Text& text, std::string string, float yPos);

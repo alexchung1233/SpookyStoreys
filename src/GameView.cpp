@@ -3,7 +3,9 @@
 #include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
+#include <math.h>
 #include "InputManager.h"
+#include "MonsterAI.h"
 
 
 using namespace std;
@@ -19,7 +21,17 @@ GameView::GameView(sf::RenderWindow& app){
   //TODO make this extend off a Process class.
   this->App = &app;
   this->status = State::UNINIT;
+}
 
+
+GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
+  //TODO make this extend off a Process class.
+  this->App = &app;
+  GameLogic myLogic;
+  this->logic = myLogic;
+  inputManager(*App, logic);
+  this->status = State::UNINIT;
+  this->audioManager = &audioManager;
 }
 
 void GameView::init(){
@@ -46,6 +58,21 @@ void GameView::init(){
 
   this->status = State::RUNNING;
 
+  string monster_file = "../data/Monster.png";
+  if(!texture_monster.loadFromFile(monster_file)){
+    printf("incorrect file format");
+  }
+
+  //MonsterAI monsterAI;
+  monsterAI.setPosition(400, 360);
+  sprite_monster.setTexture(texture_monster);
+  sprite_monster.setPosition(400, 360);
+  sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
+
+  //sound->playPlayingMusic();
+
+
+
 }
 
 //update the running game state depending on logic and input
@@ -58,13 +85,31 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
+/*
+
+All monster AI stuff
+
+  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
+  sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
+
+
+  float distX = pow(monsterAI.positionX - player.getPosition().x-125, 2);
+  float distY = pow(monsterAI.positionY - player.getPosition().y+20, 2);
+
+
+  if (sqrt(distX + distY) < 70){
+    this->status = State::SUCCESS;
+    childState = new GameOver(*App, "You Lose...", sound);
+  }
+  */
+
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Win!");
+    childState = new GameOver(*App, "You Win!", *audioManager);
   }
   else if(inputManager.getPlayState() == 2){
     this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...");
+    childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -84,6 +129,8 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
+    this->App->draw(sprite_monster);
+
 }
 
 void GameView::pause(){}
