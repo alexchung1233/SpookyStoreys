@@ -33,6 +33,8 @@ void ScriptManager::readInScript(std::string scriptFileName){
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::WAIT));
     else if(result.at(0) == "PLAY_SOUND")
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::PLAY_SOUND));
+    else if(result.at(0) == "SHOW_DIALOGUE")
+      scriptQueue.push(new ScriptCommand(result, ScriptCommand::SHOW_DIALOGUE));
     }
 
   infile.close();

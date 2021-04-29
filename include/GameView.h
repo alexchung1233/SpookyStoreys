@@ -61,8 +61,9 @@ class GameView : public State
     void unpause();
     void fadeIn(float duration, int r, int g, int b);
     void fadeOut(float duration, int r, int g, int b);
+    void executeScript();
     void initScriptCommand(ScriptCommand& command);
-    void executeScriptCommand(ScriptCommand& command);
+    void updateScriptCommand(ScriptCommand& command);
   };
 
 #endif /* MY_CLASS_H */

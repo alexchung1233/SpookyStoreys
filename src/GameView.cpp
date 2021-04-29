@@ -128,30 +128,8 @@ All monster AI stuff
 
 
   //run test script
+  executeScript();
 
-
-  ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
-
-  if(!this->scriptManager.scriptQueue.empty()){
-    //if uninitalized, initalize
-
-    //if finished, pop off
-
-    if(currentCommand->getStatus() == ScriptCommand::UNINIT){
-      this->initScriptCommand(*currentCommand);
-      currentCommand->setStatus(ScriptCommand::RUNNING);
-    }
-    else if(currentCommand->getStatus() == ScriptCommand::RUNNING){
-      this->executeScriptCommand(*currentCommand);
-    }
-
-    else if(currentCommand->getStatus() == ScriptCommand::SUCCESS){
-      this->scriptManager.scriptQueue.pop();
-    }
-
-
-
-  }
   //test script
   //fadeIn(16.f, 0, 0, 0);
 
@@ -186,6 +164,33 @@ void GameView::unpause(){}
 //create function to initalize command
 //create states for each command to indicate if finished or not
 
+void GameView::executeScript(){
+
+    ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
+
+    if(!this->scriptManager.scriptQueue.empty()){
+      //if uninitalized, initalize
+
+      //if finished, pop off
+
+      if(currentCommand->getStatus() == ScriptCommand::UNINIT){
+        this->initScriptCommand(*currentCommand);
+        currentCommand->setStatus(ScriptCommand::RUNNING);
+      }
+      else if(currentCommand->getStatus() == ScriptCommand::RUNNING){
+        this->updateScriptCommand(*currentCommand);
+      }
+
+      else if(currentCommand->getStatus() == ScriptCommand::SUCCESS){
+        this->scriptManager.scriptQueue.pop();
+      }
+
+
+
+    }
+
+}
+
 
 //initalizes the script command based on a base data
 void GameView::initScriptCommand(ScriptCommand& command){
@@ -206,13 +211,16 @@ void GameView::initScriptCommand(ScriptCommand& command){
       audioManager->playGeneralBuffer();
       break;
 
+    case ScriptCommand::SHOW_DIALOGUE:
+      break;
+
 
   }
 
 
 }
 
-void GameView::executeScriptCommand(ScriptCommand& command){
+void GameView::updateScriptCommand(ScriptCommand& command){
   vector<string> data = command.getData();
 
   switch(command.getCommandType()){
@@ -228,10 +236,19 @@ void GameView::executeScriptCommand(ScriptCommand& command){
       }
       break;
 
+    //move player up based on distance and delayed timer(how slowly it walks)
     case ScriptCommand::MOVE_PLAYER_UP:
-      this->logic.upPressed(this->dt);
+      {
+        float timer = clockFilter.getElapsedTime().asSeconds() * 100;
+
+        if (timer > 6.f){
+          this->logic.upPressed(this->dt);
+          clockFilter.restart();
+        }
+      }
       break;
 
+    //pauses based on seconds
     case ScriptCommand::WAIT:
       {
         float timer = stof(data.at(1));
@@ -245,8 +262,11 @@ void GameView::executeScriptCommand(ScriptCommand& command){
     case ScriptCommand::PLAY_SOUND:
       if(audioManager->getStatusGeneral() == sf::SoundSource::Status::Stopped)
         command.setStatus(ScriptCommand::SUCCESS);
-
       break;
+
+    case ScriptCommand::SHOW_DIALOGUE:
+      break;
+
 
 
   }
