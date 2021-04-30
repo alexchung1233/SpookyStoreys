@@ -152,7 +152,7 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
-    this->App->draw(sprite_monster);
+    //this->App->draw(sprite_monster);
     this->App->draw(transitionRectangle);
 
 }
