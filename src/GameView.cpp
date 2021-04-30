@@ -100,36 +100,38 @@ void GameView::update(sf::Event& Event, float dt){
 
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
 
-    ItemActor* water = tempRoom.getItems().at(i);
+    ItemActor* item = tempRoom.getItems().at(i);
 
-    if(!texture_item.loadFromFile(water->getSpriteFile())){
+    if(!texture_item.loadFromFile(item->getSpriteFile())){
       printf("incorrect file format");
     }
 
     sprite_item.setTexture(texture_item);
-    sprite_item.setPosition(water->getPosition().x, water->getPosition().y);
+    sprite_item.setPosition(item->getPosition().x, item->getPosition().y);
 
     itemSprites.push_back(sprite_item);
     
-    // for(int i = 0; i < this->room.getWaters().size(); i++){
-    //   if(logic.Etracker == 2 
-    //   && water.nextToPlayer(player)
-    //   && !water.obtained()){
-    //     water.interact(player);
-    //     dialoguebox.setText("A bottle of holy water? Maybe I can use this on the monster.");
-    //     dialoguebox.tracker++;
-    //     dialoguebox.setUsingState(true);
-    //     //std::cout << water.obtained();
+    if(logic.Etracker == 2 
+    && item->nextToPlayer(player)
+    //&& !item.obtained()
+    ){
+      item->interact(player);
+      dialoguebox.setText(item->getDialogue());
+      dialoguebox.tracker++;
+      dialoguebox.setUsingState(true);
+      levelManager.destroyItem(i);
+      //std::cout << item.obtained();
 
-    //     //TODO fix to allow for only one interaction per holywater
-    //   } else if (logic.Etracker == 2 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
-    //     && water.obtained()){ //else if statement does not work
-    //     dialoguebox.tracker++;
-    //     std::cout << water.obtained();
-    //   } else {
-    //     logic.Etracker = 0; //reset Etracker
-    //   }
-    // }
+      //TODO fix to allow for only one interaction per holywater
+    } else if (logic.Etracker == 2 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
+      //&& item.obtained()
+      ){ //else if statement does not work
+      dialoguebox.tracker++;
+      //std::cout << item.obtained();
+    } else {
+      logic.Etracker = 0; //reset Etracker
+    }
+    
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -143,7 +145,7 @@ void GameView::update(sf::Event& Event, float dt){
   
   
 
-  //isDialogue(dialoguebox);
+  isDialogue(dialoguebox);
 
 
 }

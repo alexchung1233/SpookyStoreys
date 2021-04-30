@@ -30,7 +30,7 @@ class Room
         DialogueBox dialoguebox;
         DialogueBox getDiaogueBox();
         void createDialogueBox();
-
+        void destroyItem(float idx);
 
     private:
     	sf::Texture levelTexture;

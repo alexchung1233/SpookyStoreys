@@ -105,6 +105,10 @@ DialogueBox Room::getDiaogueBox(){
 	return dialoguebox;
 }
 
+void Room::destroyItem(float idx){
+	myItems.erase(myItems.begin() + idx);
+}
+
 void Room::createDialogueBox(){
 	int sampleLimit = 2;
 	dialoguebox = DialogueBox(sampleLimit);

@@ -19,8 +19,7 @@ class HolyWater : public ItemActor {
         Position position;
         Position getPosition();
         string interact(PlayerActor &player);
-        void setDialogue(string dialogue);
-        string getDialogue();
+
         void setHealth(int bar);
         int getHealth();
         void useWater();
@@ -29,7 +28,6 @@ class HolyWater : public ItemActor {
         void setSize(sf::Vector2f size);
         void setSize(float x, float y);
         bool nextToPlayer(PlayerActor &player);
-        string myDialogue;
         bool obtained();
         bool pickedup;
         

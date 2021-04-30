@@ -16,10 +16,10 @@ class ItemActor : public Actor {
 		virtual Position getPosition() = 0;
 
 		//sets myDialogue to be equal to dialogue
-		virtual void setDialogue(string dialogue) = 0;
+		void setDialogue(string dialogue) { this->myDialogue = dialogue; }
 
 		//returns myDialogue
-		virtual string getDialogue() = 0;
+		string getDialogue() { return this->myDialogue; }
 
 		//checks to see if the player is next to/near the item (using nextToPlayer helper function)
 		//and, if they are, then returns the proper dialogue (if any) and runs the appropriate
@@ -28,12 +28,12 @@ class ItemActor : public Actor {
 		virtual string interact(PlayerActor &player) = 0;
 
 		std::string getSpriteFile(){ return filepath; }  
-	
-	protected:
+
 		//helper function for interact()
 		//returns true if the item is next to the player, false if otherwise
      	virtual bool nextToPlayer(PlayerActor &player) = 0;
-    	
+	
+	protected:
     	string myDialogue;
         string filepath;
 

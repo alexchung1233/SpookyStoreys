@@ -44,3 +44,7 @@ Room LevelManager::getCurrentRoom(){
 const sf::Texture LevelManager::getLevelTexture(){
 	return levelFileMapping[currentLevelName].getTexture();
 }
+
+void LevelManager::destroyItem(float idx){
+	levelFileMapping[currentLevelName].destroyItem(idx);
+}

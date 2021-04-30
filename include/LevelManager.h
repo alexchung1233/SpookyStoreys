@@ -23,8 +23,8 @@ public:
 	void setRoom(std::string roomName);
 	Room getCurrentRoom();
 	void getRoomNames(std::string roomNamesFilepath);
+	void destroyItem(float idx);
 
-	//void changeLevelTexture(std::string textureName);
 	const sf::Texture getLevelTexture();
 
 
