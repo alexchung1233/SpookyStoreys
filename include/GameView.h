@@ -36,12 +36,10 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
-    DialogueBox dialoguebox;
-    DialogueBox getDialogueBox();
-    void createDialogueBox();
-    //HolyWater water;
-    //HolyWater getHolyWater();
-    //void createHolyWater();
+    //DialogueBox dialoguebox;
+    //DialogueBox getDialogueBox();
+    //void createDialogueBox();
+
 
   };
 

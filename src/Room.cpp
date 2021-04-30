@@ -75,8 +75,6 @@ void Room::setUpRoom(std::string roomName){
     	printf("incorrect file format");
   	}
 
-	this->createDialogueBox();
-	dialoguebox = this->getDiaogueBox();
 
 }
 
@@ -98,14 +96,4 @@ std::vector<Door> Room::getDoors(){
 
 std::vector<HolyWater> Room::getWaters(){
 	return myWaters;
-}
-
-DialogueBox Room::getDiaogueBox(){
-	return dialoguebox;
-}
-
-void Room::createDialogueBox(){
-	int sampleLimit = 2;
-	dialoguebox = DialogueBox(sampleLimit);
-	dialoguebox.init();
 }

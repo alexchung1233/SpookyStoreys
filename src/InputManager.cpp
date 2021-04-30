@@ -56,7 +56,12 @@ void InputManager::update(sf::Event& Event, float dt){
       playState = 2;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
-      logic->EPressed();
+      if(!logic->isDialogueBoxUsed()){
+        logic->dialoguebox.tracker++;
+        if(logic->isPlayerByItem()){
+          logic->EPressed();
+        }
+      }
     }
   }
 

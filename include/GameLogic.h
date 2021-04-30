@@ -11,6 +11,7 @@ class GameLogic{
   private:
     PlayerActor player;
     Room myRoom;
+    
 
 
 
@@ -24,6 +25,7 @@ class GameLogic{
 
     //creates player object
     void createPlayer();
+    void createDialogueBox();
 
     int Etracker;
 
@@ -32,12 +34,17 @@ class GameLogic{
 
     //reutrns player object
     PlayerActor getPlayer();
+    DialogueBox getDialogueBox();
+    DialogueBox dialoguebox;
     
 
     bool detectCollisionUp(float dt);
     bool detectCollisionDown(float dt);
     bool detectCollisionLeft(float dt);
     bool detectCollisionRight(float dt);
+
+    bool isDialogueBoxUsed();
+    bool isPlayerByItem();
 
     void setLevelManager(LevelManager &LM);
 

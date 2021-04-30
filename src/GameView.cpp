@@ -57,7 +57,7 @@ void GameView::init(){
 
 }
 
-void GameView::createDialogueBox(){
+/*void GameView::createDialogueBox(){
 	int sampleLimit = 2;
 	dialoguebox = DialogueBox(sampleLimit);
 	dialoguebox.init();
@@ -66,22 +66,13 @@ void GameView::createDialogueBox(){
 
 DialogueBox GameView::getDialogueBox(){
 	return dialoguebox;
-}
-
-/*void GameView::createHolyWater(){
-  water = HolyWater();
-  water.init();
-}
-
-HolyWater GameView::getHolyWater(){
-  return water;
 }*/
+
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   this->room = levelManager.getCurrentRoom();
-  dialoguebox = this->room.getDiaogueBox();
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
@@ -103,28 +94,20 @@ void GameView::update(sf::Event& Event, float dt){
   }
 
   if(levelManager.currentLevelName == "BEDROOM"){ //plan to change
-    sprite_holywater.setTexture(texture_water);
-    HolyWater water = this->room.getWaters().at(0);
-    sprite_holywater.setPosition(this->room.getWaters().at(0).position.x,this->room.getWaters().at(0).position.y);
-    for(int i = 0; i < this->room.getWaters().size(); i++){
-      if(logic.Etracker == 2 
-      && water.nextToPlayer(player)
-      && !water.obtained()){
-        water.interact(player);
-        dialoguebox.setText("A bottle of holy water? Maybe I can use this on the monster.");
-        dialoguebox.tracker++;
-        dialoguebox.setUsingState(true);
-        std::cout << water.obtained();
+    if (this->room.getWaters().size() != 0){
+      sprite_holywater.setTexture(texture_water);
+      sprite_holywater.setPosition(this->room.getWaters().at(0).position.x,this->room.getWaters().at(0).position.y);
+    }
+    /*for(int i = 0; i < this->room.getWaters().size(); i++){
+      if(logic.Etracker == 1){
 
-        //TODO fix to allow for only one interaction per holywater
-      } else if (logic.Etracker == 2 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
-        && water.obtained()){ //else if statement does not work
-        dialoguebox.tracker++;
-        std::cout << water.obtained();
+
+      } else if (logic.Etracker == 2 
+        && water.obtained()){ 
       } else {
-        logic.Etracker = 0; //reset Etracker
+        logic.Etracker = 0; 
       }
-  }
+  }*/
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -138,7 +121,7 @@ void GameView::update(sf::Event& Event, float dt){
   
   
 
-  isDialogue(dialoguebox);
+  isDialogue(logic.dialoguebox);
 
 
 }
@@ -154,8 +137,9 @@ void GameView::render(){
     if(levelManager.currentLevelName == "BEDROOM"){
       //for (int i = 0; i < this->room.getWaters().size(); i++){
         //if(!this->room.getWaters().at(i).obtained()){
-          
-          this->App->draw(sprite_holywater);
+          if(this->room.getWaters().size() != 0){
+            this->App->draw(sprite_holywater);
+          }
        // }
       //}
     }
@@ -166,16 +150,12 @@ void GameView::render(){
 
 
 void GameView::isDialogue(DialogueBox& box){
-  if (box.tracker <= box.getDialogueLimit() && box.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
+  if (logic.isDialogueBoxUsed()){ //toggle the dialogue box, if the  player has some sort of interaction
     this->App->draw(box.dialogueBox);
     this->App->draw(box.message);
-  }else if (box.tracker == 0 && this->logic.Etracker != 0){ //for the first interaction with an item of any kind
-    this->App->draw(box.dialogueBox);
-    this->App->draw(box.message);
-  }else{
-    //cout << "N0";
   }
 }
+
 
 
 

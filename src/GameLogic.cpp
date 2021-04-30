@@ -10,6 +10,7 @@ void GameLogic::setLevelManager(LevelManager &LM){
 
 void GameLogic::setup(){
 	createPlayer();
+	createDialogueBox();
 	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
 }
 
@@ -22,9 +23,17 @@ PlayerActor GameLogic::getPlayer(){
   return player;
 }
 
+void GameLogic::createDialogueBox(){
+	dialoguebox = DialogueBox();
+	dialoguebox.init();
+}
+
+DialogueBox GameLogic::getDialogueBox(){
+	return dialoguebox;
+}
+
 void GameLogic::EPressed(){
 	Etracker++;
-	//std::cout << Etracker;
 }
 
 void GameLogic::upPressed(float dt){
@@ -161,4 +170,29 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 	}
 
 	return false;
+}
+
+bool GameLogic::isDialogueBoxUsed(){
+	if(dialoguebox.tracker <= dialoguebox.getDialogueLimit()
+		&& dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
+		return true;
+  	}else if(dialoguebox.tracker == 0 && Etracker != 0){ //for the first interaction with an item of any kind
+    	return true;
+	}else{
+		return false;
+	}
+}
+
+bool GameLogic::isPlayerByItem(){
+	for(int i = 0; i < this->myRoom.getWaters().size(); i++){
+		if (this->myRoom.getWaters().at(i).nextToPlayer(this->player)){
+			dialoguebox.setText(this->myRoom.getWaters().at(i).getDialogue());
+			this->myRoom.getWaters().at(i).interact(this->player);
+			return true;
+			continue;
+		}else{
+			return false;
+		}
+		
+	}
 }
