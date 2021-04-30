@@ -9,6 +9,9 @@ void HolyWater::init(){
     this->myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
     this->position;
     this->pickedup = false;
+    
+    this->filepath = "../data/holy_water.png";
+
 }
 Position HolyWater::getPosition(){
     return this->position;

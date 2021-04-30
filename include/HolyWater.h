@@ -33,8 +33,9 @@ class HolyWater : public ItemActor {
         bool obtained();
         bool pickedup;
         
-    protected:
+    private:
         PlayerActor *player;
+
         int health;
         
 };

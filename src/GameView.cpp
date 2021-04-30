@@ -38,12 +38,6 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  string holywater_file = "../data/holy_water.png";
-
-  if(!texture_water.loadFromFile(holywater_file)){
-    printf("incorrect file format");
-  }
-
   levelSprite.setTexture(texture);
 
   sprite_player.setTexture(texture_player);
@@ -80,8 +74,8 @@ HolyWater GameView::getHolyWater(){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
-  this->room = levelManager.getCurrentRoom();
-  dialoguebox = this->room.getDiaogueBox();
+
+  dialoguebox = levelManager.getCurrentRoom().getDiaogueBox();
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
@@ -102,29 +96,43 @@ void GameView::update(sf::Event& Event, float dt){
     childState = new GameOver(*App, "You Lose...");
   }
 
-  if(levelManager.currentLevelName == "BEDROOM"){ //plan to change
-    sprite_holywater.setTexture(texture_water);
-    HolyWater water = this->room.getWaters().at(0);
-    sprite_holywater.setPosition(this->room.getWaters().at(0).position.x,this->room.getWaters().at(0).position.y);
-    for(int i = 0; i < this->room.getWaters().size(); i++){
-      if(logic.Etracker == 2 
-      && water.nextToPlayer(player)
-      && !water.obtained()){
-        water.interact(player);
-        dialoguebox.setText("A bottle of holy water? Maybe I can use this on the monster.");
-        dialoguebox.tracker++;
-        dialoguebox.setUsingState(true);
-        std::cout << water.obtained();
+  Room tempRoom = levelManager.getCurrentRoom();
 
-        //TODO fix to allow for only one interaction per holywater
-      } else if (logic.Etracker == 2 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
-        && water.obtained()){ //else if statement does not work
-        dialoguebox.tracker++;
-        std::cout << water.obtained();
-      } else {
-        logic.Etracker = 0; //reset Etracker
-      }
-  }
+  for(int i = 0; i < tempRoom.getWaters()->size(); i++) {
+    HolyWater water = tempRoom.getWaters()->at(i);
+
+    if(!texture_item.loadFromFile(water.getSpriteFile())){
+      printf("incorrect file format");
+    }
+    //std::cout << water.getTexture() << endl;
+    //std::cout << water.getTexture() << endl;
+
+    //sf::Texture *tex = water.getTexture();
+
+    sprite_item.setTexture(texture_item);
+    sprite_item.setPosition(water.position.x, water.position.y);
+
+    itemSprites.push_back(sprite_item);
+    
+    // for(int i = 0; i < this->room.getWaters().size(); i++){
+    //   if(logic.Etracker == 2 
+    //   && water.nextToPlayer(player)
+    //   && !water.obtained()){
+    //     water.interact(player);
+    //     dialoguebox.setText("A bottle of holy water? Maybe I can use this on the monster.");
+    //     dialoguebox.tracker++;
+    //     dialoguebox.setUsingState(true);
+    //     //std::cout << water.obtained();
+
+    //     //TODO fix to allow for only one interaction per holywater
+    //   } else if (logic.Etracker == 2 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
+    //     && water.obtained()){ //else if statement does not work
+    //     dialoguebox.tracker++;
+    //     std::cout << water.obtained();
+    //   } else {
+    //     logic.Etracker = 0; //reset Etracker
+    //   }
+    // }
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -138,7 +146,7 @@ void GameView::update(sf::Event& Event, float dt){
   
   
 
-  isDialogue(dialoguebox);
+  //isDialogue(dialoguebox);
 
 
 }
@@ -149,16 +157,17 @@ void GameView::setLogic(GameView& logic){}
 void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
-    this->App->draw(sprite_player);
-    this->App->draw(sprite_player);
-    if(levelManager.currentLevelName == "BEDROOM"){
-      //for (int i = 0; i < this->room.getWaters().size(); i++){
+    
+    Room tempRoom = levelManager.getCurrentRoom();
+    for (int i = 0; i < tempRoom.getWaters()->size(); i++){
         //if(!this->room.getWaters().at(i).obtained()){
           
-          this->App->draw(sprite_holywater);
+          this->App->draw(itemSprites.at(i));
        // }
       //}
     }
+    this->App->draw(sprite_player);
+
       
 
 

@@ -26,7 +26,7 @@ class Room
         std::vector<sf::IntRect> getObstacles();
         sf::Texture getTexture();
         std::vector<Door> getDoors();
-        std::vector<HolyWater> getWaters();
+        std::vector<HolyWater>* getWaters();
         DialogueBox dialoguebox;
         DialogueBox getDiaogueBox();
         void createDialogueBox();

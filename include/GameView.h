@@ -17,11 +17,13 @@ class GameView : public State
     Room room;
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
-    sf::Sprite sprite_holywater;
+    sf::Sprite sprite_item;
+    std::vector<sf::Sprite> itemSprites;
+
     sf::Texture texture;
     sf::Texture texture_player;
-    sf::Texture texture_water;
-    
+    sf::Texture texture_item;
+
 
   public:
     GameView();
