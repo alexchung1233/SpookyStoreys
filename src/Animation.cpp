@@ -26,7 +26,7 @@ Animation::Animation(
 //plays the animation based on the delta time
 void Animation::play(sf::Clock& clock){
   this->timer = clock.getElapsedTime().asSeconds() * 100;
-  if(timer >15.f){
+  if(timer >10.f){
     timer =0.f;
     if(rectSourceSprite.left < endX){
       rectSourceSprite.left+= width;

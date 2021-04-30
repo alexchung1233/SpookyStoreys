@@ -138,12 +138,6 @@ void GameView::updatePlayerAnimation(float dt){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
 
-
-    case MovementStates::IDLE:
-      this->player_anim_down.play(gameClock);
-
-      break;
-
     case MovementStates::MOVING_LEFT:
       this->player_anim_left.play(gameClock);
       break;
@@ -162,6 +156,7 @@ void GameView::updatePlayerAnimation(float dt){
       break;
 
       }
+    this->logic.setMovementState(MovementStates::IDLE);
 }
 
 void GameView::setLogic(GameView& logic){}

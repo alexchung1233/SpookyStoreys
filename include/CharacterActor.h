@@ -19,6 +19,9 @@ class CharacterActor : public Actor {
    protected:
       sf::Vector2f characterVelocity;
       sf::Vector2f direction;
+      MovementStates::movementStates moveState;
+      MovementStates::direcStates direc;
+
 
 
    private:
