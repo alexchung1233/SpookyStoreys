@@ -15,6 +15,8 @@ class GameView : public State
     LevelManager levelManager;
     GameLogic logic;
     Room room;
+    DialogueBox dialoguebox;
+
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Sprite sprite_item;
@@ -34,12 +36,11 @@ class GameView : public State
 
     void setLogic(GameView& logic);
     float myPos();
-    void isDialogue(DialogueBox& box);
+    void isDialogue();
     void render();
     void pause();
     void unpause();
-    DialogueBox dialoguebox;
-    DialogueBox getDialogueBox();
+    //DialogueBox getDialogueBox();
     void createDialogueBox();
     //HolyWater water;
     //HolyWater getHolyWater();

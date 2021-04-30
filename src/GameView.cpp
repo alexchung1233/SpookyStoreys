@@ -57,11 +57,6 @@ void GameView::createDialogueBox(){
 	dialoguebox.init();
 }
 
-
-DialogueBox GameView::getDialogueBox(){
-	return dialoguebox;
-}
-
 /*void GameView::createHolyWater(){
   water = HolyWater();
   water.init();
@@ -75,7 +70,6 @@ HolyWater GameView::getHolyWater(){
 void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
 
-  dialoguebox = levelManager.getCurrentRoom().getDiaogueBox();
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
@@ -113,23 +107,31 @@ void GameView::update(sf::Event& Event, float dt){
     
     if(logic.Etracker == 2 
     && item->nextToPlayer(player)
-    //&& !item.obtained()
-    ){
+    && !dialoguebox.getUsingState()){
+      createDialogueBox();
       item->interact(player);
       dialoguebox.setText(item->getDialogue());
       dialoguebox.tracker++;
       dialoguebox.setUsingState(true);
-      levelManager.destroyItem(i);
-      //std::cout << item.obtained();
+      levelManager.itemToDestroy(i);
 
       //TODO fix to allow for only one interaction per holywater
-    } else if (logic.Etracker == 2 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
-      //&& item.obtained()
-      ){ //else if statement does not work
-      dialoguebox.tracker++;
-      //std::cout << item.obtained();
-    } else {
-      logic.Etracker = 0; //reset Etracker
+    } 
+
+    else if (logic.Etracker == 4 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
+      && dialoguebox.getUsingState())
+    { //else if statement does not work
+      //dialoguebox.tracker++;
+      dialoguebox.setUsingState(false);
+      levelManager.destroyItem();
+
+      //std::cout << "SCREAAMS" << endl;
+    } 
+
+    else {
+      if(!dialoguebox.getUsingState()){
+        logic.Etracker = 0; //reset Etracker
+      }
     }
     
   }
@@ -145,7 +147,7 @@ void GameView::update(sf::Event& Event, float dt){
   
   
 
-  isDialogue(dialoguebox);
+  isDialogue();
 
 
 }
@@ -173,13 +175,13 @@ void GameView::render(){
 }
 
 
-void GameView::isDialogue(DialogueBox& box){
-  if (box.tracker <= box.getDialogueLimit() && box.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
-    this->App->draw(box.dialogueBox);
-    this->App->draw(box.message);
-  }else if (box.tracker == 0 && this->logic.Etracker != 0){ //for the first interaction with an item of any kind
-    this->App->draw(box.dialogueBox);
-    this->App->draw(box.message);
+void GameView::isDialogue(){
+  if (dialoguebox.tracker <= dialoguebox.getDialogueLimit() && dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
+    this->App->draw(dialoguebox.dialogueBox);
+    this->App->draw(dialoguebox.message);
+  }else if (dialoguebox.tracker == 0 && this->logic.Etracker != 0){ //for the first interaction with an item of any kind
+    this->App->draw(dialoguebox.dialogueBox);
+    this->App->draw(dialoguebox.message);
   }else{
     //cout << "N0";
   }

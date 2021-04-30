@@ -75,10 +75,6 @@ void Room::setUpRoom(std::string roomName){
   	if(!levelTexture.loadFromFile(filepathPNG)){
     	printf("incorrect file format");
   	}
-
-	this->createDialogueBox();
-	dialoguebox = this->getDiaogueBox();
-
 }
 
 sf::IntRect Room::getBoundaries(){
@@ -101,16 +97,6 @@ std::vector<ItemActor*> Room::getItems(){
 	return myItems;
 }
 
-DialogueBox Room::getDiaogueBox(){
-	return dialoguebox;
-}
-
 void Room::destroyItem(float idx){
 	myItems.erase(myItems.begin() + idx);
-}
-
-void Room::createDialogueBox(){
-	int sampleLimit = 2;
-	dialoguebox = DialogueBox(sampleLimit);
-	dialoguebox.init();
 }

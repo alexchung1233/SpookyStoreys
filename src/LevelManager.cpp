@@ -45,6 +45,10 @@ const sf::Texture LevelManager::getLevelTexture(){
 	return levelFileMapping[currentLevelName].getTexture();
 }
 
-void LevelManager::destroyItem(float idx){
-	levelFileMapping[currentLevelName].destroyItem(idx);
+void LevelManager::itemToDestroy(float idx){
+	idxItemToDestroy = idx;
+}
+
+void LevelManager::destroyItem(){
+	levelFileMapping[currentLevelName].destroyItem(idxItemToDestroy);
 }

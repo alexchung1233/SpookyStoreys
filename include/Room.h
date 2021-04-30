@@ -27,9 +27,6 @@ class Room
         sf::Texture getTexture();
         std::vector<Door> getDoors();
         std::vector<ItemActor*> getItems();
-        DialogueBox dialoguebox;
-        DialogueBox getDiaogueBox();
-        void createDialogueBox();
         void destroyItem(float idx);
 
     private:
