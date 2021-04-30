@@ -17,6 +17,7 @@ void LevelManager::init(){
     }
 
     currentLevelName = myRooms.at(0);
+    idxItemToDestroy = -1;
 
 }
 
@@ -50,5 +51,7 @@ void LevelManager::itemToDestroy(float idx){
 }
 
 void LevelManager::destroyItem(){
-	levelFileMapping[currentLevelName].destroyItem(idxItemToDestroy);
+	if(idxItemToDestroy > -1)
+		levelFileMapping[currentLevelName].destroyItem(idxItemToDestroy);
+	idxItemToDestroy = -1;
 }
