@@ -10,7 +10,7 @@
 #include <sstream>
 #include "Door.h"
 #include "HolyWater.h"
-
+#include "Note.h"
 
 
 class Room

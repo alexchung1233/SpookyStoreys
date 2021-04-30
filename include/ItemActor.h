@@ -30,7 +30,7 @@ class ItemActor : public Actor {
 		//and so on
 		virtual string interact(PlayerActor &player) = 0;
 
-		std::string getSpriteFile(){ return filepath; }  
+		virtual std::string getSpriteFile() { return filepath; }  
 
 		//helper function for interact()
 		//returns true if the item is next to the player, false if otherwise

@@ -13,17 +13,19 @@ using namespace std;
 class Note : public ItemActor {
 
     public:
-        Note();
+        Note() {};
+        Note(std::vector<std::string> inputVector);
+
         void init();
-        Position position;
         Position getPosition();
         void setPosition(float x, float y);
-        void setDialogue(string dialogue);
-        string getDialogue();
         string interact(PlayerActor &player);
-        string myDialogue;
+        sf::Vector2f getSize();
+        void setSize(sf::Vector2f size);
+        void setSize(float x, float y);
         bool read;
-    protected:
+    private:
+        
         PlayerActor *player;
         bool nextToPlayer(PlayerActor &player);
 };

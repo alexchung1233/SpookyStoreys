@@ -20,12 +20,12 @@ class GameView : public State
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Sprite sprite_item;
-    std::vector<sf::Sprite> itemSprites;
+    std::vector<sf::Sprite*> itemSprites;
 
     sf::Texture texture;
     sf::Texture texture_player;
-    sf::Texture texture_item;
-
+    sf::Texture* texture_item;
+    std::vector<sf::Texture*> itemTextures;
 
   public:
     GameView();
@@ -40,11 +40,8 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
-    //DialogueBox getDialogueBox();
     void createDialogueBox();
-    //HolyWater water;
-    //HolyWater getHolyWater();
-    //void createHolyWater();
+
 
   };
 

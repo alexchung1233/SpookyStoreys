@@ -57,18 +57,11 @@ void GameView::createDialogueBox(){
 	dialoguebox.init();
 }
 
-/*void GameView::createHolyWater(){
-  water = HolyWater();
-  water.init();
-}
-
-HolyWater GameView::getHolyWater(){
-  return water;
-}*/
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
+  itemTextures.clear();
   inputManager.update(Event, dt);
 
   //get the latest level texture
@@ -95,19 +88,19 @@ void GameView::update(sf::Event& Event, float dt){
 
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
 
-
     ItemActor* item = tempRoom.getItems().at(i);
-    //std::cout << item->getDialogue() << endl;
 
+    itemTextures.push_back(new sf::Texture);
 
-    if(!texture_item.loadFromFile(item->getSpriteFile())){
+    if(!itemTextures.back()->loadFromFile(item->getSpriteFile())){
       printf("incorrect file format");
     }
 
-    sprite_item.setTexture(texture_item);
-    sprite_item.setPosition(item->getPosition().x, item->getPosition().y);
+    itemSprites.push_back(new sf::Sprite);
 
-    itemSprites.push_back(sprite_item);    
+    texture_item = itemTextures.back();
+    itemSprites.back()->setTexture(*texture_item);
+    itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
 
 
     if(logic.Etracker == 2 
@@ -122,15 +115,16 @@ void GameView::update(sf::Event& Event, float dt){
 
       //TODO fix to allow for only one interaction per holywater
     }
-
-    else if (logic.Etracker == 4 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
+    //checks to see if the dialogue box is currently in use and, if it is, 
+    //then it destroys the item that was interacted with, closes the box,
+    //and unlocks the player
+    else if (logic.Etracker == 4 
       && dialoguebox.getUsingState())
-    { //else if statement does not work
+    {
       //dialoguebox.tracker++;
       dialoguebox.setUsingState(false);
       levelManager.destroyItem();
 
-      //std::cout << "SCREAAMS" << endl;
     } 
     
   }
@@ -148,8 +142,6 @@ void GameView::update(sf::Event& Event, float dt){
   // this->App->draw(rectangle);
 
   
-  
-
   isDialogue();
 
 
@@ -165,8 +157,8 @@ void GameView::render(){
     Room tempRoom = levelManager.getCurrentRoom();
     for (int i = 0; i < tempRoom.getItems().size(); i++){
         //if(!this->room.getWaters().at(i).obtained()){
-          
-          this->App->draw(itemSprites.at(i));
+          sf::Sprite* drawMe = itemSprites.at(i);
+          this->App->draw(*drawMe);
        // }
       //}
     }
