@@ -61,9 +61,9 @@ void Room::setUpRoom(std::string roomName){
 			for(int i = 1; i < result.size(); i++){
 				forWater.push_back(result.at(i));
 			}
-			HolyWater myWater(forWater);
-			myWater.init();
-			myWaters.push_back(myWater);
+			HolyWater* tempWater = new HolyWater(forWater);
+			tempWater->init();
+			myItems.push_back(tempWater);
 
 		}
 		
@@ -97,8 +97,8 @@ std::vector<Door> Room::getDoors(){
 	return myDoors;
 }
 
-std::vector<HolyWater>* Room::getWaters(){
-	return &myWaters;
+std::vector<ItemActor*> Room::getItems(){
+	return myItems;
 }
 
 DialogueBox Room::getDiaogueBox(){

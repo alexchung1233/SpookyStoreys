@@ -26,7 +26,7 @@ class Room
         std::vector<sf::IntRect> getObstacles();
         sf::Texture getTexture();
         std::vector<Door> getDoors();
-        std::vector<HolyWater>* getWaters();
+        std::vector<ItemActor*> getItems();
         DialogueBox dialoguebox;
         DialogueBox getDiaogueBox();
         void createDialogueBox();
@@ -38,7 +38,7 @@ class Room
         sf::IntRect myBoundaries;
         std::vector<sf::IntRect> myObstacles;
         std::vector<Door> myDoors;
-        std::vector<HolyWater> myWaters;
+        std::vector<ItemActor*> myItems;
 
 
 

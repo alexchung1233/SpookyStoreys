@@ -98,19 +98,16 @@ void GameView::update(sf::Event& Event, float dt){
 
   Room tempRoom = levelManager.getCurrentRoom();
 
-  for(int i = 0; i < tempRoom.getWaters()->size(); i++) {
-    HolyWater water = tempRoom.getWaters()->at(i);
+  for(int i = 0; i < tempRoom.getItems().size(); i++) {
 
-    if(!texture_item.loadFromFile(water.getSpriteFile())){
+    ItemActor* water = tempRoom.getItems().at(i);
+
+    if(!texture_item.loadFromFile(water->getSpriteFile())){
       printf("incorrect file format");
     }
-    //std::cout << water.getTexture() << endl;
-    //std::cout << water.getTexture() << endl;
-
-    //sf::Texture *tex = water.getTexture();
 
     sprite_item.setTexture(texture_item);
-    sprite_item.setPosition(water.position.x, water.position.y);
+    sprite_item.setPosition(water->getPosition().x, water->getPosition().y);
 
     itemSprites.push_back(sprite_item);
     
@@ -159,7 +156,7 @@ void GameView::render(){
     this->App->draw(levelSprite);
     
     Room tempRoom = levelManager.getCurrentRoom();
-    for (int i = 0; i < tempRoom.getWaters()->size(); i++){
+    for (int i = 0; i < tempRoom.getItems().size(); i++){
         //if(!this->room.getWaters().at(i).obtained()){
           
           this->App->draw(itemSprites.at(i));

@@ -9,7 +9,8 @@
 using namespace std;
 class ItemActor : public Actor {
 	public:
-		// pure virtual function
+		ItemActor() {};
+		~ItemActor(){};
 
 		//gets the position of the item
 		virtual Position getPosition() = 0;
