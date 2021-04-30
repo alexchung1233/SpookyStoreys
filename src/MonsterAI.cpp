@@ -1,7 +1,7 @@
 #include "MonsterAI.h"
 
 MonsterAI::MonsterAI() {
-  
+
 }
 MonsterAI::MonsterAI(MonsterView &newMonsterView) {
   this->monsterView = &newMonsterView;
@@ -27,14 +27,15 @@ void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS)
     monsterView->rightPressed(deltaMS);
   }
   else {
+    std::cout << "GOT TO HERE" << '\n';
     monsterView->leftPressed(deltaMS);
   }
 
   if (monsterView->getMonster().getPosition().y < playerY){
-    monsterView->upPressed(deltaMS);
+    monsterView->downPressed(deltaMS);
   }
   else {
-    monsterView->downPressed(deltaMS);
+    monsterView->upPressed(deltaMS);
   }
 }
 

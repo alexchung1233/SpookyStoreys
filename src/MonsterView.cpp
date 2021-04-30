@@ -123,6 +123,8 @@ bool MonsterView::detectCollisionRight(float dt){
 			return true;
 	}
 
+	std::cout << playerPos.x + movement + monster.getSize().x << '\n';
+
 	if(!myRoom.getBoundaries().contains(playerPos.x + movement + monster.getSize().x, playerPos.y))
 		return true;
 

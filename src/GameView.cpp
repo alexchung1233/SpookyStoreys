@@ -86,8 +86,8 @@ void GameView::init(){
   MonsterActor monster = this->monsterView.getMonster();
   //monsterAI.setPosition(monster.getPosition().x, monster.getPosition().y);
   sprite_monster.setTexture(texture_monster);
-  sprite_monster.setPosition(monster.getPosition().x, monster.getPosition().y);
-  sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
+  sprite_monster.setPosition(monster.getPosition().x-200, monster.getPosition().y-50);
+  sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
 
   //sound->playPlayingMusic();
   this->status = State::RUNNING;
@@ -119,19 +119,19 @@ void GameView::update(sf::Event& Event, float dt){
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
   MonsterActor monster = this->monsterView.getMonster();
   //monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle());
-  sprite_monster.setPosition(monster.getPosition().x, monster.getPosition().y);
+  sprite_monster.setPosition(monster.getPosition().x-200, monster.getPosition().y);
+
+  if (inSameRoom) {
+    float distX = pow(monster.getPosition().x+50 - player.getPosition().x-125, 2);
+    float distY = pow(monster.getPosition().y - player.getPosition().y+20, 2);
 
 
-  float distX = pow(monster.getPosition().x - player.getPosition().x-125, 2);
-  float distY = pow(monster.getPosition().y - player.getPosition().y+20, 2);
+    if (sqrt(distX + distY) < 70){
+      this->status = State::SUCCESS;
+      childState = new GameOver(*App, "You Lose...", *audioManager);
+    }
 
-
-  if (sqrt(distX + distY) < 70){
-    this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...", *audioManager);
   }
-
-
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Win!", *audioManager);
