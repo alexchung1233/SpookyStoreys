@@ -51,6 +51,8 @@ void GameView::init(){
 
   inputManager(*App, logic);
   monsterAI(monsterView);
+  sf::Vector2f newDoor = this->monsterView.getRandomDoor();
+  monsterAI.setDoorLoc(newDoor.x, newDoor.y);
 
   texture = this->levelManager.getLevelTexture();
 
@@ -114,7 +116,7 @@ void GameView::update(sf::Event& Event, float dt){
 
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
-  std::cout << inSameRoom << '\n';
+  //std::cout << inSameRoom << '\n';
 
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
   MonsterActor monster = this->monsterView.getMonster();

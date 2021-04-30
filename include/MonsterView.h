@@ -31,7 +31,10 @@ class MonsterView{
     bool detectCollisionRight(float dt);
 
     void setLevelManager(LevelManager &LM);
+    sf::Vector2f getRandomDoor();
 
+    float newDoorX;
+    float newDoorY;
 
     //Function for when the Up key is pressed
     void upPressed(float dt);

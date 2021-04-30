@@ -27,7 +27,7 @@ void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS)
     monsterView->rightPressed(deltaMS);
   }
   else {
-    std::cout << "GOT TO HERE" << '\n';
+    //std::cout << "GOT TO HERE" << '\n';
     monsterView->leftPressed(deltaMS);
   }
 
@@ -40,7 +40,31 @@ void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS)
 }
 
 void MonsterAI::calculateMoveOutRoom(float deltaMS) {
-  monsterView->leftPressed(deltaMS);
+
+  float playerX = monsterView->newDoorX;
+  float playerY = monsterView->newDoorY;
+
+  if (monsterView->getMonster().getPosition().x < playerX){
+    monsterView->rightPressed(deltaMS);
+  }
+  else {
+    //std::cout << "GOT TO HERE" << '\n';
+    monsterView->leftPressed(deltaMS);
+  }
+
+  if (monsterView->getMonster().getPosition().y < playerY){
+    monsterView->downPressed(deltaMS);
+  }
+  else {
+    monsterView->upPressed(deltaMS);
+  }
+
+  // /monsterView->leftPressed(deltaMS);
+}
+
+void MonsterAI::setDoorLoc(float doorX, float doorY) {
+  doorLocX = doorX;
+  doorLocY = doorY;
 }
 
 

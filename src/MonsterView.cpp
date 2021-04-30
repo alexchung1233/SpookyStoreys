@@ -123,7 +123,7 @@ bool MonsterView::detectCollisionRight(float dt){
 			return true;
 	}
 
-	std::cout << playerPos.x + movement + monster.getSize().x << '\n';
+	//std::cout << playerPos.x + movement + monster.getSize().x << '\n';
 
 	if(!myRoom.getBoundaries().contains(playerPos.x + movement + monster.getSize().x, playerPos.y))
 		return true;
@@ -144,9 +144,25 @@ bool MonsterView::hitsDoor(sf::IntRect possiblePlayerPosition){
 			this->levelManager->setRoom(checkDoor.getNextRoom());
 			monster.setPosition(checkDoor.getNewPosition().x, checkDoor.getNewPosition().y);
 			setRoom(this->levelManager->getCurrentRoom());
+
+			sf::Vector2f newDoor = getRandomDoor();
+			newDoorX = newDoor.x;
+			newDoorY = newDoor.y;
+			//monsterAI.setDoorLoc(newDoor.x, newDoor.y);
+
 			return true;
 		}
 	}
 
 	return false;
+}
+
+sf::Vector2f MonsterView::getRandomDoor(){
+	std::vector<Door> doors = myRoom.getDoors();
+	int randomNum = rand() % doors.size();
+	Door newDoor = (doors.at(randomNum));
+	float width = newDoor.getDoorBoundaries().left + (newDoor.getDoorBoundaries().width/2);
+	float height = newDoor.getDoorBoundaries().top + (newDoor.getDoorBoundaries().height/2);
+	sf::Vector2f vec = sf::Vector2f(width, height);
+	return(vec);
 }
