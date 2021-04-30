@@ -15,6 +15,9 @@ class ItemActor : public Actor {
 		//gets the position of the item
 		virtual Position getPosition() = 0;
 
+		virtual void init() = 0;
+
+
 		//sets myDialogue to be equal to dialogue
 		void setDialogue(string dialogue) { this->myDialogue = dialogue; }
 

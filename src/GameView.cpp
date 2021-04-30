@@ -68,6 +68,7 @@ HolyWater GameView::getHolyWater(){
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
+  itemSprites.clear();
   inputManager.update(Event, dt);
 
   //get the latest level texture
@@ -94,7 +95,10 @@ void GameView::update(sf::Event& Event, float dt){
 
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
 
+
     ItemActor* item = tempRoom.getItems().at(i);
+    //std::cout << item->getDialogue() << endl;
+
 
     if(!texture_item.loadFromFile(item->getSpriteFile())){
       printf("incorrect file format");
@@ -103,8 +107,9 @@ void GameView::update(sf::Event& Event, float dt){
     sprite_item.setTexture(texture_item);
     sprite_item.setPosition(item->getPosition().x, item->getPosition().y);
 
-    itemSprites.push_back(sprite_item);
-    
+    itemSprites.push_back(sprite_item);    
+
+
     if(logic.Etracker == 2 
     && item->nextToPlayer(player)
     && !dialoguebox.getUsingState()){
@@ -116,7 +121,7 @@ void GameView::update(sf::Event& Event, float dt){
       levelManager.itemToDestroy(i);
 
       //TODO fix to allow for only one interaction per holywater
-    } 
+    }
 
     else if (logic.Etracker == 4 //to handle dialogue tracker to only have the dialogue box come up after the first interaction 
       && dialoguebox.getUsingState())
@@ -127,13 +132,11 @@ void GameView::update(sf::Event& Event, float dt){
 
       //std::cout << "SCREAAMS" << endl;
     } 
-
-    else {
-      if(!dialoguebox.getUsingState()){
-        logic.Etracker = 0; //reset Etracker
-      }
-    }
     
+  }
+
+  if(!dialoguebox.getUsingState()){
+    logic.Etracker = 0; //reset Etracker
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN

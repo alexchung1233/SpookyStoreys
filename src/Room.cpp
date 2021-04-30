@@ -61,13 +61,13 @@ void Room::setUpRoom(std::string roomName){
 			for(int i = 1; i < result.size(); i++){
 				forWater.push_back(result.at(i));
 			}
-			HolyWater* tempWater = new HolyWater(forWater);
-			tempWater->init();
-			myItems.push_back(tempWater);
 
+			myItems.push_back(new HolyWater(forWater));
+			myItems.at(myItems.size() - 1)->init();
 		}
 		
     }
+
 	infile.close();
 
 	string filepathPNG = directory + roomName + png;
