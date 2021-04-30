@@ -44,7 +44,7 @@ void GameLogic::rightPressed(float dt){
 bool GameLogic::detectCollisionUp(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().y;
-	
+
 	sf::IntRect possiblePlayerPosition(playerPos.x, playerPos.y - movement, player.getSize().x, player.getSize().y);
 
 	if(hitsDoor(possiblePlayerPosition)){
@@ -66,7 +66,7 @@ bool GameLogic::detectCollisionUp(float dt){
 bool GameLogic::detectCollisionDown(float dt){
 	Position playerPos = player.getPosition();
 	float movement = dt * player.getVelocity().y;
-	
+
 	sf::IntRect possiblePlayerPosition(playerPos.x, playerPos.y + movement, player.getSize().x, player.getSize().y);
 
 	if(hitsDoor(possiblePlayerPosition)){
@@ -90,7 +90,7 @@ bool GameLogic::detectCollisionLeft(float dt){
 	float movement = dt * player.getVelocity().x;
 
 	sf::IntRect possiblePlayerPosition(playerPos.x - movement, playerPos.y, player.getSize().x, player.getSize().y);
-	
+
 	if(hitsDoor(possiblePlayerPosition)){
 		return true;
 	}
@@ -112,7 +112,7 @@ bool GameLogic::detectCollisionRight(float dt){
 	float movement = dt * player.getVelocity().x;
 
 	sf::IntRect possiblePlayerPosition(playerPos.x + movement, playerPos.y, player.getSize().x, player.getSize().y);
-	
+
 	if(hitsDoor(possiblePlayerPosition)){
 		return true;
 	}
@@ -147,4 +147,11 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 	}
 
 	return false;
+}
+
+void GameLogic::update(float dt){
+}
+
+void GameLogic::setMovementState(MovementStates::movementStates state){
+	player.setMovementState(state);
 }

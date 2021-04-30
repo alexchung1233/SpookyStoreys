@@ -3,6 +3,7 @@
 #include "PlayerActor.h"
 #include "Room.h"
 #include "LevelManager.h"
+#include "MovementStates.h"
 
 class GameLogic{
 
@@ -33,6 +34,7 @@ class GameLogic{
 
     void setLevelManager(LevelManager &LM);
 
+    void setMovementState(MovementStates::movementStates state);
 
     //Function for when the Up key is pressed
     void upPressed(float dt);
@@ -46,7 +48,8 @@ class GameLogic{
     //Function for when the Right key is pressed
     void rightPressed(float dt);
 
-    void setRoom(Room room);
+    void update(float dt);
 
+    void setRoom(Room room);
 
 };

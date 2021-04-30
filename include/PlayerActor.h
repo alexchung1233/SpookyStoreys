@@ -18,7 +18,11 @@ public:
   void moveDown(float deltaMS);
   void moveLeft(float deltaMS);
   void moveRight(float deltaMS);
-  
+  MovementStates::movementStates getMovementState();
+  MovementStates::direcStates getDirectionState();
+  void setMovementState(MovementStates::movementStates state){
+    this->moveState = state;
+  }
   sf::Vector2f getSize();
   void setSize(sf::Vector2f size);
   void setSize(float x, float y);
