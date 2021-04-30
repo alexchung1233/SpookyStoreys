@@ -112,8 +112,6 @@ void GameView::update(sf::Event& Event, float dt){
       dialoguebox.tracker++;
       dialoguebox.setUsingState(true);
       levelManager.itemToDestroy(i);
-
-      //TODO fix to allow for only one interaction per holywater
     }
     //checks to see if the dialogue box is currently in use and, if it is, 
     //then it destroys the item that was interacted with, closes the box,
