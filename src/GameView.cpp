@@ -44,6 +44,10 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
+
+  if(!font.loadFromFile("../data/Lato-Bold.ttf"))
+    std::cout << "Font unable to load\n";
+
   levelSprite.setTexture(texture);
 
   sprite_player.setTexture(texture_player);
@@ -52,6 +56,7 @@ void GameView::init(){
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+  makeBox(sf::Vector2f(logic.dialoguebox.position.x, logic.dialoguebox.position.y), sf::Color::Black);
 
   this->status = State::RUNNING;
 
@@ -119,9 +124,11 @@ void GameView::update(sf::Event& Event, float dt){
   // this->App->draw(rectangle);
 
   
+  this->setText();
+  
   
 
-  isDialogue(logic.dialoguebox);
+
 
 
 }
@@ -143,18 +150,49 @@ void GameView::render(){
        // }
       //}
     }
-      
+    isDialogue();
 
 
 }
 
 
-void GameView::isDialogue(DialogueBox& box){
+void GameView::isDialogue(){
   if (logic.isDialogueBoxUsed()){ //toggle the dialogue box, if the  player has some sort of interaction
-    this->App->draw(box.dialogueBox);
-    this->App->draw(box.message);
+    printf("truefalse");
+    this->App->draw(dialogueBox);
+    this->App->draw(message);
   }
 }
+
+//creat the box and position of box
+void GameView::makeBox(sf::Vector2f position, sf::Color color){
+    this->dialogueBox.setFillColor(color);
+    this->dialogueBox.setSize(sf::Vector2f(790, 40));
+    this->dialogueBox.setOutlineColor(sf::Color::White);
+    this->dialogueBox.setOutlineThickness(2);
+
+    sf::Vector2f myPos = sf::Vector2f(position.x - this->dialogueBox.getSize().x/2, 550);
+
+    dialogueBox.setPosition(myPos);
+}
+
+//set the text for the dialoguebox
+void GameView::setText(std::string words){
+  this->message.setString(words);
+  this->message.setCharacterSize(15);
+  this->message.setFillColor(sf::Color::Red);
+  this->message.setFont(font);
+
+  sf::FloatRect boxBounds = this->dialogueBox.getGlobalBounds();
+  sf::FloatRect textBounds = this->message.getLocalBounds();
+
+  sf::Vector2f myPos = sf::Vector2f(boxBounds.left + boxBounds.width/2 - textBounds.width/2,
+    boxBounds.top + boxBounds.height/2.7 - textBounds.height/2);
+
+  this->message.setPosition(myPos);
+
+}
+
 
 
 
