@@ -48,7 +48,12 @@ bool Note::nextToPlayer(PlayerActor &player){
     bool close = false;
     int diffx = abs(player.getPosition().x - (this->getPosition().x + mySize.x/2));
     int diffy = abs(player.getPosition().y - (this->getPosition().y + mySize.y/2));
-    if(diffx < mySize.x/2 + 10 && diffy < mySize.y/2 + 10){
+
+    int reach = 10;
+    if(this->id == 2)
+        reach = 170;
+
+    if(diffx < mySize.x/2 + 20 && diffy < mySize.y/2 + reach){
         close = true;
     }
     return close;
