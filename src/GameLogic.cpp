@@ -33,12 +33,11 @@ DialogueBox GameLogic::getDialogueBox(){
 }
 
 void GameLogic::EPressed(){
-	Etracker++;
 	dialoguebox.setUsingState(true);
 }
 
 void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i){
-	if(Etracker == 2 
+	if(Etracker == 2
     && myItem->nextToPlayer(player)
     && !myBox.getUsingState()){
       int sampleLimit = 2;
@@ -52,41 +51,41 @@ void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i)
       if(myItem->destroyable())
       	levelManager->itemToDestroy(i);
     }
-    //checks to see if the dialogue box is currently in use and, if it is, 
+    //checks to see if the dialogue box is currently in use and, if it is,
     //then it destroys the item that was interacted with, closes the box,
     //and unlocks the player
-    else if (Etracker == 4 
+    else if (Etracker == 4
       && myBox.getUsingState())
     {
       //dialoguebox.tracker++;
       myBox.setUsingState(false);
       levelManager->destroyItem();
-    } 
+    }
 }
 
 void GameLogic::upPressed(float dt){
-	if (Etracker%4 == 0){
+	if (!isDialogueBoxUsed()){
 		if(!detectCollisionUp(dt))
 			player.moveUp(dt);
 	}
 }
 
 void GameLogic::downPressed(float dt){
-	if (Etracker%4 == 0){
+	if (!isDialogueBoxUsed()){
 		if(!detectCollisionDown(dt))
 			player.moveDown(dt);
 	}
 }
 
 void GameLogic::leftPressed(float dt){
-	if (Etracker%4 == 0){
+	if (!isDialogueBoxUsed()){
 		if(!detectCollisionLeft(dt))
 			player.moveLeft(dt);
 	}
 }
 
 void GameLogic::rightPressed(float dt){
-	if (Etracker%4 == 0){
+	if (!isDialogueBoxUsed()){
 		if(!detectCollisionRight(dt))
 			player.moveRight(dt);
 	}
@@ -201,32 +200,25 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 }
 
 bool GameLogic::isDialogueBoxUsed(){
-	//printf("%s", dialoguebox.getUsingState()? "true":"false"); //
-	//printf("%d\n ", dialoguebox.tracker);
+	isPlayerByItem();
 	if(dialoguebox.tracker <= dialoguebox.getDialogueLimit()
 		&& dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
-		//printf("%s", dialoguebox.getUsingState()? "true":"false");
-		
 		return true;
-  	}else if(dialoguebox.tracker == 0 && Etracker != 0){ //for the first interaction with an item of any kind
-    	return true;
+
 	}else{
-		//printf("%s", dialoguebox.getUsingState()? "true":"false");
 		return false;
 	}
 }
 
 bool GameLogic::isPlayerByItem(){
 	for(int i = 0; i < this->myRoom.getItems().size(); i++){
-		if (this->myRoom.getItems().at(i)->nextToPlayer(this->player)){
+		if (this->myRoom.getItems().at(1)->nextToPlayer(this->player)){
 			dialoguebox.setDialogue(this->myRoom.getItems().at(i)->getDialogue());
 			return true;
-			continue;
-		}else{
-			return false;
 		}
-		
+
 	}
+	return false;
 }
 
 void GameLogic::update(float dt){

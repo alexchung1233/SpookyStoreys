@@ -12,7 +12,7 @@ using namespace std;
 GameView::GameView(){
   //TODO make this extend off a Process class.
   this->status = State::UNINIT;
-  
+
 }
 
 //constructor takes in App
@@ -214,7 +214,7 @@ void GameView::loadItemsandDialogueBox(){
     itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
 
     inputManager.logic->setUpDialogueBox(item, dialoguebox, i);
-    
+
   }
 
   if(!dialoguebox.getUsingState()){
@@ -229,7 +229,7 @@ void GameView::setLogic(GameView& logic){}
 void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
-    
+
     Room tempRoom = levelManager.getCurrentRoom();
     for (int i = 0; i < tempRoom.getItems().size(); i++){
       sf::Sprite* drawMe = itemSprites.at(i);
@@ -240,7 +240,6 @@ void GameView::render(){
     this->App->draw(sprite_monster);
     this->App->draw(sprite_counter);
     this->App->draw(counterText);
-
     isDialogue();
 
 }

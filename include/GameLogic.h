@@ -2,7 +2,7 @@
 #include <iostream>
 #include "PlayerActor.h"
 #include "Room.h"
-#include "HolyWater.h"
+#include "ItemActor.h"
 #include "DialogueBox.h"
 #include "LevelManager.h"
 #include "MovementStates.h"
@@ -12,7 +12,7 @@ class GameLogic{
   private:
     PlayerActor player;
     Room myRoom;
-    
+
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
@@ -36,7 +36,7 @@ class GameLogic{
     PlayerActor getPlayer();
     DialogueBox getDialogueBox();
     DialogueBox dialoguebox;
-    
+
 
     bool detectCollisionUp(float dt);
     bool detectCollisionDown(float dt);
