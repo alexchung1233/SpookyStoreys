@@ -3,6 +3,7 @@
 
 
 PlayerActor::PlayerActor(){
+  holyWaterCount = 0;
 }
 
 void PlayerActor::init(){
@@ -104,4 +105,12 @@ void PlayerActor::setSize(float x, float y){
 
 sf::Vector2f PlayerActor::getSize(){
   return mySize;
+}
+
+void PlayerActor::upHolyWaterCount(){
+  holyWaterCount++;
+}
+
+int PlayerActor::getHolyWaterCount(){
+  return holyWaterCount;
 }

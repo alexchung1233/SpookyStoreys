@@ -44,6 +44,8 @@ void HolyWater::resetUse(){
 string HolyWater::interact(PlayerActor &player){
     this->resetUse();
     this->pickedup = true;
+
+    player.upHolyWaterCount();
     return myDialogue;
 }
 

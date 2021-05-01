@@ -28,10 +28,17 @@ class GameView : public State
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
 
+    sf::Sprite sprite_counter;
+
+    sf::Font font;
+    sf::Text counterText;
+
     sf::Sprite sprite_item;
     std::vector<sf::Sprite*> itemSprites;
 
     sf::Texture texture;
+    sf::Texture texture_counter;
+
     sf::Clock gameClock;
     sf::Texture player_sprite_sheet;
     sf::Texture texture_player;
@@ -55,6 +62,8 @@ class GameView : public State
 
     void update(sf::Event& Event, float dt);
     void init();
+
+    void setCounterText();
 
     void setLogic(GameView& logic);
     float myPos();

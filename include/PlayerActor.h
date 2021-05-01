@@ -29,6 +29,13 @@ public:
   void setSize(sf::Vector2f size);
   void setSize(float x, float y);
 
+  void upHolyWaterCount();
+  int getHolyWaterCount();
+
+
+private:
+  int holyWaterCount;
+
 };
 
 #endif

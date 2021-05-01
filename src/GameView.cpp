@@ -43,8 +43,6 @@ void GameView::init(){
   //get current level texture
   texture = this->levelManager.getLevelTexture();
 
-
-
   levelSprite.setTexture(texture);
 
 
@@ -57,6 +55,16 @@ void GameView::init(){
   if(!player_sprite_sheet.loadFromFile(animate_sprite_file)){
     printf("incorrect file format");
   }
+
+  string counter_file = "../data/counter.png";
+  if(!texture_counter.loadFromFile(counter_file)){
+    printf("incorrect file format");
+  }
+  sprite_counter.setTexture(texture_counter);
+  sprite_counter.setPosition(732, 0);
+
+
+  setCounterText();
 
   //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
@@ -82,6 +90,17 @@ void GameView::init(){
 
 }
 
+void GameView::setCounterText(){
+  if (!font.loadFromFile("../data/courier.ttf")){
+      std::cout << "incorrect font";
+  }
+  this->counterText.setString("0");
+  this->counterText.setCharacterSize(50);
+  this->counterText.setFillColor(sf::Color::White);
+  this->counterText.setFont(font);
+  this->counterText.setPosition(sf::Vector2f(752, 62));
+}
+
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
@@ -97,6 +116,8 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+  this->counterText.setString(to_string(player.getHolyWaterCount()));
+
   updatePlayerAnimation(dt);
   //this->logic.update(dt);
 
@@ -217,6 +238,8 @@ void GameView::render(){
 
     this->App->draw(sprite_player);
     this->App->draw(sprite_monster);
+    this->App->draw(sprite_counter);
+    this->App->draw(counterText);
 
 }
 
