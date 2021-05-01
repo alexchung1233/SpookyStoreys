@@ -9,29 +9,39 @@
 using namespace std;
 class ItemActor : public Actor {
 	public:
-		// pure virtual function
+		ItemActor() {};
+		~ItemActor(){};
 
 		//gets the position of the item
 		virtual Position getPosition() = 0;
 
+		virtual void init() = 0;
+
+
 		//sets myDialogue to be equal to dialogue
-		virtual void setDialogue(string dialogue) = 0;
+		void setDialogue(string dialogue) { this->myDialogue = dialogue; }
 
 		//returns myDialogue
-		virtual string getDialogue() = 0;
+		string getDialogue() { return this->myDialogue; }
 
 		//checks to see if the player is next to/near the item (using nextToPlayer helper function)
 		//and, if they are, then returns the proper dialogue (if any) and runs the appropriate
 		//actions, such as checking if the player has a key, if the ItemActor should be destroyed,
 		//and so on
-		virtual string interact(PlayerActor &player) = 0;      
-	
-	protected:
+		virtual string interact(PlayerActor &player) = 0;
+
+		virtual std::string getSpriteFile() { return filepath; }
+
+		virtual bool destroyable() { return canBeDestroyed; }
+
 		//helper function for interact()
 		//returns true if the item is next to the player, false if otherwise
-     		virtual bool nextToPlayer(PlayerActor &player) = 0;
-    	
-    		string myDialogue;
+     	virtual bool nextToPlayer(PlayerActor &player) = 0;
+	
+	protected:
+    	string myDialogue;
+        string filepath;
+        bool canBeDestroyed;
 
 	private:
 };

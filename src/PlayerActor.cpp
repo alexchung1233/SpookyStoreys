@@ -1,7 +1,9 @@
 #include "PlayerActor.h"
+#include "MovementStates.h"
 
 
 PlayerActor::PlayerActor(){
+  holyWaterCount = 0;
 }
 
 void PlayerActor::init(){
@@ -38,18 +40,56 @@ Position PlayerActor::getPosition(){
 
 void PlayerActor::moveUp(float deltaMS){
   position.y -= deltaMS * characterVelocity.y;
+  direction.y = 1;
+  direction.x = 0;
+  this->moveState = MovementStates::movementStates::MOVING_UP;
+
 }
 
 void PlayerActor::moveDown(float deltaMS){
   position.y += deltaMS * characterVelocity.y;
+  direction.y = -1;
+  direction.x = 0;
+  this->moveState = MovementStates::movementStates::MOVING_DOWN;
+
+
 }
 
 void PlayerActor::moveLeft(float deltaMS){
   position.x -= deltaMS * characterVelocity.x;
+  direction.x = -1;
+  direction.y = 0;
+  this->moveState = MovementStates::movementStates::MOVING_LEFT;
+
+
+
 }
 
 void PlayerActor::moveRight(float deltaMS){
   position.x += deltaMS * characterVelocity.x;
+  direction.x = 1;
+  direction.y = 0;
+  this->moveState = MovementStates::movementStates::MOVING_RIGHT;
+
+}
+
+MovementStates::direcStates PlayerActor::getDirectionState(){
+  if(direction.x == -1){
+    return MovementStates::LEFT;
+  }
+  if(direction.x == 1){
+    return MovementStates::RIGHT;
+  }
+  if(direction.y == 1){
+    return MovementStates::UP;
+  }
+  if(direction.y == -1){
+    return MovementStates::DOWN;
+  }
+}
+
+MovementStates::movementStates PlayerActor::getMovementState(){
+  return this->moveState;
 }
 
 void PlayerActor::setSize(sf::Vector2f size){
@@ -65,4 +105,16 @@ void PlayerActor::setSize(float x, float y){
 
 sf::Vector2f PlayerActor::getSize(){
   return mySize;
+}
+
+void PlayerActor::upHolyWaterCount(){
+  holyWaterCount++;
+}
+
+void PlayerActor::downHolyWaterCount(){
+  holyWaterCount--;
+}
+
+int PlayerActor::getHolyWaterCount(){
+  return holyWaterCount;
 }

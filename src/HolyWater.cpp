@@ -9,17 +9,14 @@ void HolyWater::init(){
     this->myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
     //this->position;
     this->pickedup = false;
+
+    this->filepath = "../data/holy_water.png";
+
+    canBeDestroyed = true;
+
 }
 Position HolyWater::getPosition(){
     return this->position;
-}
-
-void HolyWater::setDialogue(string dialogue){
-    this->myDialogue = dialogue;
-}
-
-string HolyWater::getDialogue(){
-    return this->myDialogue;
 }
 
 void HolyWater::setHealth(int bar){
@@ -47,6 +44,8 @@ void HolyWater::resetUse(){
 string HolyWater::interact(PlayerActor &player){
     this->resetUse();
     this->pickedup = true;
+
+    player.upHolyWaterCount();
     return myDialogue;
 }
 

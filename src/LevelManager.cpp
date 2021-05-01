@@ -17,6 +17,7 @@ void LevelManager::init(){
     }
 
     currentLevelName = myRooms.at(0);
+    idxItemToDestroy = -1;
 
 }
 
@@ -43,4 +44,14 @@ Room LevelManager::getCurrentRoom(){
 
 const sf::Texture LevelManager::getLevelTexture(){
 	return levelFileMapping[currentLevelName].getTexture();
+}
+
+void LevelManager::itemToDestroy(float idx){
+	idxItemToDestroy = idx;
+}
+
+void LevelManager::destroyItem(){
+	if(idxItemToDestroy > -1)
+		levelFileMapping[currentLevelName].destroyItem(idxItemToDestroy);
+	idxItemToDestroy = -1;
 }
