@@ -5,7 +5,6 @@ Note::Note(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
 }
 void Note::init(){
-    myDialogue;
     this->myDialogue = "A note! How lucky!";
     read = false;
 
@@ -30,7 +29,7 @@ bool Note::nextToPlayer(PlayerActor &player){
     bool close = false;
     int diffx = abs(player.getPosition().x - this->getPosition().x);
     int diffy = abs(player.getPosition().y - this->getPosition().y);
-    if(diffx < 15 && diffy < 15)
+    if(diffx < 50 && diffy < 50)
         close = true;
     return close;
 }

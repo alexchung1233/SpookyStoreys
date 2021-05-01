@@ -73,6 +73,16 @@ void Room::setUpRoom(std::string roomName){
 			myItems.push_back(new Note(forNote));
 			myItems.at(myItems.size() - 1)->init();
 		}
+
+		else if (!result.at(0).find("BOOKCASE")){
+			vector<string>forBookcase;
+			for(int i = 1; i < result.size(); i++){
+				forBookcase.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Bookcase(forBookcase));
+			myItems.at(myItems.size() - 1)->init();
+		}
 		
     }
 

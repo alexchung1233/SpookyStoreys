@@ -1,13 +1,10 @@
 #include "GameView.h"
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include <math.h>
 #include "InputManager.h"
 #include "Animation.h"
 #include "MonsterAI.h"
-
 
 using namespace std;
 
@@ -134,14 +131,18 @@ All monster AI stuff
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
-  // sf::RectangleShape rectangle(sf::Vector2f(540,385));
-  // rectangle.setPosition(sf::Vector2f(170,175));
-  // rectangle.setOutlineThickness(-3);
-  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
-  // rectangle.setFillColor(sf::Color::Transparent);
-  // this->App->draw(rectangle);
-  isDialogue();
+  // int size = levelManager.getCurrentRoom().getObstacles().size();
+  // for(int i = 0; i < size; i++){
+  //   sf::IntRect checkMe = levelManager.getCurrentRoom().getObstacles().at(i);
+  //   sf::RectangleShape rectangle(sf::Vector2f(checkMe.width,checkMe.height));
+  //   rectangle.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
+  //   rectangle.setOutlineThickness(-3);
+  //   rectangle.setOutlineColor(sf::Color(250, 150, 100));
+  //   rectangle.setFillColor(sf::Color::Transparent);
+  //   this->App->draw(rectangle);
+  // }
 
+  isDialogue();
 
 }
 

@@ -11,6 +11,7 @@
 #include "Door.h"
 #include "HolyWater.h"
 #include "Note.h"
+#include "Bookcase.h"
 
 
 class Room
