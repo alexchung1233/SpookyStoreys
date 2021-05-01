@@ -121,6 +121,8 @@ All monster AI stuff
   }
   */
 
+  loadItemsandDialogueBox();
+
 
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
@@ -129,32 +131,6 @@ All monster AI stuff
   else if(inputManager.getPlayState() == 2){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...", *audioManager);
-  }
-
-  Room tempRoom = levelManager.getCurrentRoom();
-
-  for(int i = 0; i < tempRoom.getItems().size(); i++) {
-
-    ItemActor* item = tempRoom.getItems().at(i);
-
-    itemTextures.push_back(new sf::Texture);
-
-    if(!itemTextures.back()->loadFromFile(item->getSpriteFile())){
-      printf("incorrect file format");
-    }
-
-    itemSprites.push_back(new sf::Sprite);
-
-    texture_item = itemTextures.back();
-    itemSprites.back()->setTexture(*texture_item);
-    itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
-
-    inputManager.logic->setUpDialogueBox(item, dialoguebox, i);
-    
-  }
-
-  if(!dialoguebox.getUsingState()){
-    inputManager.logic->Etracker = 0; //reset Etracker
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -194,6 +170,35 @@ void GameView::updatePlayerAnimation(float dt){
 
       }
     this->logic.setMovementState(MovementStates::IDLE);
+}
+
+void GameView::loadItemsandDialogueBox(){
+  Room tempRoom = levelManager.getCurrentRoom();
+
+  for(int i = 0; i < tempRoom.getItems().size(); i++) {
+
+    ItemActor* item = tempRoom.getItems().at(i);
+
+    itemTextures.push_back(new sf::Texture);
+
+    if(!itemTextures.back()->loadFromFile(item->getSpriteFile())){
+      printf("incorrect file format");
+    }
+
+    itemSprites.push_back(new sf::Sprite);
+
+    texture_item = itemTextures.back();
+    itemSprites.back()->setTexture(*texture_item);
+    itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
+
+    inputManager.logic->setUpDialogueBox(item, dialoguebox, i);
+    
+  }
+
+  if(!dialoguebox.getUsingState()){
+    inputManager.logic->Etracker = 0; //reset Etracker
+  }
+
 }
 
 void GameView::setLogic(GameView& logic){}

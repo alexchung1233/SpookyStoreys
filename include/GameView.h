@@ -44,6 +44,7 @@ class GameView : public State
 
 
     void updatePlayerAnimation(float dt);
+    void loadItemsandDialogueBox();
 
 
   public:
