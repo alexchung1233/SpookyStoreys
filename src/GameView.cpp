@@ -53,6 +53,8 @@ void GameView::init(){
   monsterAI(monsterView);
   sf::Vector2f newDoor = this->monsterView.getRandomDoor();
   monsterAI.setDoorLoc(newDoor.x, newDoor.y);
+  monsterView.newDoorX = newDoor.x;
+  monsterView.newDoorY = newDoor.y;
 
   texture = this->levelManager.getLevelTexture();
 
@@ -88,7 +90,7 @@ void GameView::init(){
   MonsterActor monster = this->monsterView.getMonster();
   //monsterAI.setPosition(monster.getPosition().x, monster.getPosition().y);
   sprite_monster.setTexture(texture_monster);
-  sprite_monster.setPosition(monster.getPosition().x-200, monster.getPosition().y-50);
+  sprite_monster.setPosition(monster.getPosition().x - 200, monster.getPosition().y - 70);
   sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
 
   //sound->playPlayingMusic();
@@ -121,17 +123,22 @@ void GameView::update(sf::Event& Event, float dt){
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
   MonsterActor monster = this->monsterView.getMonster();
   //monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle());
-  sprite_monster.setPosition(monster.getPosition().x-200, monster.getPosition().y);
+  sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
   if (inSameRoom) {
-    float distX = pow(monster.getPosition().x+50 - player.getPosition().x-125, 2);
-    float distY = pow(monster.getPosition().y - player.getPosition().y+20, 2);
+    float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
+    float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
+    //float distX = pow(monster.getPosition().x+50 - player.getPosition().x-125, 2);
+    //float distY = pow(monster.getPosition().y - player.getPosition().y+20, 2);
 
 
+/*
     if (sqrt(distX + distY) < 70){
       this->status = State::SUCCESS;
       childState = new GameOver(*App, "You Lose...", *audioManager);
     }
+
+    */
 
   }
   if(inputManager.getPlayState() == 1){
@@ -195,6 +202,9 @@ void GameView::render(){
     if (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle()) {
       this->App->draw(sprite_monster);
     }
+    sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
+    monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
+    this->App->draw(monsterRect);
     /*
     if ((monsterAI.getCurrentRoom() == "Bedroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BEDROOM")) {
       this->App->draw(sprite_monster);

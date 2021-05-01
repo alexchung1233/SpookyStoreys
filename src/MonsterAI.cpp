@@ -21,8 +21,8 @@ void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::
 }
 
 void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS) {
-  playerX = playerX + 125;
-  playerY = playerY - 20;
+  //playerX = playerX + 125;
+  //playerY = playerY - 20;
   if (monsterView->getMonster().getPosition().x < playerX){
     monsterView->rightPressed(deltaMS);
   }

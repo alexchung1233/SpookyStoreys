@@ -160,6 +160,8 @@ bool MonsterView::hitsDoor(sf::IntRect possiblePlayerPosition){
 sf::Vector2f MonsterView::getRandomDoor(){
 	std::vector<Door> doors = myRoom.getDoors();
 	int randomNum = rand() % doors.size();
+	std::cout << "randomNum" << '\n';
+	std::cout << randomNum << '\n';
 	Door newDoor = (doors.at(randomNum));
 	float width = newDoor.getDoorBoundaries().left + (newDoor.getDoorBoundaries().width/2);
 	float height = newDoor.getDoorBoundaries().top + (newDoor.getDoorBoundaries().height/2);
