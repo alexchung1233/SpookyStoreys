@@ -12,6 +12,7 @@ using namespace std;
 GameView::GameView(){
   //TODO make this extend off a Process class.
   this->status = State::UNINIT;
+  
 }
 
 //constructor takes in App
@@ -110,6 +111,8 @@ void GameView::update(sf::Event& Event, float dt){
   // rectangle.setOutlineColor(sf::Color(250, 150, 100));
   // rectangle.setFillColor(sf::Color::Transparent);
   // this->App->draw(rectangle);
+  isDialogue();
+
 
 }
 
@@ -125,8 +128,8 @@ void GameView::render(){
       sf::Sprite* drawMe = itemSprites.at(i);
       this->App->draw(*drawMe);
     }
+
     this->App->draw(sprite_player);
-    isDialogue();
 
 }
 
@@ -142,7 +145,6 @@ void GameView::isDialogue(){
     //cout << "N0";
   }
 }
-
 
 
 void GameView::pause(){}

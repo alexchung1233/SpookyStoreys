@@ -50,7 +50,6 @@ void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i)
       //dialoguebox.tracker++;
       myBox.setUsingState(false);
       levelManager->destroyItem();
-
     } 
 }
 

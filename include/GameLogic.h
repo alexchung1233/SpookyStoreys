@@ -12,13 +12,12 @@ class GameLogic{
     PlayerActor player;
     Room myRoom;
 
-
-
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
 
   public:
-    GameLogic() { };
+    GameLogic() { showBox = false; };
+    bool showBox;
 
     void setup();
 
