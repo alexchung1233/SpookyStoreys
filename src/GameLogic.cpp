@@ -24,7 +24,8 @@ PlayerActor GameLogic::getPlayer(){
 }
 
 void GameLogic::createDialogueBox(){
-	dialoguebox = DialogueBox();
+	int sampleLimit = 2;
+	dialoguebox = DialogueBox(sampleLimit);
 	dialoguebox.init();
 }
 
@@ -37,26 +38,15 @@ void GameLogic::EPressed(){
 }
 
 void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i){
-	if(myItem->nextToPlayer(player)
-    && !myBox.getUsingState()){
-      int sampleLimit = 2;
-	  myBox = DialogueBox(sampleLimit);
-	  myBox.init();
-
-      myItem->interact(player);
-      myBox.setDialogue(myItem->getDialogue());
-      myBox.tracker++;
-      myBox.setUsingState(true);
-      if(myItem->destroyable())
-      	levelManager->itemToDestroy(i);
+	if(isDialogueBoxUsed()){
+    if(myItem->destroyable())
+    	levelManager->itemToDestroy(i);
     }
     //checks to see if the dialogue box is currently in use and, if it is,
     //then it destroys the item that was interacted with, closes the box,
     //and unlocks the player
-    else if (Etracker == 4
-      && myBox.getUsingState())
+    else if (!isDialogueBoxUsed())
     {
-      //dialoguebox.tracker++;
       myBox.setUsingState(false);
       levelManager->destroyItem();
     }
@@ -199,7 +189,6 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 }
 
 bool GameLogic::isDialogueBoxUsed(){
-	isPlayerByItem();
 	if(dialoguebox.tracker <= dialoguebox.getDialogueLimit()
 		&& dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
 		return true;
@@ -211,8 +200,11 @@ bool GameLogic::isDialogueBoxUsed(){
 
 bool GameLogic::isPlayerByItem(){
 	for(int i = 0; i < this->myRoom.getItems().size(); i++){
-		if (this->myRoom.getItems().at(i)->nextToPlayer(this->player)){
-			dialoguebox.setDialogue(this->myRoom.getItems().at(i)->getDialogue());
+		ItemActor* currentItem = this->myRoom.getItems().at(i);
+		if (currentItem->nextToPlayer(this->player)){
+			dialoguebox.setDialogue(currentItem->getDialogue());
+			currentItem->interact(player);
+			dialoguebox.setUsingState(true);
 			return true;
 		}
 
