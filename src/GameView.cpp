@@ -109,33 +109,29 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   updatePlayerAnimation(dt);
-  //this->logic.update(dt);
-
-
 
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
-  //std::cout << inSameRoom << '\n';
 
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
   MonsterActor monster = this->monsterView.getMonster();
-  //monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle());
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
   if (inSameRoom) {
     float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
     float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
-    //float distX = pow(monster.getPosition().x+50 - player.getPosition().x-125, 2);
-    //float distY = pow(monster.getPosition().y - player.getPosition().y+20, 2);
 
 
-/*
+
+
     if (sqrt(distX + distY) < 70){
       this->status = State::SUCCESS;
+      audioManager->stopNextRoom();
+      audioManager->stopInRoom();
       childState = new GameOver(*App, "You Lose...", *audioManager);
     }
 
-    */
+
 
 
 
@@ -204,35 +200,42 @@ void GameView::render(){
     this->App->draw(sprite_player);
 
 
+    //If the monster is in the same room a the player
     if (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle()) {
+      //If the in room sound isnt already playing
       if (!inRoomLastTime){
         audioManager->playInRoom();
       }
+      //Draw monster
       inRoomLastTime = true;
       this->App->draw(sprite_monster);
     }
     else {
+      //If they aren't in the same room stop in room sound
       inRoomLastTime = false;
       audioManager->stopInRoom();
     }
 
+    //Get title of current monster room and list of doors from player room
     string monsterRoom = monsterLevelManager.getCurrentRoom().getRoomTitle();
-
     std::vector<Door> doorList = levelManager.getCurrentRoom().getDoors();
-
     bool inNextRoom = false;
     bool holdLastTime;
+    //Iterate through list of player doors
     for (int i = 0; i < doorList.size(); i++) {
+      //If they are equal mark as true
       if (doorList.at(i).getNextRoom() == monsterRoom) {
         inNextRoom = true;
         holdLastTime = true;
       }
     }
+    //If the monster is in the next room and sound isnt already playing, play next room sound
     if (inNextRoom) {
       if (!nextRoomLastTime){
         audioManager->playNextRoom();
       }
     }
+    //Else stop playing next room sound
     else {
       holdLastTime = false;
       audioManager->stopNextRoom();
@@ -241,9 +244,7 @@ void GameView::render(){
     nextRoomLastTime = holdLastTime;
 
 
-
-
-
+    /*
     sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
     monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
     this->App->draw(monsterRect);
@@ -251,20 +252,6 @@ void GameView::render(){
     sf::CircleShape doorCenter = sf::CircleShape(1);
     doorCenter.setPosition(monsterView.newDoorX, monsterView.newDoorY);
     this->App->draw(doorCenter);
-
-    /*
-    if ((monsterAI.getCurrentRoom() == "Bedroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BEDROOM")) {
-      this->App->draw(sprite_monster);
-    }
-    else if ((monsterAI.getCurrentRoom() == "Hallway") && (levelManager.getCurrentRoom().getRoomTitle() == "HALLWAY")) {
-      this->App->draw(sprite_monster);
-    }
-    else if ((monsterAI.getCurrentRoom() == "ParentRoom") && (levelManager.getCurrentRoom().getRoomTitle() == "PARENTROOM")) {
-      this->App->draw(sprite_monster);
-    }
-    else if ((monsterAI.getCurrentRoom() == "Bathroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BATHROOM")) {
-      this->App->draw(sprite_monster);
-    }
     */
 
 }

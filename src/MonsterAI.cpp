@@ -12,26 +12,27 @@ void MonsterAI::operator()(MonsterView &newMonsterView) {
 }
 
 void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom) {
+  //If the room has bust been changed, reset the time counter
   if (monsterView->justChangedRooms == true) {
     monsterView->justChangedRooms = false;
     oneDoorCounter = 0;
   }
+  //If the monster and player are in the same room
   if (inSameRoom) {
     calculateMoveInRoom(playerX, playerY, deltaMS);
   }
+  //If the monster and player are NOT in the same room
   else {
     calculateMoveOutRoom(deltaMS);
   }
 }
 
 void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS) {
-  //playerX = playerX + 125;
-  //playerY = playerY - 20;
+  //Simply move monster towards the player at all times
   if (monsterView->getMonster().getPosition().x < playerX){
     monsterView->rightPressed(deltaMS);
   }
   else {
-    //std::cout << "GOT TO HERE" << '\n';
     monsterView->leftPressed(deltaMS);
   }
 
@@ -45,45 +46,45 @@ void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS)
 
 void MonsterAI::calculateMoveOutRoom(float deltaMS) {
 
+  //Get the list of all doors in the room
   std::vector<Door> doors = monsterView->getRoom().getDoors();
 
-  float playerX;
-  float playerY;
 
+  float targetX;
+  float targetY;
+
+  //If there is only one door
   if (doors.size() == 1) {
+    //If it has been less than 5 seconds move towards the center of the room
     if (oneDoorCounter < 5) {
       oneDoorCounter += deltaMS;
-      playerX = 400;
-      playerY = 300;
+      targetX = 400;
+      targetY = 300;
     }
+    //Else move towards the target door
     else {
-      playerX = monsterView->newDoorX;
-      playerY = monsterView->newDoorY;
+      targetX = monsterView->newDoorX;
+      targetY = monsterView->newDoorY;
     }
   }
   else {
-    playerX = monsterView->newDoorX;
-    playerY = monsterView->newDoorY;
+    targetX = monsterView->newDoorX;
+    targetY = monsterView->newDoorY;
   }
 
-
-
-  if (monsterView->getMonster().getPosition().x + ((monsterView->getMonster().getSize().x)/2) < playerX){
+  if (monsterView->getMonster().getPosition().x + ((monsterView->getMonster().getSize().x)/2) < targetX){
     monsterView->rightPressed(deltaMS);
   }
   else {
-    //std::cout << "GOT TO HERE" << '\n';
     monsterView->leftPressed(deltaMS);
   }
 
-  if (monsterView->getMonster().getPosition().y + ((monsterView->getMonster().getSize().y)/2) < playerY){
+  if (monsterView->getMonster().getPosition().y + ((monsterView->getMonster().getSize().y)/2) < targetY){
     monsterView->downPressed(deltaMS);
   }
   else {
     monsterView->upPressed(deltaMS);
   }
-
-  // /monsterView->leftPressed(deltaMS);
 }
 
 void MonsterAI::setDoorLoc(float doorX, float doorY) {
@@ -91,132 +92,3 @@ void MonsterAI::setDoorLoc(float doorX, float doorY) {
   doorLocX = doorX;
   doorLocY = doorY;
 }
-
-
-  /*
-  if((currentRoom == "Bedroom") && (playerLevel == "BEDROOM")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else if((currentRoom == "Hallway") && (playerLevel == "HALLWAY")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else if((currentRoom == "ParentRoom") && (playerLevel == "PARENTROOM")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else if((currentRoom == "Bathroom") && (playerLevel == "BATHROOM")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else{
-    calculateMoveOutRoom(deltaMS);
-  }
-  */
-
-
-
-
-/*
-MonsterAI::MonsterAI() {
-  positionX = 0;
-  positionY = 0;
-}
-
-void MonsterAI::setPosition(float x, float y) {
-  positionX = x;
-  positionY = y;
-}
-
-std::string MonsterAI::getCurrentRoom() {
-  return (currentRoom);
-}
-
-void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel) {
-  if((currentRoom == "Bedroom") && (playerLevel == "BEDROOM")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else if((currentRoom == "Hallway") && (playerLevel == "HALLWAY")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else if((currentRoom == "ParentRoom") && (playerLevel == "PARENTROOM")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else if((currentRoom == "Bathroom") && (playerLevel == "BATHROOM")){
-    calculateMoveInRoom(playerX, playerY);
-  }
-  else{
-    calculateMoveOutRoom(deltaMS);
-  }
-}
-
-void MonsterAI::calculateMoveInRoom(float playerX, float playerY) {
-  playerX = playerX + 125;
-  playerY = playerY - 20;
-  if (positionX < playerX){
-    positionX += .05;
-  }
-  else {
-    positionX -= .05;
-  }
-
-  if (positionY < playerY){
-    positionY += .05;
-  }
-  else {
-    positionY -= .05;
-  }
-}
-
-void MonsterAI::calculateMoveOutRoom(float deltaMS) {
-  timeInRoom += deltaMS;
-  if(timeInRoom >= timeAmount)
-  {
-
-    std::cout << currentRoom << '\n';
-
-    int randomNum = 0;
-    timeInRoom = 0;
-    if(currentRoom == "Bedroom") {
-      currentRoom.assign(BedroomNextList[randomNum]);
-      //currentRoom = BedroomNextList[(rand() % sizeof(BedroomNextList)-1)];
-    }
-    else if(currentRoom == "Hallway") {
-      randomNum = (rand() % 4);
-      currentRoom.assign(HallwayNextList[randomNum]);
-      //currentRoom = HallwayNextList[(rand() % sizeof(HallwayNextList)-1)];
-    }
-    else if(currentRoom == "ParentRoom") {
-      currentRoom.assign(ParentRoomNextList[randomNum]);
-      //currentRoom = ParentRoomNextList[(rand() % sizeof(ParentRoomNextList)-1)];
-    }
-    else if(currentRoom == "Bathroom") {
-      currentRoom.assign(BathroomNextList[randomNum]);
-      //currentRoom = BathroomNextList[(rand() % sizeof(BathroomNextList)-1)];
-    }
-    else if(currentRoom == "Closet") {
-      currentRoom.assign(ClosetNextList[randomNum]);
-      //currentRoom = ClosetNextList[(rand() % sizeof(ClosetNextList)-1)];
-    }
-    else if(currentRoom == "LivingRoom") {
-      randomNum = (rand() % 3);
-      currentRoom.assign(LivingRoomNextList[randomNum]);
-      //currentRoom = LivingRoomNextList[(rand() % sizeof(LivingRoomNextList)-1)];
-    }
-    else if(currentRoom == "Office") {
-      currentRoom.assign(OfficeNextList[randomNum]);
-      //currentRoom = OfficeNextList[(rand() % sizeof(OfficeNextList)-1)];
-    }
-    else if(currentRoom == "Kitchen") {
-      currentRoom.assign(KitchenNextList[randomNum]);
-    }
-    else if(currentRoom == "Basement") {
-      currentRoom.assign(BasementNextList[randomNum]);
-
-    }
-
-    //std::cout << currentRoom << '\n';
-
-    //currentRoom = NextRoomList[(rand() % len(NextRoomList))];
-
-  }
-}
-
-*/

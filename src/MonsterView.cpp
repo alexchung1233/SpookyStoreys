@@ -123,7 +123,6 @@ bool MonsterView::detectCollisionRight(float dt){
 			return true;
 	}
 
-	//std::cout << playerPos.x + movement + monster.getSize().x << '\n';
 
 	if(!myRoom.getBoundaries().contains(playerPos.x + movement + monster.getSize().x, playerPos.y))
 		return true;
@@ -140,19 +139,22 @@ Room MonsterView::getRoom(){
 }
 
 bool MonsterView::hitsDoor(sf::IntRect possiblePlayerPosition){
+	//Gets list of doors and iterates through them
 	std::vector<Door> doors = myRoom.getDoors();
 	for(int i = 0; i < doors.size(); i++){
 		Door checkDoor = doors.at(i);
 
+		//If the monster intersects with the door
 		if(checkDoor.getDoorBoundaries().intersects(possiblePlayerPosition)){
+			//Set the current room and monster position to the values dictated by the door
 			this->levelManager->setRoom(checkDoor.getNextRoom());
 			monster.setPosition(checkDoor.getNewPosition().x, checkDoor.getNewPosition().y);
 			setRoom(this->levelManager->getCurrentRoom());
 
+			//Get a new target door
 			sf::Vector2f newDoor = getRandomDoor();
 			newDoorX = newDoor.x;
 			newDoorY = newDoor.y;
-			//monsterAI.setDoorLoc(newDoor.x, newDoor.y);
 
 			return true;
 		}
@@ -162,20 +164,25 @@ bool MonsterView::hitsDoor(sf::IntRect possiblePlayerPosition){
 }
 
 sf::Vector2f MonsterView::getRandomDoor(){
+	//Gets list of possible doors and chooses one to use as the monsters target
 	std::vector<Door> doors = myRoom.getDoors();
 	int randomNum = rand() % doors.size();
 	Door newDoor = (doors.at(randomNum));
 	float width = newDoor.getDoorBoundaries().left + (newDoor.getDoorBoundaries().width/2);
 	float height = newDoor.getDoorBoundaries().top + (newDoor.getDoorBoundaries().height/2);
 	sf::Vector2f vec = sf::Vector2f(width, height);
+	//Sets a variable that indicats that the room has just been changed
 	justChangedRooms = true;
+	//Returns the center of the door
 	return(vec);
 }
 
 void MonsterView::sendToBasement(){
+	//Set the room to a new basement room object
 	this->levelManager->setRoom("BASEMENT");
 	monster.setPosition(400, 300);
 	setRoom(this->levelManager->getCurrentRoom());
+	//Get a new target door
 	sf::Vector2f newDoor = getRandomDoor();
 	newDoorX = newDoor.x;
 	newDoorY = newDoor.y;
