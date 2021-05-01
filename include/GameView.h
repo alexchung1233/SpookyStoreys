@@ -44,7 +44,7 @@ class GameView : public State
     sf::Texture texture_player;
 
     sf::Texture* texture_item;
-    std::vector<sf::Texture*> itemTextures;
+    std::map<const std::string, sf::Texture*> itemTextures;
 
     sf::Texture texture_monster;
     MonsterAI monsterAI;

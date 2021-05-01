@@ -63,6 +63,20 @@ void GameView::init(){
   sprite_counter.setTexture(texture_counter);
   sprite_counter.setPosition(732, 0);
 
+  std::string str; 
+  ifstream infile;
+  infile.open ("../data/itemImageFiles.txt");
+  while(!infile.eof())
+  {
+    std::getline(infile, str);
+    itemTextures[str] = new sf::Texture;
+
+    if(!itemTextures[str]->loadFromFile(str)) {
+      printf("incorrect file format");
+    }
+  }
+  infile.close(); 
+
 
   setCounterText();
 
@@ -104,7 +118,6 @@ void GameView::setCounterText(){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
-  itemTextures.clear();
   inputManager.update(Event, dt);
 
   //get the latest level texture
@@ -202,15 +215,9 @@ void GameView::loadItemsandDialogueBox(){
 
     ItemActor* item = tempRoom.getItems().at(i);
 
-    itemTextures.push_back(new sf::Texture);
-
-    if(!itemTextures.back()->loadFromFile(item->getSpriteFile())){
-      printf("incorrect file format");
-    }
-
     itemSprites.push_back(new sf::Sprite);
 
-    texture_item = itemTextures.back();
+    texture_item = itemTextures[item->getSpriteFile()];
     itemSprites.back()->setTexture(*texture_item);
     itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
 
