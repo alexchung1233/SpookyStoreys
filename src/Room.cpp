@@ -103,6 +103,16 @@ void Room::setUpRoom(std::string roomName){
 			myItems.push_back(new Bathtub(forBathtub));
 			myItems.at(myItems.size() - 1)->init();
 		}
+
+		else if (!result.at(0).find("PAINTING")){
+			vector<string>forPainting;
+			for(int i = 1; i < result.size(); i++){
+				forPainting.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Painting(forPainting));
+			myItems.at(myItems.size() - 1)->init();
+		}
 		
     }
 

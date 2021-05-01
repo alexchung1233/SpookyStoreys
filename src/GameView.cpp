@@ -195,6 +195,7 @@ void GameView::updatePlayerAnimation(float dt){
 }
 
 void GameView::loadItemsandDialogueBox(){
+  //work on streamlining this
   Room tempRoom = levelManager.getCurrentRoom();
 
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
@@ -240,6 +241,8 @@ void GameView::render(){
     this->App->draw(sprite_monster);
     this->App->draw(sprite_counter);
     this->App->draw(counterText);
+    // this->App->draw(dialoguebox.dialogueBox);
+    // this->App->draw(dialoguebox.message);
 
 }
 
