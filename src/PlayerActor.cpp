@@ -111,6 +111,10 @@ void PlayerActor::upHolyWaterCount(){
   holyWaterCount++;
 }
 
+void PlayerActor::downHolyWaterCount(){
+  holyWaterCount--;
+}
+
 int PlayerActor::getHolyWaterCount(){
   return holyWaterCount;
 }

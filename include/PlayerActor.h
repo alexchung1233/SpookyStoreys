@@ -30,6 +30,7 @@ public:
   void setSize(float x, float y);
 
   void upHolyWaterCount();
+  void downHolyWaterCount();
   int getHolyWaterCount();
 
 
