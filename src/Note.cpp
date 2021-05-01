@@ -11,6 +11,9 @@ void Note::init(){
     this->filepath = "../data/note.png";
     canBeDestroyed = true;
 
+    mySize.x = 47;
+    mySize.y = 50;
+
 }
 Position Note::getPosition(){
     return position;
@@ -28,10 +31,11 @@ string Note::interact(PlayerActor &player){
 
 bool Note::nextToPlayer(PlayerActor &player){
     bool close = false;
-    int diffx = abs(player.getPosition().x - this->getPosition().x);
-    int diffy = abs(player.getPosition().y - this->getPosition().y);
-    if(diffx < 50 && diffy < 50)
+    int diffx = abs(player.getPosition().x - (this->getPosition().x + mySize.x/2));
+    int diffy = abs(player.getPosition().y - (this->getPosition().y + mySize.y/2));
+    if(diffx < mySize.x/2 + 10 && diffy < mySize.y/2 + 10){
         close = true;
+    }
     return close;
 }
 

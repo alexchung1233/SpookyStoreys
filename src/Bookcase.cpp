@@ -1,6 +1,5 @@
 #include "Bookcase.h"
 
-
 Bookcase::Bookcase(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
 }
@@ -29,7 +28,7 @@ bool Bookcase::nextToPlayer(PlayerActor &player){
     bool close = false;
     int diffx = abs(player.getPosition().x - (this->getPosition().x + mySize.x/2));
     int diffy = abs(player.getPosition().y - (this->getPosition().y + mySize.y/2));
-    if(diffx < mySize.x/2 + 10 && diffy < mySize.y/2 + 20){
+    if(diffx < mySize.x/2 + 10 && diffy < mySize.y/2 + 10){
         close = true;
     }
     return close;
