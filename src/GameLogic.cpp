@@ -188,3 +188,11 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 
 	return false;
 }
+
+
+void GameLogic::update(float dt){
+}
+
+void GameLogic::setMovementState(MovementStates::movementStates state){
+	player.setMovementState(state);
+}

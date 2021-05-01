@@ -5,6 +5,7 @@
 #include "HolyWater.h"
 #include "DialogueBox.h"
 #include "LevelManager.h"
+#include "MovementStates.h"
 
 class GameLogic{
 
@@ -40,6 +41,7 @@ class GameLogic{
 
     void setLevelManager(LevelManager &LM);
 
+    void setMovementState(MovementStates::movementStates state);
 
     void EPressed();
     void setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i);
@@ -56,7 +58,8 @@ class GameLogic{
     //Function for when the Right key is pressed
     void rightPressed(float dt);
 
-    void setRoom(Room room);
+    void update(float dt);
 
+    void setRoom(Room room);
 
 };

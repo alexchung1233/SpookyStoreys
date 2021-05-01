@@ -2,6 +2,7 @@
 #define CHARACTER_ACTOR_H
 #include <SFML/Graphics.hpp>
 #include "Position.h"
+#include "MovementStates.h"
 #include "Actor.h"
 
 class CharacterActor : public Actor {
@@ -12,9 +13,16 @@ class CharacterActor : public Actor {
       virtual void setVelocity(sf::Vector2f vel) = 0;
       virtual void setVelocity(float x, float y) = 0;
       virtual void move() = 0;
-      
+      virtual MovementStates::movementStates getMovementState()=0;
+
+
    protected:
       sf::Vector2f characterVelocity;
+      sf::Vector2f direction;
+      MovementStates::movementStates moveState;
+      MovementStates::direcStates direc;
+
+
 
    private:
 };
