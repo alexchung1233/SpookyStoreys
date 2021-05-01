@@ -3,16 +3,21 @@
 
 Note::Note(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
+    this->id = stoi(inputVector.at(2));
 }
 void Note::init(){
-    this->myDialogue = "A note! How lucky!";
-    read = false;
-
     this->itemName = "note";
-    canBeDestroyed = true;
-
     mySize.x = 47;
     mySize.y = 50;
+
+    if(this->id == 1){
+        this->myDialogue = "A note! How lucky!";
+        canBeDestroyed = true;
+    }
+    else if(this->id == 2){
+        this->myDialogue = "A note! I can't reach it though...";
+        canBeDestroyed = false;
+    }
 
 }
 Position Note::getPosition(){
@@ -25,7 +30,14 @@ void Note::setPosition(float x, float y){
 }
 
 string Note::interact(PlayerActor &player){
-    read = true;
+    if(this->id == 1){
+        player.getInventory()->foundNewNote(id);
+    }
+    else if(this->id == 2){
+        this->myDialogue = "A note! I can't reach it though...";
+        canBeDestroyed = false;
+    }
+
     return myDialogue;
 }
 
