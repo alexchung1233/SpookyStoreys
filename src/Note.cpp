@@ -15,7 +15,7 @@ void Note::init(){
         canBeDestroyed = true;
     }
     else if(this->id == 2){
-        this->myDialogue = "A note! I can't reach it though...";
+        this->myDialogue = "A note! I can't reach it though...\nMaybe there's something that could help?";
         canBeDestroyed = false;
     }
 
@@ -34,8 +34,11 @@ string Note::interact(PlayerActor &player){
         player.getInventory()->foundNewNote(id);
     }
     else if(this->id == 2){
-        this->myDialogue = "A note! I can't reach it though...";
-        canBeDestroyed = false;
+        if(player.getInventory()->hasFoundFirepoker()){
+            this->myDialogue = "The firepoker gave me extra reach to get the note! Thank goodness...";
+            canBeDestroyed = true;
+            player.getInventory()->foundNewNote(id);
+        }        
     }
 
     return myDialogue;
