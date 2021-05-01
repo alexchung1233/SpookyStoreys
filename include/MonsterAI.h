@@ -20,6 +20,8 @@ class MonsterAI
 
     float doorLocX;
     float doorLocY;
+
+    float oneDoorCounter = 0;
 };
 
 #endif /* MY_CLASS_H */

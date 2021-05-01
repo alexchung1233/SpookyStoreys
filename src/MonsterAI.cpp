@@ -41,10 +41,30 @@ void MonsterAI::calculateMoveInRoom(float playerX, float playerY, float deltaMS)
 
 void MonsterAI::calculateMoveOutRoom(float deltaMS) {
 
-  float playerX = monsterView->newDoorX;
-  float playerY = monsterView->newDoorY;
+  std::vector<Door> doors = monsterView->getRoom().getDoors();
 
-  if (monsterView->getMonster().getPosition().x < playerX){
+  float playerX;
+  float playerY;
+
+  if (doors.size() == 1) {
+    if (oneDoorCounter < 5) {
+      oneDoorCounter += deltaMS;
+      playerX = 400;
+      playerY = 300;
+    }
+    else {
+      playerX = monsterView->newDoorX;
+      playerY = monsterView->newDoorY;
+    }
+  }
+  else {
+    playerX = monsterView->newDoorX;
+    playerY = monsterView->newDoorY;
+  }
+
+
+
+  if (monsterView->getMonster().getPosition().x + ((monsterView->getMonster().getSize().x)/2) < playerX){
     monsterView->rightPressed(deltaMS);
   }
   else {
@@ -52,7 +72,7 @@ void MonsterAI::calculateMoveOutRoom(float deltaMS) {
     monsterView->leftPressed(deltaMS);
   }
 
-  if (monsterView->getMonster().getPosition().y < playerY){
+  if (monsterView->getMonster().getPosition().y + ((monsterView->getMonster().getSize().y)/2) < playerY){
     monsterView->downPressed(deltaMS);
   }
   else {
@@ -63,6 +83,7 @@ void MonsterAI::calculateMoveOutRoom(float deltaMS) {
 }
 
 void MonsterAI::setDoorLoc(float doorX, float doorY) {
+  oneDoorCounter = 0;
   doorLocX = doorX;
   doorLocY = doorY;
 }

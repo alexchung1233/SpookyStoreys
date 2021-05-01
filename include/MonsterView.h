@@ -49,6 +49,7 @@ class MonsterView{
     void rightPressed(float dt);
 
     void setRoom(Room room);
+    Room getRoom();
 
 
 };
