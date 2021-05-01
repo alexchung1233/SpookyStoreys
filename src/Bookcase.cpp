@@ -6,7 +6,7 @@ Bookcase::Bookcase(vector<string> inputVector){
 void Bookcase::init(){
   this->myDialogue = "So many books... There's a strange one here on the bottom shelf.\nIt's hollow! And there's a note inside! That's good...";
   this->itemName = "bookcase";
-  canBeDestroyed = false;
+  canBeDestroyed = true;
   mySize.x = 204;
   mySize.y = 215;
 

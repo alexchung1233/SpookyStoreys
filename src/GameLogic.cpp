@@ -10,6 +10,7 @@ void GameLogic::setLevelManager(LevelManager &LM){
 
 void GameLogic::setup(){
 	createPlayer();
+	officeUnlocked = false;
 	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
 }
 
@@ -180,6 +181,28 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 		Door checkDoor = doors.at(i);
 
 		if(checkDoor.getDoorBoundaries().intersects(possiblePlayerPosition)){
+			
+			//checks to see if the Office is unlocked and, if it is not,
+			//then checks to see if the player has the key.
+			//if the player does, then the office unlocks
+			if(checkDoor.getNextRoom() == "OFFICE" && !officeUnlocked){
+
+				//if the player has the key, then they unlock the office
+				if(player.getInventory()->hasFoundKey()){
+					officeUnlocked = true;
+					//TODO: prompt dialogue box saying the player has used the key
+					//to unlock the door
+					std::cout << "It is locked, but teehee I have the key!" << endl;
+				}
+				else{
+					//TODO: prompt dialogue box saying the door is locked
+					//and that the player should look for it
+					std::cout << "Oh no, it is Locked!!" << endl;
+					return false;
+				}
+
+			}
+
 			this->levelManager->setRoom(checkDoor.getNextRoom());
 			player.setPosition(checkDoor.getNewPosition().x, checkDoor.getNewPosition().y);
 			setRoom(this->levelManager->getCurrentRoom());

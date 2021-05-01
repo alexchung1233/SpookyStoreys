@@ -13,6 +13,8 @@ class GameLogic{
     PlayerActor player;
     Room myRoom;
 
+    bool officeUnlocked;
+    
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
 
