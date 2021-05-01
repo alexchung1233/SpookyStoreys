@@ -212,7 +212,7 @@ bool GameLogic::isDialogueBoxUsed(){
 
 bool GameLogic::isPlayerByItem(){
 	for(int i = 0; i < this->myRoom.getItems().size(); i++){
-		if (this->myRoom.getItems().at(1)->nextToPlayer(this->player)){
+		if (this->myRoom.getItems().at(i)->nextToPlayer(this->player)){
 			dialoguebox.setDialogue(this->myRoom.getItems().at(i)->getDialogue());
 			return true;
 		}
