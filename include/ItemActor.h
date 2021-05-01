@@ -30,7 +30,9 @@ class ItemActor : public Actor {
 		//and so on
 		virtual string interact(PlayerActor &player) = 0;
 
-		virtual std::string getSpriteFile() { return filepath; }  
+		virtual std::string getSpriteFile() { return filepath; }
+
+		virtual bool destroyable() { return canBeDestroyed; }
 
 		//helper function for interact()
 		//returns true if the item is next to the player, false if otherwise
@@ -39,6 +41,7 @@ class ItemActor : public Actor {
 	protected:
     	string myDialogue;
         string filepath;
+        bool canBeDestroyed;
 
 	private:
 };

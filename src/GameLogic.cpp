@@ -39,7 +39,8 @@ void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i)
       myBox.setText(myItem->getDialogue());
       myBox.tracker++;
       myBox.setUsingState(true);
-      levelManager->itemToDestroy(i);
+      if(myItem->destroyable())
+      	levelManager->itemToDestroy(i);
     }
     //checks to see if the dialogue box is currently in use and, if it is, 
     //then it destroys the item that was interacted with, closes the box,

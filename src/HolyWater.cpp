@@ -12,6 +12,8 @@ void HolyWater::init(){
 
     this->filepath = "../data/holy_water.png";
 
+    canBeDestroyed = true;
+
 }
 Position HolyWater::getPosition(){
     return this->position;

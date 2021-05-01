@@ -9,6 +9,7 @@ void Note::init(){
     read = false;
 
     this->filepath = "../data/note.png";
+    canBeDestroyed = true;
 
 }
 Position Note::getPosition(){
