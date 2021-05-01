@@ -16,13 +16,16 @@ class Inventory
         int getHolyWaterCount();
 
         void foundNewNote(int noteID);
-        bool hasFoundAllNotes();
+        int numNotesFound();
 
         void foundFirepoker();
         bool hasFoundFirepoker();
 
         void foundKey();
         bool hasFoundKey();
+
+        void foundWeapon();
+        bool hasFoundWeapon();
 
     private:
         std::map<const std::string, bool> notesObtained;

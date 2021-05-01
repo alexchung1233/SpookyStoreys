@@ -21,7 +21,7 @@ void Bookcase::setPosition(float x, float y){
 }
 
 string Bookcase::interact(PlayerActor &player){
-  player.getInventory()->foundNewNote(1);
+  player.getInventory()->foundNewNote(4);
   return myDialogue;
 }
 

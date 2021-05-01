@@ -14,6 +14,8 @@ void Inventory::init(){
 
     unlocksObtained["firepoker"] = false;
     unlocksObtained["key"] = false;
+    unlocksObtained["weapon"] = false;
+
 }
 
 void Inventory::upHolyWaterCount(){
@@ -32,11 +34,12 @@ void Inventory::foundNewNote(int noteID){
     notesObtained["note_" + to_string(noteID)] = true;
 }
 
-bool Inventory::hasFoundAllNotes(){
+int Inventory::numNotesFound(){
+    int numFound = 0;
     for(int i = 1; i <= 4; i++)
-        if(!notesObtained["note_" + to_string(i)])
-            return false;
-    return true;
+        if(notesObtained["note_" + to_string(i)])
+            numFound++;
+    return numFound;
 }
 
 void Inventory::foundFirepoker(){
@@ -53,4 +56,12 @@ void Inventory::foundKey(){
 
 bool Inventory::hasFoundKey(){
     return unlocksObtained["key"];
+}
+
+void Inventory::foundWeapon(){
+    unlocksObtained["weapon"] = true;
+}
+
+bool Inventory::hasFoundWeapon(){
+    return unlocksObtained["weapon"];
 }

@@ -10,26 +10,26 @@ void Painting::init(){
   this->itemName = "painting_" + to_string(this->id);
 
   switch (this->id) {
-  case 1:
-    mySize.x = 52;
-    mySize.y = 63;
-    this->myDialogue = "It's a portrait of someone I've never seen before...";
-    break;
-  case 2:
-    mySize.x = 52;
-    mySize.y = 63;
-    this->myDialogue = "Something feels wrong with this one... I don't want to look at it.";
-    break;
-  case 3:
-    mySize.x = 47;
-    mySize.y = 63;
-    this->myDialogue = "It's a landscape painting that got turned sideways... Huh? It looks like...\nOh! There's a piece of paper behind it! It's a note!";
-    break;
-  case 4:
-    mySize.x = 73;
-    mySize.y = 47;
-    this->myDialogue = "A strange mountain. I wish I was there instead of here...";
-    break;
+    case 1:
+      mySize.x = 52;
+      mySize.y = 63;
+      this->myDialogue = "It's a portrait of someone I've never seen before...";
+      break;
+    case 2:
+      mySize.x = 52;
+      mySize.y = 63;
+      this->myDialogue = "Something feels wrong with this one... I don't want to look at it.";
+      break;
+    case 3:
+      mySize.x = 47;
+      mySize.y = 63;
+      this->myDialogue = "It's a landscape painting that got turned sideways... Huh? It looks like...\nOh! There's a piece of paper behind it! It's a note!";
+      break;
+    case 4:
+      mySize.x = 73;
+      mySize.y = 47;
+      this->myDialogue = "A strange mountain. I wish I was there instead of here...";
+      break;
   }
 }
 
