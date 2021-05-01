@@ -38,6 +38,8 @@ class GameView : public State
 
     void updatePlayerAnimation(float dt);
 
+    bool inRoomLastTime = false;
+
 
   public:
     GameView();

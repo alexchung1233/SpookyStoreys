@@ -51,5 +51,10 @@ class MonsterView{
     void setRoom(Room room);
     Room getRoom();
 
+    void sendToBasement();
+
+    bool justChangedRooms;
+
+
 
 };

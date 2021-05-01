@@ -168,5 +168,15 @@ sf::Vector2f MonsterView::getRandomDoor(){
 	float width = newDoor.getDoorBoundaries().left + (newDoor.getDoorBoundaries().width/2);
 	float height = newDoor.getDoorBoundaries().top + (newDoor.getDoorBoundaries().height/2);
 	sf::Vector2f vec = sf::Vector2f(width, height);
+	justChangedRooms = true;
 	return(vec);
+}
+
+void MonsterView::sendToBasement(){
+	this->levelManager->setRoom("BASEMENT");
+	monster.setPosition(400, 300);
+	setRoom(this->levelManager->getCurrentRoom());
+	sf::Vector2f newDoor = getRandomDoor();
+	newDoorX = newDoor.x;
+	newDoorY = newDoor.y;
 }

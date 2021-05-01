@@ -12,6 +12,10 @@ void MonsterAI::operator()(MonsterView &newMonsterView) {
 }
 
 void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom) {
+  if (monsterView->justChangedRooms == true) {
+    monsterView->justChangedRooms = false;
+    oneDoorCounter = 0;
+  }
   if (inSameRoom) {
     calculateMoveInRoom(playerX, playerY, deltaMS);
   }

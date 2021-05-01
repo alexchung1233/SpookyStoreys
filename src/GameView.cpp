@@ -41,7 +41,7 @@ void GameView::init(){
   this->logic.setLevelManager(levelManager);
 
   this->monsterLevelManager.init();
-  this->monsterLevelManager.setRoom("HALLWAY");
+  this->monsterLevelManager.setRoom("BASEMENT");
 
   this->monsterView.setup();
   this->monsterView.setLevelManager(monsterLevelManager);
@@ -137,6 +137,12 @@ void GameView::update(sf::Event& Event, float dt){
 
     */
 
+
+
+    //monsterView.sendToBasement();
+
+
+
   }
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
@@ -146,6 +152,7 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
+
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // int size = levelManager.getCurrentRoom().getObstacles().size();
@@ -195,9 +202,21 @@ void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
     this->App->draw(sprite_player);
+
+
     if (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle()) {
+      if (!inRoomLastTime){
+        audioManager->playInRoom();
+      }
+      inRoomLastTime = true;
       this->App->draw(sprite_monster);
     }
+    else {
+      inRoomLastTime = false;
+      audioManager->stopInRoom();
+    }
+
+
     sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
     monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
     this->App->draw(monsterRect);

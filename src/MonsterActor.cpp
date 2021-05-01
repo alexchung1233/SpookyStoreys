@@ -7,7 +7,7 @@ MonsterActor::MonsterActor(){
 void MonsterActor::init(){
   position = Position(400.f, 300.f);
   characterVelocity = sf::Vector2f(100.f,100.f);
-  mySize = sf::Vector2f(48.f, 105.6f);
+  mySize = sf::Vector2f(48.f, 48.f);
 }
 
 void MonsterActor::setVelocity(sf::Vector2f vector){
