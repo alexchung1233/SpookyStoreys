@@ -7,7 +7,7 @@ HolyWater::HolyWater(vector<string> inputVector){
 void HolyWater::init(){
     this->health = 3;
     this->myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
-    this->position;
+    //this->position;
     this->pickedup = false;
 }
 Position HolyWater::getPosition(){

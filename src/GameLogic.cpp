@@ -34,6 +34,7 @@ DialogueBox GameLogic::getDialogueBox(){
 
 void GameLogic::EPressed(){
 	Etracker++;
+	dialoguebox.setUsingState(true);
 }
 
 void GameLogic::upPressed(float dt){
@@ -173,12 +174,17 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 }
 
 bool GameLogic::isDialogueBoxUsed(){
+	//printf("%s", dialoguebox.getUsingState()? "true":"false"); //
+	//printf("%d\n ", dialoguebox.tracker);
 	if(dialoguebox.tracker <= dialoguebox.getDialogueLimit()
 		&& dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
+		//printf("%s", dialoguebox.getUsingState()? "true":"false");
+		
 		return true;
   	}else if(dialoguebox.tracker == 0 && Etracker != 0){ //for the first interaction with an item of any kind
     	return true;
 	}else{
+		//printf("%s", dialoguebox.getUsingState()? "true":"false");
 		return false;
 	}
 }
@@ -186,7 +192,7 @@ bool GameLogic::isDialogueBoxUsed(){
 bool GameLogic::isPlayerByItem(){
 	for(int i = 0; i < this->myRoom.getWaters().size(); i++){
 		if (this->myRoom.getWaters().at(i).nextToPlayer(this->player)){
-			dialoguebox.setText(this->myRoom.getWaters().at(i).getDialogue());
+			dialoguebox.dialogue = this->myRoom.getWaters().at(i).getDialogue();
 			this->myRoom.getWaters().at(i).interact(this->player);
 			return true;
 			continue;

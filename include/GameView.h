@@ -21,6 +21,10 @@ class GameView : public State
     sf::Texture texture;
     sf::Texture texture_player;
     sf::Texture texture_water;
+    sf::RectangleShape dialogueBox;
+    sf::Text message;
+    sf::Font font;
+
     
 
   public:
@@ -29,16 +33,14 @@ class GameView : public State
     GameView(sf::RenderWindow& app);
     void update(sf::Event& Event, float dt);
     void init();
-
     void setLogic(GameView& logic);
     float myPos();
-    void isDialogue(DialogueBox& box);
+    void isDialogue();
     void render();
     void pause();
     void unpause();
-    //DialogueBox dialoguebox;
-    //DialogueBox getDialogueBox();
-    //void createDialogueBox();
+    void makeBox(sf::Vector2f position, sf::Color color);
+    void setText(std::string words);
 
 
   };
