@@ -6,7 +6,7 @@ Bathtub::Bathtub(vector<string> inputVector){
 void Bathtub::init(){
     this->myDialogue = "A tub!";
     this->filepath = "../data/bathtub.png";
-    canBeDestroyed = false;
+    canBeDestroyed = true;
     mySize.x = 199;
     mySize.y = 374;
 
