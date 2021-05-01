@@ -205,6 +205,11 @@ void GameView::render(){
     sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
     monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
     this->App->draw(monsterRect);
+
+    sf::CircleShape doorCenter = sf::CircleShape(1);
+    doorCenter.setPosition(monsterView.newDoorX, monsterView.newDoorY);
+    this->App->draw(doorCenter);
+
     /*
     if ((monsterAI.getCurrentRoom() == "Bedroom") && (levelManager.getCurrentRoom().getRoomTitle() == "BEDROOM")) {
       this->App->draw(sprite_monster);
