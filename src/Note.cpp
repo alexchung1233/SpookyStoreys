@@ -35,7 +35,7 @@ string Note::interact(PlayerActor &player){
     }
     else if(this->id == 2){
         if(player.getInventory()->hasFoundFirepoker()){
-            this->myDialogue = "The firepoker gave me extra reach to get the note! Thank goodness...";
+            this->myDialogue = "The fire poker gave me extra reach to get the note! Thank goodness...";
             canBeDestroyed = true;
             player.getInventory()->foundNewNote(id);
         }        

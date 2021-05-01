@@ -15,6 +15,7 @@
 #include "Safe.h"
 #include "Bathtub.h"
 #include "Painting.h"
+#include "Firepoker.h"
 
 class Room
 {

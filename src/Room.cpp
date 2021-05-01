@@ -113,6 +113,16 @@ void Room::setUpRoom(std::string roomName){
 			myItems.push_back(new Painting(forPainting));
 			myItems.at(myItems.size() - 1)->init();
 		}
+
+		else if (!result.at(0).find("FIREPOKER")){
+			vector<string>forFirepoker;
+			for(int i = 1; i < result.size(); i++){
+				forFirepoker.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Firepoker(forFirepoker));
+			myItems.at(myItems.size() - 1)->init();
+		}
 		
     }
 

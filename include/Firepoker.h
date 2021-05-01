@@ -1,5 +1,5 @@
-#ifndef BOOKCASE_H // include guard
-#define BOOKCASE_H
+#ifndef FIREPOKER_H // include guard
+#define FIREPOKER_H
 #include <SFML/Graphics.hpp>
 #include <cmath>  
 #include "ItemActor.h"
