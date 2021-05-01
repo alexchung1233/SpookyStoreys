@@ -1,8 +1,7 @@
 #include "DialogueBox.h"
 
-DialogueBox::DialogueBox(int dialogueLimit, string dialogue){
+DialogueBox::DialogueBox(int dialogueLimit){
   this->dialogueLimit = dialogueLimit;
-  this->dialogue = dialogue;
 }
 
 void DialogueBox::init(){
@@ -18,6 +17,14 @@ void DialogueBox::init(){
 
 int DialogueBox::getDialogueLimit(){
   return dialogueLimit;
+}
+
+void DialogueBox::setDialogue(string dialogue){
+  this->dialogue = dialogue;
+}
+
+string DialogueBox::getDialogue(){
+  return this->dialogue;
 }
 
 Position DialogueBox::getPosition(){

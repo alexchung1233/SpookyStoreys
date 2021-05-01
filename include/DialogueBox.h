@@ -10,7 +10,7 @@ class DialogueBox
 {
     public:
         DialogueBox(){};
-        DialogueBox(int dialogueLimit, string words);
+        DialogueBox(int dialogueLimit);
         void init();
         Position position;
         Position getPosition();
@@ -19,6 +19,8 @@ class DialogueBox
         int tracker; //keep track of times item is interacted with to tell if dialogue should be shown - "press E to close dialogue box"
         void setUsingState(bool state){this->currentUsingState=state;}
         bool getUsingState(){return this->currentUsingState;};
+        void setDialogue(string dialogue);
+        string getDialogue();
     private:
         int dialogueLimit;
         bool currentUsingState;
