@@ -167,15 +167,23 @@ All monster AI stuff
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
+  // sf::IntRect checkMe = levelManager.getCurrentRoom().getBoundaries();
+  // sf::RectangleShape rectangle(sf::Vector2f(checkMe.width,checkMe.height));
+  // rectangle.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
+  // rectangle.setOutlineThickness(-3);
+  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
+  // rectangle.setFillColor(sf::Color::Transparent);
+  // this->App->draw(rectangle);
+
   // int size = levelManager.getCurrentRoom().getObstacles().size();
   // for(int i = 0; i < size; i++){
-  //   sf::IntRect checkMe = levelManager.getCurrentRoom().getObstacles().at(i);
-  //   sf::RectangleShape rectangle(sf::Vector2f(checkMe.width,checkMe.height));
-  //   rectangle.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
-  //   rectangle.setOutlineThickness(-3);
-  //   rectangle.setOutlineColor(sf::Color(250, 150, 100));
-  //   rectangle.setFillColor(sf::Color::Transparent);
-  //   this->App->draw(rectangle);
+  //   checkMe = levelManager.getCurrentRoom().getObstacles().at(i);
+  //   sf::RectangleShape rectangle2(sf::Vector2f(checkMe.width,checkMe.height));
+  //   rectangle2.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
+  //   rectangle2.setOutlineThickness(-3);
+  //   rectangle2.setOutlineColor(sf::Color(250, 150, 100));
+  //   rectangle2.setFillColor(sf::Color::Transparent);
+  //   this->App->draw(rectangle2);
   // }
 
   isDialogue();
