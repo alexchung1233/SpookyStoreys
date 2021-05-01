@@ -5,7 +5,7 @@ Bookcase::Bookcase(vector<string> inputVector){
 }
 void Bookcase::init(){
     this->myDialogue = "So many books...";
-    this->filepath = "../data/bookcase.png";
+    this->itemName = "bookcase";
     canBeDestroyed = false;
     mySize.x = 204;
     mySize.y = 215;

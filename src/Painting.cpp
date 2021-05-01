@@ -2,7 +2,7 @@
 
 Painting::Painting(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
-    this->filepath = "../data/painting_" + inputVector.at(2) + ".png";
+    this->itemName = "painting_" + inputVector.at(2);
     
     if(inputVector.at(2) == "1" || inputVector.at(2) == "2"){
       mySize.x = 52;

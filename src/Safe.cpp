@@ -5,7 +5,7 @@ Safe::Safe(vector<string> inputVector){
 }
 void Safe::init(){
     this->myDialogue = "It's locked. Maybe I need a key?";
-    this->filepath = "../data/safe.png";
+    this->itemName = "safe";
     canBeDestroyed = false;
     mySize.x = 48;
     mySize.y = 31;

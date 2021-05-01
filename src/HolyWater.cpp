@@ -10,7 +10,7 @@ void HolyWater::init(){
     this->position;
     this->pickedup = false;
 
-    this->filepath = "../data/holy_water.png";
+    this->itemName = "holy_water";
 
     canBeDestroyed = true;
 

@@ -30,7 +30,7 @@ class ItemActor : public Actor {
 		//and so on
 		virtual string interact(PlayerActor &player) = 0;
 
-		virtual std::string getSpriteFile() { return filepath; }
+		virtual std::string getItemName() { return itemName; }
 
 		virtual bool destroyable() { return canBeDestroyed; }
 
@@ -40,7 +40,7 @@ class ItemActor : public Actor {
 	
 	protected:
     	string myDialogue;
-        string filepath;
+        string itemName;
         bool canBeDestroyed;
 
 	private:

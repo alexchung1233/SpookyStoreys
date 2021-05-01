@@ -69,9 +69,11 @@ void GameView::init(){
   while(!infile.eof())
   {
     std::getline(infile, str);
+    std::string filepath = "../data/itemSprites/" + str + ".png";
+
     itemTextures[str] = new sf::Texture;
 
-    if(!itemTextures[str]->loadFromFile(str)) {
+    if(!itemTextures[str]->loadFromFile(filepath)) {
       printf("incorrect file format");
     }
   }
@@ -217,7 +219,7 @@ void GameView::loadItemsandDialogueBox(){
 
     itemSprites.push_back(new sf::Sprite);
 
-    texture_item = itemTextures[item->getSpriteFile()];
+    texture_item = itemTextures[item->getItemName()];
     itemSprites.back()->setTexture(*texture_item);
     itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
 

@@ -8,7 +8,7 @@ void Note::init(){
     this->myDialogue = "A note! How lucky!";
     read = false;
 
-    this->filepath = "../data/note.png";
+    this->itemName = "note";
     canBeDestroyed = true;
 
     mySize.x = 47;
