@@ -63,5 +63,5 @@ void InputManager::update(sf::Event& Event, float dt){
 }
 
 int InputManager::getPlayState(){
-  return playState;
+  return logic->getPlayState();
 }

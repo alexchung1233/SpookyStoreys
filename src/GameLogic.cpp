@@ -220,3 +220,10 @@ void GameLogic::update(float dt){
 void GameLogic::setMovementState(MovementStates::movementStates state){
 	player.setMovementState(state);
 }
+
+int GameLogic::getPlayState(){
+	if(player.getInventory()->hasFoundWeapon()){
+		return 1;
+	}
+	return 0;
+}

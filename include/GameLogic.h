@@ -14,7 +14,7 @@ class GameLogic{
     Room myRoom;
 
     bool officeUnlocked;
-    
+
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
 
@@ -63,5 +63,7 @@ class GameLogic{
     void update(float dt);
 
     void setRoom(Room room);
+
+    int getPlayState();
 
 };
