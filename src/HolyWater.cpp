@@ -33,7 +33,6 @@ void HolyWater::useWater(){
         this->health--;
         this->setHealth(this->health);
     }
-
 }
 
 void HolyWater::resetUse(){
@@ -45,7 +44,7 @@ string HolyWater::interact(PlayerActor &player){
     this->resetUse();
     this->pickedup = true;
 
-    player.upHolyWaterCount();
+    player.getInventory()->upHolyWaterCount();
     return myDialogue;
 }
 

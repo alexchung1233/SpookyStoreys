@@ -3,13 +3,14 @@
 
 
 PlayerActor::PlayerActor(){
-  holyWaterCount = 0;
+  this->myInventory = new Inventory();
 }
 
 void PlayerActor::init(){
   position = Position(400.f, 300.f);
   characterVelocity = sf::Vector2f(8000.f,8000.f);
   mySize = sf::Vector2f(48.f, 105.6f);
+  this->myInventory->init();
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
@@ -107,14 +108,6 @@ sf::Vector2f PlayerActor::getSize(){
   return mySize;
 }
 
-void PlayerActor::upHolyWaterCount(){
-  holyWaterCount++;
-}
-
-void PlayerActor::downHolyWaterCount(){
-  holyWaterCount--;
-}
-
-int PlayerActor::getHolyWaterCount(){
-  return holyWaterCount;
+Inventory* PlayerActor::getInventory(){
+  return myInventory;
 }

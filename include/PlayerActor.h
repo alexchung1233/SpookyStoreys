@@ -2,6 +2,7 @@
 #define PLAYER_ACTOR_H
 
 #include "CharacterActor.h"
+#include "Inventory.h"
 
 class PlayerActor : public CharacterActor {
 public:
@@ -33,8 +34,11 @@ public:
   void downHolyWaterCount();
   int getHolyWaterCount();
 
+  Inventory* getInventory();
+
 
 private:
+  Inventory* myInventory;
   int holyWaterCount;
 
 };

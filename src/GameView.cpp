@@ -131,7 +131,7 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-  this->counterText.setString(to_string(player.getHolyWaterCount()));
+  this->counterText.setString(to_string(player.getInventory()->getHolyWaterCount()));
 
   updatePlayerAnimation(dt);
   //this->logic.update(dt);
