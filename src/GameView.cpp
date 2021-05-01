@@ -216,6 +216,33 @@ void GameView::render(){
       audioManager->stopInRoom();
     }
 
+    string monsterRoom = monsterLevelManager.getCurrentRoom().getRoomTitle();
+
+    std::vector<Door> doorList = levelManager.getCurrentRoom().getDoors();
+
+    bool inNextRoom = false;
+    bool holdLastTime;
+    for (int i = 0; i < doorList.size(); i++) {
+      if (doorList.at(i).getNextRoom() == monsterRoom) {
+        inNextRoom = true;
+        holdLastTime = true;
+      }
+    }
+    if (inNextRoom) {
+      if (!nextRoomLastTime){
+        audioManager->playNextRoom();
+      }
+    }
+    else {
+      holdLastTime = false;
+      audioManager->stopNextRoom();
+    }
+
+    nextRoomLastTime = holdLastTime;
+
+
+
+
 
     sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
     monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
