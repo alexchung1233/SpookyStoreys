@@ -13,7 +13,7 @@
 #include "Note.h"
 #include "Bookcase.h"
 #include "Safe.h"
-
+#include "Bathtub.h"
 
 class Room
 {
