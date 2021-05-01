@@ -37,8 +37,7 @@ void GameLogic::EPressed(){
 }
 
 void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i){
-	if(Etracker == 2
-    && myItem->nextToPlayer(player)
+	if(myItem->nextToPlayer(player)
     && !myBox.getUsingState()){
       int sampleLimit = 2;
 	  myBox = DialogueBox(sampleLimit);

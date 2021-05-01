@@ -141,7 +141,7 @@ All monster AI stuff
   */
 
   loadItemsandDialogueBox();
-
+  this->setText(logic.dialoguebox.dialogue);
 
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
@@ -217,9 +217,6 @@ void GameView::loadItemsandDialogueBox(){
 
   }
 
-  if(!dialoguebox.getUsingState()){
-    inputManager.logic->Etracker = 0; //reset Etracker
-  }
 
 }
 
