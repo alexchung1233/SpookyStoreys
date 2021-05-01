@@ -27,6 +27,33 @@ void GameLogic::EPressed(){
 	//std::cout << Etracker;
 }
 
+void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i){
+	if(Etracker == 2 
+    && myItem->nextToPlayer(player)
+    && !myBox.getUsingState()){
+      int sampleLimit = 2;
+	  myBox = DialogueBox(sampleLimit);
+	  myBox.init();
+
+      myItem->interact(player);
+      myBox.setText(myItem->getDialogue());
+      myBox.tracker++;
+      myBox.setUsingState(true);
+      levelManager->itemToDestroy(i);
+    }
+    //checks to see if the dialogue box is currently in use and, if it is, 
+    //then it destroys the item that was interacted with, closes the box,
+    //and unlocks the player
+    else if (Etracker == 4 
+      && myBox.getUsingState())
+    {
+      //dialoguebox.tracker++;
+      myBox.setUsingState(false);
+      levelManager->destroyItem();
+
+    } 
+}
+
 void GameLogic::upPressed(float dt){
 	if (Etracker%4 == 0){
 		if(!detectCollisionUp(dt))

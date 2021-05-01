@@ -40,8 +40,6 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
-    void createDialogueBox();
-
 
   };
 

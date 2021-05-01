@@ -43,6 +43,7 @@ class GameLogic{
 
 
     void EPressed();
+    void setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i);
 
     //Function for when the Up key is pressed
     void upPressed(float dt);

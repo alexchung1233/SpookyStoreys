@@ -44,19 +44,12 @@ void GameView::init(){
 
   sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
-  PlayerActor player = this->logic.getPlayer();
+  PlayerActor player = this->inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   this->status = State::RUNNING;
 
 }
-
-void GameView::createDialogueBox(){
-	int sampleLimit = 2;
-	dialoguebox = DialogueBox(sampleLimit);
-	dialoguebox.init();
-}
-
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
@@ -71,7 +64,7 @@ void GameView::update(sf::Event& Event, float dt){
   //update the level sprite
   levelSprite.setTexture(texture);
 
-  PlayerActor player = this->logic.getPlayer();
+  PlayerActor player = this->inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
 
@@ -102,33 +95,12 @@ void GameView::update(sf::Event& Event, float dt){
     itemSprites.back()->setTexture(*texture_item);
     itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
 
-
-    if(logic.Etracker == 2 
-    && item->nextToPlayer(player)
-    && !dialoguebox.getUsingState()){
-      createDialogueBox();
-      item->interact(player);
-      dialoguebox.setText(item->getDialogue());
-      dialoguebox.tracker++;
-      dialoguebox.setUsingState(true);
-      levelManager.itemToDestroy(i);
-    }
-    //checks to see if the dialogue box is currently in use and, if it is, 
-    //then it destroys the item that was interacted with, closes the box,
-    //and unlocks the player
-    else if (logic.Etracker == 4 
-      && dialoguebox.getUsingState())
-    {
-      //dialoguebox.tracker++;
-      dialoguebox.setUsingState(false);
-      levelManager.destroyItem();
-
-    } 
+    inputManager.logic->setUpDialogueBox(item, dialoguebox, i);
     
   }
 
   if(!dialoguebox.getUsingState()){
-    logic.Etracker = 0; //reset Etracker
+    inputManager.logic->Etracker = 0; //reset Etracker
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -138,10 +110,6 @@ void GameView::update(sf::Event& Event, float dt){
   // rectangle.setOutlineColor(sf::Color(250, 150, 100));
   // rectangle.setFillColor(sf::Color::Transparent);
   // this->App->draw(rectangle);
-
-  
-  isDialogue();
-
 
 }
 
@@ -154,16 +122,11 @@ void GameView::render(){
     
     Room tempRoom = levelManager.getCurrentRoom();
     for (int i = 0; i < tempRoom.getItems().size(); i++){
-        //if(!this->room.getWaters().at(i).obtained()){
-          sf::Sprite* drawMe = itemSprites.at(i);
-          this->App->draw(*drawMe);
-       // }
-      //}
+      sf::Sprite* drawMe = itemSprites.at(i);
+      this->App->draw(*drawMe);
     }
     this->App->draw(sprite_player);
-
-      
-
+    isDialogue();
 
 }
 
@@ -172,7 +135,7 @@ void GameView::isDialogue(){
   if (dialoguebox.tracker <= dialoguebox.getDialogueLimit() && dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
     this->App->draw(dialoguebox.dialogueBox);
     this->App->draw(dialoguebox.message);
-  }else if (dialoguebox.tracker == 0 && this->logic.Etracker != 0){ //for the first interaction with an item of any kind
+  }else if (dialoguebox.tracker == 0 && this->inputManager.logic->Etracker != 0){ //for the first interaction with an item of any kind
     this->App->draw(dialoguebox.dialogueBox);
     this->App->draw(dialoguebox.message);
   }else{
