@@ -16,7 +16,7 @@ class Inventory
         int getHolyWaterCount();
 
         void foundNewNote(int noteID);
-        bool hasFoundNote(int noteID);
+        bool hasFoundAllNotes();
 
         void foundFirepoker();
         bool hasFoundFirepoker();

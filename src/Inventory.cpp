@@ -32,8 +32,11 @@ void Inventory::foundNewNote(int noteID){
     notesObtained["note_" + to_string(noteID)] = true;
 }
 
-bool Inventory::hasFoundNote(int noteID){
-    return notesObtained["note_" + to_string(noteID)];
+bool Inventory::hasFoundAllNotes(){
+    for(int i = 1; i <= 4; i++)
+        if(!notesObtained["note_" + to_string(i)])
+            return false;
+    return true;
 }
 
 void Inventory::foundFirepoker(){

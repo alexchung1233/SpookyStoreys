@@ -31,13 +31,13 @@ void Note::setPosition(float x, float y){
 
 string Note::interact(PlayerActor &player){
     if(this->id == 1){
-        player.getInventory()->foundNewNote(id);
+        player.getInventory()->foundNewNote(1);
     }
     else if(this->id == 2){
         if(player.getInventory()->hasFoundFirepoker()){
             this->myDialogue = "The fire poker gave me extra reach to get the note! Thank goodness...";
             canBeDestroyed = true;
-            player.getInventory()->foundNewNote(id);
+            player.getInventory()->foundNewNote(2);
         }        
     }
 
