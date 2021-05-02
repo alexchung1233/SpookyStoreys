@@ -56,9 +56,7 @@ void Room::setUpRoom(std::string roomName){
 			Door myDoor(forDoor);
 			myDoors.push_back( myDoor );
 		}
-<<<<<<< HEAD
 
-=======
 		else if (!result.at(0).find("HOLYWATER")){
 			vector<string>forWater;
 			for(int i = 1; i < result.size(); i++){
@@ -128,7 +126,6 @@ void Room::setUpRoom(std::string roomName){
 			myItems.at(myItems.size() - 1)->init();
 		}
 
->>>>>>> MergeTime
     }
 
 	infile.close();
@@ -158,11 +155,9 @@ std::vector<Door> Room::getDoors(){
 	return myDoors;
 }
 
-<<<<<<< HEAD
 std::string Room::getRoomTitle(){
 	return roomTitle;
-=======
+}
 std::vector<ItemActor*> Room::getItems(){
 	return myItems;
->>>>>>> MergeTime
 }

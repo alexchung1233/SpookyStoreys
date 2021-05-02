@@ -13,6 +13,7 @@ GameView::GameView(){
   //TODO make this extend off a Process class.
   this->status = State::UNINIT;
 
+
 }
 
 //constructor takes in App
@@ -41,20 +42,36 @@ void GameView::init(){
     std::cout << "incorrect font";
   }
 
+
+  std::cout << "HJDSSJKFNJSD1" << '\n';
+
   this->levelManager.init();
+  
+  std::cout << "HJDSSJKFNJSD2" << '\n';
+
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
+
+  std::cout << "HJDSSJKFNJSD3" << '\n';
 
   this->monsterLevelManager.init();
   this->monsterLevelManager.setRoom("BASEMENT");
 
+  std::cout << "HJDSSJKFNJSD4" << '\n';
+
   this->monsterView.setup();
   this->monsterView.setLevelManager(monsterLevelManager);
 
+  std::cout << "HJDSSJKFNJSD5" << '\n';
+
   inputManager(*App, logic);
   monsterAI(monsterView);
+  std::cout << "HJDSSJKFNJSD6" << '\n';
+
   sf::Vector2f newDoor = this->monsterView.getRandomDoor();
   monsterAI.setDoorLoc(newDoor.x, newDoor.y);
+  std::cout << "HJDSSJKFNJSD7" << '\n';
+
   monsterView.newDoorX = newDoor.x;
   monsterView.newDoorY = newDoor.y;
 
@@ -62,6 +79,9 @@ void GameView::init(){
   texture = this->levelManager.getLevelTexture();
 
   levelSprite.setTexture(texture);
+
+  std::cout << "HJDSSJKFNJSD8" << '\n';
+
 
 
   PlayerActor player = this->inputManager.logic->getPlayer();
