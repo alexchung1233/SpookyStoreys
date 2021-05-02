@@ -65,7 +65,7 @@ class GameLogic{
     //Function for when the Right key is pressed
     void rightPressed(float dt);
     //Function for when W is pressed for holy water
-    void WPressed(float distance);
+    void WPressed();
     bool getHolyWaterUsed();
 
     bool isPlayerByItem();
@@ -77,7 +77,7 @@ class GameLogic{
     bool isDialogueBoxUsed();
     void setDialogueBoxStatus(bool status);
 
-    void updateAI(float dt);
+    void updateAI(float dt, bool inSameRoom);
 
     void setRoom(Room room);
 

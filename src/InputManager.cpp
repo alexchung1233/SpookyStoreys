@@ -18,7 +18,7 @@ void InputManager::operator()(sf::RenderWindow &app, GameLogic &logic){
 
 }
 
-void InputManager::update(sf::Event& Event, float dt, float distance){
+void InputManager::update(sf::Event& Event, float dt){
 
   while(App->pollEvent(Event))
   {
@@ -68,7 +68,7 @@ void InputManager::update(sf::Event& Event, float dt, float distance){
 
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-      logic->WPressed(distance);
+      logic->WPressed();
     }
   }
 

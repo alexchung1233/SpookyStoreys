@@ -81,7 +81,9 @@ void GameLogic::rightPressed(float dt){
 	}
 }
 
-void GameLogic::WPressed(float distance){
+void GameLogic::WPressed(){
+	float distance = 100;
+	//TODO: UPDATE THIS FOR PROPER DISTANCE!!!
 	if(distance < 400 && !isDialogueBoxUsed()){
 		holyWaterUsed = false;
 		WTracker++;
@@ -291,8 +293,9 @@ void GameLogic::postDialogueBoxUse(){
 	}
 
 
-void GameLogic::updateAI(float dt){
-	
+void GameLogic::updateAI(float dt, bool inSameRoom){
+	monsterAI.isPaused(isDialogueBoxUsed());
+
 }
 
 void GameLogic::setMovementState(MovementStates::movementStates state){

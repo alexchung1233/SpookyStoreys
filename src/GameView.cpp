@@ -136,12 +136,13 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->logic.getPlayer();
   MonsterActor monster = this->logic.getMonsterActor();
   
-  logic.updateAI(dt);
+  inputManager.update(Event, dt);
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
-  logic.monsterAI.isPaused(logic.isDialogueBoxUsed());
   logic.monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
+
+  logic.updateAI(dt, inSameRoom);
 
   float distance;
   float distX;
@@ -166,7 +167,6 @@ void GameView::update(sf::Event& Event, float dt){
     }
   }
 
-  inputManager.update(Event, dt, distance);
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
