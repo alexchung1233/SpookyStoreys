@@ -7,8 +7,8 @@ void Bathtub::init(){
   this->myDialogue = "The bathtub. It looks like something is glimmering in the drain?\n... Oh! A key! Maybe it will unlock a door somewhere?";
   this->itemName = "bathtub";
   canBeDestroyed = true;
-  mySize.x = 199;
-  mySize.y = 374;
+  mySize.x = 300;
+  mySize.y = 263;
 
 }
 Position Bathtub::getPosition(){
