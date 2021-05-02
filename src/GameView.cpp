@@ -42,7 +42,7 @@ void GameView::init(){
   }
 
   this->levelManager.init();
-  
+
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
 
@@ -169,7 +169,10 @@ void GameView::update(sf::Event& Event, float dt){
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
+  monsterAI.isPaused(logic.isDialogueBoxUsed());
+
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
+
   MonsterActor monster = this->monsterView.getMonster();
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
@@ -329,6 +332,7 @@ void GameView::render(){
     sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
     monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
     this->App->draw(monsterRect);
+
 
     sf::CircleShape doorCenter = sf::CircleShape(1);
     doorCenter.setPosition(monsterView.newDoorX, monsterView.newDoorY);
