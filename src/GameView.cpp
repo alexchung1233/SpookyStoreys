@@ -60,13 +60,6 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  string inventoryDisplay_file = "../data/inventory_display.png";
-  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
-    printf("incorrect file format");
-  }
-  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
-  sprite_inventoryDisplay.setPosition(800, 0);
-
   std::string str; 
   ifstream infile;
   infile.open ("../data/itemImageFiles.txt");
@@ -84,10 +77,17 @@ void GameView::init(){
   infile.close(); 
 
 
-  setCounterText(holyWaterCounter_text,40);
-  setCounterText(keyCounter_text, 440);
+  string inventoryDisplay_file = "../data/inventory_display.png";
+  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
+    printf("incorrect file format");
+  }
+  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
+  sprite_inventoryDisplay.setPosition(800, 150);
+  sprite_inventoryDisplay.setScale(sf::Vector2f(0.50f, 0.50f));
 
-  setNoteCounterText();
+  setCounterText(holyWaterCounter_text,165);
+  setCounterText(noteCounter_text, 265);
+  setCounterText(keyCounter_text, 365);
 
   //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
@@ -115,18 +115,10 @@ void GameView::init(){
 
 void GameView::setCounterText(sf::Text& myText, float yPos){
   myText.setString("0");
-  myText.setCharacterSize(90);
-  myText.setFillColor(sf::Color::White);
+  myText.setCharacterSize(50);
+  myText.setFillColor(sf::Color(200, 200, 200));
   myText.setFont(font);
-  myText.setPosition(sf::Vector2f(915, yPos));
-}
-
-void GameView::setNoteCounterText(){
-  this->noteCounter_text.setString("0");
-  this->noteCounter_text.setCharacterSize(90);
-  this->noteCounter_text.setFillColor(sf::Color::White);
-  this->noteCounter_text.setFont(font);
-  this->noteCounter_text.setPosition(sf::Vector2f(915, 240));
+  myText.setPosition(sf::Vector2f(860, yPos));
 }
 
 //update the running game state depending on logic and input
@@ -144,6 +136,8 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   this->holyWaterCounter_text.setString(to_string(player.getInventory()->getHolyWaterCount()));
+  this->noteCounter_text.setString(to_string(player.getInventory()->numNotesFound()));
+  this->keyCounter_text.setString(to_string(player.getInventory()->getKeyCount()));
 
   updatePlayerAnimation(dt);
   //this->logic.update(dt);

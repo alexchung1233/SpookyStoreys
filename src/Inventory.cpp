@@ -8,6 +8,7 @@ Inventory::Inventory(){
 
 void Inventory::init(){
     holyWaterCount = 0;
+    numKeysFound = 0;
 
     for(int i = 1; i <= 4; i++)
         notesObtained["note_" + to_string(i)] = false;
@@ -51,7 +52,16 @@ bool Inventory::hasFoundFirepoker(){
 }
 
 void Inventory::foundKey(){
+    numKeysFound++;
     unlocksObtained["key"] = true;
+}
+
+int Inventory::getKeyCount(){
+    return numKeysFound;
+}
+
+void Inventory::useKey(){
+    numKeysFound--;
 }
 
 bool Inventory::hasFoundKey(){

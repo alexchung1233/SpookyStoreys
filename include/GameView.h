@@ -36,7 +36,6 @@ class GameView : public State
     sf::Text keyCounter_text;
 
     void setCounterText(sf::Text& myText, float yPos);
-    void setNoteCounterText();
 
     sf::Sprite sprite_item;
     std::vector<sf::Sprite*> itemSprites;

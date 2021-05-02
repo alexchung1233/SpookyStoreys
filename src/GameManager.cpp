@@ -93,7 +93,7 @@ void GameManager::initWindow(){
 
   //creates the window object
   this->window = new sf::RenderWindow(
-    sf::VideoMode(1000,600,32),
+    sf::VideoMode(900,600,32),
     windowTitle,
     sf::Style::Close);
 

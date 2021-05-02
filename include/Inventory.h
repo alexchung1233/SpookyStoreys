@@ -23,6 +23,8 @@ class Inventory
 
         void foundKey();
         bool hasFoundKey();
+        int getKeyCount();
+        void useKey();
 
         void foundWeapon();
         bool hasFoundWeapon();
@@ -32,7 +34,7 @@ class Inventory
         std::map<const std::string, bool> unlocksObtained;
 
         int holyWaterCount;
-
+        int numKeysFound;
 };
 
 #endif /* MY_CLASS_H */

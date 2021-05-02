@@ -198,6 +198,7 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 
 				//if the player has the key, then they unlock the office
 				if(player.getInventory()->hasFoundKey()){
+					player.getInventory()->useKey();
 					officeUnlocked = true;
 					//TODO: prompt dialogue box saying the player has used the key
 					//to unlock the door

@@ -30,7 +30,7 @@ class ItemActor : public Actor {
 		//and so on
 		virtual string interact(PlayerActor &player) = 0;
 
-		virtual std::string getItemName() { return itemName; }
+		std::string getItemName() { return itemName; }
 
 		virtual bool destroyable() { return canBeDestroyed; }
 
