@@ -56,6 +56,8 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
+
+
   string counter_file = "../data/counter.png";
   if(!texture_counter.loadFromFile(counter_file)){
     printf("incorrect file format");
@@ -86,8 +88,6 @@ void GameView::init(){
   sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
 
 
-
-
   std::string str;
   ifstream infile;
   infile.open ("../data/itemImageFiles.txt");
@@ -95,18 +95,15 @@ void GameView::init(){
   {
     std::getline(infile, str);
     std::string filepath = "../data/" + str + ".png";
-    cout << str << "\n";
 
     if(filepath != "../data/.png"){
-      itemTextures["note"] = new sf::Texture;
-      if(!itemTextures["note"]->loadFromFile("../data/note.png")) {
+      itemTextureMapping[str] = new sf::Texture;
+      if(!itemTextureMapping[str]->loadFromFile(filepath)) {
         printf("incorrect file format");
         }
     }
   }
   infile.close();
-
-
 
 
   //sound->playPlayingMusic();
@@ -128,7 +125,6 @@ void GameView::setCounterText(){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
-  itemTextures.clear();
   inputManager.update(Event, dt);
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
@@ -201,20 +197,17 @@ void GameView::updatePlayerAnimation(float dt){
 
 //load the itemsprites from the current room
 void GameView::loadItemSprites(){
+
   Room tempRoom = levelManager.getCurrentRoom();
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
     ItemActor* item = tempRoom.getItems().at(i);
-    itemSprites.push_back(new sf::Sprite);
+    if(item->getActiveStatus()){
 
-    //make sure to have a check here if there is no item in the itemimage file
-    texture_item =  new sf::Texture;
-    if(!texture_item->loadFromFile("../data/note.png")) {
-      printf("incorrect file format");
-      }
-    itemSprites.back()->setTexture(*texture_item);
+      itemSprites.push_back(new sf::Sprite);
 
-    //itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
-
+      itemSprites.back()->setTexture(*itemTextureMapping[item->getItemName()]);
+      itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
+    }
   }
 
 }
@@ -229,10 +222,11 @@ void GameView::render(){
 
     Room tempRoom = levelManager.getCurrentRoom();
 
-    for (int i = 0; i < tempRoom.getItems().size(); i++){
+    for (int i = 0; i < itemSprites.size(); i++){
       sf::Sprite* drawMe = itemSprites.at(i);
       this->App->draw(*drawMe);
     }
+
 
 
     this->App->draw(sprite_player);

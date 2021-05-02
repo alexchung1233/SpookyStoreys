@@ -51,7 +51,6 @@ class GameView : public State
 
 
     sf::Texture* texture_item;
-    std::map<const std::string, sf::Texture*> itemTextures;
 
 
     sf::Texture texture_monster;
@@ -81,6 +80,8 @@ class GameView : public State
     void unpause();
     void makeBox(sf::Vector2f position, sf::Color color);
     void setText(std::string words);
+
+    std::map<const std::string, sf::Texture*> itemTextureMapping;
 
 
   };
