@@ -23,7 +23,7 @@ void LevelManager::init(){
 
 //helper function that loads in all the names of the rooms used into myRooms
 void LevelManager::getRoomNames(std::string roomNamesFilepath){
-    std::string str; 
+    std::string str;
     ifstream infile;
 	infile.open (roomNamesFilepath);
     while(!infile.eof())
@@ -31,7 +31,7 @@ void LevelManager::getRoomNames(std::string roomNamesFilepath){
     	std::getline(infile, str);
     	myRooms.push_back(str);
     }
-    infile.close();	
+    infile.close();
 }
 
 void LevelManager::setRoom(std::string roomName){
@@ -44,14 +44,4 @@ Room LevelManager::getCurrentRoom(){
 
 const sf::Texture LevelManager::getLevelTexture(){
 	return levelFileMapping[currentLevelName].getTexture();
-}
-
-void LevelManager::itemToDestroy(float idx){
-	idxItemToDestroy = idx;
-}
-
-void LevelManager::destroyItem(){
-	if(idxItemToDestroy > -1)
-		levelFileMapping[currentLevelName].destroyItem(idxItemToDestroy);
-	idxItemToDestroy = -1;
 }

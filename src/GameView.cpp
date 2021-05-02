@@ -66,8 +66,6 @@ void GameView::init(){
 
   setCounterText();
 
-  //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
-
 
   makeBox(sf::Vector2f(logic.dialoguebox.position.x, logic.dialoguebox.position.y), sf::Color::Black);
 
@@ -86,6 +84,30 @@ void GameView::init(){
   sprite_monster.setTexture(texture_monster);
   sprite_monster.setPosition(400, 360);
   sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
+
+
+
+
+  std::string str;
+  ifstream infile;
+  infile.open ("../data/itemImageFiles.txt");
+  while(!infile.eof())
+  {
+    std::getline(infile, str);
+    std::string filepath = "../data/" + str + ".png";
+    cout << str << "\n";
+
+    if(filepath != "../data/.png"){
+      itemTextures["note"] = new sf::Texture;
+      if(!itemTextures["note"]->loadFromFile("../data/note.png")) {
+        printf("incorrect file format");
+        }
+    }
+  }
+  infile.close();
+
+
+
 
   //sound->playPlayingMusic();
   this->status = State::RUNNING;
@@ -122,25 +144,8 @@ void GameView::update(sf::Event& Event, float dt){
   updatePlayerAnimation(dt);
   //this->logic.update(dt);
 
-/*
 
-All monster AI stuff
-
-  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
-  sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
-
-
-  float distX = pow(monsterAI.positionX - player.getPosition().x-125, 2);
-  float distY = pow(monsterAI.positionY - player.getPosition().y+20, 2);
-
-
-  if (sqrt(distX + distY) < 70){
-    this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...", sound);
-  }
-  */
-
-  loadItemsandDialogueBox();
+  loadItemSprites();
   this->setText(logic.dialoguebox.dialogue);
 
   if(inputManager.getPlayState() == 1){
@@ -194,31 +199,26 @@ void GameView::updatePlayerAnimation(float dt){
     this->logic.setMovementState(MovementStates::IDLE);
 }
 
-void GameView::loadItemsandDialogueBox(){
+//load the itemsprites from the current room
+void GameView::loadItemSprites(){
   Room tempRoom = levelManager.getCurrentRoom();
-
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
-
     ItemActor* item = tempRoom.getItems().at(i);
-
-    itemTextures.push_back(new sf::Texture);
-
-    if(!itemTextures.back()->loadFromFile(item->getSpriteFile())){
-      printf("incorrect file format");
-    }
-
     itemSprites.push_back(new sf::Sprite);
 
-    texture_item = itemTextures.back();
+    //make sure to have a check here if there is no item in the itemimage file
+    texture_item =  new sf::Texture;
+    if(!texture_item->loadFromFile("../data/note.png")) {
+      printf("incorrect file format");
+      }
     itemSprites.back()->setTexture(*texture_item);
-    itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
 
-    inputManager.logic->setUpDialogueBox(item, dialoguebox, i);
+    //itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
 
   }
 
-
 }
+
 
 void GameView::setLogic(GameView& logic){}
 
@@ -228,10 +228,12 @@ void GameView::render(){
     this->App->draw(levelSprite);
 
     Room tempRoom = levelManager.getCurrentRoom();
+
     for (int i = 0; i < tempRoom.getItems().size(); i++){
       sf::Sprite* drawMe = itemSprites.at(i);
       this->App->draw(*drawMe);
     }
+
 
     this->App->draw(sprite_player);
     this->App->draw(sprite_monster);
@@ -277,7 +279,6 @@ void GameView::setText(std::string words){
   this->message.setPosition(myPos);
 
 }
-
 
 
 

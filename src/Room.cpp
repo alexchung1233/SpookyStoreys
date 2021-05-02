@@ -15,7 +15,7 @@ void Room::setUpRoom(std::string roomName){
 	string directory = "../data/";
 	string txt = ".txt";
 	string png = ".png";
-	
+
 	string STRING;
 	string filepathTXT = directory + roomName + txt;
 	ifstream infile;
@@ -25,7 +25,7 @@ void Room::setUpRoom(std::string roomName){
         getline(infile, STRING); // Saves the line in STRING.
         vector<string>result;
 		stringstream s_stream(STRING); //create string stream from the string
-		
+
 		while(s_stream.good()) {
 			string substr;
 			getline(s_stream, substr, ','); //get first string delimited by comma
@@ -103,7 +103,7 @@ void Room::setUpRoom(std::string roomName){
 			myItems.push_back(new Bathtub(forBathtub));
 			myItems.at(myItems.size() - 1)->init();
 		}
-		
+
     }
 
 	infile.close();
@@ -135,8 +135,4 @@ std::vector<Door> Room::getDoors(){
 
 std::vector<ItemActor*> Room::getItems(){
 	return myItems;
-}
-
-void Room::destroyItem(float idx){
-	myItems.erase(myItems.begin() + idx);
 }

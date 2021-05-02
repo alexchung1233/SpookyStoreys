@@ -46,17 +46,20 @@ class GameView : public State
     sf::RectangleShape dialogueBox;
     sf::Text message;
 
-    
+
+
+
 
     sf::Texture* texture_item;
-    std::vector<sf::Texture*> itemTextures;
+    std::map<const std::string, sf::Texture*> itemTextures;
+
 
     sf::Texture texture_monster;
     MonsterAI monsterAI;
 
 
     void updatePlayerAnimation(float dt);
-    void loadItemsandDialogueBox();
+    void loadItemSprites();
 
 
   public:

@@ -5,6 +5,8 @@ Note::Note(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
 }
 void Note::init(){
+    this->itemName = "note";
+
     this->myDialogue = "A note! How lucky!";
     read = false;
 

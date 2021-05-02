@@ -12,8 +12,7 @@ class GameLogic{
   private:
     PlayerActor player;
     Room myRoom;
-
-
+    ItemActor* currentNextToItem;
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
 
@@ -50,8 +49,7 @@ class GameLogic{
 
     void setMovementState(MovementStates::movementStates state);
 
-    void EPressed();
-    void setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i);
+    void setDialogueBoxStatus(bool status);
 
     //Function for when the Up key is pressed
     void upPressed(float dt);
@@ -68,5 +66,9 @@ class GameLogic{
     void update(float dt);
 
     void setRoom(Room room);
+
+    bool dialogueBoxFinished();
+
+    void postDialogueBoxUse();
 
 };
