@@ -53,7 +53,6 @@ void MonsterAI::calculateMoveOutRoom(float deltaMS) {
   //Get the list of all doors in the room
   std::vector<Door> doors = monsterView->getRoom().getDoors();
 
-
   float targetX;
   float targetY;
 

@@ -42,89 +42,89 @@ void MonsterView::rightPressed(float dt){
 }
 
 bool MonsterView::detectCollisionUp(float dt){
-	Position playerPos = monster.getPosition();
+	Position monsterPos = monster.getPosition();
 	float movement = dt * monster.getVelocity().y;
 
-	sf::IntRect possiblePlayerPosition(playerPos.x, playerPos.y - movement, monster.getSize().x, monster.getSize().y);
+	sf::IntRect possibleMonsterPosition(monsterPos.x, monsterPos.y - movement, monster.getSize().x, monster.getSize().y);
 
-	if(hitsDoor(possiblePlayerPosition)){
+	if(hitsDoor(possibleMonsterPosition)){
 		return true;
 	}
 
 	for(int i = 0; i < myRoom.getObstacles().size(); i++){
 		sf::IntRect obj = myRoom.getObstacles().at(i);
-		if(obj.intersects(possiblePlayerPosition))
+		if(obj.intersects(possibleMonsterPosition))
 			return true;
 	}
 
-	if(!myRoom.getBoundaries().contains(playerPos.x, playerPos.y - movement))
+	if(!myRoom.getBoundaries().contains(monsterPos.x, monsterPos.y - movement))
 		return true;
 
 	return false;
 }
 
 bool MonsterView::detectCollisionDown(float dt){
-	Position playerPos = monster.getPosition();
+	Position monsterPos = monster.getPosition();
 	float movement = dt * monster.getVelocity().y;
 
-	sf::IntRect possiblePlayerPosition(playerPos.x, playerPos.y + movement, monster.getSize().x, monster.getSize().y);
+	sf::IntRect possibleMonsterPosition(monsterPos.x, monsterPos.y + movement, monster.getSize().x, monster.getSize().y);
 
-	if(hitsDoor(possiblePlayerPosition)){
+	if(hitsDoor(possibleMonsterPosition)){
 		return true;
 	}
 
 	for(int i = 0; i < myRoom.getObstacles().size(); i++){
 		sf::IntRect obj = myRoom.getObstacles().at(i);
-		if(obj.intersects(possiblePlayerPosition))
+		if(obj.intersects(possibleMonsterPosition))
 			return true;
 	}
 
-	if(!myRoom.getBoundaries().contains(playerPos.x, playerPos.y + movement + monster.getSize().y))
+	if(!myRoom.getBoundaries().contains(monsterPos.x, monsterPos.y + movement + monster.getSize().y))
 		return true;
 
 	return false;
 }
 
 bool MonsterView::detectCollisionLeft(float dt){
-	Position playerPos = monster.getPosition();
+	Position monsterPos = monster.getPosition();
 	float movement = dt * monster.getVelocity().x;
 
-	sf::IntRect possiblePlayerPosition(playerPos.x - movement, playerPos.y, monster.getSize().x, monster.getSize().y);
+	sf::IntRect possibleMonsterPosition(monsterPos.x - movement, monsterPos.y, monster.getSize().x, monster.getSize().y);
 
-	if(hitsDoor(possiblePlayerPosition)){
+	if(hitsDoor(possibleMonsterPosition)){
 		return true;
 	}
 
 	for(int i = 0; i < myRoom.getObstacles().size(); i++){
 		sf::IntRect obj = myRoom.getObstacles().at(i);
-		if(obj.intersects(possiblePlayerPosition))
+		if(obj.intersects(possibleMonsterPosition))
 			return true;
 	}
 
-	if(!myRoom.getBoundaries().contains(playerPos.x - movement, playerPos.y))
+	if(!myRoom.getBoundaries().contains(monsterPos.x - movement, monsterPos.y))
 		return true;
 
 	return false;
 }
 
 bool MonsterView::detectCollisionRight(float dt){
-	Position playerPos = monster.getPosition();
+	Position monsterPos = monster.getPosition();
 	float movement = dt * monster.getVelocity().x;
 
-	sf::IntRect possiblePlayerPosition(playerPos.x + movement, playerPos.y, monster.getSize().x, monster.getSize().y);
+	sf::IntRect possibleMonsterPosition(monsterPos.x + movement, monsterPos.y, monster.getSize().x, monster.getSize().y);
 
-	if(hitsDoor(possiblePlayerPosition)){
+	if(hitsDoor(possibleMonsterPosition)){
 		return true;
 	}
 
 	for(int i = 0; i < myRoom.getObstacles().size(); i++){
 		sf::IntRect obj = myRoom.getObstacles().at(i);
-		if(obj.intersects(possiblePlayerPosition))
+		if(obj.intersects(possibleMonsterPosition))
 			return true;
 	}
 
 
-	if(!myRoom.getBoundaries().contains(playerPos.x + movement + monster.getSize().x, playerPos.y))
+	if(!myRoom.getBoundaries().contains(monsterPos.x + movement + monster.getSize().x, monsterPos.y))
 		return true;
 
 	return false;
@@ -138,14 +138,14 @@ Room MonsterView::getRoom(){
 	return (this->myRoom);
 }
 
-bool MonsterView::hitsDoor(sf::IntRect possiblePlayerPosition){
+bool MonsterView::hitsDoor(sf::IntRect possibleMonsterPosition){
 	//Gets list of doors and iterates through them
 	std::vector<Door> doors = myRoom.getDoors();
 	for(int i = 0; i < doors.size(); i++){
 		Door checkDoor = doors.at(i);
 
 		//If the monster intersects with the door
-		if(checkDoor.getDoorBoundaries().intersects(possiblePlayerPosition)){
+		if(checkDoor.getDoorBoundaries().intersects(possibleMonsterPosition)){
 			//Set the current room and monster position to the values dictated by the door
 			this->levelManager->setRoom(checkDoor.getNextRoom());
 			monster.setPosition(checkDoor.getNewPosition().x, checkDoor.getNewPosition().y);
@@ -165,7 +165,17 @@ bool MonsterView::hitsDoor(sf::IntRect possiblePlayerPosition){
 
 sf::Vector2f MonsterView::getRandomDoor(){
 	//Gets list of possible doors and chooses one to use as the monsters target
-	std::vector<Door> doors = myRoom.getDoors();
+	std::vector<Door> doors;
+	for(int i = 0; i < myRoom.getDoors().size(); i++){
+		std::cout << myRoom.getDoors().at(i).getNextRoom() << endl;
+		if((myRoom.getDoors().at(i).getNextRoom() == "OFFICE")){
+			printf("not pushing the office!\n");
+		}
+		else{
+			doors.push_back(myRoom.getDoors().at(i));
+		}
+	}
+
 	int randomNum = rand() % doors.size();
 	Door newDoor = (doors.at(randomNum));
 	float width = newDoor.getDoorBoundaries().left + (newDoor.getDoorBoundaries().width/2);
