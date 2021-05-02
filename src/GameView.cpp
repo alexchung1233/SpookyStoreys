@@ -34,6 +34,10 @@ GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
 }
 
 void GameView::init(){
+  if (!font.loadFromFile("../data/courier.ttf")){
+    std::cout << "incorrect font";
+  }
+
   this->levelManager.init();
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
@@ -56,12 +60,12 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  string counter_file = "../data/counter.png";
-  if(!texture_counter.loadFromFile(counter_file)){
+  string inventoryDisplay_file = "../data/inventory_display.png";
+  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
     printf("incorrect file format");
   }
-  sprite_counter.setTexture(texture_counter);
-  sprite_counter.setPosition(732, 0);
+  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
+  sprite_inventoryDisplay.setPosition(800, 0);
 
   std::string str; 
   ifstream infile;
@@ -80,7 +84,10 @@ void GameView::init(){
   infile.close(); 
 
 
-  setCounterText();
+  setCounterText(holyWaterCounter_text,40);
+  setCounterText(keyCounter_text, 440);
+
+  setNoteCounterText();
 
   //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
@@ -106,15 +113,20 @@ void GameView::init(){
 
 }
 
-void GameView::setCounterText(){
-  if (!font.loadFromFile("../data/courier.ttf")){
-      std::cout << "incorrect font";
-  }
-  this->counterText.setString("0");
-  this->counterText.setCharacterSize(50);
-  this->counterText.setFillColor(sf::Color::White);
-  this->counterText.setFont(font);
-  this->counterText.setPosition(sf::Vector2f(752, 62));
+void GameView::setCounterText(sf::Text& myText, float yPos){
+  myText.setString("0");
+  myText.setCharacterSize(90);
+  myText.setFillColor(sf::Color::White);
+  myText.setFont(font);
+  myText.setPosition(sf::Vector2f(915, yPos));
+}
+
+void GameView::setNoteCounterText(){
+  this->noteCounter_text.setString("0");
+  this->noteCounter_text.setCharacterSize(90);
+  this->noteCounter_text.setFillColor(sf::Color::White);
+  this->noteCounter_text.setFont(font);
+  this->noteCounter_text.setPosition(sf::Vector2f(915, 240));
 }
 
 //update the running game state depending on logic and input
@@ -131,7 +143,7 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-  this->counterText.setString(to_string(player.getInventory()->getHolyWaterCount()));
+  this->holyWaterCounter_text.setString(to_string(player.getInventory()->getHolyWaterCount()));
 
   updatePlayerAnimation(dt);
   //this->logic.update(dt);
@@ -256,8 +268,10 @@ void GameView::render(){
 
     this->App->draw(sprite_player);
     this->App->draw(sprite_monster);
-    this->App->draw(sprite_counter);
-    this->App->draw(counterText);
+    this->App->draw(sprite_inventoryDisplay);
+    this->App->draw(holyWaterCounter_text);
+    this->App->draw(noteCounter_text);
+    this->App->draw(keyCounter_text);
     // this->App->draw(dialoguebox.dialogueBox);
     // this->App->draw(dialoguebox.message);
 

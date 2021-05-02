@@ -28,16 +28,21 @@ class GameView : public State
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
 
-    sf::Sprite sprite_counter;
+    sf::Sprite sprite_inventoryDisplay;
 
     sf::Font font;
-    sf::Text counterText;
+    sf::Text holyWaterCounter_text;
+    sf::Text noteCounter_text;
+    sf::Text keyCounter_text;
+
+    void setCounterText(sf::Text& myText, float yPos);
+    void setNoteCounterText();
 
     sf::Sprite sprite_item;
     std::vector<sf::Sprite*> itemSprites;
 
     sf::Texture texture;
-    sf::Texture texture_counter;
+    sf::Texture texture_inventoryDisplay;
 
     sf::Clock gameClock;
     sf::Texture player_sprite_sheet;
@@ -62,8 +67,6 @@ class GameView : public State
 
     void update(sf::Event& Event, float dt);
     void init();
-
-    void setCounterText();
 
     void setLogic(GameView& logic);
     float myPos();
