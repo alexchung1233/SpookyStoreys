@@ -64,12 +64,14 @@ void GameLogic::rightPressed(float dt){
 	}
 }
 
-void GameLogic::WPressed(){
-	holyWaterUsed = false;
-	WTracker++;
-	if (WTracker%2 == 0){
-		holyWaterUsed = player.useHolyWater();
-		WTracker = 0;
+void GameLogic::WPressed(float distance){
+	if(distance < 400 && !isDialogueBoxUsed()){
+		holyWaterUsed = false;
+		WTracker++;
+		if (WTracker%2 == 0){
+			holyWaterUsed = player.useHolyWater();
+			WTracker = 0;
+		}
 	}
 }
 

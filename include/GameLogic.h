@@ -37,7 +37,6 @@ class GameLogic{
 
     LevelManager* levelManager;
 
-
     //reutrns player object
     PlayerActor getPlayer();
     DialogueBox getDialogueBox();
@@ -71,7 +70,7 @@ class GameLogic{
     void rightPressed(float dt);
 
     //Function for when W is pressed for holy water
-    void WPressed();
+    void WPressed(float distance);
     bool getHolyWaterUsed();
 
     void update(float dt);

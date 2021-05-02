@@ -118,6 +118,7 @@ bool PlayerActor::useHolyWater(){
     return false;
   }
   else{
+    std::cout << "You used the holy water!" << std::endl;
     myInventory->downHolyWaterCount();
     return true;
   }

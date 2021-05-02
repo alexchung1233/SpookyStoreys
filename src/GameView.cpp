@@ -155,12 +155,20 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->logic.getPlayer();
   MonsterActor monster = this->monsterView.getMonster();
+  
+  bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
+  monsterAI.isPaused(logic.isDialogueBoxUsed());
+  monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
 
   float distance;
-  float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
-  float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
-  distance = sqrt(distX + distY);
+  if(inSameRoom){
+    float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
+    float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
+    distance = sqrt(distX + distY);
+  }
+  else
+    distance = 1000;
 
   inputManager.update(Event, dt, distance);
   //get the latest level texture
@@ -175,12 +183,6 @@ void GameView::update(sf::Event& Event, float dt){
   this->keyCounter_text.setString(to_string(player.getInventory()->getKeyCount()));
 
   updatePlayerAnimation(dt);
-
-  bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
-
-  monsterAI.isPaused(logic.isDialogueBoxUsed());
-
-  monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
 
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
@@ -336,7 +338,7 @@ void GameView::render(){
     nextRoomLastTime = holdLastTime;
 
 
-/*
+
     sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
     monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
     this->App->draw(monsterRect);
@@ -345,7 +347,7 @@ void GameView::render(){
     sf::CircleShape doorCenter = sf::CircleShape(1);
     doorCenter.setPosition(monsterView.newDoorX, monsterView.newDoorY);
     this->App->draw(doorCenter);
-    */
+    
     this->App->draw(sprite_inventoryDisplay);
     this->App->draw(holyWaterCounter_text);
     this->App->draw(noteCounter_text);
