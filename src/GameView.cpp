@@ -43,34 +43,24 @@ void GameView::init(){
   }
 
 
-  std::cout << "HJDSSJKFNJSD1" << '\n';
-
   this->levelManager.init();
   
-  std::cout << "HJDSSJKFNJSD2" << '\n';
 
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
 
-  std::cout << "HJDSSJKFNJSD3" << '\n';
 
   this->monsterLevelManager.init();
   this->monsterLevelManager.setRoom("BASEMENT");
 
-  std::cout << "HJDSSJKFNJSD4" << '\n';
-
   this->monsterView.setup();
   this->monsterView.setLevelManager(monsterLevelManager);
 
-  std::cout << "HJDSSJKFNJSD5" << '\n';
-
   inputManager(*App, logic);
   monsterAI(monsterView);
-  std::cout << "HJDSSJKFNJSD6" << '\n';
 
   sf::Vector2f newDoor = this->monsterView.getRandomDoor();
   monsterAI.setDoorLoc(newDoor.x, newDoor.y);
-  std::cout << "HJDSSJKFNJSD7" << '\n';
 
   monsterView.newDoorX = newDoor.x;
   monsterView.newDoorY = newDoor.y;
@@ -79,9 +69,6 @@ void GameView::init(){
   texture = this->levelManager.getLevelTexture();
 
   levelSprite.setTexture(texture);
-
-  std::cout << "HJDSSJKFNJSD8" << '\n';
-
 
 
   PlayerActor player = this->inputManager.logic->getPlayer();
@@ -187,8 +174,6 @@ void GameView::update(sf::Event& Event, float dt){
     float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
     float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
 
-  loadItemSprites();
-  this->setText(logic.dialoguebox.dialogue);
 
     if (sqrt(distX + distY) < 70){
       this->status = State::SUCCESS;
@@ -197,13 +182,7 @@ void GameView::update(sf::Event& Event, float dt){
       childState = new GameOver(*App, "You Lose...", *audioManager);
     }
 
-
-
-
-
     //monsterView.sendToBasement();
-
-
 
   }
   if(inputManager.getPlayState() == 1){
@@ -215,6 +194,8 @@ void GameView::update(sf::Event& Event, float dt){
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
+  loadItemSprites();
+  this->setText(logic.dialoguebox.dialogue);
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // sf::IntRect checkMe = levelManager.getCurrentRoom().getBoundaries();
@@ -290,14 +271,12 @@ void GameView::setLogic(GameView& logic){}
 void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
-
     Room tempRoom = levelManager.getCurrentRoom();
 
     for (int i = 0; i < itemSprites.size(); i++){
       sf::Sprite* drawMe = itemSprites.at(i);
       this->App->draw(*drawMe);
     }
-
 
 
     this->App->draw(sprite_player);
