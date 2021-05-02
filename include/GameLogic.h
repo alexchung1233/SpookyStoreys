@@ -24,17 +24,17 @@ class GameLogic{
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
     //MonsterAI monsterAI;
+    MonsterView monsterView;
 
   public:
     GameLogic() { showBox = false; };
     
     bool showBox;
 
-    MonsterView monsterView;
 
-
-    MonsterView getMonsterView();
+    MonsterView& getMonsterView();
     MonsterActor getMonsterActor();
+    void setMonsterLevelManager(LevelManager &MLM);
 
     void setup();
 

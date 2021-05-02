@@ -19,12 +19,16 @@ void GameLogic::setup(){
 	WTracker = 0;
 }
 
-MonsterView GameLogic::getMonsterView(){
+MonsterView& GameLogic::getMonsterView(){
 	return this->monsterView;
 }
 
 MonsterActor GameLogic::getMonsterActor(){
 	return this->monsterView.getMonster();
+}
+
+void GameLogic::setMonsterLevelManager(LevelManager &MLM){
+	this->monsterView.setLevelManager(MLM);
 }
 
 void GameLogic::createPlayer(){

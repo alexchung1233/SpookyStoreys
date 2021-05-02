@@ -27,7 +27,7 @@ GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
   //TODO make this extend off a Process class.
   this->App = &app;
   inputManager(*App, logic);
-  monsterAI(logic.monsterView);
+  monsterAI(logic.getMonsterView());
   this->status = State::UNINIT;
   this->audioManager = &audioManager;
 }
@@ -44,12 +44,12 @@ void GameView::init(){
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
 
-  this->logic.monsterView.setLevelManager(monsterLevelManager);
+  this->logic.setMonsterLevelManager(monsterLevelManager);
 
   inputManager(*App, logic);
   
-  monsterAI(logic.monsterView);
-  monsterAI.setDoorLoc(this->logic.monsterView.getRandomDoor());
+  monsterAI(logic.getMonsterView());
+  monsterAI.setDoorLoc(this->logic.getMonsterView().getRandomDoor());
 
   //get current level texture
   texture = this->levelManager.getLevelTexture();
@@ -148,13 +148,27 @@ void GameView::update(sf::Event& Event, float dt){
   monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
 
   float distance;
+  float distX;
+  float distY;
   if(inSameRoom){
-    float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
-    float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
+    distX = pow(monster.getPosition().x - player.getPosition().x, 2);
+    distY = pow(monster.getPosition().y - player.getPosition().y, 2);
     distance = sqrt(distX + distY);
   }
   else
     distance = 1000;
+
+  if (inSameRoom) {
+    distX = pow(monster.getPosition().x - player.getPosition().x, 2);
+    distY = pow(monster.getPosition().y - player.getPosition().y, 2);
+
+    if (sqrt(distX + distY) < 70){
+      this->status = State::SUCCESS;
+      audioManager->stopNextRoom();
+      audioManager->stopInRoom();
+      childState = new GameOver(*App, "You Lose...", *audioManager);
+    }
+  }
 
   inputManager.update(Event, dt, distance);
   //get the latest level texture
@@ -179,18 +193,6 @@ void GameView::update(sf::Event& Event, float dt){
   else if(inputManager.getPlayState() == 2){
     this->status = State::SUCCESS;
     childState = new GameOver(*App, "You Lose...", *audioManager);
-  }
-
-  if (inSameRoom) {
-    float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
-    float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
-
-    if (sqrt(distX + distY) < 70){
-      this->status = State::SUCCESS;
-      audioManager->stopNextRoom();
-      audioManager->stopInRoom();
-      childState = new GameOver(*App, "You Lose...", *audioManager);
-    }
   }
 
   loadItemSprites();
@@ -324,15 +326,13 @@ void GameView::render(){
 
     nextRoomLastTime = holdLastTime;
 
-
-
-    sf::RectangleShape monsterRect = sf::RectangleShape(logic.monsterView.getMonster().getSize());
-    monsterRect.setPosition(logic.monsterView.getMonster().getPosition().x, logic.monsterView.getMonster().getPosition().y);
+    sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
+    monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
     this->App->draw(monsterRect);
 
 
     sf::CircleShape doorCenter = sf::CircleShape(1);
-    doorCenter.setPosition(logic.monsterView.newDoorX, logic.monsterView.newDoorY);
+    doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
     this->App->draw(doorCenter);
     
     this->App->draw(sprite_inventoryDisplay);
