@@ -23,14 +23,16 @@ class GameLogic{
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
-    //MonsterAI monsterAI;
     MonsterView monsterView;
+
+    LevelManager* levelManager;
 
   public:
     GameLogic() { showBox = false; };
     
     bool showBox;
 
+    MonsterAI monsterAI;
 
     MonsterView& getMonsterView();
     MonsterActor getMonsterActor();
@@ -43,8 +45,6 @@ class GameLogic{
     void createDialogueBox();
 
     int Etracker;
-
-    LevelManager* levelManager;
 
     //reutrns player object
     PlayerActor getPlayer();
@@ -77,7 +77,7 @@ class GameLogic{
     bool isDialogueBoxUsed();
     void setDialogueBoxStatus(bool status);
 
-    void update(float dt);
+    void updateAI(float dt);
 
     void setRoom(Room room);
 

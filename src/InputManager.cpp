@@ -4,7 +4,6 @@ InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
   this->App = &app;
   this->logic = &logic;
 
-
   playState = 0;
 }
 

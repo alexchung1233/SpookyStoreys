@@ -4,7 +4,6 @@
 #include <math.h>
 #include "InputManager.h"
 #include "Animation.h"
-#include "MonsterAI.h"
 
 using namespace std;
 
@@ -22,12 +21,10 @@ GameView::GameView(sf::RenderWindow& app){
   this->status = State::UNINIT;
 }
 
-
 GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
   //TODO make this extend off a Process class.
   this->App = &app;
   inputManager(*App, logic);
-  monsterAI(logic.getMonsterView());
   this->status = State::UNINIT;
   this->audioManager = &audioManager;
 }
@@ -37,26 +34,22 @@ void GameView::init(){
     std::cout << "incorrect font";
   }
   this->levelManager.init();
+  this->logic.setLevelManager(levelManager);
 
   this->monsterLevelManager.init();
   this->monsterLevelManager.setRoom("BASEMENT");
+  this->logic.setMonsterLevelManager(monsterLevelManager);
 
   this->logic.setup();
-  this->logic.setLevelManager(levelManager);
-
-  this->logic.setMonsterLevelManager(monsterLevelManager);
 
   inputManager(*App, logic);
   
-  monsterAI(logic.getMonsterView());
-  monsterAI.setDoorLoc(this->logic.getMonsterView().getRandomDoor());
-
   //get current level texture
   texture = this->levelManager.getLevelTexture();
 
   levelSprite.setTexture(texture);
 
-  PlayerActor player = this->inputManager.logic->getPlayer();
+  PlayerActor player = logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
@@ -67,6 +60,7 @@ void GameView::init(){
   }
 
   loadItemTextures();
+
   setUpInventoyDisplay();
 
   makeBox(sf::Vector2f(logic.getDialogueBox().position.x, logic.getDialogueBox().position.y), sf::Color::Black);
@@ -142,10 +136,12 @@ void GameView::update(sf::Event& Event, float dt){
   PlayerActor player = this->logic.getPlayer();
   MonsterActor monster = this->logic.getMonsterActor();
   
+  logic.updateAI(dt);
+
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
-  monsterAI.isPaused(logic.isDialogueBoxUsed());
-  monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
+  logic.monsterAI.isPaused(logic.isDialogueBoxUsed());
+  logic.monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
 
   float distance;
   float distX;

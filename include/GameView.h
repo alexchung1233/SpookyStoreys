@@ -4,7 +4,6 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 #include "Animation.h"
-#include "MonsterAI.h"
 #include "State.h"
 #include "GameOver.h"
 #include "Room.h"
@@ -17,7 +16,6 @@ class GameView : public State
     LevelManager levelManager;
     GameLogic logic;
 
-    MonsterAI monsterAI;
     LevelManager monsterLevelManager;
 
     Room room;

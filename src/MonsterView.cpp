@@ -167,11 +167,8 @@ sf::Vector2f MonsterView::getRandomDoor(){
 	//Gets list of possible doors and chooses one to use as the monsters target
 	std::vector<Door> doors;
 	for(int i = 0; i < myRoom.getDoors().size(); i++){
-		std::cout << myRoom.getDoors().at(i).getNextRoom() << endl;
-		if((myRoom.getDoors().at(i).getNextRoom() == "OFFICE")){
-			printf("not pushing the office!\n");
-		}
-		else{
+		if(!(myRoom.getDoors().at(i).getNextRoom() == "OFFICE")){
+			//only push office if conditions met
 			doors.push_back(myRoom.getDoors().at(i));
 		}
 	}

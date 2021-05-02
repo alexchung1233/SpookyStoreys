@@ -14,6 +14,9 @@ void GameLogic::setup(){
 
 	this->monsterView.setup();
 
+	this->monsterAI(monsterView);
+	monsterAI.setDoorLoc(monsterView.getRandomDoor());
+
 	officeUnlocked = false;
 	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
 	WTracker = 0;
@@ -288,7 +291,8 @@ void GameLogic::postDialogueBoxUse(){
 	}
 
 
-void GameLogic::update(float dt){
+void GameLogic::updateAI(float dt){
+	
 }
 
 void GameLogic::setMovementState(MovementStates::movementStates state){

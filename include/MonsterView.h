@@ -14,12 +14,14 @@ class MonsterView{
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
+    LevelManager* levelManager;
+
+
   public:
     MonsterView() { };
 
     void setup();
 
-    LevelManager* levelManager;
 
     //reutrns player object
     MonsterActor getMonster();
