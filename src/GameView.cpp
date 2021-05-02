@@ -87,7 +87,7 @@ void GameView::init(){
   while(!infile.eof())
   {
     std::getline(infile, str);
-    std::string filepath = "../data/itemSprites/" + str + ".png";
+    std::string filepath = "../data/" + str + ".png";
 
     itemTextures[str] = new sf::Texture;
 
