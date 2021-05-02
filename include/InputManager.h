@@ -19,7 +19,7 @@ class InputManager
 
     InputManager(sf::RenderWindow &app, GameLogic &logic);
     void operator()(sf::RenderWindow &app, GameLogic &logic);
-    void update(sf::Event& Event, float dt);
+    void update(sf::Event& Event, float dt, float distance);
     int getPlayState();
 
 };
