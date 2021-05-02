@@ -152,14 +152,23 @@ void GameView::setCounterText(sf::Text& myText, float yPos){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
-  inputManager.update(Event, dt);
+
+  PlayerActor player = this->logic.getPlayer();
+  MonsterActor monster = this->monsterView.getMonster();
+
+
+  float distance;
+  float distX = pow(monster.getPosition().x - player.getPosition().x, 2);
+  float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
+  distance = sqrt(distX + distY);
+
+  inputManager.update(Event, dt, distance);
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
   //update the level sprite
   levelSprite.setTexture(texture);
 
-  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   this->holyWaterCounter_text.setString(to_string(player.getInventory()->getHolyWaterCount()));
   this->noteCounter_text.setString(to_string(player.getInventory()->numNotesFound()));
@@ -173,7 +182,6 @@ void GameView::update(sf::Event& Event, float dt){
 
   monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
 
-  MonsterActor monster = this->monsterView.getMonster();
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
   if(inputManager.getPlayState() == 1){
@@ -328,7 +336,7 @@ void GameView::render(){
     nextRoomLastTime = holdLastTime;
 
 
-    /*
+/*
     sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
     monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
     this->App->draw(monsterRect);
