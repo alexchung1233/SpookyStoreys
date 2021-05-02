@@ -17,7 +17,6 @@ class GameView : public State
     LevelManager levelManager;
     GameLogic logic;
     Room room;
-    DialogueBox dialoguebox;
 
     Animation player_anim_down;
     Animation player_anim_up;

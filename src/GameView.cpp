@@ -46,7 +46,7 @@ void GameView::init(){
   levelSprite.setTexture(texture);
 
 
-  PlayerActor player = this->inputManager.logic->getPlayer();
+  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
   sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
@@ -69,7 +69,7 @@ void GameView::init(){
   setCounterText();
 
 
-  makeBox(sf::Vector2f(logic.dialoguebox.position.x, logic.dialoguebox.position.y), sf::Color::Black);
+  makeBox(sf::Vector2f(this->logic.getDialogueBox().position.x, this->logic.getDialogueBox().position.y), sf::Color::Black);
 
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
@@ -133,7 +133,7 @@ void GameView::update(sf::Event& Event, float dt){
   //update the level sprite
   levelSprite.setTexture(texture);
 
-  PlayerActor player = this->inputManager.logic->getPlayer();
+  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   this->counterText.setString(to_string(player.getHolyWaterCount()));
 
@@ -142,7 +142,7 @@ void GameView::update(sf::Event& Event, float dt){
 
 
   loadItemSprites();
-  this->setText(logic.dialoguebox.dialogue);
+  this->setText(logic.getDialogueBoxText());
 
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;

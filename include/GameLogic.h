@@ -14,11 +14,11 @@ class GameLogic{
     Room myRoom;
     ItemActor* currentNextToItem;
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
+    DialogueBox dialogueBox;
 
 
   public:
-    GameLogic() { showBox = false; };
-    bool showBox;
+    GameLogic() {};
 
     void setup();
 
@@ -26,15 +26,11 @@ class GameLogic{
     void createPlayer();
     void createDialogueBox();
 
-    int Etracker;
-
     LevelManager* levelManager;
 
 
     //reutrns player object
     PlayerActor getPlayer();
-    DialogueBox getDialogueBox();
-    DialogueBox dialoguebox;
 
 
     bool detectCollisionUp(float dt);
@@ -70,5 +66,24 @@ class GameLogic{
     bool dialogueBoxFinished();
 
     void postDialogueBoxUse();
+
+    void setDialogueBoxText(string text){
+      this->dialogueBox.setDialogue(text);
+    };
+
+    string getDialogueBoxText(){
+      return this->dialogueBox.getDialogue();
+    };
+
+    const DialogueBox getDialogueBox(){
+      return dialogueBox;
+    }
+
+    void incrementDialogueBoxTracker(){
+      dialogueBox.incrementTracker();
+    }
+
+
+
 
 };
