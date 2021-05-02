@@ -78,6 +78,7 @@ class GameLogic{
     void setDialogueBoxStatus(bool status);
 
     void updateAI(float dt);
+    bool playerAndMonsterInSameRoom();
 
     void setRoom(Room room);
 

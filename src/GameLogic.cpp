@@ -296,9 +296,15 @@ void GameLogic::postDialogueBoxUse(){
 void GameLogic::updateAI(float dt){
 	monsterAI.isPaused(isDialogueBoxUsed());
 
-	std::string playerLevel = myRoom.getRoomTitle();
-	monsterAI.calculateMove(player, dt, playerLevel, getHolyWaterUsed());
+	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
 
+}
+
+bool GameLogic::playerAndMonsterInSameRoom(){
+	std::string playerLevel = myRoom.getRoomTitle();
+	std::string monsterLevel = getMonsterView().getRoom().getRoomTitle();
+
+	return playerLevel == monsterLevel;
 }
 
 void GameLogic::setMovementState(MovementStates::movementStates state){
@@ -306,13 +312,10 @@ void GameLogic::setMovementState(MovementStates::movementStates state){
 }
 
 int GameLogic::getPlayState(){
-	std::string playerLevel = myRoom.getRoomTitle();
-	std::string monsterLevel = getMonsterView().getRoom().getRoomTitle();
-
 	if(player.getInventory()->hasFoundWeapon()){
 		return 1;
 	}
-	else if(playerLevel == monsterLevel){
+	else if(playerAndMonsterInSameRoom()){
 		float distX = pow(getMonsterActor().getPosition().x - player.getPosition().x, 2);
     	float distY = pow(getMonsterActor().getPosition().y - player.getPosition().y, 2);
 
