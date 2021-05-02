@@ -11,10 +11,16 @@ void GameLogic::setLevelManager(LevelManager &LM){
 void GameLogic::setup(){
 	createPlayer();
 	createDialogueBox();
+	
+	this->monsterView.setup();
 
 	officeUnlocked = false;
 	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
 	WTracker = 0;
+}
+
+MonsterView GameLogic::getMonsterView(){
+	return this->monsterView;
 }
 
 void GameLogic::createPlayer(){

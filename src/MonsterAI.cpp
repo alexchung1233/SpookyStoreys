@@ -98,8 +98,8 @@ void MonsterAI::calculateMoveOutRoom(float deltaMS) {
   }
 }
 
-void MonsterAI::setDoorLoc(float doorX, float doorY) {
+void MonsterAI::setDoorLoc(sf::Vector2f doorPos) {
   oneDoorCounter = 0;
-  doorLocX = doorX;
-  doorLocY = doorY;
+  doorLocX = doorPos.x;
+  doorLocY = doorPos.y;
 }

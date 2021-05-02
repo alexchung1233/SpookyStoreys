@@ -17,7 +17,7 @@ class MonsterAI
     void calculateMoveInRoom(float playerX, float playerY, float deltaMS);
     void calculateMoveOutRoom(float deltaMS);
 
-    void setDoorLoc(float doorX, float doorY);
+    void setDoorLoc(sf::Vector2f doorPos);
 
     float doorLocX;
     float doorLocY;

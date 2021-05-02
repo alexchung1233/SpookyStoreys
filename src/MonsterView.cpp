@@ -183,6 +183,9 @@ sf::Vector2f MonsterView::getRandomDoor(){
 	sf::Vector2f vec = sf::Vector2f(width, height);
 	//Sets a variable that indicats that the room has just been changed
 	justChangedRooms = true;
+
+	this->newDoorX = vec.x;
+	this->newDoorY = vec.y;
 	//Returns the center of the door
 	return(vec);
 }

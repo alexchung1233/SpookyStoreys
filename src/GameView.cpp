@@ -26,12 +26,8 @@ GameView::GameView(sf::RenderWindow& app){
 GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
   //TODO make this extend off a Process class.
   this->App = &app;
-  GameLogic myLogic;
-  this->logic = myLogic;
-  MonsterView newMonster;
-  this->monsterView = newMonster;
   inputManager(*App, logic);
-  monsterAI(monsterView);
+  monsterAI(logic.monsterView);
   this->status = State::UNINIT;
   this->audioManager = &audioManager;
 }
@@ -40,27 +36,20 @@ void GameView::init(){
   if (!font.loadFromFile("../data/courier.ttf")){
     std::cout << "incorrect font";
   }
-
   this->levelManager.init();
-
-  this->logic.setup();
-  this->logic.setLevelManager(levelManager);
-
 
   this->monsterLevelManager.init();
   this->monsterLevelManager.setRoom("BASEMENT");
 
-  this->monsterView.setup();
-  this->monsterView.setLevelManager(monsterLevelManager);
+  this->logic.setup();
+  this->logic.setLevelManager(levelManager);
+
+  this->logic.monsterView.setLevelManager(monsterLevelManager);
 
   inputManager(*App, logic);
-  monsterAI(monsterView);
-
-  sf::Vector2f newDoor = this->monsterView.getRandomDoor();
-  monsterAI.setDoorLoc(newDoor.x, newDoor.y);
-
-  monsterView.newDoorX = newDoor.x;
-  monsterView.newDoorY = newDoor.y;
+  
+  monsterAI(logic.monsterView);
+  monsterAI.setDoorLoc(this->logic.monsterView.getRandomDoor());
 
   //get current level texture
   texture = this->levelManager.getLevelTexture();
@@ -79,10 +68,9 @@ void GameView::init(){
   }
 
   loadItemTextures();
-
   setUpInventoyDisplay();
 
-  makeBox(sf::Vector2f(logic.dialoguebox.position.x, logic.dialoguebox.position.y), sf::Color::Black);
+  makeBox(sf::Vector2f(logic.getDialogueBox().position.x, logic.getDialogueBox().position.y), sf::Color::Black);
 
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
@@ -94,9 +82,8 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  //MonsterAI monsterAI;
-  MonsterActor monster = this->monsterView.getMonster();
-  //monsterAI.setPosition(monster.getPosition().x, monster.getPosition().y);
+  MonsterActor monster = this->logic.monsterView.getMonster();
+
   sprite_monster.setTexture(texture_monster);
   sprite_monster.setPosition(monster.getPosition().x - 200, monster.getPosition().y - 70);
   sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
@@ -154,7 +141,7 @@ void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
 
   PlayerActor player = this->logic.getPlayer();
-  MonsterActor monster = this->monsterView.getMonster();
+  MonsterActor monster = this->logic.monsterView.getMonster();
   
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
@@ -208,7 +195,7 @@ void GameView::update(sf::Event& Event, float dt){
   }
 
   loadItemSprites();
-  this->setText(logic.dialoguebox.dialogue);
+  this->setText(logic.getDialogueBox().dialogue);
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // sf::IntRect checkMe = levelManager.getCurrentRoom().getBoundaries();
@@ -238,7 +225,6 @@ void GameView::update(sf::Event& Event, float dt){
 void GameView::updatePlayerAnimation(float dt){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
-
     case MovementStates::MOVING_LEFT:
       this->player_anim_left.play(gameClock);
       break;
@@ -246,7 +232,6 @@ void GameView::updatePlayerAnimation(float dt){
     case MovementStates::MOVING_RIGHT:
       this->player_anim_right.play(gameClock);
       break;
-
 
     case MovementStates::MOVING_UP:
       this->player_anim_up.play(gameClock);
@@ -256,8 +241,11 @@ void GameView::updatePlayerAnimation(float dt){
       this->player_anim_down.play(gameClock);
       break;
 
-      }
-    this->logic.setMovementState(MovementStates::IDLE);
+    default:
+      //do nothing
+     break;
+  }
+  this->logic.setMovementState(MovementStates::IDLE);
 }
 
 //load the itemsprites from the current room
@@ -339,13 +327,13 @@ void GameView::render(){
 
 
 
-    sf::RectangleShape monsterRect = sf::RectangleShape(monsterView.getMonster().getSize());
-    monsterRect.setPosition(monsterView.getMonster().getPosition().x, monsterView.getMonster().getPosition().y);
+    sf::RectangleShape monsterRect = sf::RectangleShape(logic.monsterView.getMonster().getSize());
+    monsterRect.setPosition(logic.monsterView.getMonster().getPosition().x, logic.monsterView.getMonster().getPosition().y);
     this->App->draw(monsterRect);
 
 
     sf::CircleShape doorCenter = sf::CircleShape(1);
-    doorCenter.setPosition(monsterView.newDoorX, monsterView.newDoorY);
+    doorCenter.setPosition(logic.monsterView.newDoorX, logic.monsterView.newDoorY);
     this->App->draw(doorCenter);
     
     this->App->draw(sprite_inventoryDisplay);

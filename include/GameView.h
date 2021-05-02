@@ -15,13 +15,12 @@ class GameView : public State
   private:
     InputManager inputManager;
     LevelManager levelManager;
+    GameLogic logic;
+
     MonsterAI monsterAI;
     LevelManager monsterLevelManager;
 
-    GameLogic logic;
-    MonsterView monsterView;
     Room room;
-    DialogueBox dialoguebox;
 
     Animation player_anim_down;
     Animation player_anim_up;
