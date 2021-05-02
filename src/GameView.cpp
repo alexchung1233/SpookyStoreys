@@ -81,22 +81,22 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  std::string str;
-  ifstream infile;
-  infile.open ("../data/itemImageFiles.txt");
-  while(!infile.eof())
-  {
-    std::getline(infile, str);
-    std::string filepath = "../data/" + str + ".png";
+  // std::string str;
+  // ifstream infile;
+  // infile.open ("../data/itemImageFiles.txt");
+  // while(!infile.eof())
+  // {
+  //   std::getline(infile, str);
+  //   std::string filepath = "../data/" + str + ".png";
 
-    itemTextures[str] = new sf::Texture;
+  //   itemTextures[str] = new sf::Texture;
 
-    if(!itemTextures[str]->loadFromFile(filepath)) {
-      printf("incorrect file format");
-    }
+  //   if(!itemTextures[str]->loadFromFile(filepath)) {
+  //     printf("incorrect file format");
+  //   }
 
-  }
-  infile.close();
+  // }
+  // infile.close();
 
 
   string inventoryDisplay_file = "../data/inventory_display.png";
@@ -146,7 +146,7 @@ void GameView::setCounterText(sf::Text& myText, float yPos){
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
-  itemSprites.clear();
+  //itemSprites.clear();
   inputManager.update(Event, dt);
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
@@ -194,7 +194,7 @@ void GameView::update(sf::Event& Event, float dt){
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
-  loadItemSprites();
+  //loadItemSprites();
   this->setText(logic.dialoguebox.dialogue);
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
@@ -273,10 +273,10 @@ void GameView::render(){
     this->App->draw(levelSprite);
     Room tempRoom = levelManager.getCurrentRoom();
 
-    for (int i = 0; i < itemSprites.size(); i++){
-      sf::Sprite* drawMe = itemSprites.at(i);
-      this->App->draw(*drawMe);
-    }
+    // for (int i = 0; i < itemSprites.size(); i++){
+    //   sf::Sprite* drawMe = itemSprites.at(i);
+    //   this->App->draw(*drawMe);
+    // }
 
 
     this->App->draw(sprite_player);
