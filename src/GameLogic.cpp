@@ -11,7 +11,7 @@ void GameLogic::setLevelManager(LevelManager &LM){
 void GameLogic::setup(){
 	createPlayer();
 	createDialogueBox();
-	
+
 	this->monsterView.setup();
 
 	officeUnlocked = false;
@@ -21,6 +21,10 @@ void GameLogic::setup(){
 
 MonsterView GameLogic::getMonsterView(){
 	return this->monsterView;
+}
+
+MonsterActor GameLogic::getMonsterActor(){
+	return this->monsterView.getMonster();
 }
 
 void GameLogic::createPlayer(){

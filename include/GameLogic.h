@@ -34,6 +34,7 @@ class GameLogic{
 
 
     MonsterView getMonsterView();
+    MonsterActor getMonsterActor();
 
     void setup();
 

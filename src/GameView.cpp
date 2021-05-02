@@ -56,7 +56,6 @@ void GameView::init(){
 
   levelSprite.setTexture(texture);
 
-
   PlayerActor player = this->inputManager.logic->getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
@@ -82,7 +81,7 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  MonsterActor monster = this->logic.monsterView.getMonster();
+  MonsterActor monster = this->logic.getMonsterActor();
 
   sprite_monster.setTexture(texture_monster);
   sprite_monster.setPosition(monster.getPosition().x - 200, monster.getPosition().y - 70);
@@ -141,7 +140,7 @@ void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
 
   PlayerActor player = this->logic.getPlayer();
-  MonsterActor monster = this->logic.monsterView.getMonster();
+  MonsterActor monster = this->logic.getMonsterActor();
   
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 

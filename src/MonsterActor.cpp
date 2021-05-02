@@ -85,13 +85,16 @@ MovementStates::movementStates MonsterActor::getMovementState(){
     if(direction.x == -1){
       return MovementStates::MOVING_LEFT;
     }
-    if(direction.x == 1){
+    else if(direction.x == 1){
       return MovementStates::MOVING_RIGHT;
     }
-    if(direction.y == 1){
+    else if(direction.y == 1){
       return MovementStates::MOVING_UP;
     }
-    if(direction.y == -1){
+    else if(direction.y == -1){
       return MovementStates::MOVING_DOWN;
+    }
+    else{
+      return MovementStates::IDLE;
     }
 }

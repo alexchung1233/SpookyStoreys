@@ -78,13 +78,16 @@ MovementStates::direcStates PlayerActor::getDirectionState(){
   if(direction.x == -1){
     return MovementStates::LEFT;
   }
-  if(direction.x == 1){
+  else if(direction.x == 1){
     return MovementStates::RIGHT;
   }
-  if(direction.y == 1){
+  else if(direction.y == 1){
     return MovementStates::UP;
   }
-  if(direction.y == -1){
+  else if(direction.y == -1){
+    return MovementStates::DOWN;
+  }
+  else {
     return MovementStates::DOWN;
   }
 }
