@@ -111,3 +111,16 @@ sf::Vector2f PlayerActor::getSize(){
 Inventory* PlayerActor::getInventory(){
   return myInventory;
 }
+
+bool PlayerActor::useHolyWater(){
+  if(myInventory->getHolyWaterCount() < 1){
+    std::cout << "You don't have any holy water to use!" << std::endl;
+    return false;
+  }
+  else{
+    std::cout << "You used the holy water!" << std::endl;
+    myInventory->downHolyWaterCount();
+    return true;
+  }
+}
+

@@ -30,16 +30,13 @@ public:
   void setSize(sf::Vector2f size);
   void setSize(float x, float y);
 
-  void upHolyWaterCount();
-  void downHolyWaterCount();
-  int getHolyWaterCount();
+  bool useHolyWater();
 
   Inventory* getInventory();
 
 
 private:
   Inventory* myInventory;
-  int holyWaterCount;
 
 };
 

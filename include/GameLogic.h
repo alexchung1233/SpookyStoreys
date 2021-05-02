@@ -14,6 +14,9 @@ class GameLogic{
     Room myRoom;
 
     bool officeUnlocked;
+    
+    int WTracker;
+    bool holyWaterUsed;
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
@@ -59,6 +62,9 @@ class GameLogic{
 
     //Function for when the Right key is pressed
     void rightPressed(float dt);
+
+    //Function for when W is pressed for holy water
+    void WPressed();
 
     void update(float dt);
 

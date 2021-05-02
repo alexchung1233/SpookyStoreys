@@ -12,6 +12,7 @@ void GameLogic::setup(){
 	createPlayer();
 	officeUnlocked = false;
 	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
+	WTracker = 0;
 }
 
 void GameLogic::createPlayer(){
@@ -80,6 +81,14 @@ void GameLogic::rightPressed(float dt){
 	if (Etracker%4 == 0){
 		if(!detectCollisionRight(dt))
 			player.moveRight(dt);
+	}
+}
+
+void GameLogic::WPressed(){
+	WTracker++;
+	if (WTracker%2 == 0){
+		holyWaterUsed = player.useHolyWater();
+		WTracker = 0;
 	}
 }
 

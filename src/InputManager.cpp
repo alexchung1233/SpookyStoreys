@@ -58,6 +58,9 @@ void InputManager::update(sf::Event& Event, float dt){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
       logic->EPressed();
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+      logic->WPressed();
+    }
   }
 
 }
