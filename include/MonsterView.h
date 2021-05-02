@@ -56,6 +56,4 @@ class MonsterView{
 
     bool justChangedRooms;
 
-
-
 };

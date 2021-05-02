@@ -25,6 +25,7 @@ class GameLogic{
     bool monsterAndPlayerInSameRoom();
 
     MonsterView monsterView;
+    MonsterAI monsterAI;
 
     LevelManager* levelManager;
 
@@ -32,8 +33,6 @@ class GameLogic{
     GameLogic() { showBox = false; };
     
     bool showBox;
-
-    MonsterAI monsterAI;
 
     MonsterView& getMonsterView();
     MonsterActor getMonsterActor();

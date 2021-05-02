@@ -17,6 +17,7 @@ void GameManager::initVariables(){
 
   //initial starting state
   this->stateQueue.push(new Menu(*window, *audioManagerPTR));
+  initStates();
 
 }
 /**
@@ -26,7 +27,6 @@ void GameManager::runGame()
 {
 	while (this->window->isOpen())
 	{
-    this->initStates();
     this->updateDt();
     this->update();
     this->render();

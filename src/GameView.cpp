@@ -139,31 +139,6 @@ void GameView::update(sf::Event& Event, float dt){
   inputManager.update(Event, dt);
   logic.updateAI(dt);
 
-  bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
-
-  float distance;
-  float distX;
-  float distY;
-  // if(inSameRoom){
-  //   distX = pow(monster.getPosition().x - player.getPosition().x, 2);
-  //   distY = pow(monster.getPosition().y - player.getPosition().y, 2);
-  //   distance = sqrt(distX + distY);
-  // }
-  // else
-  //   distance = 1000;
-
-  if (inSameRoom) {
-    distX = pow(monster.getPosition().x - player.getPosition().x, 2);
-    distY = pow(monster.getPosition().y - player.getPosition().y, 2);
-
-    if (sqrt(distX + distY) < 70){
-      this->status = State::SUCCESS;
-      audioManager->stopNextRoom();
-      audioManager->stopInRoom();
-      childState = new GameOver(*App, "You Lose...", *audioManager);
-    }
-  }
-
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
@@ -323,14 +298,14 @@ void GameView::render(){
 
     nextRoomLastTime = holdLastTime;
 
-    sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
-    monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
-    this->App->draw(monsterRect);
+    // sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
+    // monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
+    // this->App->draw(monsterRect);
 
 
-    sf::CircleShape doorCenter = sf::CircleShape(1);
-    doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
-    this->App->draw(doorCenter);
+    // sf::CircleShape doorCenter = sf::CircleShape(1);
+    // doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
+    // this->App->draw(doorCenter);
     
     this->App->draw(sprite_inventoryDisplay);
     this->App->draw(holyWaterCounter_text);
