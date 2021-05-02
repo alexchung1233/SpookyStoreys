@@ -136,7 +136,6 @@ void Room::setUpRoom(std::string roomName){
     	printf("incorrect file format");
   	}
 
-
 }
 
 sf::IntRect Room::getBoundaries(){

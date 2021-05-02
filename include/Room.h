@@ -34,7 +34,7 @@ class Room
         std::vector<ItemActor*> getItems();
 
     private:
-      std::string roomTitle;
+    	std::string roomTitle;
     	sf::Texture levelTexture;
 
         sf::IntRect myBoundaries;

@@ -137,23 +137,20 @@ void GameView::update(sf::Event& Event, float dt){
   MonsterActor monster = this->logic.getMonsterActor();
   
   inputManager.update(Event, dt);
+  logic.updateAI(dt);
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
-
-  logic.monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
-
-  logic.updateAI(dt, inSameRoom);
 
   float distance;
   float distX;
   float distY;
-  if(inSameRoom){
-    distX = pow(monster.getPosition().x - player.getPosition().x, 2);
-    distY = pow(monster.getPosition().y - player.getPosition().y, 2);
-    distance = sqrt(distX + distY);
-  }
-  else
-    distance = 1000;
+  // if(inSameRoom){
+  //   distX = pow(monster.getPosition().x - player.getPosition().x, 2);
+  //   distY = pow(monster.getPosition().y - player.getPosition().y, 2);
+  //   distance = sqrt(distX + distY);
+  // }
+  // else
+  //   distance = 1000;
 
   if (inSameRoom) {
     distX = pow(monster.getPosition().x - player.getPosition().x, 2);
@@ -182,12 +179,16 @@ void GameView::update(sf::Event& Event, float dt){
 
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
-  if(inputManager.getPlayState() == 1){
+  if(logic.getPlayState() == 1 || inputManager.getPlayState() == 1 ){
     this->status = State::SUCCESS;
+    audioManager->stopNextRoom();
+    audioManager->stopInRoom();
     childState = new GameOver(*App, "You Win!", *audioManager);
   }
-  else if(inputManager.getPlayState() == 2){
+  else if(logic.getPlayState() == 2 || inputManager.getPlayState() == 2 ){
     this->status = State::SUCCESS;
+    audioManager->stopNextRoom();
+    audioManager->stopInRoom();
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 

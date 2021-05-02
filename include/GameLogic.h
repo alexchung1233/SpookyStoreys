@@ -22,6 +22,7 @@ class GameLogic{
     ItemActor* currentNextToItem;
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
+    bool monsterAndPlayerInSameRoom();
 
     MonsterView monsterView;
 
@@ -77,7 +78,7 @@ class GameLogic{
     bool isDialogueBoxUsed();
     void setDialogueBoxStatus(bool status);
 
-    void updateAI(float dt, bool inSameRoom);
+    void updateAI(float dt);
 
     void setRoom(Room room);
 
