@@ -1,6 +1,7 @@
 #ifndef MONSTER_AI_H // include guard
 #define MONSTER_AI_H
 #include "MonsterView.h"
+#include "PlayerActor.h"
 //#include <iostream>
 
 class MonsterAI
@@ -12,7 +13,7 @@ class MonsterAI
 
     MonsterAI(MonsterView &newMonsterView);
     void operator()(MonsterView &newMonsterView);
-    void calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom, bool holyWaterUsed);
+    void calculateMove(PlayerActor &player, float deltaMS, std::string playerLevel, bool inSameRoom, bool holyWaterUsed);
     void calculateMoveInRoom(float playerX, float playerY, float deltaMS);
     void calculateMoveOutRoom(float deltaMS);
 

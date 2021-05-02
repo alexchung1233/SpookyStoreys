@@ -15,7 +15,7 @@ void MonsterAI::isPaused(bool pause) {
   isPause = pause;
 }
 
-void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom, bool holyWaterUsed) {
+void MonsterAI::calculateMove(PlayerActor &player, float deltaMS, std::string playerLevel, bool inSameRoom, bool holyWaterUsed) {
   if (isPause) {
     return;
   }
@@ -31,7 +31,7 @@ void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::
   }
   //If the monster and player are in the same room
   if (inSameRoom) {
-    calculateMoveInRoom(playerX, playerY, deltaMS);
+    calculateMoveInRoom(player.getPosition().x, player.getPosition().y, deltaMS);
   }
   //If the monster and player are NOT in the same room
   else {

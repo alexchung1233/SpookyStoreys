@@ -171,7 +171,7 @@ void GameView::update(sf::Event& Event, float dt){
 
   monsterAI.isPaused(logic.isDialogueBoxUsed());
 
-  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
+  monsterAI.calculateMove(player, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
 
   MonsterActor monster = this->monsterView.getMonster();
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);

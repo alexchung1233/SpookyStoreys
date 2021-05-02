@@ -14,7 +14,6 @@ class MonsterView{
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
-
   public:
     MonsterView() { };
 
