@@ -9,8 +9,13 @@
 #include <vector>
 #include <sstream>
 #include "Door.h"
-
-
+#include "HolyWater.h"
+#include "Note.h"
+#include "Bookcase.h"
+#include "Safe.h"
+#include "Bathtub.h"
+#include "Painting.h"
+#include "Firepoker.h"
 
 class Room
 {
@@ -26,7 +31,7 @@ class Room
         sf::Texture getTexture();
         std::vector<Door> getDoors();
         std::string getRoomTitle();
-
+        std::vector<ItemActor*> getItems();
 
     private:
       std::string roomTitle;
@@ -35,6 +40,7 @@ class Room
         sf::IntRect myBoundaries;
         std::vector<sf::IntRect> myObstacles;
         std::vector<Door> myDoors;
+        std::vector<ItemActor*> myItems;
 
 
 

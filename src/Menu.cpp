@@ -21,16 +21,16 @@ Menu::Menu(sf::RenderWindow& app){
 
 
 void Menu::init(){
-  makeBox(startBox, sf::Vector2f(400, 290), sf::Color::White);
-  makeBox(difficultyBox, sf::Vector2f(400, 390), sf::Color::Black);
-  makeBox(exitBox, sf::Vector2f(400, 490), sf::Color::Black);
+  makeBox(startBox, sf::Vector2f(450, 290), sf::Color::White);
+  makeBox(difficultyBox, sf::Vector2f(450, 390), sf::Color::Black);
+  makeBox(exitBox, sf::Vector2f(450, 490), sf::Color::Black);
 
   loadFont(titleFont);
   titleText.setFont(titleFont);
   titleText.setString("Spookey\nStoreys");
   titleText.setCharacterSize(80);
   titleText.setFillColor(sf::Color(200, 0, 0));
-  titleText.setPosition(sf::Vector2f(400 - titleText.getGlobalBounds().width/2, 60));
+  titleText.setPosition(sf::Vector2f(450 - titleText.getGlobalBounds().width/2, 60));
 
   loadFont(selectableFont);
   startText.setFont(selectableFont);
@@ -118,7 +118,7 @@ void Menu::colorSelected(sf::RectangleShape& box, sf::Text& text, bool selected)
 
 void Menu::makeBox(sf::RectangleShape& box, sf::Vector2f position, sf::Color color){
   box.setFillColor(color);
-  box.setSize(sf::Vector2f(790, 100));
+  box.setSize(sf::Vector2f(890, 100));
   box.setOutlineColor(sf::Color::White);
   box.setOutlineThickness(5);
 

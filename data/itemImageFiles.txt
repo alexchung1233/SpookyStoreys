@@ -1,0 +1,10 @@
+holy_water
+note
+bookcase
+safe
+bathtub
+painting_1
+painting_2
+painting_3
+painting_4
+firepoker

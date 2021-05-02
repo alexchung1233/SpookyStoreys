@@ -3,12 +3,14 @@
 
 
 PlayerActor::PlayerActor(){
+  this->myInventory = new Inventory();
 }
 
 void PlayerActor::init(){
   position = Position(400.f, 300.f);
   characterVelocity = sf::Vector2f(2000.f,2000.f);
   mySize = sf::Vector2f(48.f, 105.6f);
+  this->myInventory->init();
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
@@ -105,3 +107,20 @@ void PlayerActor::setSize(float x, float y){
 sf::Vector2f PlayerActor::getSize(){
   return mySize;
 }
+
+Inventory* PlayerActor::getInventory(){
+  return myInventory;
+}
+
+bool PlayerActor::useHolyWater(){
+  if(myInventory->getHolyWaterCount() < 1){
+    std::cout << "You don't have any holy water to use!" << std::endl;
+    return false;
+  }
+  else{
+    std::cout << "You used the holy water!" << std::endl;
+    myInventory->downHolyWaterCount();
+    return true;
+  }
+}
+

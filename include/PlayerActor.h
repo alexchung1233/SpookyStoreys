@@ -2,6 +2,7 @@
 #define PLAYER_ACTOR_H
 
 #include "CharacterActor.h"
+#include "Inventory.h"
 
 class PlayerActor : public CharacterActor {
 public:
@@ -18,14 +19,24 @@ public:
   void moveDown(float deltaMS);
   void moveLeft(float deltaMS);
   void moveRight(float deltaMS);
+
   MovementStates::movementStates getMovementState();
   MovementStates::direcStates getDirectionState();
   void setMovementState(MovementStates::movementStates state){
     this->moveState = state;
   }
+
   sf::Vector2f getSize();
   void setSize(sf::Vector2f size);
   void setSize(float x, float y);
+
+  bool useHolyWater();
+
+  Inventory* getInventory();
+
+
+private:
+  Inventory* myInventory;
 
 };
 
