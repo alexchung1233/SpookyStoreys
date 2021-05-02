@@ -9,7 +9,6 @@ void Bookcase::init(){
   canBeDestroyed = true;
   mySize.x = 204;
   mySize.y = 215;
-
 }
 Position Bookcase::getPosition(){
   return position;

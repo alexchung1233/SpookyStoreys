@@ -12,7 +12,7 @@ using namespace std;
 GameView::GameView(){
   //TODO make this extend off a Process class.
   this->status = State::UNINIT;
-  
+
 }
 
 //constructor takes in App
@@ -73,6 +73,7 @@ void GameView::init(){
     if(!itemTextures[str]->loadFromFile(filepath)) {
       printf("incorrect file format");
     }
+
   }
   infile.close(); 
 
@@ -89,8 +90,8 @@ void GameView::init(){
   setCounterText(noteCounter_text, 265);
   setCounterText(keyCounter_text, 365);
 
-  //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
+  makeBox(sf::Vector2f(logic.dialoguebox.position.x, logic.dialoguebox.position.y), sf::Color::Black);
 
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
@@ -125,7 +126,6 @@ void GameView::setCounterText(sf::Text& myText, float yPos){
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
   inputManager.update(Event, dt);
-
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
@@ -142,26 +142,9 @@ void GameView::update(sf::Event& Event, float dt){
   updatePlayerAnimation(dt);
   //this->logic.update(dt);
 
-/*
 
-All monster AI stuff
-
-  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt);
-  sprite_monster.setPosition(monsterAI.positionX, monsterAI.positionY);
-
-
-  float distX = pow(monsterAI.positionX - player.getPosition().x-125, 2);
-  float distY = pow(monsterAI.positionY - player.getPosition().y+20, 2);
-
-
-  if (sqrt(distX + distY) < 70){
-    this->status = State::SUCCESS;
-    childState = new GameOver(*App, "You Lose...", sound);
-  }
-  */
-
-  loadItemsandDialogueBox();
-
+  loadItemSprites();
+  this->setText(logic.dialoguebox.dialogue);
 
   if(inputManager.getPlayState() == 1){
     this->status = State::SUCCESS;
@@ -192,7 +175,6 @@ All monster AI stuff
   //   this->App->draw(rectangle2);
   // }
 
-  isDialogue();
 
 }
 
@@ -223,29 +205,23 @@ void GameView::updatePlayerAnimation(float dt){
     this->logic.setMovementState(MovementStates::IDLE);
 }
 
-void GameView::loadItemsandDialogueBox(){
-  //work on streamlining this
+//load the itemsprites from the current room
+void GameView::loadItemSprites(){
   Room tempRoom = levelManager.getCurrentRoom();
-
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
 
     ItemActor* item = tempRoom.getItems().at(i);
+    if(item->getActiveStatus()){
+      itemSprites.push_back(new sf::Sprite);
 
-    itemSprites.push_back(new sf::Sprite);
-
-    texture_item = itemTextures[item->getItemName()];
-    itemSprites.back()->setTexture(*texture_item);
-    itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
-
-    inputManager.logic->setUpDialogueBox(item, dialoguebox, i);
+      texture_item = itemTextures[item->getItemName()];
+      itemSprites.back()->setTexture(*texture_item);
+      itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
+    }
     
   }
-
-  if(!dialoguebox.getUsingState()){
-    inputManager.logic->Etracker = 0; //reset Etracker
-  }
-
 }
+
 
 void GameView::setLogic(GameView& logic){}
 
@@ -253,12 +229,15 @@ void GameView::setLogic(GameView& logic){}
 void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
-    
+
     Room tempRoom = levelManager.getCurrentRoom();
-    for (int i = 0; i < tempRoom.getItems().size(); i++){
+
+    for (int i = 0; i < itemSprites.size(); i++){
       sf::Sprite* drawMe = itemSprites.at(i);
       this->App->draw(*drawMe);
     }
+
+
 
     this->App->draw(sprite_player);
     this->App->draw(sprite_monster);
@@ -266,25 +245,47 @@ void GameView::render(){
     this->App->draw(holyWaterCounter_text);
     this->App->draw(noteCounter_text);
     this->App->draw(keyCounter_text);
-    // this->App->draw(dialoguebox.dialogueBox);
-    // this->App->draw(dialoguebox.message);
+
+    isDialogue();
 
 }
 
 
 void GameView::isDialogue(){
-  if (dialoguebox.tracker <= dialoguebox.getDialogueLimit() && dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
-    this->App->draw(dialoguebox.dialogueBox);
-    this->App->draw(dialoguebox.message);
-  }else if (dialoguebox.tracker == 0 && this->inputManager.logic->Etracker != 0){ //for the first interaction with an item of any kind
-    this->App->draw(dialoguebox.dialogueBox);
-    this->App->draw(dialoguebox.message);
-  }else{
-    //cout << "N0";
+  if (logic.isDialogueBoxUsed()){ //toggle the dialogue box, if the  player has some sort of interaction
+    this->App->draw(dialogueBox);
+    this->App->draw(message);
   }
-
 }
 
+//creat the box and position of box
+void GameView::makeBox(sf::Vector2f position, sf::Color color){
+    this->dialogueBox.setFillColor(color);
+    this->dialogueBox.setSize(sf::Vector2f(790, 40));
+    this->dialogueBox.setOutlineColor(sf::Color::White);
+    this->dialogueBox.setOutlineThickness(2);
+
+    sf::Vector2f myPos = sf::Vector2f(position.x - this->dialogueBox.getSize().x/2, 550);
+
+    dialogueBox.setPosition(myPos);
+}
+
+//set the text for the dialoguebox
+void GameView::setText(std::string words){
+  this->message.setString(words);
+  this->message.setCharacterSize(15);
+  this->message.setFillColor(sf::Color::Red);
+  this->message.setFont(font);
+
+  sf::FloatRect boxBounds = this->dialogueBox.getGlobalBounds();
+  sf::FloatRect textBounds = this->message.getLocalBounds();
+
+  sf::Vector2f myPos = sf::Vector2f(boxBounds.left + boxBounds.width/2 - textBounds.width/2,
+    boxBounds.top + boxBounds.height/2.7 - textBounds.height/2);
+
+  this->message.setPosition(myPos);
+
+}
 
 void GameView::pause(){}
 

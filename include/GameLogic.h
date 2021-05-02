@@ -2,7 +2,7 @@
 #include <iostream>
 #include "PlayerActor.h"
 #include "Room.h"
-#include "HolyWater.h"
+#include "ItemActor.h"
 #include "DialogueBox.h"
 #include "LevelManager.h"
 #include "MovementStates.h"
@@ -18,6 +18,8 @@ class GameLogic{
     int WTracker;
     bool holyWaterUsed;
 
+    ItemActor* currentNextToItem;
+
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
 
@@ -29,6 +31,7 @@ class GameLogic{
 
     //creates player object
     void createPlayer();
+    void createDialogueBox();
 
     int Etracker;
 
@@ -37,19 +40,23 @@ class GameLogic{
 
     //reutrns player object
     PlayerActor getPlayer();
-    
+    DialogueBox getDialogueBox();
+    DialogueBox dialoguebox;
+
 
     bool detectCollisionUp(float dt);
     bool detectCollisionDown(float dt);
     bool detectCollisionLeft(float dt);
     bool detectCollisionRight(float dt);
 
+    bool isDialogueBoxUsed();
+    bool isPlayerByItem();
+
     void setLevelManager(LevelManager &LM);
 
     void setMovementState(MovementStates::movementStates state);
 
-    void EPressed();
-    void setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i);
+    void setDialogueBoxStatus(bool status);
 
     //Function for when the Up key is pressed
     void upPressed(float dt);
@@ -71,5 +78,9 @@ class GameLogic{
     void setRoom(Room room);
 
     int getPlayState();
+
+    bool dialogueBoxFinished();
+
+    void postDialogueBoxUse();
 
 };

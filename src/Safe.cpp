@@ -9,8 +9,8 @@ void Safe::init(){
   canBeDestroyed = false;
   mySize.x = 48;
   mySize.y = 31;
-
 }
+
 Position Safe::getPosition(){
   return position;
 }

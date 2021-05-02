@@ -5,9 +5,10 @@ HolyWater::HolyWater(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
 }
 void HolyWater::init(){
+    this->itemName = "holy_water";
     this->health = 3;
     this->myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
-    this->position;
+    //this->position;
     this->pickedup = false;
 
     this->itemName = "holy_water";

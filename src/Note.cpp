@@ -7,6 +7,7 @@ Note::Note(vector<string> inputVector){
 }
 void Note::init(){
     this->itemName = "note";
+
     mySize.x = 47;
     mySize.y = 50;
 

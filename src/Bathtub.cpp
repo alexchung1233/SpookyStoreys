@@ -10,6 +10,7 @@ void Bathtub::init(){
   mySize.x = 300;
   mySize.y = 263;
 
+
 }
 Position Bathtub::getPosition(){
   return position;

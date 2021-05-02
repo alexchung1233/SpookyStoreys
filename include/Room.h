@@ -31,7 +31,6 @@ class Room
         sf::Texture getTexture();
         std::vector<Door> getDoors();
         std::vector<ItemActor*> getItems();
-        void destroyItem(float idx);
 
     private:
     	sf::Texture levelTexture;

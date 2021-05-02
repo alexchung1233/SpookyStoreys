@@ -46,6 +46,10 @@ class GameView : public State
     sf::Clock gameClock;
     sf::Texture player_sprite_sheet;
     sf::Texture texture_player;
+    sf::Texture texture_water;
+    sf::RectangleShape dialogueBox;
+    sf::Text message;
+
 
     sf::Texture* texture_item;
     std::map<const std::string, sf::Texture*> itemTextures;
@@ -53,9 +57,8 @@ class GameView : public State
     sf::Texture texture_monster;
     MonsterAI monsterAI;
 
-
     void updatePlayerAnimation(float dt);
-    void loadItemsandDialogueBox();
+    void loadItemSprites();
 
 
   public:
@@ -73,6 +76,11 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
+    void makeBox(sf::Vector2f position, sf::Color color);
+    void setText(std::string words);
+
+    std::map<const std::string, sf::Texture*> itemTextureMapping;
+
 
   };
 

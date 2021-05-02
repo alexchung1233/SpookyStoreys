@@ -56,7 +56,17 @@ void InputManager::update(sf::Event& Event, float dt){
       playState = 2;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
-      logic->EPressed();
+      if(!logic->isDialogueBoxUsed() && logic->isPlayerByItem()){
+        logic->setDialogueBoxStatus(true);
+        logic->dialoguebox.tracker++;
+      }
+      //if the dialogue box is currently opened
+      else if(logic->isDialogueBoxUsed()){
+        logic->dialoguebox.tracker++;
+
+      }
+      // if dialogue is not opened but player next to item
+
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
       logic->WPressed();

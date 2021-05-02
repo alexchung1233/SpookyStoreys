@@ -24,8 +24,6 @@ public:
 	Room getCurrentRoom();
 	void getRoomNames(std::string roomNamesFilepath);
 
-	void itemToDestroy(float idx);
-	void destroyItem();
 
 	const sf::Texture getLevelTexture();
 
