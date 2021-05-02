@@ -69,7 +69,7 @@ void InputManager::update(sf::Event& Event, float dt, float distance){
 
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-      if (distance < 150) {
+      if (distance < 400) {
         logic->WPressed();
       }
     }
