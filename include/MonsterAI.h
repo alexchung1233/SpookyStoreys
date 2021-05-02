@@ -22,6 +22,10 @@ class MonsterAI
     float doorLocY;
 
     float oneDoorCounter = 0;
+
+    bool isPause;
+
+    void isPaused(bool pause);
 };
 
 #endif /* MY_CLASS_H */

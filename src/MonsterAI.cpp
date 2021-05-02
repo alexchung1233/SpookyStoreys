@@ -11,7 +11,15 @@ void MonsterAI::operator()(MonsterView &newMonsterView) {
   this->monsterView = &newMonsterView;
 }
 
+void MonsterAI::isPaused(bool pause) {
+  isPause = pause;
+}
+
 void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom, bool holyWaterUsed) {
+  if (isPause) {
+    return;
+  }
+
   if(holyWaterUsed){
     monsterView->sendToBasement();
   }
