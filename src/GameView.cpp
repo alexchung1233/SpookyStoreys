@@ -154,6 +154,9 @@ void GameView::update(sf::Event& Event, float dt){
 
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
+  loadItemSprites();
+  this->setText(logic.getDialogueBox().dialogue);
+  
   if(logic.getPlayState() == 1 || inputManager.getPlayState() == 1 ){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();
@@ -166,9 +169,6 @@ void GameView::update(sf::Event& Event, float dt){
     audioManager->stopInRoom();
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
-
-  loadItemSprites();
-  this->setText(logic.getDialogueBox().dialogue);
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // sf::IntRect checkMe = levelManager.getCurrentRoom().getBoundaries();
