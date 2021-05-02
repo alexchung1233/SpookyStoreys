@@ -24,32 +24,13 @@ PlayerActor GameLogic::getPlayer(){
 }
 
 void GameLogic::createDialogueBox(){
-	int sampleLimit = 2;
+	int sampleLimit = 1;
 	dialoguebox = DialogueBox(sampleLimit);
 	dialoguebox.init();
 }
 
 DialogueBox GameLogic::getDialogueBox(){
 	return dialoguebox;
-}
-
-void GameLogic::EPressed(){
-	dialoguebox.setUsingState(true);
-}
-
-void GameLogic::setUpDialogueBox(ItemActor* myItem, DialogueBox& myBox, float i){
-	if(isDialogueBoxUsed()){
-    if(myItem->destroyable())
-    	levelManager->itemToDestroy(i);
-    }
-    //checks to see if the dialogue box is currently in use and, if it is,
-    //then it destroys the item that was interacted with, closes the box,
-    //and unlocks the player
-    else if (!isDialogueBoxUsed())
-    {
-      myBox.setUsingState(false);
-      levelManager->destroyItem();
-    }
 }
 
 void GameLogic::upPressed(float dt){
@@ -189,28 +170,64 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 }
 
 bool GameLogic::isDialogueBoxUsed(){
-	if(dialoguebox.tracker <= dialoguebox.getDialogueLimit()
-		&& dialoguebox.getUsingState()){ //toggle the dialogue box, if the  player has some sort of interaction
-		return true;
+	//as long as dialogue box current tracker is below diaglost limit and it's being used
+	if(dialoguebox.getUsingState()){
 
-	}else{
-		return false;
-	}
-}
-
-bool GameLogic::isPlayerByItem(){
-	for(int i = 0; i < this->myRoom.getItems().size(); i++){
-		ItemActor* currentItem = this->myRoom.getItems().at(i);
-		if (currentItem->nextToPlayer(this->player)){
-			dialoguebox.setDialogue(currentItem->getDialogue());
-			currentItem->interact(player);
-			dialoguebox.setUsingState(true);
-			return true;
+		//reset the values of the dialoguebox after it finishes
+		if(dialogueBoxFinished()){
+			postDialogueBoxUse();
 		}
-
-	}
+		return true;
+		}
 	return false;
+
 }
+
+//inidicates if the dialogue box is finished
+bool GameLogic::dialogueBoxFinished(){
+	if(dialoguebox.tracker <= dialoguebox.getDialogueLimit())
+		return false;
+	return true;
+}
+
+
+//logic for when the player is next to the items
+//here we set dialoguebox and the current state of the item
+bool GameLogic::isPlayerByItem(){
+	//goes through list of current room items
+	for(int i = 0; i < this->myRoom.getItems().size(); i++){
+		if (this->myRoom.getItems().at(i)->nextToPlayer(this->player) &&
+			this->myRoom.getItems().at(i)->getActiveStatus()){
+
+			//set the properties for item next to player
+			this->currentNextToItem = this->myRoom.getItems().at(i);
+
+			this->currentNextToItem->interact(player);
+
+
+			return true;
+			}
+		}
+		return false;
+
+}
+
+//handle dialogue box properties when item next to it
+void GameLogic::setDialogueBoxStatus(bool state){
+	//if there is a item next to player, set the dialogue to that
+	dialoguebox.setDialogue(this->currentNextToItem->getDialogue());
+
+	dialoguebox.setUsingState(state);
+}
+
+
+void GameLogic::postDialogueBoxUse(){
+	dialoguebox.tracker = 0;
+	dialoguebox.setUsingState(false);
+	if(this->currentNextToItem->destroyable())
+		this->currentNextToItem->setActiveStatus(false);
+	}
+
 
 void GameLogic::update(float dt){
 }

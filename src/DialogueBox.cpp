@@ -6,10 +6,10 @@ DialogueBox::DialogueBox(int dialogueLimit){
 
 void DialogueBox::init(){
     //counter to determine if the dialogue box should be shown
-    //if the player is interacting with an item 
+    //if the player is interacting with an item
     this->tracker = 0;
-    this->currentUsingState = false; 
-    this->position = Position(600,0);
+    this->currentUsingState = false;
+    this->position = Position(400,0);
     this->dialogueLimit = 2;
 }
 
@@ -30,6 +30,3 @@ string DialogueBox::getDialogue(){
 Position DialogueBox::getPosition(){
   return position;
 }
-
-
-

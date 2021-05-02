@@ -1,0 +1,5 @@
+holy_water
+note
+bookcase
+safe
+bathtub

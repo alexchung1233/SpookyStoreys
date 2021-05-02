@@ -4,6 +4,7 @@ Bathtub::Bathtub(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
 }
 void Bathtub::init(){
+    this->itemName = "bathtub";
     this->myDialogue = "A tub!";
     this->filepath = "../data/bathtub.png";
     canBeDestroyed = true;

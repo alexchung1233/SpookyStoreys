@@ -4,6 +4,8 @@ Key::Key(){
 }
 
 void Key::init(){
+    this->itemName = "key";
+
     myDialogue = "A key!";
     pickedup = false;
     position;

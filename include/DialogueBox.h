@@ -21,6 +21,8 @@ class DialogueBox
         bool getUsingState(){return this->currentUsingState;};
         void setDialogue(string dialogue);
         string getDialogue();
+
+
     private:
         int dialogueLimit;
         bool currentUsingState;

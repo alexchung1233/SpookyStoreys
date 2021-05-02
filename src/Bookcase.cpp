@@ -4,6 +4,7 @@ Bookcase::Bookcase(vector<string> inputVector){
     this->position = Position(stoi(inputVector.at(0)), stoi(inputVector.at(1)));
 }
 void Bookcase::init(){
+    this->itemName = "bookcase";
     this->myDialogue = "So many books...";
     this->filepath = "../data/bookcase.png";
     canBeDestroyed = false;
