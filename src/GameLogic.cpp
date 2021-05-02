@@ -65,11 +65,20 @@ void GameLogic::rightPressed(float dt){
 }
 
 void GameLogic::WPressed(){
+	holyWaterUsed = false;
 	WTracker++;
 	if (WTracker%2 == 0){
 		holyWaterUsed = player.useHolyWater();
 		WTracker = 0;
 	}
+}
+
+bool GameLogic::getHolyWaterUsed(){
+	if(holyWaterUsed){
+		holyWaterUsed = false;
+		return true;
+	}
+	return false;
 }
 
 bool GameLogic::detectCollisionUp(float dt){

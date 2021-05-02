@@ -13,7 +13,6 @@ GameView::GameView(){
   //TODO make this extend off a Process class.
   this->status = State::UNINIT;
 
-
 }
 
 //constructor takes in App
@@ -42,10 +41,8 @@ void GameView::init(){
     std::cout << "incorrect font";
   }
 
-
   this->levelManager.init();
   
-
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
 
@@ -81,36 +78,9 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  std::string str;
-  ifstream infile;
-  infile.open ("../data/itemImageFiles.txt");
-  while(!infile.eof())
-  {
-    std::getline(infile, str);
-    std::string filepath = "../data/itemSprites/" + str + ".png";
+  loadItemTextures();
 
-    itemTextures[str] = new sf::Texture;
-
-    if(!itemTextures[str]->loadFromFile(filepath)) {
-      printf("incorrect file format");
-    }
-
-  }
-  infile.close();
-
-
-  string inventoryDisplay_file = "../data/inventory_display.png";
-  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
-    printf("incorrect file format");
-  }
-  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
-  sprite_inventoryDisplay.setPosition(800, 150);
-  sprite_inventoryDisplay.setScale(sf::Vector2f(0.50f, 0.50f));
-
-  setCounterText(holyWaterCounter_text,165);
-  setCounterText(noteCounter_text, 265);
-  setCounterText(keyCounter_text, 365);
-
+  setUpInventoyDisplay();
 
   makeBox(sf::Vector2f(logic.dialoguebox.position.x, logic.dialoguebox.position.y), sf::Color::Black);
 
@@ -136,6 +106,40 @@ void GameView::init(){
 
 }
 
+void GameView::loadItemTextures(){
+  std::string str;
+  ifstream infile;
+  infile.open ("../data/itemImageFiles.txt");
+  while(!infile.eof())
+  {
+    std::getline(infile, str);
+    std::string filepath = "../data/itemSprites/" + str + ".png";
+
+    itemTextures[str] = new sf::Texture;
+
+    if(!itemTextures[str]->loadFromFile(filepath)) {
+      printf("incorrect file format");
+    }
+
+  }
+  infile.close();
+}
+
+void GameView::setUpInventoyDisplay(){
+  string inventoryDisplay_file = "../data/inventory_display.png";
+  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
+    printf("incorrect file format");
+  }
+  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
+  sprite_inventoryDisplay.setPosition(800, 150);
+  sprite_inventoryDisplay.setScale(sf::Vector2f(0.50f, 0.50f));
+
+  setCounterText(holyWaterCounter_text,165);
+  setCounterText(noteCounter_text, 265);
+  setCounterText(keyCounter_text, 365);
+
+}
+
 void GameView::setCounterText(sf::Text& myText, float yPos){
   myText.setString("0");
   myText.setCharacterSize(50);
@@ -144,6 +148,7 @@ void GameView::setCounterText(sf::Text& myText, float yPos){
   myText.setPosition(sf::Vector2f(860, yPos));
 }
 
+
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
@@ -151,10 +156,8 @@ void GameView::update(sf::Event& Event, float dt){
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
 
-
   //update the level sprite
   levelSprite.setTexture(texture);
-
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
@@ -166,7 +169,7 @@ void GameView::update(sf::Event& Event, float dt){
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
-  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
+  monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom, this->logic.getHolyWaterUsed());
   MonsterActor monster = this->monsterView.getMonster();
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 

@@ -11,8 +11,12 @@ void MonsterAI::operator()(MonsterView &newMonsterView) {
   this->monsterView = &newMonsterView;
 }
 
-void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom) {
-  //If the room has bust been changed, reset the time counter
+void MonsterAI::calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom, bool holyWaterUsed) {
+  if(holyWaterUsed){
+    monsterView->sendToBasement();
+  }
+
+  //If the room has just been changed, reset the time counter
   if (monsterView->justChangedRooms == true) {
     monsterView->justChangedRooms = false;
     oneDoorCounter = 0;

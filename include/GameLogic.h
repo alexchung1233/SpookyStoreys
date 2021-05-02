@@ -72,6 +72,7 @@ class GameLogic{
 
     //Function for when W is pressed for holy water
     void WPressed();
+    bool getHolyWaterUsed();
 
     void update(float dt);
 

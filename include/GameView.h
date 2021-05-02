@@ -39,7 +39,10 @@ class GameView : public State
     sf::Text noteCounter_text;
     sf::Text keyCounter_text;
 
+    void loadItemTextures();
+    void setUpInventoyDisplay();
     void setCounterText(sf::Text& myText, float yPos);
+    void makeBox(sf::Vector2f position, sf::Color color);
 
     sf::Sprite sprite_item;
     std::vector<sf::Sprite*> itemSprites;
@@ -65,6 +68,7 @@ class GameView : public State
     void updatePlayerAnimation(float dt);
     void loadItemSprites();
 
+
     bool inRoomLastTime = false;
     bool nextRoomLastTime = false;
 
@@ -84,7 +88,6 @@ class GameView : public State
     void render();
     void pause();
     void unpause();
-    void makeBox(sf::Vector2f position, sf::Color color);
     void setText(std::string words);
 
     std::map<const std::string, sf::Texture*> itemTextureMapping;

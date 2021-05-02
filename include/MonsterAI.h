@@ -12,7 +12,7 @@ class MonsterAI
 
     MonsterAI(MonsterView &newMonsterView);
     void operator()(MonsterView &newMonsterView);
-    void calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom);
+    void calculateMove(float playerX, float playerY, float deltaMS, std::string playerLevel, bool inSameRoom, bool holyWaterUsed);
     void calculateMoveInRoom(float playerX, float playerY, float deltaMS);
     void calculateMoveOutRoom(float deltaMS);
 
