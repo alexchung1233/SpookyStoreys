@@ -83,6 +83,8 @@ class GameLogic{
       dialogueBox.incrementTracker();
     }
 
+    void itemAndDialogueBoxHandler();
+
 
 
 

@@ -231,3 +231,16 @@ void GameLogic::update(float dt){
 void GameLogic::setMovementState(MovementStates::movementStates state){
 	player.setMovementState(state);
 }
+
+
+//handles together the item and dialoguebox iteraction whenever inputed
+void GameLogic::itemAndDialogueBoxHandler(){
+	if(!this->isDialogueBoxUsed() && this->isPlayerByItem()){
+		this->setDialogueBoxStatus(true);
+		dialogueBox.incrementTracker();
+	}
+	//if the dialogue box is currently opened
+	else if(this->isDialogueBoxUsed())
+		dialogueBox.incrementTracker();
+
+}
