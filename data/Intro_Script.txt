@@ -1,0 +1,23 @@
+PAUSE_MONSTER
+FADE_IN,10.0,0,0,0
+SHOW_DIALOGUE,The Child wakes up in a cold sweat.
+SHOW_DIALOGUE,The nightmare still reels in his mind. He dreamt of something horrible.
+SHOW_DIALOGUE,strange corridors; candles; chanting; a burning incense.
+WAIT,.6
+FADE_IN,1.0,255,255,255
+PLAY_SOUND,../data/thunder_sound.wav
+SHOW_DIALOGUE,The Child shakes in fear as hears the thunder
+SHOW_DIALOGUE,"Mom? Dad? Where are you?"
+WAIT,1.0
+PLAY_SOUND,../data/scream.wav
+SHOW_DIALOGUE,"What was that?!"
+SHOW_DIALOGUE,"Mom! Dad! I'm scared! Where are you!"
+WAIT,1.5
+FADE_IN,1.0,255,0,0
+WAIT,.3.0
+FADE_IN,1.0,255,0,0
+WAIT,.3.0
+FADE_IN,1.0,255,0,0
+SHOW_DIALOGUE,The Child's head splits in pain
+SHOW_DIALOGUE,He remembers flashbacks of a strange ritual his parents conducted
+START_MONSTER

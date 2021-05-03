@@ -11,13 +11,15 @@ class MonsterAI
 
     MonsterAI(MonsterView &newMonsterView);
     void operator()(MonsterView &newMonsterView);
-    
+
     void calculateMove(PlayerActor &player, float deltaMS, bool inSameRoom, bool holyWaterUsed);
     void setDoorLoc(sf::Vector2f doorPos);
-    void isPaused(bool pause);
+    void pause();
+    void start();
+    bool isPaused();
 
     void setOffice(bool isOfficeUnlocked) { this->monsterView->setOffice(isOfficeUnlocked); }
-  
+
   private:
     void calculateMoveInRoom(float playerX, float playerY, float deltaMS);
     void calculateMoveOutRoom(float deltaMS);
