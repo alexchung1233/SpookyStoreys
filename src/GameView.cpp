@@ -27,6 +27,7 @@ GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
   inputManager(*App, logic);
   this->status = State::UNINIT;
   this->audioManager = &audioManager;
+  this->status = State::UNINIT;
 }
 
 void GameView::init(){
@@ -35,6 +36,12 @@ void GameView::init(){
   }
   this->levelManager.init();
   this->logic.setLevelManager(levelManager);
+  this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, 0));
+
+
+  //load in the new game intro level script
+  this->scriptManager.readInScript("Intro_Script");
+
 
   this->monsterLevelManager.init();
   this->monsterLevelManager.setRoom("BASEMENT");
@@ -131,7 +138,10 @@ void GameView::setCounterText(sf::Text& myText, float yPos){
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
+  this->dt = dt;
+
   itemSprites.clear();
+
 
   inputManager.update(Event, dt);
   logic.updateAI(dt);
@@ -171,6 +181,14 @@ void GameView::update(sf::Event& Event, float dt){
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
+
+
+  //run test script
+  executeScript();
+
+  //test script
+  //fadeIn(16.f, 0, 0, 0);
+
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
   // sf::IntRect checkMe = levelManager.getCurrentRoom().getBoundaries();
   // sf::RectangleShape rectangle(sf::Vector2f(checkMe.width,checkMe.height));
@@ -192,7 +210,176 @@ void GameView::update(sf::Event& Event, float dt){
   // }
 
 
+
 }
+
+
+//create function to initalize command
+//create states for each command to indicate if finished or not
+
+void GameView::executeScript(){
+
+    ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
+
+    if(!this->scriptManager.scriptQueue.empty()){
+      //if uninitalized, initalize
+
+      //if finished, pop off
+
+      if(currentCommand->getStatus() == ScriptCommand::UNINIT){
+        this->initScriptCommand(*currentCommand);
+        currentCommand->setStatus(ScriptCommand::RUNNING);
+      }
+      else if(currentCommand->getStatus() == ScriptCommand::RUNNING){
+        this->updateScriptCommand(*currentCommand);
+      }
+
+      else if(currentCommand->getStatus() == ScriptCommand::SUCCESS){
+        this->scriptManager.scriptQueue.pop();
+      }
+
+
+
+    }
+
+}
+
+
+//initalizes the script command based on a base data
+void GameView::initScriptCommand(ScriptCommand& command){
+  vector<string> data = command.getData();
+
+  switch(command.getCommandType()){
+
+    case ScriptCommand::FADE_IN:
+      this->transitionRectangleAlphaChannel = 255;
+      command.setStatus(ScriptCommand::RUNNING);
+      break;
+
+    case ScriptCommand::WAIT:
+      clockFilter.restart();
+      break;
+
+    case ScriptCommand::PLAY_SOUND:
+      audioManager->setGeneralBuffer(data.at(1));
+      audioManager->playGeneralBuffer();
+      break;
+
+    case ScriptCommand::SHOW_DIALOGUE:
+      logic.setDialogueBoxStatus(true);
+      logic.setDialogueBoxText(data.at(1));
+      break;
+    case ScriptCommand::PAUSE_MONSTER:
+      logic.pauseMonster();
+      break;
+    case ScriptCommand::START_MONSTER:
+      logic.startMonster();
+      break;
+
+  }
+
+
+}
+
+void GameView::updateScriptCommand(ScriptCommand& command){
+  vector<string> data = command.getData();
+
+  switch(command.getCommandType()){
+
+    //matches the command to the type
+    case ScriptCommand::FADE_IN:
+      fadeIn(
+        stof(data.at(1)),stof(data.at(2)), stof(data.at(3)), stof(data.at(4)));
+      //finish condition
+      if(transitionRectangleAlphaChannel <= 0){
+        command.setStatus(ScriptCommand::SUCCESS);
+        transitionRectangleAlphaChannel = 255;
+      }
+      break;
+
+    //move player up based on distance and delayed timer(how slowly it walks)
+    case ScriptCommand::MOVE_PLAYER_UP:
+      {
+        float timer = clockFilter.getElapsedTime().asSeconds() * 100;
+
+        if (timer > 6.f){
+          this->logic.upPressed(this->dt);
+          clockFilter.restart();
+        }
+      }
+      break;
+
+    //pauses based on seconds
+    case ScriptCommand::WAIT:
+      {
+        float timer = stof(data.at(1));
+        if(timer <= clockFilter.getElapsedTime().asSeconds()){
+          clockFilter.restart();
+          command.setStatus(ScriptCommand::SUCCESS);
+        }
+      }
+      break;
+
+    case ScriptCommand::PLAY_SOUND:
+      if(audioManager->getStatusGeneral() == sf::SoundSource::Status::Stopped)
+        command.setStatus(ScriptCommand::SUCCESS);
+      break;
+
+    case ScriptCommand::SHOW_DIALOGUE:
+      if(!logic.getDialogueBoxUsingState()){
+        command.setStatus(ScriptCommand::SUCCESS);
+        }
+      break;
+    case ScriptCommand::PAUSE_MONSTER:
+      if(logic.isMonsterPaused()){
+        command.setStatus(ScriptCommand::SUCCESS);
+        }
+      break;
+    case ScriptCommand::START_MONSTER:
+      if(!logic.isMonsterPaused()){
+        command.setStatus(ScriptCommand::SUCCESS);
+        }
+
+      break;
+
+
+  }
+}
+
+
+
+//Game Effects
+
+//fades in
+void GameView::fadeIn(float duration, int r, int g, int b){
+  transitionRectangle.setFillColor(sf::Color(r, g, b, transitionRectangleAlphaChannel));
+
+  float timer = clockFilter.getElapsedTime().asSeconds() * 100;
+
+  if (timer > duration && transitionRectangleAlphaChannel > 0.f)
+  {
+          clockFilter.restart();
+          transitionRectangleAlphaChannel -= 5;
+
+  }
+
+}
+
+//fades out
+void GameView::fadeOut(float duration, int r, int g, int b){
+  transitionRectangle.setFillColor(sf::Color(r, g, b, transitionRectangleAlphaChannel));
+
+  float timer = clockFilter.getElapsedTime().asSeconds() * 100;
+
+  if (timer > duration && transitionRectangleAlphaChannel < 255.f)
+  {
+          clockFilter.restart();
+          transitionRectangleAlphaChannel += 5;
+
+  }
+
+}
+
 
 
 //temporary function to update direction of player
@@ -270,6 +457,7 @@ void GameView::render(){
     this->App->draw(holyWaterCounter_text);
     this->App->draw(noteCounter_text);
     this->App->draw(keyCounter_text);
+    this->App->draw(transitionRectangle);
 
     isDialogue();
 

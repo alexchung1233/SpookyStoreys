@@ -2,6 +2,7 @@
 #include "GameView.h"
 #include "Menu.h"
 #include "GameOver.h"
+#include "ScriptManager.h"
 
 
 GameManager::GameManager(){

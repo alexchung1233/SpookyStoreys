@@ -28,6 +28,7 @@ void AudioManager::init(){
     }
 
   monsterScream.setVolume(70);
+  menuMusic.setVolume(75.f);
   menuMusic.setLoop(true);
   playMusic.setLoop(true);
   nextRoom.setLoop(true);
@@ -35,8 +36,11 @@ void AudioManager::init(){
 }
 
 
+//general buffer to handle any wav sounds
 void AudioManager::setGeneralBuffer(std::string fileLoc){
-  generalBuffer.loadFromFile(fileLoc);
+  if (!generalBuffer.loadFromFile(fileLoc))
+    printf("error, file unable to be opened");
+  generalSound.setBuffer(generalBuffer);
 }
 
 

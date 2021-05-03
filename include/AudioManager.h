@@ -20,6 +20,8 @@ protected:
 public:
   AudioManager();
   void init();
+  void setGeneralBuffer(std::string);
+
   void playMenuMusic();
   void playPlayingMusic();
   void playNextRoom();
@@ -41,7 +43,6 @@ public:
   sf::SoundSource::Status getStatusInRoom();
   sf::SoundSource::Status getStatusGeneral();
 
-  void setGeneralBuffer(std::string);
 
 };
 #endif

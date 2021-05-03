@@ -201,7 +201,7 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 		Door checkDoor = doors.at(i);
 
 		if(checkDoor.getDoorBoundaries().intersects(possiblePlayerPosition)){
-			
+
 			//checks to see if the Office is unlocked and, if it is not,
 			//then checks to see if the player has the key.
 			//if the player does, then the office unlocks
@@ -248,7 +248,8 @@ bool GameLogic::isDialogueBoxUsed(){
 
 //inidicates if the dialogue box is finished
 bool GameLogic::dialogueBoxFinished(){
-	if(dialogueBox.getTracker() > dialogueBox.getDialogueLimit())
+	cout << dialogueBox.getTracker() ;
+	if(dialogueBox.getTracker() >= dialogueBox.getDialogueLimit())
 		return true;
 	return false;
 }
@@ -266,7 +267,7 @@ bool GameLogic::isPlayerByItem(){
 			this->currentNextToItem = this->myRoom.getItems().at(i);
 
 			this->currentNextToItem->interact(player);
-
+			dialogueBox.setDialogue(this->currentNextToItem->getDialogue());
 
 			return true;
 			}
@@ -278,7 +279,6 @@ bool GameLogic::isPlayerByItem(){
 //handle dialogue box properties when item next to it
 void GameLogic::setDialogueBoxStatus(bool state){
 	//if there is a item next to player, set the dialogue to that
-	dialogueBox.setDialogue(this->currentNextToItem->getDialogue());
 
 	dialogueBox.setUsingState(state);
 }
@@ -287,13 +287,16 @@ void GameLogic::setDialogueBoxStatus(bool state){
 void GameLogic::postDialogueBoxUse(){
 	dialogueBox.resetTracker();
 	dialogueBox.setUsingState(false);
-	if(this->currentNextToItem->destroyable())
-		this->currentNextToItem->setActiveStatus(false);
+	if(this->currentNextToItem){
+		if(this->currentNextToItem->destroyable())
+			this->currentNextToItem->setActiveStatus(false);
+	}
+
+
 	}
 
 
 void GameLogic::updateAI(float dt){
-	monsterAI.isPaused(isDialogueBoxUsed());
 	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
 	monsterAI.setOffice(officeUnlocked);
 }
@@ -327,10 +330,23 @@ int GameLogic::getPlayState(){
 void GameLogic::itemAndDialogueBoxHandler(){
 	if(!this->isDialogueBoxUsed() && this->isPlayerByItem()){
 		this->setDialogueBoxStatus(true);
-		dialogueBox.incrementTracker();
 	}
 	//if the dialogue box is currently opened
-	else if(this->isDialogueBoxUsed())
+	else if(this->isDialogueBoxUsed()){
+		pauseMonster();
 		dialogueBox.incrementTracker();
+	}
 
+
+}
+
+//pauses the monster
+void GameLogic::pauseMonster(){
+	this->monsterAI.pause();
+}
+
+
+//starts up the monster
+void GameLogic::startMonster(){
+	this->monsterAI.start();
 }

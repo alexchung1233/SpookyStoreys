@@ -15,7 +15,7 @@ class GameLogic{
     Room myRoom;
 
     bool officeUnlocked;
-    
+
     int WTracker;
     bool holyWaterUsed;
 
@@ -31,6 +31,7 @@ class GameLogic{
     MonsterAI monsterAI;
 
     LevelManager* levelManager;
+
 
   public:
 
@@ -102,6 +103,16 @@ class GameLogic{
     }
 
     void itemAndDialogueBoxHandler();
+
+    bool getDialogueBoxUsingState(){return dialogueBox.getUsingState();}
+
+    bool isMonsterPaused(){
+      return monsterAI.isPaused();
+    }
+
+    void pauseMonster();
+
+    void startMonster();
 
 
 
