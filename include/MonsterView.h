@@ -14,6 +14,8 @@ class MonsterView{
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
+    bool officeUnlocked = false;
+
     LevelManager* levelManager;
 
 
@@ -53,6 +55,7 @@ class MonsterView{
     Room getRoom();
 
     void sendToBasement();
+    void setOffice(bool isOfficeUnlocked) { this->officeUnlocked = isOfficeUnlocked; }
 
     bool justChangedRooms;
 

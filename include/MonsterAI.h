@@ -15,6 +15,8 @@ class MonsterAI
     void calculateMove(PlayerActor &player, float deltaMS, bool inSameRoom, bool holyWaterUsed);
     void setDoorLoc(sf::Vector2f doorPos);
     void isPaused(bool pause);
+
+    void setOffice(bool isOfficeUnlocked) { this->monsterView->setOffice(isOfficeUnlocked); }
   
   private:
     void calculateMoveInRoom(float playerX, float playerY, float deltaMS);

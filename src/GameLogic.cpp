@@ -213,12 +213,10 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 					officeUnlocked = true;
 					//TODO: prompt dialogue box saying the player has used the key
 					//to unlock the door
-					std::cout << "It is locked, but teehee I have the key!" << endl;
 				}
 				else{
 					//TODO: prompt dialogue box saying the door is locked
 					//and that the player should look for it
-					std::cout << "Oh no, it is Locked!!" << endl;
 					return false;
 				}
 
@@ -296,9 +294,8 @@ void GameLogic::postDialogueBoxUse(){
 
 void GameLogic::updateAI(float dt){
 	monsterAI.isPaused(isDialogueBoxUsed());
-
 	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
-
+	monsterAI.setOffice(officeUnlocked);
 }
 
 bool GameLogic::playerAndMonsterInSameRoom(){
