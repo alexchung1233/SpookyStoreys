@@ -332,6 +332,7 @@ void GameLogic::itemAndDialogueBoxHandler(){
 	}
 	//if the dialogue box is currently opened
 	else if(this->isDialogueBoxUsed())
+		pauseMonster();
 		dialogueBox.incrementTracker();
 
 }
