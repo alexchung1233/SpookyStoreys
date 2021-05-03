@@ -337,6 +337,9 @@ void GameLogic::itemAndDialogueBoxHandler(){
 		pauseMonster();
 		dialogueBox.incrementTracker();
 	}
+	else {
+		startMonster();
+	}
 
 
 }
