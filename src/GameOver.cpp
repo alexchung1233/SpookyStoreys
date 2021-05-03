@@ -89,6 +89,7 @@ void GameOver::update(sf::Event& Event, float dt){
 	    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 	    {
 				audioManager->stopPlayingMusic();
+				audioManager->stopMonsterScream();
 	    	this->status = State::SUCCESS;
 			this->childState = new Menu(*App, *audioManager);
 	    }
