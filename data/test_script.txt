@@ -2,8 +2,12 @@ FADE_IN,10.0,0,0,0
 WAIT,2.0
 FADE_IN,1.0,255,255,255
 PLAY_SOUND,../data/thunder_sound.wav
-SHOW_DIALOGUE,The Child trembles as he hears the thunder echo out in the dark night.
-SHOW_DIALOGUE,The Child calls for his parents, but no answer is heard.
+SHOW_DIALOGUE,The Child trembles as he hears the thunder echos out in the dark night.
+SHOW_DIALOGUE,He calls out for his parents, but no answer is heard.
 SHOW_DIALOGUE,Mom? Dad? Where are you?
+SHOW_DIALOGUE,The wind howls against the house's wooden structure,\n shaking the window sill.
 WAIT,3.0
-PLAY_SOUND,../data/child_whispers.wav
+PLAY_SOUND,../data/scream.wav
+SHOW_DIALOGUE,What was that?!
+SHOW_DIALOGUE,Mom! Dad! I'm scared! Where are you!
+SHOW_DIALOGUE,Still no answer to be heard

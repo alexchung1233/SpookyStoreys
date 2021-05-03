@@ -322,7 +322,6 @@ void GameView::updateScriptCommand(ScriptCommand& command){
       break;
 
     case ScriptCommand::SHOW_DIALOGUE:
-      printf("%d",logic.dialogueBox.getTracker());
       if(!logic.dialogueBox.getUsingState()){
         command.setStatus(ScriptCommand::SUCCESS);
         }
