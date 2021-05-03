@@ -12,7 +12,7 @@ WAIT,1.0
 PLAY_SOUND,../data/scream.wav
 SHOW_DIALOGUE,"What was that?!"
 SHOW_DIALOGUE,"Mom! Dad! I'm scared! Where are you!"
-WAIT,.8.0
+WAIT,1.5
 FADE_IN,1.0,255,0,0
 WAIT,.3.0
 FADE_IN,1.0,255,0,0
