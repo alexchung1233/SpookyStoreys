@@ -10,6 +10,7 @@ protected:
   sf::SoundBuffer generalBuffer;
   sf::Sound generalSound;
 
+  sf::Music monsterScream;
   sf::Music menuMusic;
   sf::Music playMusic;
   sf::Music nextRoom;
@@ -26,12 +27,15 @@ public:
   void playNextRoom();
   void playInRoom();
   void playGeneralBuffer();
+  void playMonsterScream();
 
   void stopMenuMusic();
   void stopPlayingMusic();
   void stopNextRoom();
   void stopInRoom();
   void stopGeneralBuffer();
+  void stopMonsterScream();
+
 
   sf::SoundSource::Status getStatusMenu();
   sf::SoundSource::Status getStatusPlaying();

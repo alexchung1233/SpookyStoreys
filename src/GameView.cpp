@@ -141,6 +141,8 @@ void GameView::update(sf::Event& Event, float dt){
   this->dt = dt;
 
   itemSprites.clear();
+
+
   inputManager.update(Event, dt);
   logic.updateAI(dt);
 
@@ -175,6 +177,7 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();
     audioManager->stopInRoom();
+    audioManager->playMonsterScream();
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
