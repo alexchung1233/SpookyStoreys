@@ -248,6 +248,7 @@ bool GameLogic::isDialogueBoxUsed(){
 
 //inidicates if the dialogue box is finished
 bool GameLogic::dialogueBoxFinished(){
+	cout << dialogueBox.getTracker() ;
 	if(dialogueBox.getTracker() >= dialogueBox.getDialogueLimit())
 		return true;
 	return false;
@@ -331,9 +332,11 @@ void GameLogic::itemAndDialogueBoxHandler(){
 		this->setDialogueBoxStatus(true);
 	}
 	//if the dialogue box is currently opened
-	else if(this->isDialogueBoxUsed())
+	else if(this->isDialogueBoxUsed()){
 		pauseMonster();
 		dialogueBox.incrementTracker();
+	}
+
 
 }
 
