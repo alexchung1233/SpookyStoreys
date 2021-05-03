@@ -159,7 +159,6 @@ void GameView::update(sf::Event& Event, float dt){
   updatePlayerAnimation(dt);
 
 
-
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
   monsterAI.calculateMove(player.getPosition().x, player.getPosition().y, dt, levelManager.getCurrentRoom().getRoomTitle(), inSameRoom);
@@ -338,7 +337,6 @@ void GameView::render(){
     this->App->draw(sprite_counter);
     this->App->draw(counterText);
     isDialogue();
-
 
 }
 

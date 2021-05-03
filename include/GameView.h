@@ -21,9 +21,7 @@ class GameView : public State
 
     GameLogic logic;
     MonsterView monsterView;
-
     Room room;
-
 
     Animation player_anim_down;
     Animation player_anim_up;

@@ -29,9 +29,7 @@ class Room
         sf::Texture getTexture();
         std::vector<Door> getDoors();
         std::string getRoomTitle();
-
         std::vector<ItemActor*> getItems();
-
 
     private:
       std::string roomTitle;

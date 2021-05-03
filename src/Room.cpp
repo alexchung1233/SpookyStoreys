@@ -142,5 +142,4 @@ std::string Room::getRoomTitle(){
 }
 std::vector<ItemActor*> Room::getItems(){
 	return myItems;
-
 }
