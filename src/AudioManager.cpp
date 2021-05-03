@@ -22,7 +22,12 @@ void AudioManager::init(){
     {
     printf("error, file unabled to be opened");
     }
+  if (!monsterScream.openFromFile("../data/MonsterScream.wav"))
+    {
+      printf("error, file unabled to be opened");
+    }
 
+  monsterScream.setVolume(70);
   menuMusic.setLoop(true);
   playMusic.setLoop(true);
   nextRoom.setLoop(true);
@@ -53,6 +58,10 @@ void AudioManager::playInRoom(){
   inRoom.play();
 }
 
+void AudioManager::playMonsterScream(){
+  monsterScream.play();
+}
+
 void AudioManager::playGeneralBuffer(){
   generalSound.play();
 }
@@ -74,6 +83,10 @@ void AudioManager::stopNextRoom(){
 
 void AudioManager::stopInRoom(){
   inRoom.stop();
+}
+
+void AudioManager::stopMonsterScream(){
+  monsterScream.stop();
 }
 
 void AudioManager::stopGeneralBuffer(){

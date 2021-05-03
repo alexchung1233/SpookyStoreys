@@ -43,7 +43,7 @@ void GameView::init(){
   this->logic.setup();
 
   inputManager(*App, logic);
-  
+
   //get current level texture
   texture = this->levelManager.getLevelTexture();
 
@@ -132,7 +132,7 @@ void GameView::setCounterText(sf::Text& myText, float yPos){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
-  
+
   inputManager.update(Event, dt);
   logic.updateAI(dt);
 
@@ -167,6 +167,7 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();
     audioManager->stopInRoom();
+    audioManager->playMonsterScream();
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
@@ -264,7 +265,7 @@ void GameView::render(){
     // sf::CircleShape doorCenter = sf::CircleShape(1);
     // doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
     // this->App->draw(doorCenter);
-    
+
     this->App->draw(sprite_inventoryDisplay);
     this->App->draw(holyWaterCounter_text);
     this->App->draw(noteCounter_text);
