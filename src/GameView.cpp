@@ -37,7 +37,7 @@ void GameView::init(){
   this->levelManager.init();
   this->logic.setup();
   this->logic.setLevelManager(levelManager);
-  this->scriptManager.readInScript("test_script");
+  this->scriptManager.readInScript("Intro_Script");
   this->transitionRectangleAlphaChannel = 255;
 
   inputManager(*App, logic);
@@ -322,7 +322,7 @@ void GameView::updateScriptCommand(ScriptCommand& command){
       break;
 
     case ScriptCommand::SHOW_DIALOGUE:
-      if(!logic.dialogueBox.getUsingState()){
+      if(!logic.getDialogueBoxUsingState()){
         command.setStatus(ScriptCommand::SUCCESS);
         }
       break;

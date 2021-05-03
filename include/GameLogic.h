@@ -14,13 +14,15 @@ class GameLogic{
     Room myRoom;
     ItemActor* currentNextToItem;
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
+    DialogueBox dialogueBox;
+
 
 
   public:
+
     GameLogic() {};
 
     void setup();
-    DialogueBox dialogueBox;
 
     //creates player object
     void createPlayer();
@@ -84,6 +86,8 @@ class GameLogic{
     }
 
     void itemAndDialogueBoxHandler();
+
+    bool getDialogueBoxUsingState(){return dialogueBox.getUsingState();}
 
 
 
