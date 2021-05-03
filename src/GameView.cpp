@@ -252,51 +252,9 @@ void GameView::render(){
       this->App->draw(*drawMe);
     }
 
-
     this->App->draw(sprite_player);
 
-    //If the monster is in the same room a the player
-    if (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle()) {
-      //If the in room sound isnt already playing
-      if (!inRoomLastTime){
-        audioManager->playInRoom();
-      }
-      //Draw monster
-      inRoomLastTime = true;
-      this->App->draw(sprite_monster);
-    }
-    else {
-      //If they aren't in the same room stop in room sound
-      inRoomLastTime = false;
-      audioManager->stopInRoom();
-    }
-
-    //Get title of current monster room and list of doors from player room
-    string monsterRoom = monsterLevelManager.getCurrentRoom().getRoomTitle();
-    std::vector<Door> doorList = levelManager.getCurrentRoom().getDoors();
-    bool inNextRoom = false;
-    bool holdLastTime;
-    //Iterate through list of player doors
-    for (int i = 0; i < doorList.size(); i++) {
-      //If they are equal mark as true
-      if (doorList.at(i).getNextRoom() == monsterRoom) {
-        inNextRoom = true;
-        holdLastTime = true;
-      }
-    }
-    //If the monster is in the next room and sound isnt already playing, play next room sound
-    if (inNextRoom) {
-      if (!nextRoomLastTime){
-        audioManager->playNextRoom();
-      }
-    }
-    //Else stop playing next room sound
-    else {
-      holdLastTime = false;
-      audioManager->stopNextRoom();
-    }
-
-    nextRoomLastTime = holdLastTime;
+    monsterSpriteAndSounds();
 
     // sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
     // monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
@@ -314,6 +272,51 @@ void GameView::render(){
 
     isDialogue();
 
+}
+
+void GameView::monsterSpriteAndSounds(){
+  //If the monster is in the same room a the player
+  if (this->logic.playerAndMonsterInSameRoom()) {
+    //If the in room sound isnt already playing
+    if (!inRoomLastTime){
+      audioManager->playInRoom();
+    }
+    //Draw monster
+    inRoomLastTime = true;
+    this->App->draw(sprite_monster);
+  }
+  else {
+    //If they aren't in the same room stop in room sound
+    inRoomLastTime = false;
+    audioManager->stopInRoom();
+  }
+
+  //Get title of current monster room and list of doors from player room
+  string monsterRoom = monsterLevelManager.getCurrentRoom().getRoomTitle();
+  std::vector<Door> doorList = levelManager.getCurrentRoom().getDoors();
+  bool inNextRoom = false;
+  bool holdLastTime;
+  //Iterate through list of player doors
+  for (int i = 0; i < doorList.size(); i++) {
+    //If they are equal mark as true
+    if (doorList.at(i).getNextRoom() == monsterRoom) {
+      inNextRoom = true;
+      holdLastTime = true;
+    }
+  }
+  //If the monster is in the next room and sound isnt already playing, play next room sound
+  if (inNextRoom) {
+    if (!nextRoomLastTime){
+      audioManager->playNextRoom();
+    }
+  }
+  //Else stop playing next room sound
+  else {
+    holdLastTime = false;
+    audioManager->stopNextRoom();
+  }
+
+  nextRoomLastTime = holdLastTime;
 }
 
 

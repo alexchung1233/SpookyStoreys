@@ -64,7 +64,8 @@ class GameView : public State
 
     void updatePlayerAnimation(float dt);
     void loadItemSprites();
-
+    void monsterSpriteAndSounds();
+    void isDialogue();
 
     bool inRoomLastTime = false;
     bool nextRoomLastTime = false;
@@ -81,7 +82,6 @@ class GameView : public State
 
     void setLogic(GameView& logic);
     float myPos();
-    void isDialogue();
     void render();
     void pause();
     void unpause();
