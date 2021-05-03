@@ -5,5 +5,7 @@ class MovementStates{
   public:
     enum movementStates {
       IDLE = 0, MOVING, MOVING_LEFT, MOVING_RIGHT, MOVING_UP, MOVING_DOWN };
+    enum direcStates {
+     LEFT, RIGHT, UP, DOWN};
 };
 #endif /* MY_CLASS_H */

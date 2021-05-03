@@ -2,37 +2,50 @@
 #include <iostream>
 #include "PlayerActor.h"
 #include "Room.h"
+#include "ItemActor.h"
+#include "DialogueBox.h"
 #include "LevelManager.h"
+#include "MovementStates.h"
 
 class GameLogic{
 
   private:
     PlayerActor player;
     Room myRoom;
-
-    //creates player object
-    void createPlayer();
-
+    ItemActor* currentNextToItem;
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
 
 
   public:
-    GameLogic() { };
+    GameLogic() {};
 
     void setup();
+    DialogueBox dialogueBox;
+
+    //creates player object
+    void createPlayer();
+    void createDialogueBox();
 
     LevelManager* levelManager;
 
+
     //reutrns player object
     PlayerActor getPlayer();
+
 
     bool detectCollisionUp(float dt);
     bool detectCollisionDown(float dt);
     bool detectCollisionLeft(float dt);
     bool detectCollisionRight(float dt);
 
+    bool isDialogueBoxUsed();
+    bool isPlayerByItem();
+
     void setLevelManager(LevelManager &LM);
 
+    void setMovementState(MovementStates::movementStates state);
+
+    void setDialogueBoxStatus(bool status);
 
     //Function for when the Up key is pressed
     void upPressed(float dt);
@@ -47,7 +60,32 @@ class GameLogic{
     void rightPressed(float dt);
 
     void update(float dt);
-    
+
     void setRoom(Room room);
+
+    bool dialogueBoxFinished();
+
+    void postDialogueBoxUse();
+
+    void setDialogueBoxText(string text){
+      this->dialogueBox.setDialogue(text);
+    };
+
+    string getDialogueBoxText(){
+      return this->dialogueBox.getDialogue();
+    };
+
+    const DialogueBox getDialogueBox(){
+      return dialogueBox;
+    }
+
+    void incrementDialogueBoxTracker(){
+      dialogueBox.incrementTracker();
+    }
+
+    void itemAndDialogueBoxHandler();
+
+
+
 
 };

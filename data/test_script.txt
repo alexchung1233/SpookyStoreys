@@ -2,5 +2,8 @@ FADE_IN,10.0,0,0,0
 WAIT,2.0
 FADE_IN,1.0,255,255,255
 PLAY_SOUND,../data/thunder_sound.wav
-WAIT,5.0
+SHOW_DIALOGUE,The Child trembles as he hears the thunder echo out in the dark night.
+SHOW_DIALOGUE,The Child calls for his parents, but no answer is heard.
+SHOW_DIALOGUE,Mom? Dad? Where are you?
+WAIT,3.0
 PLAY_SOUND,../data/child_whispers.wav
