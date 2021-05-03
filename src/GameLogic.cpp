@@ -297,9 +297,8 @@ void GameLogic::postDialogueBoxUse(){
 
 void GameLogic::updateAI(float dt){
 	if(!isDialogueBoxUsed()){
-		printf("here");
-	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
-	monsterAI.setOffice(officeUnlocked);
+		monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
+		monsterAI.setOffice(officeUnlocked);
 	}
 
 }
