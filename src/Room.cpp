@@ -1,7 +1,6 @@
 #include "Room.h"
 #include <vector>
 
-
 using namespace std;
 
 
@@ -58,7 +57,58 @@ void Room::setUpRoom(std::string roomName){
 			myDoors.push_back( myDoor );
 		}
 
+		else if (!result.at(0).find("HOLYWATER")){
+			vector<string>forWater;
+			for(int i = 1; i < result.size(); i++){
+				forWater.push_back(result.at(i));
+			}
+
+			myItems.push_back(new HolyWater(forWater));
+			myItems.at(myItems.size() - 1)->init();
+		}
+		else if (!result.at(0).find("NOTE")){
+			vector<string>forNote;
+			for(int i = 1; i < result.size(); i++){
+				forNote.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Note(forNote));
+			myItems.at(myItems.size() - 1)->init();
+		}
+
+		else if (!result.at(0).find("BOOKCASE")){
+			vector<string>forBookcase;
+			for(int i = 1; i < result.size(); i++){
+				forBookcase.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Bookcase(forBookcase));
+			myItems.at(myItems.size() - 1)->init();
+		}
+
+		else if (!result.at(0).find("SAFE")){
+			vector<string>forSafe;
+			for(int i = 1; i < result.size(); i++){
+				forSafe.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Safe(forSafe));
+			myItems.at(myItems.size() - 1)->init();
+		}
+
+		else if (!result.at(0).find("BATHTUB")){
+			vector<string>forBathtub;
+			for(int i = 1; i < result.size(); i++){
+				forBathtub.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Bathtub(forBathtub));
+			myItems.at(myItems.size() - 1)->init();
+		}
+
+
     }
+
 	infile.close();
 
 	string filepathPNG = directory + roomName + png;
@@ -66,6 +116,7 @@ void Room::setUpRoom(std::string roomName){
   	if(!levelTexture.loadFromFile(filepathPNG)){
     	printf("incorrect file format");
   	}
+
 
 }
 
@@ -85,6 +136,11 @@ std::vector<Door> Room::getDoors(){
 	return myDoors;
 }
 
+
 std::string Room::getRoomTitle(){
 	return roomTitle;
+}
+std::vector<ItemActor*> Room::getItems(){
+	return myItems;
+
 }
