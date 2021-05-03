@@ -4,6 +4,38 @@ using namespace std;
 
 
 
+/*
+How to use commands. Put the command name and values seperated by a comma
+
+Example
+FADE_IN,5.0,0,0,0
+
+this fades in for 5 seconds using the rgb values 0,0,0
+
+
+FADE_IN,float time,int red,int green, int blue
+fades the screen in
+
+WAIT,float time
+pauses the game event for a certain amount of time
+
+SHOW_DIALOGUE,string dialogue message(no quotes needed, just the raw text)
+  this shows the dialogue of the player, interact with E
+
+PLAY_SOUND,string path name
+  this plays a sound
+
+WIP:
+PAUSE_MONSTER
+START_MONSTER
+MOVE_PLAYER_UP
+MOVE_PLAYER_LEFT
+MOVE_PLAYER_RIGHT
+MOVE_PLAYER_DOWN
+
+*/
+
+
 void ScriptManager::readInScript(std::string scriptFileName){
   string directory = "../data/";
   string txt = ".txt";
