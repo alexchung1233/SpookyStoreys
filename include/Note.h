@@ -14,7 +14,7 @@ class Note : public ItemActor {
 
     public:
         Note() {};
-        Note(std::vector<std::string> inputVector);
+        Note(vector<string> inputVector);
 
         void init();
         Position getPosition();
@@ -25,7 +25,6 @@ class Note : public ItemActor {
         void setSize(float x, float y);
         bool read;
     private:
-        
         PlayerActor *player;
         bool nextToPlayer(PlayerActor &player);
 };

@@ -11,6 +11,26 @@ void GameLogic::setLevelManager(LevelManager &LM){
 void GameLogic::setup(){
 	createPlayer();
 	createDialogueBox();
+
+	this->monsterView.setup();
+
+	this->monsterAI(monsterView);
+	monsterAI.setDoorLoc(monsterView.getRandomDoor());
+
+	officeUnlocked = false;
+	WTracker = 0;
+}
+
+MonsterView& GameLogic::getMonsterView(){
+	return this->monsterView;
+}
+
+MonsterActor GameLogic::getMonsterActor(){
+	return this->monsterView.getMonster();
+}
+
+void GameLogic::setMonsterLevelManager(LevelManager &MLM){
+	this->monsterView.setLevelManager(MLM);
 }
 
 void GameLogic::createPlayer(){
@@ -55,6 +75,32 @@ void GameLogic::rightPressed(float dt){
 		if(!detectCollisionRight(dt))
 			player.moveRight(dt);
 		}
+}
+
+void GameLogic::WPressed(){
+	float distance = 300;
+	if(playerAndMonsterInSameRoom()){
+		float distX = pow(getMonsterActor().getPosition().x - player.getPosition().x, 2);
+  		float distY = pow(getMonsterActor().getPosition().y - player.getPosition().y, 2);
+  		distance = sqrt(distX + distY);
+	}
+
+	if(distance < 250 && !isDialogueBoxUsed()){
+		holyWaterUsed = false;
+		WTracker++;
+		if (WTracker%2 == 0){
+			holyWaterUsed = player.useHolyWater();
+			WTracker = 0;
+		}
+	}
+}
+
+bool GameLogic::getHolyWaterUsed(){
+	if(holyWaterUsed){
+		holyWaterUsed = false;
+		return true;
+	}
+	return false;
 }
 
 bool GameLogic::detectCollisionUp(float dt){
@@ -155,6 +201,27 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 		Door checkDoor = doors.at(i);
 
 		if(checkDoor.getDoorBoundaries().intersects(possiblePlayerPosition)){
+			
+			//checks to see if the Office is unlocked and, if it is not,
+			//then checks to see if the player has the key.
+			//if the player does, then the office unlocks
+			if(checkDoor.getNextRoom() == "OFFICE" && !officeUnlocked){
+
+				//if the player has the key, then they unlock the office
+				if(player.getInventory()->hasFoundKey()){
+					player.getInventory()->useKey();
+					officeUnlocked = true;
+					//TODO: prompt dialogue box saying the player has used the key
+					//to unlock the door
+				}
+				else{
+					//TODO: prompt dialogue box saying the door is locked
+					//and that the player should look for it
+					return false;
+				}
+
+			}
+
 			this->levelManager->setRoom(checkDoor.getNextRoom());
 			player.setPosition(checkDoor.getNewPosition().x, checkDoor.getNewPosition().y);
 			setRoom(this->levelManager->getCurrentRoom());
@@ -228,13 +295,36 @@ void GameLogic::postDialogueBoxUse(){
 	}
 
 
-void GameLogic::update(float dt){
+void GameLogic::updateAI(float dt){
+	monsterAI.isPaused(isDialogueBoxUsed());
+	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
+	monsterAI.setOffice(officeUnlocked);
+}
+
+bool GameLogic::playerAndMonsterInSameRoom(){
+	std::string playerLevel = myRoom.getRoomTitle();
+	std::string monsterLevel = getMonsterView().getRoom().getRoomTitle();
+
+	return playerLevel == monsterLevel;
 }
 
 void GameLogic::setMovementState(MovementStates::movementStates state){
 	player.setMovementState(state);
 }
 
+int GameLogic::getPlayState(){
+	if(player.getInventory()->hasFoundWeapon()){
+		return 1;
+	}
+	else if(playerAndMonsterInSameRoom()){
+		float distX = pow(getMonsterActor().getPosition().x - player.getPosition().x, 2);
+    	float distY = pow(getMonsterActor().getPosition().y - player.getPosition().y, 2);
+
+    	if (sqrt(distX + distY) < 70)
+			return 2;
+	}
+	return 0;
+}
 
 //handles together the item and dialoguebox iteraction whenever inputed
 void GameLogic::itemAndDialogueBoxHandler(){

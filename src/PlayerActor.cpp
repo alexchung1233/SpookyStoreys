@@ -3,13 +3,14 @@
 
 
 PlayerActor::PlayerActor(){
-  holyWaterCount = 0;
+  this->myInventory = new Inventory();
 }
 
 void PlayerActor::init(){
   position = Position(400.f, 300.f);
-  characterVelocity = sf::Vector2f(8000.f,8000.f);
+  characterVelocity = sf::Vector2f(2000.f,2000.f);
   mySize = sf::Vector2f(48.f, 105.6f);
+  this->myInventory->init();
 }
 
 void PlayerActor::setVelocity(sf::Vector2f vector){
@@ -77,13 +78,16 @@ MovementStates::direcStates PlayerActor::getDirectionState(){
   if(direction.x == -1){
     return MovementStates::LEFT;
   }
-  if(direction.x == 1){
+  else if(direction.x == 1){
     return MovementStates::RIGHT;
   }
-  if(direction.y == 1){
+  else if(direction.y == 1){
     return MovementStates::UP;
   }
-  if(direction.y == -1){
+  else if(direction.y == -1){
+    return MovementStates::DOWN;
+  }
+  else {
     return MovementStates::DOWN;
   }
 }
@@ -107,14 +111,19 @@ sf::Vector2f PlayerActor::getSize(){
   return mySize;
 }
 
-void PlayerActor::upHolyWaterCount(){
-  holyWaterCount++;
+Inventory* PlayerActor::getInventory(){
+  return myInventory;
 }
 
-void PlayerActor::downHolyWaterCount(){
-  holyWaterCount--;
+bool PlayerActor::useHolyWater(){
+  if(myInventory->getHolyWaterCount() < 1){
+    std::cout << "You don't have any holy water to use!" << std::endl;
+    return false;
+  }
+  else{
+    std::cout << "You used the holy water!" << std::endl;
+    myInventory->downHolyWaterCount();
+    return true;
+  }
 }
 
-int PlayerActor::getHolyWaterCount(){
-  return holyWaterCount;
-}

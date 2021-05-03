@@ -4,7 +4,6 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 #include "Animation.h"
-#include "MonsterAI.h"
 #include "State.h"
 #include "GameOver.h"
 #include "ScriptManager.h"
@@ -18,6 +17,7 @@ class GameView : public State
     LevelManager levelManager;
     GameLogic logic;
     ScriptManager scriptManager;
+    LevelManager monsterLevelManager;
     Room room;
 
     Animation player_anim_down;
@@ -29,16 +29,22 @@ class GameView : public State
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
 
-    sf::Sprite sprite_counter;
+    sf::Sprite sprite_inventoryDisplay;
 
     sf::Font font;
-    sf::Text counterText;
+    sf::Text holyWaterCounter_text;
+    sf::Text noteCounter_text;
+    sf::Text keyCounter_text;
+
+    void loadItemTextures();
+    void setUpInventoyDisplay();
+    void setCounterText(sf::Text& myText, float yPos);
 
     sf::Sprite sprite_item;
     std::vector<sf::Sprite*> itemSprites;
 
     sf::Texture texture;
-    sf::Texture texture_counter;
+    sf::Texture texture_inventoryDisplay;
 
     sf::Clock gameClock;
     sf::Clock clockFilter;
@@ -49,18 +55,20 @@ class GameView : public State
     sf::Text message;
 
 
-
-
-
     sf::Texture* texture_item;
-
+    std::map<const std::string, sf::Texture*> itemTextures;
 
     sf::Texture texture_monster;
-    MonsterAI monsterAI;
 
+    AudioManager* sound;
 
     void updatePlayerAnimation(float dt);
     void loadItemSprites();
+    void monsterSpriteAndSounds();
+    void isDialogue();
+
+    bool inRoomLastTime = false;
+    bool nextRoomLastTime = false;
 
 
     //temp test rectangles
@@ -79,11 +87,8 @@ class GameView : public State
     void update(sf::Event& Event, float dt);
     void init();
 
-    void setCounterText();
-
     void setLogic(GameView& logic);
     float myPos();
-    void isDialogue();
     void render();
     void pause();
     void unpause();
@@ -94,6 +99,7 @@ class GameView : public State
     void updateScriptCommand(ScriptCommand& command);
 
     void makeBox(sf::Vector2f position, sf::Color color);
+
     void setText(std::string words);
 
     std::map<const std::string, sf::Texture*> itemTextureMapping;

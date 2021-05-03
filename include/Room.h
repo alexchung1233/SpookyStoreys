@@ -14,6 +14,8 @@
 #include "Bookcase.h"
 #include "Safe.h"
 #include "Bathtub.h"
+#include "Painting.h"
+#include "Firepoker.h"
 
 class Room
 {
@@ -28,9 +30,11 @@ class Room
         std::vector<sf::IntRect> getObstacles();
         sf::Texture getTexture();
         std::vector<Door> getDoors();
+        std::string getRoomTitle();
         std::vector<ItemActor*> getItems();
 
     private:
+    	std::string roomTitle;
     	sf::Texture levelTexture;
 
         sf::IntRect myBoundaries;

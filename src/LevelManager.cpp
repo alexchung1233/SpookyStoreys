@@ -10,7 +10,9 @@ LevelManager::LevelManager(sf::Texture& levelTexture){
 
 //read in the level mapping data and store into assoctiative mapping
 void LevelManager::init(){
+
     getRoomNames("../data/RoomNames.txt");
+
 
     for(int i = 0; i < myRooms.size(); i++){
     	levelFileMapping[myRooms.at(i)] = Room(myRooms.at(i));

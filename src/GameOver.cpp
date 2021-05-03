@@ -41,7 +41,7 @@ void GameOver::init(){
 
 	sf::FloatRect textBounds = mainMessage.getGlobalBounds();
 
-	mainMessage.setPosition(sf::Vector2f(400 - textBounds.width/2, 100));
+	mainMessage.setPosition(sf::Vector2f(450 - textBounds.width/2, 100));
 
 	replayMessage.setFont(endFont);
 	menuMessage.setFont(endFont);
@@ -63,7 +63,7 @@ void GameOver::makeText(sf::Text& text, std::string string, float yPos){
 
 	sf::FloatRect textBounds = text.getGlobalBounds();
 
-	text.setPosition(sf::Vector2f(400 - textBounds.width/2, yPos));
+	text.setPosition(sf::Vector2f(450 - textBounds.width/2, yPos));
 }
 
 
