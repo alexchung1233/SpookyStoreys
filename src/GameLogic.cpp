@@ -181,7 +181,7 @@ bool GameLogic::isDialogueBoxUsed(){
 
 //inidicates if the dialogue box is finished
 bool GameLogic::dialogueBoxFinished(){
-	if(dialogueBox.getTracker() > dialogueBox.getDialogueLimit())
+	if(dialogueBox.getTracker() >= dialogueBox.getDialogueLimit())
 		return true;
 	return false;
 }
@@ -240,7 +240,6 @@ void GameLogic::setMovementState(MovementStates::movementStates state){
 void GameLogic::itemAndDialogueBoxHandler(){
 	if(!this->isDialogueBoxUsed() && this->isPlayerByItem()){
 		this->setDialogueBoxStatus(true);
-		dialogueBox.incrementTracker();
 	}
 	//if the dialogue box is currently opened
 	else if(this->isDialogueBoxUsed())
