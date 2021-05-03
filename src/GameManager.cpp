@@ -17,6 +17,7 @@ void GameManager::initVariables(){
 
   //initial starting state
   this->stateQueue.push(new Menu(*window, *audioManagerPTR));
+  initStates();
 
 }
 /**
@@ -26,7 +27,6 @@ void GameManager::runGame()
 {
 	while (this->window->isOpen())
 	{
-    this->initStates();
     this->updateDt();
     this->update();
     this->render();
@@ -67,8 +67,6 @@ void GameManager::update(){
       this->stateQueue.pop();
       initStates();
 
-
-
     }
   }
 }
@@ -94,7 +92,7 @@ void GameManager::initWindow(){
 
   //creates the window object
   this->window = new sf::RenderWindow(
-    sf::VideoMode(800,600,32),
+    sf::VideoMode(900,600,32),
     windowTitle,
     sf::Style::Close);
 

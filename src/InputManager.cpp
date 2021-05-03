@@ -4,7 +4,6 @@ InputManager::InputManager(sf::RenderWindow &app, GameLogic &logic){
   this->App = &app;
   this->logic = &logic;
 
-
   playState = 0;
 }
 
@@ -58,6 +57,9 @@ void InputManager::update(sf::Event& Event, float dt){
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
       logic->itemAndDialogueBoxHandler();
 
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+      logic->WPressed();
     }
   }
 

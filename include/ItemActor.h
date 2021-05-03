@@ -35,21 +35,20 @@ class ItemActor : public Actor {
 		//and so on
 		virtual string interact(PlayerActor &player) = 0;
 
-		std::string getSpriteFile() { return filepath; }
+		std::string getItemName() { return itemName; }
 
 		bool destroyable() { return this->canBeDestroyed; }
 
 		//helper function for interact()
 		//returns true if the item is next to the player, false if otherwise
-   	virtual bool nextToPlayer(PlayerActor &player) = 0;
+   		virtual bool nextToPlayer(PlayerActor &player) = 0;
 
-		std::string getItemName() { return this->itemName; }
 	protected:
     	string myDialogue;
-      string filepath;
-      bool canBeDestroyed;
-			bool activeStatus = true;
-			string itemName;
+
+    	bool canBeDestroyed;
+		bool activeStatus = true;
+		string itemName;
 
 	private:
 };

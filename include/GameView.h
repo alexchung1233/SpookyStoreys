@@ -4,7 +4,6 @@
 #include <SFML/Audio.hpp>
 #include "InputManager.h"
 #include "Animation.h"
-#include "MonsterAI.h"
 #include "State.h"
 #include "GameOver.h"
 #include "Room.h"
@@ -16,6 +15,9 @@ class GameView : public State
     InputManager inputManager;
     LevelManager levelManager;
     GameLogic logic;
+
+    LevelManager monsterLevelManager;
+
     Room room;
 
     Animation player_anim_down;
@@ -27,16 +29,23 @@ class GameView : public State
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
 
-    sf::Sprite sprite_counter;
+    sf::Sprite sprite_inventoryDisplay;
 
     sf::Font font;
-    sf::Text counterText;
+    sf::Text holyWaterCounter_text;
+    sf::Text noteCounter_text;
+    sf::Text keyCounter_text;
+
+    void loadItemTextures();
+    void setUpInventoyDisplay();
+    void setCounterText(sf::Text& myText, float yPos);
+    void makeBox(sf::Vector2f position, sf::Color color);
 
     sf::Sprite sprite_item;
     std::vector<sf::Sprite*> itemSprites;
 
     sf::Texture texture;
-    sf::Texture texture_counter;
+    sf::Texture texture_inventoryDisplay;
 
     sf::Clock gameClock;
     sf::Texture player_sprite_sheet;
@@ -46,18 +55,20 @@ class GameView : public State
     sf::Text message;
 
 
-
-
-
     sf::Texture* texture_item;
-
+    std::map<const std::string, sf::Texture*> itemTextures;
 
     sf::Texture texture_monster;
-    MonsterAI monsterAI;
 
+    AudioManager* sound;
 
     void updatePlayerAnimation(float dt);
     void loadItemSprites();
+    void monsterSpriteAndSounds();
+    void isDialogue();
+
+    bool inRoomLastTime = false;
+    bool nextRoomLastTime = false;
 
 
   public:
@@ -69,15 +80,11 @@ class GameView : public State
     void update(sf::Event& Event, float dt);
     void init();
 
-    void setCounterText();
-
     void setLogic(GameView& logic);
     float myPos();
-    void isDialogue();
     void render();
     void pause();
     void unpause();
-    void makeBox(sf::Vector2f position, sf::Color color);
     void setText(std::string words);
 
     std::map<const std::string, sf::Texture*> itemTextureMapping;

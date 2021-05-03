@@ -4,7 +4,6 @@
 #include <math.h>
 #include "InputManager.h"
 #include "Animation.h"
-#include "MonsterAI.h"
 
 using namespace std;
 
@@ -22,33 +21,37 @@ GameView::GameView(sf::RenderWindow& app){
   this->status = State::UNINIT;
 }
 
-
 GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
   //TODO make this extend off a Process class.
   this->App = &app;
-  GameLogic myLogic;
-  this->logic = myLogic;
   inputManager(*App, logic);
   this->status = State::UNINIT;
   this->audioManager = &audioManager;
 }
 
 void GameView::init(){
+  if (!font.loadFromFile("../data/courier.ttf")){
+    std::cout << "incorrect font";
+  }
   this->levelManager.init();
-  this->logic.setup();
   this->logic.setLevelManager(levelManager);
 
-  inputManager(*App, logic);
+  this->monsterLevelManager.init();
+  this->monsterLevelManager.setRoom("BASEMENT");
+  this->logic.setMonsterLevelManager(monsterLevelManager);
 
+  this->logic.setup();
+
+  inputManager(*App, logic);
+  
   //get current level texture
   texture = this->levelManager.getLevelTexture();
 
   levelSprite.setTexture(texture);
 
-
   PlayerActor player = this->logic.getPlayer();
-  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
 
+  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
   string animate_sprite_file = "../data/Protag_Spritesheet.png";
 
@@ -56,20 +59,11 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
+  loadItemTextures();
 
+  setUpInventoyDisplay();
 
-  string counter_file = "../data/counter.png";
-  if(!texture_counter.loadFromFile(counter_file)){
-    printf("incorrect file format");
-  }
-  sprite_counter.setTexture(texture_counter);
-  sprite_counter.setPosition(732, 0);
-
-
-  setCounterText();
-
-
-  makeBox(sf::Vector2f(this->logic.getDialogueBox().position.x, this->logic.getDialogueBox().position.y), sf::Color::Black);
+  makeBox(sf::Vector2f(logic.getDialogueBox().position.x, logic.getDialogueBox().position.y), sf::Color::Black);
 
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
@@ -81,88 +75,119 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  //MonsterAI monsterAI;
-  monsterAI.setPosition(400, 360);
+  MonsterActor monster = this->logic.getMonsterActor();
+
   sprite_monster.setTexture(texture_monster);
-  sprite_monster.setPosition(400, 360);
-  sprite_monster.setScale(sf::Vector2f(-1.00f, 1.00f));
-
-
-  std::string str;
-  ifstream infile;
-  infile.open ("../data/itemImageFiles.txt");
-  while(!infile.eof())
-  {
-    std::getline(infile, str);
-    std::string filepath = "../data/" + str + ".png";
-
-    if(filepath != "../data/.png"){
-      itemTextureMapping[str] = new sf::Texture;
-      if(!itemTextureMapping[str]->loadFromFile(filepath)) {
-        printf("incorrect file format");
-        }
-    }
-  }
-  infile.close();
-
+  sprite_monster.setPosition(monster.getPosition().x - 200, monster.getPosition().y - 70);
+  sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
 
   //sound->playPlayingMusic();
   this->status = State::RUNNING;
 
 }
 
-void GameView::setCounterText(){
-  if (!font.loadFromFile("../data/courier.ttf")){
-      std::cout << "incorrect font";
+void GameView::loadItemTextures(){
+  std::string str;
+  ifstream infile;
+  infile.open ("../data/itemImageFiles.txt");
+  while(!infile.eof())
+  {
+    std::getline(infile, str);
+    std::string filepath = "../data/itemSprites/" + str + ".png";
+
+    itemTextures[str] = new sf::Texture;
+
+    if(!itemTextures[str]->loadFromFile(filepath)) {
+      printf("incorrect file format");
+    }
+
   }
-  this->counterText.setString("0");
-  this->counterText.setCharacterSize(50);
-  this->counterText.setFillColor(sf::Color::White);
-  this->counterText.setFont(font);
-  this->counterText.setPosition(sf::Vector2f(752, 62));
+  infile.close();
 }
+
+void GameView::setUpInventoyDisplay(){
+  string inventoryDisplay_file = "../data/inventory_display.png";
+  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
+    printf("incorrect file format");
+  }
+  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
+  sprite_inventoryDisplay.setPosition(800, 150);
+  sprite_inventoryDisplay.setScale(sf::Vector2f(0.50f, 0.50f));
+
+  setCounterText(holyWaterCounter_text,165);
+  setCounterText(noteCounter_text, 265);
+  setCounterText(keyCounter_text, 365);
+
+}
+
+void GameView::setCounterText(sf::Text& myText, float yPos){
+  myText.setString("0");
+  myText.setCharacterSize(50);
+  myText.setFillColor(sf::Color(200, 200, 200));
+  myText.setFont(font);
+  myText.setPosition(sf::Vector2f(860, yPos));
+}
+
 
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
+  
   inputManager.update(Event, dt);
+  logic.updateAI(dt);
+
   //get the latest level texture
   texture = this->levelManager.getLevelTexture();
-
 
   //update the level sprite
   levelSprite.setTexture(texture);
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-  this->counterText.setString(to_string(player.getHolyWaterCount()));
+  this->holyWaterCounter_text.setString(to_string(player.getInventory()->getHolyWaterCount()));
+  this->noteCounter_text.setString(to_string(player.getInventory()->numNotesFound()));
+  this->keyCounter_text.setString(to_string(player.getInventory()->getKeyCount()));
 
   updatePlayerAnimation(dt);
-  //this->logic.update(dt);
 
+  MonsterActor monster = this->logic.getMonsterActor();
+  sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
   loadItemSprites();
+
   this->setText(logic.getDialogueBoxText());
 
-  if(inputManager.getPlayState() == 1){
+  if(logic.getPlayState() == 1 || inputManager.getPlayState() == 1 ){
     this->status = State::SUCCESS;
+    audioManager->stopNextRoom();
+    audioManager->stopInRoom();
     childState = new GameOver(*App, "You Win!", *audioManager);
   }
-  else if(inputManager.getPlayState() == 2){
+  else if(logic.getPlayState() == 2 || inputManager.getPlayState() == 2 ){
     this->status = State::SUCCESS;
+    audioManager->stopNextRoom();
+    audioManager->stopInRoom();
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
 
   //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
+  // sf::IntRect checkMe = levelManager.getCurrentRoom().getBoundaries();
+  // sf::RectangleShape rectangle(sf::Vector2f(checkMe.width,checkMe.height));
+  // rectangle.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
+  // rectangle.setOutlineThickness(-3);
+  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
+  // rectangle.setFillColor(sf::Color::Transparent);
+  // this->App->draw(rectangle);
+
   // int size = levelManager.getCurrentRoom().getObstacles().size();
   // for(int i = 0; i < size; i++){
-  //   sf::IntRect checkMe = levelManager.getCurrentRoom().getObstacles().at(i);
-  //   sf::RectangleShape rectangle(sf::Vector2f(checkMe.width,checkMe.height));
-  //   rectangle.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
-  //   rectangle.setOutlineThickness(-3);
-  //   rectangle.setOutlineColor(sf::Color(250, 150, 100));
-  //   rectangle.setFillColor(sf::Color::Transparent);
-  //   this->App->draw(rectangle);
+  //   checkMe = levelManager.getCurrentRoom().getObstacles().at(i);
+  //   sf::RectangleShape rectangle2(sf::Vector2f(checkMe.width,checkMe.height));
+  //   rectangle2.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
+  //   rectangle2.setOutlineThickness(-3);
+  //   rectangle2.setOutlineColor(sf::Color(250, 150, 100));
+  //   rectangle2.setFillColor(sf::Color::Transparent);
+  //   this->App->draw(rectangle2);
   // }
 
 
@@ -173,7 +198,6 @@ void GameView::update(sf::Event& Event, float dt){
 void GameView::updatePlayerAnimation(float dt){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
-
     case MovementStates::MOVING_LEFT:
       this->player_anim_left.play(gameClock);
       break;
@@ -181,7 +205,6 @@ void GameView::updatePlayerAnimation(float dt){
     case MovementStates::MOVING_RIGHT:
       this->player_anim_right.play(gameClock);
       break;
-
 
     case MovementStates::MOVING_UP:
       this->player_anim_up.play(gameClock);
@@ -191,25 +214,28 @@ void GameView::updatePlayerAnimation(float dt){
       this->player_anim_down.play(gameClock);
       break;
 
-      }
-    this->logic.setMovementState(MovementStates::IDLE);
+    default:
+      //do nothing
+     break;
+  }
+  this->logic.setMovementState(MovementStates::IDLE);
 }
 
 //load the itemsprites from the current room
 void GameView::loadItemSprites(){
-
   Room tempRoom = levelManager.getCurrentRoom();
   for(int i = 0; i < tempRoom.getItems().size(); i++) {
+
     ItemActor* item = tempRoom.getItems().at(i);
     if(item->getActiveStatus()){
-
       itemSprites.push_back(new sf::Sprite);
 
-      itemSprites.back()->setTexture(*itemTextureMapping[item->getItemName()]);
+      texture_item = itemTextures[item->getItemName()];
+      itemSprites.back()->setTexture(*texture_item);
       itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
     }
-  }
 
+  }
 }
 
 
@@ -219,7 +245,6 @@ void GameView::setLogic(GameView& logic){}
 void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
-
     Room tempRoom = levelManager.getCurrentRoom();
 
     for (int i = 0; i < itemSprites.size(); i++){
@@ -227,14 +252,71 @@ void GameView::render(){
       this->App->draw(*drawMe);
     }
 
-
-
     this->App->draw(sprite_player);
-    this->App->draw(sprite_monster);
-    this->App->draw(sprite_counter);
-    this->App->draw(counterText);
+
+    monsterSpriteAndSounds();
+
+    // sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
+    // monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
+    // this->App->draw(monsterRect);
+
+
+    // sf::CircleShape doorCenter = sf::CircleShape(1);
+    // doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
+    // this->App->draw(doorCenter);
+    
+    this->App->draw(sprite_inventoryDisplay);
+    this->App->draw(holyWaterCounter_text);
+    this->App->draw(noteCounter_text);
+    this->App->draw(keyCounter_text);
+
     isDialogue();
 
+}
+
+void GameView::monsterSpriteAndSounds(){
+  //If the monster is in the same room a the player
+  if (this->logic.playerAndMonsterInSameRoom()) {
+    //If the in room sound isnt already playing
+    if (!inRoomLastTime){
+      audioManager->playInRoom();
+    }
+    //Draw monster
+    inRoomLastTime = true;
+    this->App->draw(sprite_monster);
+  }
+  else {
+    //If they aren't in the same room stop in room sound
+    inRoomLastTime = false;
+    audioManager->stopInRoom();
+  }
+
+  //Get title of current monster room and list of doors from player room
+  string monsterRoom = monsterLevelManager.getCurrentRoom().getRoomTitle();
+  std::vector<Door> doorList = levelManager.getCurrentRoom().getDoors();
+  bool inNextRoom = false;
+  bool holdLastTime;
+  //Iterate through list of player doors
+  for (int i = 0; i < doorList.size(); i++) {
+    //If they are equal mark as true
+    if (doorList.at(i).getNextRoom() == monsterRoom) {
+      inNextRoom = true;
+      holdLastTime = true;
+    }
+  }
+  //If the monster is in the next room and sound isnt already playing, play next room sound
+  if (inNextRoom) {
+    if (!nextRoomLastTime){
+      audioManager->playNextRoom();
+    }
+  }
+  //Else stop playing next room sound
+  else {
+    holdLastTime = false;
+    audioManager->stopNextRoom();
+  }
+
+  nextRoomLastTime = holdLastTime;
 }
 
 
@@ -273,9 +355,6 @@ void GameView::setText(std::string words){
   this->message.setPosition(myPos);
 
 }
-
-
-
 
 void GameView::pause(){}
 

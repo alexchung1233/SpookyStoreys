@@ -2,6 +2,7 @@
 #define PLAYER_ACTOR_H
 
 #include "CharacterActor.h"
+#include "Inventory.h"
 
 class PlayerActor : public CharacterActor {
 public:
@@ -29,13 +30,13 @@ public:
   void setSize(sf::Vector2f size);
   void setSize(float x, float y);
 
-  void upHolyWaterCount();
-  void downHolyWaterCount();
-  int getHolyWaterCount();
+  bool useHolyWater();
+
+  Inventory* getInventory();
 
 
 private:
-  int holyWaterCount;
+  Inventory* myInventory;
 
 };
 

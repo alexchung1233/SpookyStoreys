@@ -12,7 +12,8 @@ Room::Room(std::string roomName){
 }
 
 void Room::setUpRoom(std::string roomName){
-	string directory = "../data/";
+	roomTitle = roomName;
+	string directory = "../data/roomInfo/";
 	string txt = ".txt";
 	string png = ".png";
 
@@ -55,6 +56,7 @@ void Room::setUpRoom(std::string roomName){
 			Door myDoor(forDoor);
 			myDoors.push_back( myDoor );
 		}
+
 		else if (!result.at(0).find("HOLYWATER")){
 			vector<string>forWater;
 			for(int i = 1; i < result.size(); i++){
@@ -104,6 +106,26 @@ void Room::setUpRoom(std::string roomName){
 			myItems.at(myItems.size() - 1)->init();
 		}
 
+		else if (!result.at(0).find("PAINTING")){
+			vector<string>forPainting;
+			for(int i = 1; i < result.size(); i++){
+				forPainting.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Painting(forPainting));
+			myItems.at(myItems.size() - 1)->init();
+		}
+
+		else if (!result.at(0).find("FIREPOKER")){
+			vector<string>forFirepoker;
+			for(int i = 1; i < result.size(); i++){
+				forFirepoker.push_back(result.at(i));
+			}
+
+			myItems.push_back(new Firepoker(forFirepoker));
+			myItems.at(myItems.size() - 1)->init();
+		}
+
     }
 
 	infile.close();
@@ -113,7 +135,6 @@ void Room::setUpRoom(std::string roomName){
   	if(!levelTexture.loadFromFile(filepathPNG)){
     	printf("incorrect file format");
   	}
-
 
 }
 
@@ -133,6 +154,9 @@ std::vector<Door> Room::getDoors(){
 	return myDoors;
 }
 
+std::string Room::getRoomTitle(){
+	return roomTitle;
+}
 std::vector<ItemActor*> Room::getItems(){
 	return myItems;
 }

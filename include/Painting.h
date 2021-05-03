@@ -1,27 +1,30 @@
-#ifndef HOLY_WATER_H // include guard
-#define HOLY_WATER_H
+#ifndef PAINTING_H // include guard
+#define PAINTING_H
 #include <SFML/Graphics.hpp>
 #include <cmath>  
-#include <string>
-#include <vector>
 #include "ItemActor.h"
-#include "DialogueBox.h"
+#include "PlayerActor.h"
+
+
 
 using namespace std;
-class HolyWater : public ItemActor {
+class Painting : public ItemActor {
 
     public:
-        HolyWater(std::vector<std::string> inputVector);
+        Painting() {};
+        Painting(std::vector<std::string> inputVector);
+
         void init();
         Position getPosition();
+        void setPosition(float x, float y);
         string interact(PlayerActor &player);
-
         sf::Vector2f getSize();
         void setSize(sf::Vector2f size);
         void setSize(float x, float y);
         bool nextToPlayer(PlayerActor &player);
-        
-    private:
+
+    
+    private:    
 };
 
 #endif
