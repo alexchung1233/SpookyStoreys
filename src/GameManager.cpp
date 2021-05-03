@@ -65,6 +65,7 @@ void GameManager::update(){
         }
       }
       this->stateQueue.pop();
+      initStates();
 
 
 

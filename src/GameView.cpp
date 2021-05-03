@@ -12,6 +12,7 @@ using namespace std;
 GameView::GameView(){
   //TODO make this extend off a Process class.
   this->status = State::UNINIT;
+
 }
 
 //constructor takes in App
@@ -53,9 +54,8 @@ void GameView::init(){
   monsterView.newDoorX = newDoor.x;
   monsterView.newDoorY = newDoor.y;
 
+  //get current level texture
   texture = this->levelManager.getLevelTexture();
-
-
 
   levelSprite.setTexture(texture);
 
@@ -70,8 +70,20 @@ void GameView::init(){
     printf("incorrect file format");
   }
 
-  //sprite_player.setScale(sf::Vector2f(0.80f, 0.80f));
 
+
+  string counter_file = "../data/counter.png";
+  if(!texture_counter.loadFromFile(counter_file)){
+    printf("incorrect file format");
+  }
+  sprite_counter.setTexture(texture_counter);
+  sprite_counter.setPosition(732, 0);
+
+
+  setCounterText();
+
+
+  makeBox(sf::Vector2f(this->logic.getDialogueBox().position.x, this->logic.getDialogueBox().position.y), sf::Color::Black);
 
   player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
   player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
@@ -90,16 +102,50 @@ void GameView::init(){
   sprite_monster.setPosition(monster.getPosition().x - 200, monster.getPosition().y - 70);
   sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
 
+
+  std::string str;
+  ifstream infile;
+  infile.open ("../data/itemImageFiles.txt");
+  while(!infile.eof())
+  {
+    std::getline(infile, str);
+    std::string filepath = "../data/" + str + ".png";
+
+    if(filepath != "../data/.png"){
+      itemTextureMapping[str] = new sf::Texture;
+      if(!itemTextureMapping[str]->loadFromFile(filepath)) {
+        printf("incorrect file format");
+        }
+    }
+  }
+  infile.close();
+
+
   //sound->playPlayingMusic();
   this->status = State::RUNNING;
 
 }
 
+void GameView::setCounterText(){
+  if (!font.loadFromFile("../data/courier.ttf")){
+      std::cout << "incorrect font";
+  }
+  this->counterText.setString("0");
+  this->counterText.setCharacterSize(50);
+  this->counterText.setFillColor(sf::Color::White);
+  this->counterText.setFont(font);
+  this->counterText.setPosition(sf::Vector2f(752, 62));
+}
+
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
+  itemSprites.clear();
   inputManager.update(Event, dt);
-
+  //get the latest level texture
   texture = this->levelManager.getLevelTexture();
+
+
+  //update the level sprite
   levelSprite.setTexture(texture);
 
 
@@ -108,8 +154,9 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
-  updatePlayerAnimation(dt);
+  this->counterText.setString(to_string(player.getHolyWaterCount()));
 
+  updatePlayerAnimation(dt);
 
   bool inSameRoom = (monsterLevelManager.getCurrentRoom().getRoomTitle() == levelManager.getCurrentRoom().getRoomTitle());
 
@@ -122,6 +169,8 @@ void GameView::update(sf::Event& Event, float dt){
     float distY = pow(monster.getPosition().y - player.getPosition().y, 2);
 
 
+  loadItemSprites();
+  this->setText(logic.getDialogueBoxText());
 
 
     if (sqrt(distX + distY) < 70){
@@ -162,6 +211,7 @@ void GameView::update(sf::Event& Event, float dt){
   //   this->App->draw(rectangle);
   // }
 
+
 }
 
 
@@ -191,12 +241,40 @@ void GameView::updatePlayerAnimation(float dt){
     this->logic.setMovementState(MovementStates::IDLE);
 }
 
+//load the itemsprites from the current room
+void GameView::loadItemSprites(){
+
+  Room tempRoom = levelManager.getCurrentRoom();
+  for(int i = 0; i < tempRoom.getItems().size(); i++) {
+    ItemActor* item = tempRoom.getItems().at(i);
+    if(item->getActiveStatus()){
+
+      itemSprites.push_back(new sf::Sprite);
+
+      itemSprites.back()->setTexture(*itemTextureMapping[item->getItemName()]);
+      itemSprites.back()->setPosition(item->getPosition().x, item->getPosition().y);
+    }
+  }
+
+}
+
+
 void GameView::setLogic(GameView& logic){}
 
 //renders the running game
 void GameView::render(){
     this->App->clear();
     this->App->draw(levelSprite);
+
+    Room tempRoom = levelManager.getCurrentRoom();
+
+    for (int i = 0; i < itemSprites.size(); i++){
+      sf::Sprite* drawMe = itemSprites.at(i);
+      this->App->draw(*drawMe);
+    }
+
+
+
     this->App->draw(sprite_player);
 
 
@@ -253,8 +331,52 @@ void GameView::render(){
     doorCenter.setPosition(monsterView.newDoorX, monsterView.newDoorY);
     this->App->draw(doorCenter);
     */
+    this->App->draw(sprite_monster);
+    this->App->draw(sprite_counter);
+    this->App->draw(counterText);
+    isDialogue();
 
 }
+
+
+void GameView::isDialogue(){
+  if (logic.isDialogueBoxUsed()){ //toggle the dialogue box, if the  player has some sort of interaction
+    this->App->draw(dialogueBox);
+    this->App->draw(message);
+  }
+}
+
+//creat the box and position of box
+void GameView::makeBox(sf::Vector2f position, sf::Color color){
+    this->dialogueBox.setFillColor(color);
+    this->dialogueBox.setSize(sf::Vector2f(790, 40));
+    this->dialogueBox.setOutlineColor(sf::Color::White);
+    this->dialogueBox.setOutlineThickness(2);
+
+    sf::Vector2f myPos = sf::Vector2f(position.x - this->dialogueBox.getSize().x/2, 550);
+
+    dialogueBox.setPosition(myPos);
+}
+
+//set the text for the dialoguebox
+void GameView::setText(std::string words){
+  this->message.setString(words);
+  this->message.setCharacterSize(15);
+  this->message.setFillColor(sf::Color::Red);
+  this->message.setFont(font);
+
+  sf::FloatRect boxBounds = this->dialogueBox.getGlobalBounds();
+  sf::FloatRect textBounds = this->message.getLocalBounds();
+
+  sf::Vector2f myPos = sf::Vector2f(boxBounds.left + boxBounds.width/2 - textBounds.width/2,
+    boxBounds.top + boxBounds.height/2.7 - textBounds.height/2);
+
+  this->message.setPosition(myPos);
+
+}
+
+
+
 
 void GameView::pause(){}
 
