@@ -1,5 +1,9 @@
 FADE_IN,10.0,0,0,0
 WAIT,2.0
+SHOW_DIALOGUE,The Child wakes up in a cold sweat.
+SHOW_DIALOGUE,The nightmare still reels in his mind. He dreamt of something horrible.
+SHOW_DIALOGUE,teeth;blackness;a steel room;candles
+SHOW_DIALOGUE,blood.
 FADE_IN,1.0,255,255,255
 PLAY_SOUND,../data/thunder_sound.wav
 SHOW_DIALOGUE,The Child trembles as he hears the thunder echos out in the dark night.
