@@ -11,31 +11,37 @@ void MonsterAI::operator()(MonsterView &newMonsterView) {
   this->monsterView = &newMonsterView;
 }
 
-void MonsterAI::isPaused(bool pause) {
-  isPause = pause;
+void MonsterAI::pause() {
+  isPause = true;
+}
+
+void MonsterAI::start() {
+  isPause = false;
+}
+
+bool MonsterAI::isPaused(){
+  return isPause;
 }
 
 void MonsterAI::calculateMove(PlayerActor &player, float deltaMS, bool inSameRoom, bool holyWaterUsed) {
-  if (isPause) {
-    return;
-  }
+  if (!isPause){
+    if(holyWaterUsed){
+      monsterView->sendToBasement();
+    }
 
-  if(holyWaterUsed){
-    monsterView->sendToBasement();
-  }
-
-  //If the room has just been changed, reset the time counter
-  if (monsterView->justChangedRooms == true) {
-    monsterView->justChangedRooms = false;
-    oneDoorCounter = 0;
-  }
-  //If the monster and player are in the same room
-  if (inSameRoom) {
-    calculateMoveInRoom(player.getPosition().x, player.getPosition().y, deltaMS);
-  }
-  //If the monster and player are NOT in the same room
-  else {
-    calculateMoveOutRoom(deltaMS);
+    //If the room has just been changed, reset the time counter
+    if (monsterView->justChangedRooms) {
+      monsterView->justChangedRooms = false;
+      oneDoorCounter = 0;
+    }
+    //If the monster and player are in the same room
+    if (inSameRoom) {
+      calculateMoveInRoom(player.getPosition().x, player.getPosition().y, deltaMS);
+    }
+    //If the monster and player are NOT in the same room
+    else {
+      calculateMoveOutRoom(deltaMS);
+    }
   }
 }
 

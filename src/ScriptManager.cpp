@@ -25,13 +25,18 @@ SHOW_DIALOGUE,string dialogue message(no quotes needed, just the raw text)
 PLAY_SOUND,string path name
   this plays a sound
 
-WIP:
 PAUSE_MONSTER
+  this pauses the monster so it doesn't do anything
+
 START_MONSTER
+  this starts the monster so it does do stuff
+
+WIP:
 MOVE_PLAYER_UP
 MOVE_PLAYER_LEFT
 MOVE_PLAYER_RIGHT
 MOVE_PLAYER_DOWN
+LOCK_PLAYER
 
 */
 
@@ -67,6 +72,10 @@ void ScriptManager::readInScript(std::string scriptFileName){
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::PLAY_SOUND));
     else if(result.at(0) == "SHOW_DIALOGUE")
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::SHOW_DIALOGUE));
+    else if(result.at(0) == "PAUSE_MONSTER")
+      scriptQueue.push(new ScriptCommand(result, ScriptCommand::PAUSE_MONSTER));
+    else if(result.at(0) == "START_MONSTER")
+      scriptQueue.push(new ScriptCommand(result, ScriptCommand::START_MONSTER));
     }
 
   infile.close();

@@ -1,3 +1,4 @@
+PAUSE_MONSTER
 FADE_IN,10.0,0,0,0
 SHOW_DIALOGUE,The Child wakes up in a cold sweat.
 SHOW_DIALOGUE,The nightmare still reels in his mind. He dreamt of something horrible.
@@ -19,3 +20,4 @@ WAIT,.3.0
 FADE_IN,1.0,255,0,0
 SHOW_DIALOGUE,The Child's head splits in pain
 SHOW_DIALOGUE,He remembers flashbacks of a strange ritual his parents conducted
+START_MONSTER

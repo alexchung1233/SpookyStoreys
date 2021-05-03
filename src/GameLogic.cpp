@@ -201,7 +201,7 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 		Door checkDoor = doors.at(i);
 
 		if(checkDoor.getDoorBoundaries().intersects(possiblePlayerPosition)){
-			
+
 			//checks to see if the Office is unlocked and, if it is not,
 			//then checks to see if the player has the key.
 			//if the player does, then the office unlocks
@@ -296,7 +296,6 @@ void GameLogic::postDialogueBoxUse(){
 
 
 void GameLogic::updateAI(float dt){
-	monsterAI.isPaused(isDialogueBoxUsed());
 	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
 	monsterAI.setOffice(officeUnlocked);
 }
@@ -335,4 +334,15 @@ void GameLogic::itemAndDialogueBoxHandler(){
 	else if(this->isDialogueBoxUsed())
 		dialogueBox.incrementTracker();
 
+}
+
+//pauses the monster
+void GameLogic::pauseMonster(){
+	this->monsterAI.pause();
+}
+
+
+//starts up the monster
+void GameLogic::startMonster(){
+	this->monsterAI.start();
 }
