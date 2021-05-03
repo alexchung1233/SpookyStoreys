@@ -297,9 +297,11 @@ void GameLogic::postDialogueBoxUse(){
 
 void GameLogic::updateAI(float dt){
 	if(!isDialogueBoxUsed()){
-		monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
-		monsterAI.setOffice(officeUnlocked);
+		printf("here");
+	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
+	monsterAI.setOffice(officeUnlocked);
 	}
+
 }
 
 bool GameLogic::playerAndMonsterInSameRoom(){
@@ -334,12 +336,9 @@ void GameLogic::itemAndDialogueBoxHandler(){
 	}
 	//if the dialogue box is currently opened
 	else if(this->isDialogueBoxUsed()){
-		pauseMonster();
 		dialogueBox.incrementTracker();
 	}
-	else {
-		startMonster();
-	}
+
 
 
 }
