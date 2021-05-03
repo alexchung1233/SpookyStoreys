@@ -248,7 +248,6 @@ bool GameLogic::isDialogueBoxUsed(){
 
 //inidicates if the dialogue box is finished
 bool GameLogic::dialogueBoxFinished(){
-	cout << dialogueBox.getTracker() ;
 	if(dialogueBox.getTracker() >= dialogueBox.getDialogueLimit())
 		return true;
 	return false;
@@ -297,8 +296,10 @@ void GameLogic::postDialogueBoxUse(){
 
 
 void GameLogic::updateAI(float dt){
-	monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
-	monsterAI.setOffice(officeUnlocked);
+	if(!isDialogueBoxUsed()){
+		monsterAI.calculateMove(player, dt, playerAndMonsterInSameRoom(), getHolyWaterUsed());
+		monsterAI.setOffice(officeUnlocked);
+	}
 }
 
 bool GameLogic::playerAndMonsterInSameRoom(){
