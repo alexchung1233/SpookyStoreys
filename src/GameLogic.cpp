@@ -78,9 +78,14 @@ void GameLogic::rightPressed(float dt){
 }
 
 void GameLogic::WPressed(){
-	float distance = 100;
-	//TODO: UPDATE THIS FOR PROPER DISTANCE!!!
-	if(distance < 400 && !isDialogueBoxUsed()){
+	float distance = 300;
+	if(playerAndMonsterInSameRoom()){
+		float distX = pow(getMonsterActor().getPosition().x - player.getPosition().x, 2);
+  		float distY = pow(getMonsterActor().getPosition().y - player.getPosition().y, 2);
+  		distance = sqrt(distX + distY);
+	}
+
+	if(distance < 250 && !isDialogueBoxUsed()){
 		holyWaterUsed = false;
 		WTracker++;
 		if (WTracker%2 == 0){
