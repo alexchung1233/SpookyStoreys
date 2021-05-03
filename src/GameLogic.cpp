@@ -201,7 +201,6 @@ bool GameLogic::isPlayerByItem(){
 			this->currentNextToItem->interact(player);
 			dialogueBox.setDialogue(this->currentNextToItem->getDialogue());
 
-
 			return true;
 			}
 		}
@@ -220,8 +219,12 @@ void GameLogic::setDialogueBoxStatus(bool state){
 void GameLogic::postDialogueBoxUse(){
 	dialogueBox.resetTracker();
 	dialogueBox.setUsingState(false);
-	if(this->currentNextToItem->destroyable())
-		this->currentNextToItem->setActiveStatus(false);
+	if(this->currentNextToItem){
+		if(this->currentNextToItem->destroyable())
+			this->currentNextToItem->setActiveStatus(false);
+	}
+
+
 	}
 
 
