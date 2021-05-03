@@ -49,9 +49,9 @@ void GameView::init(){
 
   levelSprite.setTexture(texture);
 
-  PlayerActor player = logic.getPlayer();
-  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+  PlayerActor player = this->logic.getPlayer();
 
+  sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   sprite_player.setPosition(sf::Vector2f(400.f, 300.f));
   string animate_sprite_file = "../data/Protag_Spritesheet.png";
 
@@ -132,9 +132,6 @@ void GameView::setCounterText(sf::Text& myText, float yPos){
 //update the running game state depending on logic and input
 void GameView::update(sf::Event& Event, float dt){
   itemSprites.clear();
-
-  PlayerActor player = this->logic.getPlayer();
-  MonsterActor monster = this->logic.getMonsterActor();
   
   inputManager.update(Event, dt);
   logic.updateAI(dt);
@@ -145,6 +142,7 @@ void GameView::update(sf::Event& Event, float dt){
   //update the level sprite
   levelSprite.setTexture(texture);
 
+  PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
   this->holyWaterCounter_text.setString(to_string(player.getInventory()->getHolyWaterCount()));
   this->noteCounter_text.setString(to_string(player.getInventory()->numNotesFound()));
@@ -152,11 +150,13 @@ void GameView::update(sf::Event& Event, float dt){
 
   updatePlayerAnimation(dt);
 
+  MonsterActor monster = this->logic.getMonsterActor();
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
 
   loadItemSprites();
-  this->setText(logic.getDialogueBox().dialogue);
-  
+
+  this->setText(logic.getDialogueBoxText());
+
   if(logic.getPlayState() == 1 || inputManager.getPlayState() == 1 ){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();

@@ -22,7 +22,10 @@ class GameLogic{
     ItemActor* currentNextToItem;
 
     bool hitsDoor(sf::IntRect possiblePlayerPosition);
+
     bool monsterAndPlayerInSameRoom();
+
+    DialogueBox dialogueBox;
 
     MonsterView monsterView;
     MonsterAI monsterAI;
@@ -30,9 +33,8 @@ class GameLogic{
     LevelManager* levelManager;
 
   public:
-    GameLogic() { showBox = false; };
-    
-    bool showBox;
+
+    GameLogic() {};
 
     MonsterView& getMonsterView();
     MonsterActor getMonsterActor();
@@ -44,12 +46,8 @@ class GameLogic{
     void createPlayer();
     void createDialogueBox();
 
-    int Etracker;
-
     //reutrns player object
     PlayerActor getPlayer();
-    DialogueBox getDialogueBox();
-    DialogueBox dialoguebox;
 
     bool detectCollisionUp(float dt);
     bool detectCollisionDown(float dt);
@@ -86,5 +84,26 @@ class GameLogic{
 
     bool dialogueBoxFinished();
     void postDialogueBoxUse();
+
+    void setDialogueBoxText(string text){
+      this->dialogueBox.setDialogue(text);
+    };
+
+    string getDialogueBoxText(){
+      return this->dialogueBox.getDialogue();
+    };
+
+    const DialogueBox getDialogueBox(){
+      return dialogueBox;
+    }
+
+    void incrementDialogueBoxTracker(){
+      dialogueBox.incrementTracker();
+    }
+
+    void itemAndDialogueBoxHandler();
+
+
+
 
 };

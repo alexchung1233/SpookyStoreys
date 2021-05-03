@@ -15,18 +15,25 @@ class DialogueBox
         Position position;
         Position getPosition();
         int getDialogueLimit();
-        string dialogue;
-        int tracker; //keep track of times item is interacted with to tell if dialogue should be shown - "press E to close dialogue box"
         void setUsingState(bool state){this->currentUsingState=state;}
         bool getUsingState(){return this->currentUsingState;};
         void setDialogue(string dialogue);
         string getDialogue();
+        void incrementTracker(){
+          this->tracker++;
+        }
+        void resetTracker();
+
+        int getTracker(){
+          return this->tracker;
+        }
 
 
     private:
         int dialogueLimit;
         bool currentUsingState;
-
+        string dialogue;
+        int tracker; //keep track of times item is interacted with to tell if dialogue should be shown - "press E to close dialogue box"
 
 
 };

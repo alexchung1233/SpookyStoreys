@@ -18,7 +18,6 @@ void GameLogic::setup(){
 	monsterAI.setDoorLoc(monsterView.getRandomDoor());
 
 	officeUnlocked = false;
-	Etracker = 0; //keeps track of the number of times E is pressed to handle locking the player when they interact with an item
 	WTracker = 0;
 }
 
@@ -45,13 +44,10 @@ PlayerActor GameLogic::getPlayer(){
 
 void GameLogic::createDialogueBox(){
 	int sampleLimit = 1;
-	dialoguebox = DialogueBox(sampleLimit);
-	dialoguebox.init();
+	dialogueBox = DialogueBox(sampleLimit);
+	dialogueBox.init();
 }
 
-DialogueBox GameLogic::getDialogueBox(){
-	return dialoguebox;
-}
 
 void GameLogic::upPressed(float dt){
 	if (!isDialogueBoxUsed()){
@@ -78,7 +74,7 @@ void GameLogic::rightPressed(float dt){
 	if (!isDialogueBoxUsed()){
 		if(!detectCollisionRight(dt))
 			player.moveRight(dt);
-	}
+		}
 }
 
 void GameLogic::WPressed(){
@@ -235,7 +231,7 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 
 bool GameLogic::isDialogueBoxUsed(){
 	//as long as dialogue box current tracker is below diaglost limit and it's being used
-	if(dialoguebox.getUsingState()){
+	if(dialogueBox.getUsingState()){
 
 		//reset the values of the dialoguebox after it finishes
 		if(dialogueBoxFinished()){
@@ -249,9 +245,9 @@ bool GameLogic::isDialogueBoxUsed(){
 
 //inidicates if the dialogue box is finished
 bool GameLogic::dialogueBoxFinished(){
-	if(dialoguebox.tracker <= dialoguebox.getDialogueLimit())
-		return false;
-	return true;
+	if(dialogueBox.getTracker() > dialogueBox.getDialogueLimit())
+		return true;
+	return false;
 }
 
 
@@ -279,15 +275,15 @@ bool GameLogic::isPlayerByItem(){
 //handle dialogue box properties when item next to it
 void GameLogic::setDialogueBoxStatus(bool state){
 	//if there is a item next to player, set the dialogue to that
-	dialoguebox.setDialogue(this->currentNextToItem->getDialogue());
+	dialogueBox.setDialogue(this->currentNextToItem->getDialogue());
 
-	dialoguebox.setUsingState(state);
+	dialogueBox.setUsingState(state);
 }
 
 
 void GameLogic::postDialogueBoxUse(){
-	dialoguebox.tracker = 0;
-	dialoguebox.setUsingState(false);
+	dialogueBox.resetTracker();
+	dialogueBox.setUsingState(false);
 	if(this->currentNextToItem->destroyable())
 		this->currentNextToItem->setActiveStatus(false);
 	}
@@ -323,4 +319,16 @@ int GameLogic::getPlayState(){
 			return 2;
 	}
 	return 0;
+}
+
+//handles together the item and dialoguebox iteraction whenever inputed
+void GameLogic::itemAndDialogueBoxHandler(){
+	if(!this->isDialogueBoxUsed() && this->isPlayerByItem()){
+		this->setDialogueBoxStatus(true);
+		dialogueBox.incrementTracker();
+	}
+	//if the dialogue box is currently opened
+	else if(this->isDialogueBoxUsed())
+		dialogueBox.incrementTracker();
+
 }

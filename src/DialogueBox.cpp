@@ -30,3 +30,7 @@ string DialogueBox::getDialogue(){
 Position DialogueBox::getPosition(){
   return position;
 }
+
+void DialogueBox::resetTracker(){
+  this->tracker = 0;
+}
