@@ -36,11 +36,11 @@ void GameView::init(){
   }
   this->levelManager.init();
   this->logic.setLevelManager(levelManager);
-  this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, 0));
+  //this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, 0));
 
 
   //load in the new game intro level script
-  //this->scriptManager.readInScript("Intro_Script");
+  this->scriptManager.readInScript("Intro_Script");
 
 
   this->monsterLevelManager.init();
