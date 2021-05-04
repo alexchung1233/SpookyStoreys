@@ -1,23 +1,66 @@
 PAUSE_MONSTER
+LOCK_PLAYER
+SHOW_DIALOGUE,Press E to progress dialogue
 FADE_IN,10.0,0,0,0
 SHOW_DIALOGUE,The Child wakes up in a cold sweat.
 SHOW_DIALOGUE,The nightmare still reels in his mind. He dreamt of something horrible.
 SHOW_DIALOGUE,strange corridors; candles; chanting; a burning incense.
-WAIT,.6
+WAIT,.5f
+LOCK_PLAYER
+SHOW_DIALOGUE,Move The Child using the arrow keys.
+UNLOCK_PLAYER
+WAIT,5.f
 FADE_IN,1.0,255,255,255
 PLAY_SOUND,../data/thunder_sound.wav
 SHOW_DIALOGUE,The Child shakes in fear as hears the thunder
 SHOW_DIALOGUE,"Mom? Dad? Where are you?"
-WAIT,1.0
-PLAY_SOUND,../data/scream.wav
-SHOW_DIALOGUE,"What was that?!"
-SHOW_DIALOGUE,"Mom! Dad! I'm scared! Where are you!"
-WAIT,1.5
+LOCK_PLAYER
+WAIT,3.f
 FADE_IN,1.0,255,0,0
 WAIT,.3.0
 FADE_IN,1.0,255,0,0
 WAIT,.3.0
 FADE_IN,1.0,255,0,0
 SHOW_DIALOGUE,The Child's head splits in pain
+PLAY_SOUND,../data/child_whispers.wav
 SHOW_DIALOGUE,He remembers flashbacks of a strange ritual his parents conducted
+SHOW_DIALOGUE,The Child notices in his pocket there is a tape cassette player.
+SHOW_DIALOGUE,He presses play.
+SHOW_DIALOGUE,"Son. We're sorry. We didn't mean things to happen like this"
+SHOW_DIALOGUE,It's the sound of his father's voice.
+SHOW_DIALOGUE,"We thought what we did could keep us together forever"
+SHOW_DIALOGUE,"We didn't know it would bring... it here.""
+SHOW_DIALOGUE,"If you hear the footsteps"
+SHOW_DIALOGUE,"Run."
+SHOW_DIALOGUE,"Run far away"
+FADE_IN,1.0,255,0,0
+WAIT,.3.0
+FADE_IN,1.0,255,0,0
+WAIT,.3.0
+FADE_IN,1.0,255,0,0
+SHOW_DIALOGUE,Same pain echos in the Child's head
+SHOW_DIALOGUE,Memories flash of a creature; sharp teeth; blood; vacant eyes
+SHOW_DIALOGUE,"Listen carefully son."
+SHOW_DIALOGUE,"We don't have much time"
+SHOW_DIALOGUE,"Find the holy water scattered around the house. It'll protect you"
+SHOW_DIALOGUE,"At the bottom of the house in a safe tucked away there's a weapon"
+SHOW_DIALOGUE,"There are several seals scattered away in the house"
+SHOW_DIALOGUE,"It'll open the safe and you can use the weapon"
+PLAY_SOUND,../data/NextRoom.wav
+SHOW_DIALOGUE,Sounds of heavy inhuman footsteps echo in the recording
+SHOW_DIALOGUE,"Oh god. I can hear it coming."
+SHOW_DIALOGUE,"Remember we'll always be here with you."
+SHOW_DIALOGUE,"We raised you to be smart and resourceful"
+SHOW_DIALOGUE,"You will survive."
+PLAY_SOUND,../data/NextRoom.wav
+SHOW_DIALOGUE,"Oh no. It's here"
+PLAY_SOUND,../data/MonsterScream.wav
+PLAY_SOUND,../data/scream.wav
+SHOW_DIALOGUE,The recording cuts off
+SHOW_DIALOGUE,"I need to leave." the Child says in a fearful voice
+UNLOCK_PLAYER
+WAIT, 3.f
+SHOW_DIALOGUE,A Holy Water shimmers on the bed table
+SHOW_DIALOGUE,Press E to interact with it
+WAIT, 10.f
 START_MONSTER

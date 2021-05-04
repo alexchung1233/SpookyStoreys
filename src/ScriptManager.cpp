@@ -76,6 +76,10 @@ void ScriptManager::readInScript(std::string scriptFileName){
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::PAUSE_MONSTER));
     else if(result.at(0) == "START_MONSTER")
       scriptQueue.push(new ScriptCommand(result, ScriptCommand::START_MONSTER));
+    else if(result.at(0) == "LOCK_PLAYER")
+      scriptQueue.push(new ScriptCommand(result, ScriptCommand::LOCK_PLAYER));
+    else if(result.at(0) == "UNLOCK_PLAYER")
+      scriptQueue.push(new ScriptCommand(result, ScriptCommand::UNLOCK_PLAYER));
     }
 
   infile.close();
