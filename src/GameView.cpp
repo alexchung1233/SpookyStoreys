@@ -85,14 +85,14 @@ void GameView::init(){
   }
 
   //limit how slow the monster animation should be
-  float monster_anim_limit = 6.f;
+  float monster_anim_limit = 10.f;
 
   this->monster_anim_left = Animation(texture_monster, sprite_monster, 102, 71, 102, 0, 0, 0, monster_anim_limit);
   this->monster_anim_right = Animation(texture_monster, sprite_monster, 102, 71, 102, 0, 0, 71, monster_anim_limit);
 
   MonsterActor monsterActor = this->logic.getMonsterActor();
   this->sprite_monster.setPosition(monsterActor.getPosition().x - 200, monsterActor.getPosition().y - 70);
-  this->sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
+  this->sprite_monster.setScale(sf::Vector2f(2.00f, 2.00f));
 
   //sound->playPlayingMusic();
   this->status = State::RUNNING;
@@ -477,6 +477,7 @@ void GameView::render(){
     }
 
     this->App->draw(sprite_player);
+
 
     monsterSpriteAndSounds();
 
