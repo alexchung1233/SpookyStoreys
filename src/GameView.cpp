@@ -36,7 +36,7 @@ void GameView::init(){
   }
   this->levelManager.init();
   this->logic.setLevelManager(levelManager);
-  //this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, 0));
+  this->transitionRectangle.setFillColor(sf::Color(0, 0, 0));
 
 
   //load in the new game intro level script
@@ -280,7 +280,12 @@ void GameView::initScriptCommand(ScriptCommand& command){
     case ScriptCommand::START_MONSTER:
       logic.startMonster();
       break;
-
+    case ScriptCommand::LOCK_PLAYER:
+      logic.setPlayerLock(true);
+      break;
+    case ScriptCommand::UNLOCK_PLAYER:
+      logic.setPlayerLock(false);
+      break;
   }
 
 
@@ -342,6 +347,20 @@ void GameView::updateScriptCommand(ScriptCommand& command){
       break;
     case ScriptCommand::START_MONSTER:
       if(!logic.isMonsterPaused()){
+        command.setStatus(ScriptCommand::SUCCESS);
+        }
+
+      break;
+
+    case ScriptCommand::LOCK_PLAYER:
+      if(logic.isPlayerLocked()){
+        command.setStatus(ScriptCommand::SUCCESS);
+        }
+
+      break;
+
+    case ScriptCommand::UNLOCK_PLAYER:
+      if(!logic.isPlayerLocked()){
         command.setStatus(ScriptCommand::SUCCESS);
         }
 
@@ -522,7 +541,7 @@ void GameView::isDialogue(){
 //creat the box and position of box
 void GameView::makeBox(sf::Vector2f position, sf::Color color){
     this->dialogueBox.setFillColor(color);
-    this->dialogueBox.setSize(sf::Vector2f(790, 40));
+    this->dialogueBox.setSize(sf::Vector2f(900, 40));
     this->dialogueBox.setOutlineColor(sf::Color::White);
     this->dialogueBox.setOutlineThickness(2);
 
@@ -534,7 +553,7 @@ void GameView::makeBox(sf::Vector2f position, sf::Color color){
 //set the text for the dialoguebox
 void GameView::setText(std::string words){
   this->message.setString(words);
-  this->message.setCharacterSize(15);
+  this->message.setCharacterSize(20);
   this->message.setFillColor(sf::Color::Red);
   this->message.setFont(font);
 
@@ -590,7 +609,7 @@ void GameView::setUpInventoyDisplay(){
 
 void GameView::setCounterText(sf::Text& myText, float yPos){
   myText.setString("0");
-  myText.setCharacterSize(50);
+  myText.setCharacterSize(60);
   myText.setFillColor(sf::Color(200, 200, 200));
   myText.setFont(font);
   myText.setPosition(sf::Vector2f(860, yPos));

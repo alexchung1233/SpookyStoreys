@@ -51,28 +51,28 @@ void GameLogic::createDialogueBox(){
 
 void GameLogic::upPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionUp(dt))
+		if(!detectCollisionUp(dt) && !isPlayerLocked())
 			player.moveUp(dt);
 	}
 }
 
 void GameLogic::downPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionDown(dt))
+		if(!detectCollisionDown(dt) && !isPlayerLocked())
 			player.moveDown(dt);
 	}
 }
 
 void GameLogic::leftPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionLeft(dt))
+		if(!detectCollisionLeft(dt) && !isPlayerLocked())
 			player.moveLeft(dt);
 	}
 }
 
 void GameLogic::rightPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionRight(dt))
+		if(!detectCollisionRight(dt) && !isPlayerLocked())
 			player.moveRight(dt);
 		}
 }
@@ -269,9 +269,10 @@ bool GameLogic::isPlayerByItem(){
 			dialogueBox.setDialogue(this->currentNextToItem->getDialogue());
 
 			//TODO fix the currentNextToItem implementation
+			//for now it destroys right when it interacts with the item
 			if(this->currentNextToItem->destroyable())
 				this->currentNextToItem->setActiveStatus(false);
-			
+
 			return true;
 			}
 		}

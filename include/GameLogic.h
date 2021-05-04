@@ -16,6 +16,8 @@ class GameLogic{
 
     bool officeUnlocked;
 
+    bool playerLocked;
+
     int WTracker;
     bool holyWaterUsed;
 
@@ -117,6 +119,12 @@ class GameLogic{
     void startMonster();
 
     void postLogic();
+
+    void setPlayerLock(bool playerLock){
+      this->playerLocked = playerLock;
+    }
+
+    bool isPlayerLocked(){return this->playerLocked;}
 
 
 
