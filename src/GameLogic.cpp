@@ -310,9 +310,14 @@ bool GameLogic::playerAndMonsterInSameRoom(){
 	return playerLevel == monsterLevel;
 }
 
-void GameLogic::setMovementState(MovementStates::movementStates state){
+void GameLogic::setPlayerMovementState(MovementStates::movementStates state){
 	player.setMovementState(state);
 }
+
+void GameLogic::setMonsterMovementState(MovementStates::movementStates state){
+	//monsterActor.setMovementState(state);
+}
+
 
 int GameLogic::getPlayState(){
 	if(player.getInventory()->hasFoundWeapon()){

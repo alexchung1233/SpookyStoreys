@@ -3,6 +3,7 @@
 
 #include "CharacterActor.h"
 #include "Inventory.h"
+#include "MovementStates.h"
 
 class PlayerActor : public CharacterActor {
 public:
@@ -22,9 +23,6 @@ public:
 
   MovementStates::movementStates getMovementState();
   MovementStates::direcStates getDirectionState();
-  void setMovementState(MovementStates::movementStates state){
-    this->moveState = state;
-  }
 
   sf::Vector2f getSize();
   void setSize(sf::Vector2f size);

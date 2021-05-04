@@ -25,6 +25,10 @@ class GameView : public State
     Animation player_anim_left;
     Animation player_anim_right;
 
+    Animation monster_anim_left;
+    Animation monster_anim_right;
+
+
     sf::Sprite levelSprite;
     sf::Sprite sprite_player;
     sf::Sprite sprite_monster;
@@ -46,7 +50,6 @@ class GameView : public State
     sf::Texture texture;
     sf::Texture texture_inventoryDisplay;
 
-    sf::Clock gameClock;
     sf::Clock clockFilter;
     sf::Texture player_sprite_sheet;
     sf::Texture texture_player;
@@ -63,6 +66,8 @@ class GameView : public State
     AudioManager* sound;
 
     void updatePlayerAnimation(float dt);
+    void updateMonsterAnimation(float dt);
+
     void loadItemSprites();
     void monsterSpriteAndSounds();
     void isDialogue();

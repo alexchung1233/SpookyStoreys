@@ -3,7 +3,7 @@
 
 Animation::Animation(
   sf::Texture& textureSheet, sf::Sprite& sprite, float width, float height,
-  float endX, float endY, float startLeft, float startTop){
+  float endX, float endY, float startLeft, float startTop, float timeLimit){
 
   this-> startLeft = startLeft;
   this-> startTop = startTop;
@@ -13,7 +13,7 @@ Animation::Animation(
   this->height = height;
   this->textureSheet = &textureSheet;
   this->sprite = &sprite;
-
+  this->timeLimit = timeLimit;
   //resets the sprite texture
   this->sprite->setTexture(textureSheet,true);
   rectSourceSprite = sf::IntRect(this->startLeft, this->startTop, this->width, this->height);
@@ -24,10 +24,10 @@ Animation::Animation(
 }
 
 //plays the animation based on the delta time
-void Animation::play(sf::Clock& clock){
-  this->timer = clock.getElapsedTime().asSeconds() * 100;
-  if(timer >10.f){
-    timer =0.f;
+void Animation::play(float dt){
+  this->timer += dt * 100;
+  if(this->timer > this->timeLimit){
+    this->timer =0.f;
     if(rectSourceSprite.left < endX){
       rectSourceSprite.left+= width;
     }
@@ -35,7 +35,6 @@ void Animation::play(sf::Clock& clock){
       rectSourceSprite.left=startLeft;
     }
     this->sprite->setTextureRect(this->rectSourceSprite);
-    clock.restart();
   }
 
 

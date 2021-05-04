@@ -41,24 +41,32 @@ void MonsterActor::moveUp(float deltaMS){
   position.y -= deltaMS * characterVelocity.y;
   direction.y = 1;
   direction.x = 0;
+  this->moveState = MovementStates::movementStates::MOVING_UP;
+
 }
 
 void MonsterActor::moveDown(float deltaMS){
   position.y += deltaMS * characterVelocity.y;
   direction.y = -1;
   direction.x = 0;
+  this->moveState = MovementStates::movementStates::MOVING_DOWN;
+
 }
 
 void MonsterActor::moveLeft(float deltaMS){
   position.x -= deltaMS * characterVelocity.x;
   direction.x = -1;
   direction.y = 0;
+  this->moveState = MovementStates::movementStates::MOVING_LEFT;
+
 }
 
 void MonsterActor::moveRight(float deltaMS){
   position.x += deltaMS * characterVelocity.x;
   direction.x = 1;
   direction.y = 0;
+  this->moveState = MovementStates::movementStates::MOVING_RIGHT;
+
 }
 
 void MonsterActor::setSize(sf::Vector2f size){
@@ -76,25 +84,24 @@ sf::Vector2f MonsterActor::getSize(){
   return mySize;
 }
 
+MovementStates::direcStates MonsterActor::getDirectionState(){
+  if(direction.x == -1){
+    return MovementStates::LEFT;
+  }
+  else if(direction.x == 1){
+    return MovementStates::RIGHT;
+  }
+  else if(direction.y == 1){
+    return MovementStates::UP;
+  }
+  else if(direction.y == -1){
+    return MovementStates::DOWN;
+  }
+  else {
+    return MovementStates::DOWN;
+  }
+}
+
 MovementStates::movementStates MonsterActor::getMovementState(){
-  /*
-    if((int)characterVelocity.x  == 0 && (int)characterVelocity.y == 0){
-      return MovementStates::IDLE;
-    }
-*/
-    if(direction.x == -1){
-      return MovementStates::MOVING_LEFT;
-    }
-    else if(direction.x == 1){
-      return MovementStates::MOVING_RIGHT;
-    }
-    else if(direction.y == 1){
-      return MovementStates::MOVING_UP;
-    }
-    else if(direction.y == -1){
-      return MovementStates::MOVING_DOWN;
-    }
-    else{
-      return MovementStates::IDLE;
-    }
+  return this->moveState;
 }

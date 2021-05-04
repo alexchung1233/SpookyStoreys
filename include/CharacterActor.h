@@ -14,6 +14,10 @@ class CharacterActor : public Actor {
       virtual void setVelocity(float x, float y) = 0;
       virtual void move() = 0;
       virtual MovementStates::movementStates getMovementState()=0;
+      virtual MovementStates::direcStates getDirectionState()=0;
+      void setMovementState(MovementStates::movementStates state){
+        this->moveState = state;
+      }
 
 
    protected:
