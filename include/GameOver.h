@@ -15,6 +15,8 @@ class GameOver : public State
 
   	void update(sf::Event& Event, float dt);
 		void render();
+		void postSuccess();
+
 
 		void pause();
 

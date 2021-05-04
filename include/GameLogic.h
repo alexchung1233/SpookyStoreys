@@ -16,6 +16,8 @@ class GameLogic{
 
     bool officeUnlocked;
 
+    bool playerLocked;
+
     int WTracker;
     bool holyWaterUsed;
 
@@ -71,7 +73,9 @@ class GameLogic{
 
     void setLevelManager(LevelManager &LM);
 
-    void setMovementState(MovementStates::movementStates state);
+    void setPlayerMovementState(MovementStates::movementStates state);
+
+    void setMonsterMovementState(MovementStates::movementStates state);
 
     bool isDialogueBoxUsed();
     void setDialogueBoxStatus(bool status);
@@ -114,6 +118,13 @@ class GameLogic{
 
     void startMonster();
 
+    void postLogic();
+
+    void setPlayerLock(bool playerLock){
+      this->playerLocked = playerLock;
+    }
+
+    bool isPlayerLocked(){return this->playerLocked;}
 
 
 

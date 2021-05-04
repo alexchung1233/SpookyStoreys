@@ -9,7 +9,7 @@ void DialogueBox::init(){
     //if the player is interacting with an item
     this->tracker = 0;
     this->currentUsingState = false;
-    this->position = Position(400,0);
+    this->position = Position(450,0);
     this->dialogueLimit = 2;
 }
 

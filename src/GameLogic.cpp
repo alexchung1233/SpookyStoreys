@@ -51,28 +51,28 @@ void GameLogic::createDialogueBox(){
 
 void GameLogic::upPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionUp(dt))
+		if(!detectCollisionUp(dt) && !isPlayerLocked())
 			player.moveUp(dt);
 	}
 }
 
 void GameLogic::downPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionDown(dt))
+		if(!detectCollisionDown(dt) && !isPlayerLocked())
 			player.moveDown(dt);
 	}
 }
 
 void GameLogic::leftPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionLeft(dt))
+		if(!detectCollisionLeft(dt) && !isPlayerLocked())
 			player.moveLeft(dt);
 	}
 }
 
 void GameLogic::rightPressed(float dt){
 	if (!isDialogueBoxUsed()){
-		if(!detectCollisionRight(dt))
+		if(!detectCollisionRight(dt) && !isPlayerLocked())
 			player.moveRight(dt);
 		}
 }
@@ -268,6 +268,11 @@ bool GameLogic::isPlayerByItem(){
 			this->currentNextToItem->interact(player);
 			dialogueBox.setDialogue(this->currentNextToItem->getDialogue());
 
+			//TODO fix the currentNextToItem implementation
+			//for now it destroys right when it interacts with the item
+			if(this->currentNextToItem->destroyable())
+				this->currentNextToItem->setActiveStatus(false);
+
 			return true;
 			}
 		}
@@ -286,10 +291,9 @@ void GameLogic::setDialogueBoxStatus(bool state){
 void GameLogic::postDialogueBoxUse(){
 	dialogueBox.resetTracker();
 	dialogueBox.setUsingState(false);
-	if(this->currentNextToItem){
-		if(this->currentNextToItem->destroyable())
-			this->currentNextToItem->setActiveStatus(false);
-	}
+
+
+
 
 
 	}
@@ -310,9 +314,14 @@ bool GameLogic::playerAndMonsterInSameRoom(){
 	return playerLevel == monsterLevel;
 }
 
-void GameLogic::setMovementState(MovementStates::movementStates state){
+void GameLogic::setPlayerMovementState(MovementStates::movementStates state){
 	player.setMovementState(state);
 }
+
+void GameLogic::setMonsterMovementState(MovementStates::movementStates state){
+	//monsterActor.setMovementState(state);
+}
+
 
 int GameLogic::getPlayState(){
 	if(player.getInventory()->hasFoundWeapon()){
@@ -351,4 +360,8 @@ void GameLogic::pauseMonster(){
 //starts up the monster
 void GameLogic::startMonster(){
 	this->monsterAI.start();
+}
+
+void GameLogic::postLogic(){
+	this->currentNextToItem = NULL;
 }
