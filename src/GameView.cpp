@@ -444,9 +444,9 @@ void GameView::render(){
 
     monsterSpriteAndSounds();
 
-    // sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
-    // monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
-    // this->App->draw(monsterRect);
+    sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
+    monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
+    this->App->draw(monsterRect);
 
 
     // sf::CircleShape doorCenter = sf::CircleShape(1);
