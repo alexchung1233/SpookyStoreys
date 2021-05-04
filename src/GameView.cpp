@@ -36,11 +36,11 @@ void GameView::init(){
   }
   this->levelManager.init();
   this->logic.setLevelManager(levelManager);
-  //this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, 0));
+  this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, 0));
 
 
   //load in the new game intro level script
-  this->scriptManager.readInScript("Intro_Script");
+  //this->scriptManager.readInScript("Intro_Script");
 
 
   this->monsterLevelManager.init();
@@ -72,21 +72,27 @@ void GameView::init(){
 
   makeBox(sf::Vector2f(logic.getDialogueBox().position.x, logic.getDialogueBox().position.y), sf::Color::Black);
 
-  player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0);
-  player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107);
-  player_anim_left = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 214);
-  player_anim_right = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 321);
+  float player_time_limit = .6f;
 
-  string monster_file = "../data/Monster.png";
-  if(!texture_monster.loadFromFile(monster_file)){
+  player_anim_down = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 0, player_time_limit);
+  player_anim_up = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 107, player_time_limit);
+  player_anim_left = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 214, player_time_limit);
+  player_anim_right = Animation(player_sprite_sheet, sprite_player, 48, 107, 96, 0, 0, 321, player_time_limit);
+
+  string monster_sprite_sheet = "../data/monster_sprite_sheet.png";
+  if(!texture_monster.loadFromFile(monster_sprite_sheet)){
     printf("incorrect file format");
   }
 
-  MonsterActor monster = this->logic.getMonsterActor();
+  //limit how slow the monster animation should be
+  float monster_anim_limit = 6.f;
 
-  sprite_monster.setTexture(texture_monster);
-  sprite_monster.setPosition(monster.getPosition().x - 200, monster.getPosition().y - 70);
-  sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
+  this->monster_anim_left = Animation(texture_monster, sprite_monster, 102, 71, 102, 0, 0, 0, monster_anim_limit);
+  this->monster_anim_right = Animation(texture_monster, sprite_monster, 102, 71, 102, 0, 0, 71, monster_anim_limit);
+
+  MonsterActor monsterActor = this->logic.getMonsterActor();
+  this->sprite_monster.setPosition(monsterActor.getPosition().x - 200, monsterActor.getPosition().y - 70);
+  this->sprite_monster.setScale(sf::Vector2f(1.00f, 1.00f));
 
   //sound->playPlayingMusic();
   this->status = State::RUNNING;
@@ -142,7 +148,6 @@ void GameView::update(sf::Event& Event, float dt){
 
   itemSprites.clear();
 
-
   inputManager.update(Event, dt);
   logic.updateAI(dt);
 
@@ -159,9 +164,11 @@ void GameView::update(sf::Event& Event, float dt){
   this->keyCounter_text.setString(to_string(player.getInventory()->getKeyCount()));
 
   updatePlayerAnimation(dt);
+  updateMonsterAnimation(dt);
 
   MonsterActor monster = this->logic.getMonsterActor();
   sprite_monster.setPosition(monster.getPosition().x - 60, monster.getPosition().y - 30);
+
 
   loadItemSprites();
 
@@ -180,7 +187,6 @@ void GameView::update(sf::Event& Event, float dt){
     audioManager->playMonsterScream();
     childState = new GameOver(*App, "You Lose...", *audioManager);
   }
-
 
 
   //run test script
@@ -208,7 +214,6 @@ void GameView::update(sf::Event& Event, float dt){
   //   rectangle2.setFillColor(sf::Color::Transparent);
   //   this->App->draw(rectangle2);
   // }
-
 
 
 }
@@ -387,27 +392,58 @@ void GameView::updatePlayerAnimation(float dt){
   PlayerActor player = this->logic.getPlayer();
   switch(player.getMovementState()){
     case MovementStates::MOVING_LEFT:
-      this->player_anim_left.play(gameClock);
+      this->player_anim_left.play(dt);
       break;
 
     case MovementStates::MOVING_RIGHT:
-      this->player_anim_right.play(gameClock);
+      this->player_anim_right.play(dt);
       break;
 
     case MovementStates::MOVING_UP:
-      this->player_anim_up.play(gameClock);
+      this->player_anim_up.play(dt);
       break;
 
     case MovementStates::MOVING_DOWN:
-      this->player_anim_down.play(gameClock);
+      this->player_anim_down.play(dt);
       break;
 
     default:
       //do nothing
      break;
   }
-  this->logic.setMovementState(MovementStates::IDLE);
+  this->logic.setPlayerMovementState(MovementStates::IDLE);
 }
+
+
+//temporary function to update direction of player
+void GameView::updateMonsterAnimation(float dt){
+  MonsterActor monster = this->logic.getMonsterActor();
+  switch(monster.getMovementState()){
+    case MovementStates::MOVING_LEFT:
+      this->monster_anim_left.play(dt);
+      break;
+
+    case MovementStates::MOVING_RIGHT:
+      this->monster_anim_right.play(dt);
+      break;
+
+    case MovementStates::MOVING_UP:
+      this->monster_anim_right.play(dt);
+      break;
+
+    case MovementStates::MOVING_DOWN:
+      this->monster_anim_right.play(dt);
+      break;
+
+    default:
+      //do nothing
+     break;
+  }
+  //this->logic.setMovementState(MovementStates::IDLE);
+}
+
+
+
 
 //load the itemsprites from the current room
 void GameView::loadItemSprites(){

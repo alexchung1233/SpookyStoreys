@@ -2,6 +2,7 @@
 #define MONSTER_ACTOR_H
 
 #include "CharacterActor.h"
+#include "MovementStates.h"
 
 class MonsterActor : public CharacterActor {
 public:
@@ -19,6 +20,7 @@ public:
   void moveLeft(float deltaMS);
   void moveRight(float deltaMS);
   MovementStates::movementStates getMovementState();
+  MovementStates::direcStates getDirectionState();
   sf::Vector2f getSize();
   void setSize(sf::Vector2f size);
   void setSize(float x, float y);
