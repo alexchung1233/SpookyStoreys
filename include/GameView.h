@@ -91,6 +91,7 @@ class GameView : public State
 
     void update(sf::Event& Event, float dt);
     void init();
+    void postSuccess();
 
     void setLogic(GameView& logic);
     float myPos();
@@ -106,6 +107,7 @@ class GameView : public State
     void makeBox(sf::Vector2f position, sf::Color color);
 
     void setText(std::string words);
+
 
     std::map<const std::string, sf::Texture*> itemTextureMapping;
 

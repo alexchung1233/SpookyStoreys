@@ -31,6 +31,8 @@ public:
   //renders the state onto the winodw
   virtual void render()=0;
 
+  virtual void postSuccess()=0;
+
   //checks if the state is done or not
   bool isDead() {return status == SUCCESS | status == FAILED | status == ABORTED;}
 

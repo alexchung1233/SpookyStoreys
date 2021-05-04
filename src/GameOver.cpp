@@ -106,6 +106,10 @@ void GameOver::render(){
 	this->App->draw(exitMessage);
 }
 
+void GameOver::postSuccess(){
+
+}
+
 void GameOver::pause(){
 
 }

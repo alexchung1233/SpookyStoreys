@@ -116,6 +116,7 @@ class GameLogic{
 
     void startMonster();
 
+    void postLogic();
 
 
 

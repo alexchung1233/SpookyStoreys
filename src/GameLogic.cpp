@@ -268,6 +268,10 @@ bool GameLogic::isPlayerByItem(){
 			this->currentNextToItem->interact(player);
 			dialogueBox.setDialogue(this->currentNextToItem->getDialogue());
 
+			//TODO fix the currentNextToItem implementation
+			if(this->currentNextToItem->destroyable())
+				this->currentNextToItem->setActiveStatus(false);
+			
 			return true;
 			}
 		}
@@ -286,10 +290,9 @@ void GameLogic::setDialogueBoxStatus(bool state){
 void GameLogic::postDialogueBoxUse(){
 	dialogueBox.resetTracker();
 	dialogueBox.setUsingState(false);
-	if(this->currentNextToItem){
-		if(this->currentNextToItem->destroyable())
-			this->currentNextToItem->setActiveStatus(false);
-	}
+
+
+
 
 
 	}
@@ -356,4 +359,8 @@ void GameLogic::pauseMonster(){
 //starts up the monster
 void GameLogic::startMonster(){
 	this->monsterAI.start();
+}
+
+void GameLogic::postLogic(){
+	this->currentNextToItem = NULL;
 }

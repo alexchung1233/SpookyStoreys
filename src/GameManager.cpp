@@ -59,6 +59,7 @@ void GameManager::update(){
     else if(currentState->isDead()){
       if(currentState->getStatus() == State::SUCCESS){
         //get the next gamestate after the current state finishes
+        currentState->postSuccess();
         if(currentState->hasChildState()){
 
           stateQueue.push(currentState->getChildState());

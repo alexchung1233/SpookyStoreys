@@ -212,6 +212,10 @@ void Menu::render(){
 
 }
 
+void Menu::postSuccess(){
+  
+}
+
 void Menu::pause(){}
 
 void Menu::unpause(){}

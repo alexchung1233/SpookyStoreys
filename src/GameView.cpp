@@ -99,47 +99,6 @@ void GameView::init(){
 
 }
 
-void GameView::loadItemTextures(){
-  std::string str;
-  ifstream infile;
-  infile.open ("../data/itemImageFiles.txt");
-  while(!infile.eof())
-  {
-    std::getline(infile, str);
-    std::string filepath = "../data/itemSprites/" + str + ".png";
-
-    itemTextures[str] = new sf::Texture;
-
-    if(!itemTextures[str]->loadFromFile(filepath)) {
-      printf("incorrect file format");
-    }
-
-  }
-  infile.close();
-}
-
-void GameView::setUpInventoyDisplay(){
-  string inventoryDisplay_file = "../data/inventory_display.png";
-  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
-    printf("incorrect file format");
-  }
-  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
-  sprite_inventoryDisplay.setPosition(800, 150);
-  sprite_inventoryDisplay.setScale(sf::Vector2f(0.50f, 0.50f));
-
-  setCounterText(holyWaterCounter_text,165);
-  setCounterText(noteCounter_text, 265);
-  setCounterText(keyCounter_text, 365);
-
-}
-
-void GameView::setCounterText(sf::Text& myText, float yPos){
-  myText.setString("0");
-  myText.setCharacterSize(50);
-  myText.setFillColor(sf::Color(200, 200, 200));
-  myText.setFont(font);
-  myText.setPosition(sf::Vector2f(860, yPos));
-}
 
 
 //update the running game state depending on logic and input
@@ -218,6 +177,47 @@ void GameView::update(sf::Event& Event, float dt){
 
 }
 
+
+//renders the running game
+void GameView::render(){
+    this->App->clear();
+    this->App->draw(levelSprite);
+    Room tempRoom = levelManager.getCurrentRoom();
+
+    for (int i = 0; i < itemSprites.size(); i++){
+      sf::Sprite* drawMe = itemSprites.at(i);
+      this->App->draw(*drawMe);
+    }
+
+    this->App->draw(sprite_player);
+
+
+    monsterSpriteAndSounds();
+
+    // sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
+    // monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
+    // this->App->draw(monsterRect);
+
+
+    // sf::CircleShape doorCenter = sf::CircleShape(1);
+    // doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
+    // this->App->draw(doorCenter);
+
+    this->App->draw(sprite_inventoryDisplay);
+    this->App->draw(holyWaterCounter_text);
+    this->App->draw(noteCounter_text);
+    this->App->draw(keyCounter_text);
+    this->App->draw(transitionRectangle);
+
+    isDialogue();
+
+}
+
+
+void GameView::postSuccess(){
+  this->logic.postLogic();
+  this->App->clear();
+}
 
 //create function to initalize command
 //create states for each command to indicate if finished or not
@@ -465,40 +465,6 @@ void GameView::loadItemSprites(){
 
 void GameView::setLogic(GameView& logic){}
 
-//renders the running game
-void GameView::render(){
-    this->App->clear();
-    this->App->draw(levelSprite);
-    Room tempRoom = levelManager.getCurrentRoom();
-
-    for (int i = 0; i < itemSprites.size(); i++){
-      sf::Sprite* drawMe = itemSprites.at(i);
-      this->App->draw(*drawMe);
-    }
-
-    this->App->draw(sprite_player);
-
-
-    monsterSpriteAndSounds();
-
-    // sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
-    // monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
-    // this->App->draw(monsterRect);
-
-
-    // sf::CircleShape doorCenter = sf::CircleShape(1);
-    // doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
-    // this->App->draw(doorCenter);
-
-    this->App->draw(sprite_inventoryDisplay);
-    this->App->draw(holyWaterCounter_text);
-    this->App->draw(noteCounter_text);
-    this->App->draw(keyCounter_text);
-    this->App->draw(transitionRectangle);
-
-    isDialogue();
-
-}
 
 void GameView::monsterSpriteAndSounds(){
   //If the monster is in the same room a the player
@@ -585,3 +551,47 @@ void GameView::setText(std::string words){
 void GameView::pause(){}
 
 void GameView::unpause(){}
+
+
+
+void GameView::loadItemTextures(){
+  std::string str;
+  ifstream infile;
+  infile.open ("../data/itemImageFiles.txt");
+  while(!infile.eof())
+  {
+    std::getline(infile, str);
+    std::string filepath = "../data/itemSprites/" + str + ".png";
+
+    itemTextures[str] = new sf::Texture;
+
+    if(!itemTextures[str]->loadFromFile(filepath)) {
+      printf("incorrect file format");
+    }
+
+  }
+  infile.close();
+}
+
+void GameView::setUpInventoyDisplay(){
+  string inventoryDisplay_file = "../data/inventory_display.png";
+  if(!texture_inventoryDisplay.loadFromFile(inventoryDisplay_file)){
+    printf("incorrect file format");
+  }
+  sprite_inventoryDisplay.setTexture(texture_inventoryDisplay);
+  sprite_inventoryDisplay.setPosition(800, 150);
+  sprite_inventoryDisplay.setScale(sf::Vector2f(0.50f, 0.50f));
+
+  setCounterText(holyWaterCounter_text,165);
+  setCounterText(noteCounter_text, 265);
+  setCounterText(keyCounter_text, 365);
+
+}
+
+void GameView::setCounterText(sf::Text& myText, float yPos){
+  myText.setString("0");
+  myText.setCharacterSize(50);
+  myText.setFillColor(sf::Color(200, 200, 200));
+  myText.setFont(font);
+  myText.setPosition(sf::Vector2f(860, yPos));
+}
