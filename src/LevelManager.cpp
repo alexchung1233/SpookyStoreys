@@ -6,16 +6,16 @@
 using namespace std;
 
 //read in the level mapping data and store into assoctiative mapping
-void LevelManager::init(){
+void LevelManager::init(int difficultyLevel){
 
     getRoomNames("../data/RoomNames.txt");
 
-
     for(int i = 0; i < myRooms.size(); i++){
-    	levelFileMapping[myRooms.at(i)] = Room(myRooms.at(i));
+    	levelFileMapping[myRooms.at(i)] = Room(myRooms.at(i), difficultyLevel);
     }
 
     currentLevelName = myRooms.at(0);
+
     idxItemToDestroy = -1;
 
 }

@@ -25,6 +25,8 @@ class GameView : public State
     LevelManager monsterLevelManager;
     Room room;
 
+    int difficultyLevel = 1;
+
     Animation player_anim_down;
     Animation player_anim_up;
     Animation player_anim_left;
@@ -91,7 +93,7 @@ class GameView : public State
   public:
     GameView();
 
-    GameView(sf::RenderWindow& app, AudioManager& audioManager);
+    GameView(sf::RenderWindow& app, AudioManager& audioManager, int diff);
     GameView(sf::RenderWindow& app);
 
     void update(sf::Event& Event, float dt);

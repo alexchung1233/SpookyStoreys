@@ -23,6 +23,7 @@ class Room
     public:
         Room();
         Room(std::string roomName);
+        Room(std::string roomName, int diff);
 
         //set up a room given a file / file path
         void setUpRoom(std::string filepath);
@@ -42,7 +43,7 @@ class Room
         std::vector<Door> myDoors;
         std::vector<ItemActor*> myItems;
 
-
+        int difficultyLevel = 1;
 
 };
 
