@@ -1,6 +1,6 @@
 PAUSE_MONSTER
 LOCK_PLAYER
-SHOW_DIALOGUE,Press E to progress dialogue
+SHOW_DIALOGUE,Press E to progress or Y to skip intro cutscene.
 FADE_IN,10.0,0,0,0
 SHOW_DIALOGUE,The Child wakes up in a cold sweat.
 SHOW_DIALOGUE,The nightmare still reels in his mind. He dreamt of something horrible.

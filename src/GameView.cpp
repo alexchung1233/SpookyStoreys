@@ -1,28 +1,20 @@
 #include "GameView.h"
-#include <string>
-#include <iostream>
-#include <math.h>
-#include "InputManager.h"
-#include "Animation.h"
 
 using namespace std;
 
 
 GameView::GameView(){
-  //TODO make this extend off a Process class.
   this->status = State::UNINIT;
 
 }
 
 //constructor takes in App
 GameView::GameView(sf::RenderWindow& app){
-  //TODO make this extend off a Process class.
   this->App = &app;
   this->status = State::UNINIT;
 }
 
 GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
-  //TODO make this extend off a Process class.
   this->App = &app;
   inputManager(*App, logic);
   this->status = State::UNINIT;
@@ -36,11 +28,11 @@ void GameView::init(){
   }
   this->levelManager.init();
   this->logic.setLevelManager(levelManager);
-  this->transitionRectangle.setFillColor(sf::Color(0, 0, 0));
 
 
   //load in the new game intro level script
   this->scriptManager.readInScript("Intro_Script");
+  this->transitionRectangle.setFillColor(sf::Color(0, 0, 0));
 
 
   this->monsterLevelManager.init();
@@ -94,7 +86,6 @@ void GameView::init(){
   this->sprite_monster.setPosition(monsterActor.getPosition().x - 200, monsterActor.getPosition().y - 70);
   this->sprite_monster.setScale(sf::Vector2f(2.00f, 2.00f));
 
-  //sound->playPlayingMusic();
   this->status = State::RUNNING;
 
 }
@@ -118,6 +109,7 @@ void GameView::update(sf::Event& Event, float dt){
 
   PlayerActor player = this->logic.getPlayer();
   sprite_player.setPosition(player.getPosition().x, player.getPosition().y);
+
   this->holyWaterCounter_text.setString(to_string(player.getInventory()->getHolyWaterCount()));
   this->noteCounter_text.setString(to_string(player.getInventory()->numNotesFound()));
   this->keyCounter_text.setString(to_string(player.getInventory()->getKeyCount()));
@@ -133,13 +125,14 @@ void GameView::update(sf::Event& Event, float dt){
 
   this->setText(logic.getDialogueBoxText());
 
-  if(logic.getPlayState() == 1 || inputManager.getPlayState() == 1 ){
+  //transitions to the next state
+  if(logic.getPlayState() == 1){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();
     audioManager->stopInRoom();
     childState = new GameOver(*App, "You Win!", *audioManager);
   }
-  else if(logic.getPlayState() == 2 || inputManager.getPlayState() == 2 ){
+  else if(logic.getPlayState() == 2){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();
     audioManager->stopInRoom();
@@ -148,32 +141,14 @@ void GameView::update(sf::Event& Event, float dt){
   }
 
 
-  //run test script
-  executeScript();
-
-  //test script
-  //fadeIn(16.f, 0, 0, 0);
-
-  //THIS CODE IS TO SEARCH FOR HITBOXES, DON'T DELETE UNTIL WE TURN IN
-  // sf::IntRect checkMe = levelManager.getCurrentRoom().getBoundaries();
-  // sf::RectangleShape rectangle(sf::Vector2f(checkMe.width,checkMe.height));
-  // rectangle.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
-  // rectangle.setOutlineThickness(-3);
-  // rectangle.setOutlineColor(sf::Color(250, 150, 100));
-  // rectangle.setFillColor(sf::Color::Transparent);
-  // this->App->draw(rectangle);
-
-  // int size = levelManager.getCurrentRoom().getObstacles().size();
-  // for(int i = 0; i < size; i++){
-  //   checkMe = levelManager.getCurrentRoom().getObstacles().at(i);
-  //   sf::RectangleShape rectangle2(sf::Vector2f(checkMe.width,checkMe.height));
-  //   rectangle2.setPosition(sf::Vector2f(checkMe.left,checkMe.top));
-  //   rectangle2.setOutlineThickness(-3);
-  //   rectangle2.setOutlineColor(sf::Color(250, 150, 100));
-  //   rectangle2.setFillColor(sf::Color::Transparent);
-  //   this->App->draw(rectangle2);
-  // }
-
+  //if player elects not to skip cutscene, then continue
+  if(inputManager.getPlayState()!=1){
+    executeScript();
+  }
+  else{
+    scriptManager.clearQueue();
+    postScript();
+  }
 
 }
 
@@ -365,11 +340,17 @@ void GameView::updateScriptCommand(ScriptCommand& command){
         }
 
       break;
-
-
   }
 }
 
+
+void GameView::postScript(){
+  logic.startMonster();
+  logic.setPlayerLock(false);
+  this->transitionRectangleAlphaChannel = 0;
+  this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, transitionRectangleAlphaChannel));
+
+}
 
 
 //Game Effects

@@ -19,6 +19,7 @@ class ScriptManager
         ScriptManager(){};
         void readInScript(std::string scriptFileName);
         std::queue<ScriptCommand*> scriptQueue;
+        void clearQueue();
 
     private:
 

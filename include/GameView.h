@@ -2,12 +2,17 @@
 #define GAME_VIEW_H
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <string>
+#include <iostream>
+#include <math.h>
 #include "InputManager.h"
 #include "Animation.h"
 #include "State.h"
 #include "GameOver.h"
 #include "ScriptManager.h"
 #include "Room.h"
+#include "InputManager.h"
+#include "Animation.h"
 
 
 class GameView : public State
@@ -108,6 +113,7 @@ class GameView : public State
 
     void setText(std::string words);
 
+    void postScript();
 
     std::map<const std::string, sf::Texture*> itemTextureMapping;
 

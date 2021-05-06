@@ -84,3 +84,9 @@ void ScriptManager::readInScript(std::string scriptFileName){
 
   infile.close();
 }
+
+void ScriptManager::clearQueue(){
+  std::queue<ScriptCommand*> empty;
+  std::swap(scriptQueue, empty );
+
+}

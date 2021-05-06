@@ -46,14 +46,11 @@ void InputManager::update(sf::Event& Event, float dt){
     {
       logic->rightPressed(dt);
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
     {
       playState = 1;
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-    {
-      playState = 2;
-    }
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)){
       logic->itemAndDialogueBoxHandler();
 
