@@ -211,12 +211,18 @@ bool GameLogic::hitsDoor(sf::IntRect possiblePlayerPosition){
 				if(player.getInventory()->hasFoundKey()){
 					player.getInventory()->useKey();
 					officeUnlocked = true;
-					//TODO: prompt dialogue box saying the player has used the key
-					//to unlock the door
+
+					if(!this->isDialogueBoxUsed()){
+						this->setDialogueBoxStatus(true);
+						dialogueBox.setDialogue("The door was locked, but I have the key!");
+					}
 				}
 				else{
-					//TODO: prompt dialogue box saying the door is locked
-					//and that the player should look for it
+
+					if(!this->isDialogueBoxUsed()){
+						this->setDialogueBoxStatus(true);
+						dialogueBox.setDialogue("The door is locked... maybe there's a key somewhere?");
+					}
 					return false;
 				}
 
