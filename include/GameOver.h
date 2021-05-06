@@ -9,7 +9,7 @@ class GameOver : public State
 		GameOver();
 		GameOver(sf::RenderWindow& app);
 		GameOver(sf::RenderWindow& app, AudioManager& audioManager);
-		GameOver(sf::RenderWindow& app, std::string myMessage, AudioManager& audioManager);
+		GameOver(sf::RenderWindow& app, std::string myMessage, AudioManager& audioManager, int diff);
 
 		void init();
 
@@ -29,6 +29,8 @@ class GameOver : public State
 
 		sf::Text mainMessage;
 		sf::Text replayMessage, menuMessage, exitMessage;
+
+		int difficultyLevel = 1;
 
 };
 

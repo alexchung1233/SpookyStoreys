@@ -186,7 +186,7 @@ void Menu::update(sf::Event& Event, float dt){
         audioManager->stopMenuMusic();
         audioManager->playPlayingMusic();
         this->status = State::SUCCESS;
-        this->childState = new GameView(*App, *audioManager);
+        this->childState = new GameView(*App, *audioManager, difficultyLevel);
       }
       else if(num == 2){
         App->close();

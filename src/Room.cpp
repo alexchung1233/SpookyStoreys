@@ -11,11 +11,18 @@ Room::Room(std::string roomName){
 	setUpRoom(roomName);
 }
 
+Room::Room(std::string roomName, int diff){
+	this->difficultyLevel = diff;
+	setUpRoom(roomName);
+}
+
 void Room::setUpRoom(std::string roomName){
 	roomTitle = roomName;
 	string directory = "../data/roomInfo/";
 	string txt = ".txt";
 	string png = ".png";
+
+	int num_HW_to_load = 3 - difficultyLevel;
 
 	string STRING;
 	string filepathTXT = directory + roomName + txt;
@@ -58,13 +65,16 @@ void Room::setUpRoom(std::string roomName){
 		}
 
 		else if (!result.at(0).find("HOLYWATER")){
-			vector<string>forWater;
-			for(int i = 1; i < result.size(); i++){
-				forWater.push_back(result.at(i));
-			}
+			if(num_HW_to_load > 0){
+				vector<string>forWater;
+				for(int i = 1; i < result.size(); i++){
+					forWater.push_back(result.at(i));
+				}
 
-			myItems.push_back(new HolyWater(forWater));
-			myItems.at(myItems.size() - 1)->init();
+				myItems.push_back(new HolyWater(forWater));
+				myItems.at(myItems.size() - 1)->init();
+				num_HW_to_load--;
+			}
 		}
 		else if (!result.at(0).find("NOTE")){
 			vector<string>forNote;

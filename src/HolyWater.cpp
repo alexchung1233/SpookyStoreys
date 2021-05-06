@@ -6,7 +6,7 @@ HolyWater::HolyWater(vector<string> inputVector){
 }
 void HolyWater::init(){
     this->itemName = "holy_water";
-    this->myDialogue = "A bottle of holy water? Maybe I can use this on the monster.";
+    this->myDialogue = "You can throw holy the holy water by hitting W.";
 
     this->itemName = "holy_water";
     canBeDestroyed = true;
