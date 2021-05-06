@@ -14,11 +14,12 @@ GameView::GameView(sf::RenderWindow& app){
   this->status = State::UNINIT;
 }
 
-GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager){
+GameView::GameView(sf::RenderWindow& app, AudioManager& audioManager, int diff){
   this->App = &app;
   inputManager(*App, logic);
   this->status = State::UNINIT;
   this->audioManager = &audioManager;
+  this->difficultyLevel = diff;
   this->status = State::UNINIT;
 }
 
@@ -26,9 +27,8 @@ void GameView::init(){
   if (!font.loadFromFile("../data/courier.ttf")){
     std::cout << "incorrect font";
   }
-  this->levelManager.init();
+  this->levelManager.init(difficultyLevel);
   this->logic.setLevelManager(levelManager);
-
 
   //load in the new game intro level script
   this->scriptManager.readInScript("Intro_Script");
@@ -130,14 +130,14 @@ void GameView::update(sf::Event& Event, float dt){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();
     audioManager->stopInRoom();
-    childState = new GameOver(*App, "You Win!", *audioManager);
+    childState = new GameOver(*App, "You Win!", *audioManager, difficultyLevel);
   }
   else if(logic.getPlayState() == 2){
     this->status = State::SUCCESS;
     audioManager->stopNextRoom();
     audioManager->stopInRoom();
     audioManager->playMonsterScream();
-    childState = new GameOver(*App, "You Lose...", *audioManager);
+    childState = new GameOver(*App, "You Lose...", *audioManager, difficultyLevel);
   }
 
 
@@ -168,15 +168,6 @@ void GameView::render(){
 
 
     monsterSpriteAndSounds();
-
-    // sf::RectangleShape monsterRect = sf::RectangleShape(logic.getMonsterActor().getSize());
-    // monsterRect.setPosition(logic.getMonsterActor().getPosition().x, logic.getMonsterActor().getPosition().y);
-    // this->App->draw(monsterRect);
-
-
-    // sf::CircleShape doorCenter = sf::CircleShape(1);
-    // doorCenter.setPosition(logic.getMonsterView().newDoorX, logic.getMonsterView().newDoorY);
-    // this->App->draw(doorCenter);
 
     this->App->draw(sprite_inventoryDisplay);
     this->App->draw(holyWaterCounter_text);

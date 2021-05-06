@@ -23,11 +23,12 @@ GameOver::GameOver(sf::RenderWindow& app, AudioManager& audioManager){
 	this->audioManager = &audioManager;
 }
 
-GameOver::GameOver(sf::RenderWindow& app, std::string myMessage, AudioManager& audioManager){
+GameOver::GameOver(sf::RenderWindow& app, std::string myMessage, AudioManager& audioManager, int diff){
 	this->App = &app;
  	this->status = State::UNINIT;
  	mainMessage.setString(myMessage);
 	this->audioManager = &audioManager;
+	this->difficultyLevel = diff;
 }
 
 void GameOver::init(){
@@ -84,7 +85,7 @@ void GameOver::update(sf::Event& Event, float dt){
 				//sound->stopPlayingMusic();
 				audioManager->stopMonsterScream();
 	    	this->status = State::SUCCESS;
-			this->childState = new GameView(*App, *audioManager);
+			this->childState = new GameView(*App, *audioManager, difficultyLevel);
 	    }
 	    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 	    {
