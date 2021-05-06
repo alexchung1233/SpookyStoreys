@@ -338,7 +338,6 @@ void GameView::updateScriptCommand(ScriptCommand& command){
 void GameView::postScript(){
   logic.startMonster();
   logic.setPlayerLock(false);
-  logic.setDialogueBoxStatus(false);
   this->transitionRectangleAlphaChannel = 0;
   this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, transitionRectangleAlphaChannel));
 
