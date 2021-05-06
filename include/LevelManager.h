@@ -6,7 +6,6 @@
 #include <string>
 #include "Room.h"
 
-
 class LevelManager {
 
 private:
@@ -18,7 +17,6 @@ private:
 public:
 	LevelManager() { };
 	std::string currentLevelName;
-	LevelManager(sf::Texture& levelTexture);
 	void init();
 	void setRoom(std::string roomName);
 	Room getCurrentRoom();

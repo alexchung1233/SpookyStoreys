@@ -51,16 +51,26 @@ SHOW_DIALOGUE,Sounds of heavy inhuman footsteps echo in the recording
 SHOW_DIALOGUE,"Oh god. I can hear it coming."
 SHOW_DIALOGUE,"Remember we'll always be here with you."
 SHOW_DIALOGUE,"We raised you to be smart and resourceful"
-SHOW_DIALOGUE,"You will survive."
 PLAY_SOUND,../data/NextRoom.wav
-SHOW_DIALOGUE,"Oh no. It's here"
+SHOW_DIALOGUE,"It's here"
+SHOW_DIALOGUE,"We love you son. Don't forget what I said. Find the weapon"
+SHOW_DIALOGUE,"We lov.. OH MY GOD"
 PLAY_SOUND,../data/MonsterScream.wav
 PLAY_SOUND,../data/scream.wav
 SHOW_DIALOGUE,The recording cuts off
-SHOW_DIALOGUE,"I need to leave." the Child says in a fearful voice
+SHOW_DIALOGUE,"Mom... Dad..."
+SHOW_DIALOGUE,The recording disturbs the child as he trembles in fear.
+WAIT, 1.f
 UNLOCK_PLAYER
-WAIT, 3.f
+FADE_IN,1.0,255,255,255
+PLAY_SOUND,../data/thunder_sound.wav
 SHOW_DIALOGUE,A Holy Water shimmers on the bed table
 SHOW_DIALOGUE,Press E to interact with it
-WAIT, 10.f
+WAIT, 7.f
+SHOW_DIALOGUE,To use holy water press W near the creature.
+WAIT, 1.f
+SHOW_DIALOGUE,Approach the green door to leave the room
+WAIT, 8.f
+PLAY_SOUND,../data/MonsterScream.wav
+SHOW_DIALOGUE,RUN
 START_MONSTER

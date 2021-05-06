@@ -199,10 +199,10 @@ void GameView::postSuccess(){
 
 void GameView::executeScript(){
 
-    ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
 
     if(!this->scriptManager.scriptQueue.empty()){
       //if uninitalized, initalize
+      ScriptCommand* currentCommand = this->scriptManager.scriptQueue.front();
 
       //if finished, pop off
 
@@ -343,10 +343,11 @@ void GameView::updateScriptCommand(ScriptCommand& command){
   }
 }
 
-
+//what to do after script is finished
 void GameView::postScript(){
   logic.startMonster();
   logic.setPlayerLock(false);
+  logic.setDialogueBoxStatus(false);
   this->transitionRectangleAlphaChannel = 0;
   this->transitionRectangle.setFillColor(sf::Color(0, 0, 0, transitionRectangleAlphaChannel));
 
