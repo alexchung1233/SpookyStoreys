@@ -24,7 +24,7 @@ string Safe::interact(PlayerActor &player){
   int numFound = player.getInventory()->numNotesFound();
   switch (numFound){
     case 0:
-      this->myDialogue = "It's a locked safe where my parents keep a powerful weapon...\nThey kept the numbers for the code on pieces of note paper. I think that there are 4. I have to find them.";
+      this->myDialogue = "My parents kept the numbers for the code on pieces of note paper.\nI think that there are 4. I have to find them.";
       break;
     case 4:
       canBeDestroyed = true;
@@ -32,7 +32,7 @@ string Safe::interact(PlayerActor &player){
       this->myDialogue = "I have all the pages with the code on it...\nThere! It unlocked. Now I have the weapon. It looks like a gun... I hope it works.";
       break;
     default:
-      this->myDialogue = "It's my parents' safe. They keep a powerful weapon in here...\nThey keep the numbers for the code on pieces of note paper. I have to find them. I think that there are " + to_string(4 - numFound) + " more...";
+      this->myDialogue = "My parents kept the numbers for the code on pieces of note paper.\nI have to find them. I think that there are " + to_string(4 - numFound) + " more...";
   }
   return myDialogue;
 }
