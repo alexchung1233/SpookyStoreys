@@ -46,7 +46,7 @@ finally
 ```
 ./main
 ```
-![alt text](https://imgur.com/a/ZwjyMnK)
+![alt text](https://i.imgur.com/1yknMQ8.png)
 
 Game demo
 https://www.youtube.com/watch?v=bOaBqbG62P8
