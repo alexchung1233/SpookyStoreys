@@ -1,5 +1,7 @@
 # SpookyStoreys
-
+<br/>
+![alt text](https://i.imgur.com/1yknMQ8.png)
+<br/>
 **To use repository for development**
 1. on the command line run
 ```
@@ -46,8 +48,7 @@ finally
 ```
 ./main
 ```
-![alt text](https://i.imgur.com/1yknMQ8.png)
-<br/>
+
 ![monster](https://i.imgur.com/twIzp6u.png)
 <br/>
 Game demo
