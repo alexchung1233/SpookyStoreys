@@ -1,7 +1,5 @@
 # SpookyStoreys
-<br/>
 ![alt text](https://i.imgur.com/1yknMQ8.png)
-<br/>
 **To use repository for development**
 1. on the command line run
 ```
